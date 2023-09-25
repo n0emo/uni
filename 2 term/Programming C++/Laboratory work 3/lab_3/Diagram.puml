@@ -1,0 +1,91 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+abstract class EmployeeBase <<struct>> {
+    +name: string
+    +surname: string
+
+    +{abstract} evaluate_salary(): int
+    +{abstract} to_string(): string
+}
+
+class StandardEmployee <<struct>> {
+    +salary: int
+
+    +evaluate_salary(): int
+    +to_string(): string
+}
+
+class Trainee <<struct>> {
+    +hours: int
+    +salary_per_hour: int
+
+    +evaluate_salary(): int
+    +to_string(): string
+}
+
+class Boss <<struct>> {
+    +salary_base: int
+    +employees_count: int
+    +salary_per_employee: int
+
+    +evaluate_salary(): int
+    +to_string(): string
+}
+
+class Beneficiary <<struct>> {
+    +salary
+    +percent
+
+    +evaluate_salary(): int
+    +to_string(): string
+}
+
+interface EmployeeFactory {
+    +{abstract} get_employees() : unique_ptr<vector<EmployeeBase*>>
+    +{abstract} get_employee() : EmployeeBase*
+}
+
+class EmployeeCinFactory {
+    +get_employees(): unique_ptr<vector<EmployeeBase*>>
+    +get_employee(): EmployeeBase*
+
+    -int get_type_number();
+    -StandardEmployee* get_standard();
+    -Trainee* get_trainee();
+    -Boss* get_boss();
+    -Beneficiary* get_beneficiary();
+}
+
+class Application {
+    +Application(factory: EmployeeFactory)
+    +run(): void
+
+private:
+
+    -m_factory: unique_ptr<EmployeeFactory>
+    -m_employees: unique_ptr<vector<EmployeeBase*>>
+    -m_is_running: bool
+
+    -show_action_list(): void
+    -new_employee_table_action(): void
+    -add_one_employee_action(): void
+    -remove_employee_by_name_action(): void
+    -show_employees_action(): void
+    -show_salaries_action(): void
+    -perform_action(int action_number): void
+}
+
+EmployeeBase <|-down- StandardEmployee
+EmployeeBase <|-down- Trainee
+EmployeeBase <|-down- Boss
+EmployeeBase <|-right- Beneficiary
+
+EmployeeFactory -right-> EmployeeBase : returns
+
+EmployeeFactory <|.down. EmployeeCinFactory
+
+Application *-down- EmployeeFactory
+EmployeeBase -left-o Application
+@enduml
