@@ -66,29 +66,27 @@ void insertion_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
     }
 }
 
-// TODO: fix quick sort
 template<typename T>
 void quick_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
-    if(begin >= end - 1) return;
+    if(begin >= end) return;
 
     T* pivot = end - 1;
-    T* begin_i = begin - 1;
-    T* begin_j = begin;
+    T* low_ptr = begin;
+    T* high_ptr = begin;
 
-    while(begin_j < end) {
-        if(cmp(*begin_j, *pivot) < 0) {
-            begin_i++;
-            swap_def(*begin_i, *begin_j);
+    while(high_ptr < end - 1) {
+        if(cmp(*high_ptr, *pivot) < 0) {
+            swap_def(*low_ptr, *high_ptr);
+            low_ptr++;
         }
 
-        begin_j++;
+        high_ptr++;
     }
 
-    swap_def(*pivot, *(begin_i + 1));
-    pivot = begin_i;
+    swap_def(*pivot, *(low_ptr));
 
-    quick_sort(begin, pivot, cmp);
-    quick_sort(pivot + 1, end, cmp);
+    quick_sort(begin, low_ptr, cmp);
+    quick_sort(low_ptr + 1, end, cmp);
 }
 
 template<typename T>
