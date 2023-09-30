@@ -1,6 +1,8 @@
 #ifndef CPP_LAB_1_SORT_H
 #define CPP_LAB_1_SORT_H
 
+#include <functional>
+
 template<typename T>
 void selection_sort(T *begin, T *end, int (*cmp)(T a, T b));
 
@@ -17,7 +19,7 @@ template<typename T>
 void insertion_sort(T *begin, T *end, int (*cmp)(T a, T b));
 
 template<typename T>
-void quick_sort(T *begin, T *end, int (*cmp)(T a, T b));
+void quick_sort(T *begin, T *end, std::function<int(T&, T&)> cmp);
 
 template<typename T>
 void merge_sort(T *begin, T *end, int (*cmp)(T a, T b));
