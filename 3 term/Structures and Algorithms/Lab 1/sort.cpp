@@ -140,6 +140,12 @@ void merge_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
     merge_middle(begin, end, cmp);
 }
 
+// TODO: implement heap sort
+template<typename T>
+void heap_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
+
+}
+
 // template function generation
 template void bubble_sort<int>(int *begin, int *end, int (*cmp)(int a, int b));
 template void selection_sort<int>(int *begin, int *end, int (*cmp)(int a, int b));

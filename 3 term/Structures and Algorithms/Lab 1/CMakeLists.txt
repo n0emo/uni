@@ -5,4 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(cpp_lab_1 main.cpp
         sort.cpp
-        sort.h)
+        sort.h
+        Csv.cpp
+        Csv.h
+        CsvParser.cpp
+        CsvParser.h)
