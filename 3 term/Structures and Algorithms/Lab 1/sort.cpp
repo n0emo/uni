@@ -1,4 +1,9 @@
+#include <string>
 #include "sort.h"
+
+#include "functional"
+
+// TODO: change cmp type to std::function in all sorts
 
 typedef unsigned long size_type;
 
@@ -54,6 +59,7 @@ void insert(T *from, T *to) {
     *to = elem;
 }
 
+// TODO: fix insertion sort
 template<typename T>
 void insertion_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
     T *arr_ptr = begin + 1;
@@ -67,7 +73,7 @@ void insertion_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
 }
 
 template<typename T>
-void quick_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
+void quick_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
     if(begin >= end) return;
 
     T* pivot = end - 1;
@@ -75,7 +81,7 @@ void quick_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
     T* high_ptr = begin;
 
     while(high_ptr < end - 1) {
-        if(cmp(*high_ptr, *pivot) < 0) {
+        if(cmp(*high_ptr, *pivot)) {
             swap_def(*low_ptr, *high_ptr);
             low_ptr++;
         }
@@ -147,9 +153,5 @@ void heap_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
 }
 
 // template function generation
-template void bubble_sort<int>(int *begin, int *end, int (*cmp)(int a, int b));
-template void selection_sort<int>(int *begin, int *end, int (*cmp)(int a, int b));
-template void merge_middle(int *begin, int *end, int (*cmp)(int a, int b));
-template void merge_sort(int *begin, int *end, int (*cmp)(int a, int b));
-template void insertion_sort(int *begin, int *end, int (*cmp)(int a, int b));
-template void quick_sort(int *begin, int* end, int (*cmp)(int a, int b));
+
+template void quick_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
