@@ -4,10 +4,15 @@
 #include <vector>
 
 #include "sort.h"
+#include "CsvParser.h"
 
 // TODO: create CSV parser
 
 int main() {
+    CsvParser parser;
+    std::ifstream csv_stream("/home/albert/csv.txt");
+    auto csv = parser.parse(csv_stream);
+
     bool ask_for_path = false;
     std::string input_path = "/home/albert/input.txt";
     std::string output_path = "/home/albert/output.txt";

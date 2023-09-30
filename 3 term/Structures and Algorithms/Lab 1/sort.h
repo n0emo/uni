@@ -22,6 +22,7 @@ void quick_sort(T *begin, T *end, int (*cmp)(T a, T b));
 template<typename T>
 void merge_sort(T *begin, T *end, int (*cmp)(T a, T b));
 
-//TODO: add heap sort
+template<typename T>
+void heap_sort(T *begin, T *end, int (*cmp)(T a, T b));
 
 #endif // CPP_LAB_1_SORT_H
