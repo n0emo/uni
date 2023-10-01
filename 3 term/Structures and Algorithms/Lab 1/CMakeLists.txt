@@ -9,4 +9,5 @@ add_executable(cpp_lab_1 main.cpp
         Csv.cpp
         Csv.h
         CsvParser.cpp
-        CsvParser.h)
+        CsvParser.h
+        SortOptions.h)

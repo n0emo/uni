@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "misc-no-recursion"
 #include <string>
 #include "sort.h"
 
@@ -21,7 +23,21 @@ void swap_def(SwapT &a, SwapT &b) {
 }
 
 template<typename T>
-void bubble_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
+void selection_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
+    while (begin < end) {
+        T *min = begin;
+        for (T *begin_iter = begin; begin_iter < end; begin_iter++) {
+            if (cmp(*min, *begin_iter) > 0) {
+                min = begin_iter;
+            }
+        }
+        swap_def(*min, *begin);
+        begin++;
+    }
+}
+
+template<typename T>
+void bubble_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
     for (; end >= begin; end--) {
         bool swapped = false;
         for (T *begin_ptr = begin; begin_ptr < end - 1; begin_ptr++) {
@@ -36,32 +52,17 @@ void bubble_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
 }
 
 template<typename T>
-void selection_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
-    while (begin < end) {
-        T *min = begin;
-        for (T *begin_iter = begin; begin_iter < end; begin_iter++) {
-            if (cmp(*min, *begin_iter) > 0) {
-                min = begin_iter;
-            }
-        }
-        swap_def(*min, *begin);
-        begin++;
-    }
-}
-
-template<typename T>
 void insert(T *from, T *to) {
     T elem = *from;
-    while (from >= to) {
+    while (from > to) {
         *from = *(from - 1);
         from--;
     }
     *to = elem;
 }
 
-// TODO: fix insertion sort
 template<typename T>
-void insertion_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
+void insertion_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
     T *arr_ptr = begin + 1;
     while (arr_ptr < end) {
         for (T *begin_ptr = begin; begin_ptr < arr_ptr; begin_ptr++) {
@@ -69,30 +70,8 @@ void insertion_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
                 insert(arr_ptr, begin_ptr);
             }
         }
+        arr_ptr++;
     }
-}
-
-template<typename T>
-void quick_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
-    if(begin >= end) return;
-
-    T* pivot = end - 1;
-    T* low_ptr = begin;
-    T* high_ptr = begin;
-
-    while(high_ptr < end - 1) {
-        if(cmp(*high_ptr, *pivot)) {
-            swap_def(*low_ptr, *high_ptr);
-            low_ptr++;
-        }
-
-        high_ptr++;
-    }
-
-    swap_def(*pivot, *(low_ptr));
-
-    quick_sort(begin, low_ptr, cmp);
-    quick_sort(low_ptr + 1, end, cmp);
 }
 
 template<typename T>
@@ -103,7 +82,7 @@ void arr_copy(T *begin_dest, T *begin_src, size_type count) {
 }
 
 template<typename T>
-void merge_middle(T *begin, T *end, int (*cmp)(T a, T b)) {
+void merge_middle(T *begin, T *end, std::function<int(T&, T&)> cmp) {
     int middle = (end - begin) / 2;
 
     size_type a_size = middle;
@@ -136,7 +115,7 @@ void merge_middle(T *begin, T *end, int (*cmp)(T a, T b)) {
 }
 
 template<typename T>
-void merge_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
+void merge_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
     if (begin >= end - 1)
         return;
 
@@ -146,12 +125,69 @@ void merge_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
     merge_middle(begin, end, cmp);
 }
 
-// TODO: implement heap sort
 template<typename T>
-void heap_sort(T *begin, T *end, int (*cmp)(T a, T b)) {
+void heapify(T* array, size_t size, size_t root, std::function<int(T&, T&)> cmp) {
+    size_t largest = root;
+    size_t left = 2 * root + 1;
+    size_t right = 2 * root + 2;
 
+    if (left < size && cmp(array[left], array[largest]) > 0) {
+        largest = left;
+    }
+
+    if (right < size && cmp(array[right], array[largest]) > 0) {
+        largest = right;
+    }
+
+    if (largest != root) {
+        swap(array[root], array[largest]);
+        heapify(array, size, largest, cmp);
+    }
+}
+
+template<typename T>
+void heap_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
+    int size = end - begin;
+    for(int i = size / 2 - 1; i >= 0; i--) {
+        heapify(begin, size, i, cmp);
+    }
+
+    for(int i = size - 1; i > 0; i--) {
+        swap_def(begin[0], begin[i]);
+        heapify(begin, i, 0, cmp);
+    }
+}
+
+template<typename T>
+void quick_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
+    if(begin >= end) return;
+
+    T* pivot = end - 1;
+    T* low_ptr = begin;
+    T* high_ptr = begin;
+
+    while(high_ptr < end - 1) {
+        if(cmp(*high_ptr, *pivot) < 0) {
+            swap_def(*low_ptr, *high_ptr);
+            low_ptr++;
+        }
+
+        high_ptr++;
+    }
+
+    swap_def(*pivot, *(low_ptr));
+
+    quick_sort(begin, low_ptr, cmp);
+    quick_sort(low_ptr + 1, end, cmp);
 }
 
 // template function generation
 
+template void selection_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
+template void bubble_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
+template void insertion_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
+template void merge_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
+template void heap_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
 template void quick_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
+
+#pragma clang diagnostic pop

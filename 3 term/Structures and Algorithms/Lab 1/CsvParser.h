@@ -13,8 +13,6 @@ private:
     static std::string process_quotes(std::string str);
 public:
     Csv parse(std::istream &istream);
-
-    std::ostream& write_to(std::ostream &ostream, Csv csv);
 };
 
 
