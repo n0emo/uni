@@ -182,7 +182,6 @@ void quick_sort(T *begin, T *end, std::function<int(T&, T&)> cmp) {
 }
 
 // template function generation
-
 template void selection_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
 template void bubble_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
 template void insertion_sort(std::vector<std::string>*, std::vector<std::string>*, std::function<int(std::vector<std::string>&, std::vector<std::string>&)>);
