@@ -1,4 +1,3 @@
-
 #include <sstream>
 #include <regex>
 #include "CsvParser.h"
@@ -57,17 +56,4 @@ std::string CsvParser::process_quotes(std::string str) {
     str = std::regex_replace(str, std::regex(R"(^"|"$)"), "");
     str = std::regex_replace(str, std::regex(R"(\"")"), "\"");
     return str;
-}
-
-// TODO: finish write_to
-std::ostream& CsvParser::write_to(std::ostream &ostream, Csv csv) {
-    for(auto &row: *csv.data) {
-        for(auto &cell : row) {
-            ostream << cell << ',';
-        }
-        ostream << '\n';
-    }
-
-
-    return ostream;
 }
