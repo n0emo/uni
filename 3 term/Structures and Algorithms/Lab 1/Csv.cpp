@@ -54,7 +54,10 @@ void Csv::sort(const std::string& field_name, SortOptions options) {
             break;
         case floating:
             cmp = [index, sign](auto &a, auto &b) {
-                return (int)(std::stof(a[index]) - std::stof(b[index])) * sign;
+                auto res = (std::stof(a[index]) - std::stof(b[index])) * sign;
+                if(res > 0) return 1;
+                if(res < 0) return -1;
+                return 0;
             };
             break;
         case integer:
