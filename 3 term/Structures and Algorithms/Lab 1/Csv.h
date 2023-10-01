@@ -1,15 +1,10 @@
 #ifndef CPP_LAB_1_CSV_H
 #define CPP_LAB_1_CSV_H
 
-
 #include <memory>
 #include <vector>
 #include "sort.h"
-
-enum sort_mode{
-    number,
-    string
-};
+#include "SortOptions.h"
 
 class Csv {
 public:
@@ -17,11 +12,13 @@ public:
     std::unique_ptr<std::vector<std::string>> headers;
 
 public:
-    Csv(std::vector<std::string> &headers);
+    explicit Csv(std::vector<std::string> &headers);
 
-    size_t rows();
+    Csv(const Csv &csv);
 
-    size_t cols();
+    size_t rows() const;
+
+    size_t cols() const;
 
     void append(const std::vector<std::string> &row);
 
@@ -33,7 +30,9 @@ public:
         return data->end().base();
     }
 
-    void sort(const std::string& field_name, sort_mode mode);
+    void sort(const std::string& field_name, SortOptions options = SortOptions());
+
+    std::string to_string();
 };
 
 
