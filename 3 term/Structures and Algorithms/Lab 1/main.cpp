@@ -7,81 +7,12 @@
 #include "sort.h"
 #include "CsvParser.h"
 
-void sort_file();
-
-void test_all_sorts();
-
-bool prompt() {
-    std::string answer;
-    while (answer != "y" && answer != "Y" &&
-           answer != "n" && answer != "N") {
-        std::cin >> answer;
-    }
-
-    if(answer == "y" || answer == "Y") return true;
-    return false;
-}
-
 struct UserParams {
     Csv csv;
     std::string field;
     bool reverse;
     sort_mode mode;
 };
-
-Csv get_csv() {
-    std::cout << "Enter a path to CSV file:" << std::endl;
-    std::string path;
-    std::getline(std::cin, path);
-    std::cout << "Reading file." << std::endl;
-    std::ifstream csv_stream(path);
-    CsvParser parser;
-    Csv csv = parser.parse(csv_stream);
-
-    return csv;
-}
-
-std::string get_field() {
-    std::cout << "Enter field field:" << std::endl;
-    std::string field;
-    std::getline(std::cin, field);
-
-    return field;
-}
-
-bool get_reverse() {
-    std::cout << "Perform reverse sort? [y/n]:" << std::flush;
-    bool reverse = prompt();
-
-    return reverse;
-}
-
-sort_mode get_mode() {
-    std::cout << "Enter mode (1-3): " << std::flush;
-    unsigned int mode;
-    std::cin >> mode;
-    switch (mode) {
-        case 1:
-            return string;
-        case 2:
-            return integer;
-        case 3:
-            return floating;
-        default:
-            return string;
-    }
-};
-
-UserParams get_user_params() {
-    return UserParams {
-      .csv = get_csv(),
-      .field = get_field(),
-      .reverse = get_reverse(),
-      .mode = get_mode(),
-    };
-}
-
-
 
 struct Sort {
     typedef std::vector<std::string> T;
@@ -92,6 +23,22 @@ struct Sort {
         func = _func;
     }
 };
+
+void sort_file();
+
+void test_all_sorts();
+
+UserParams get_user_params();
+
+Csv get_csv();
+
+std::string get_field();
+
+bool prompt();
+
+bool get_reverse();
+
+sort_mode get_mode();
 
 std::vector<Sort> sorts = {
         Sort("Selection sort", selection_sort),
@@ -104,9 +51,9 @@ std::vector<Sort> sorts = {
 
 int main() {
     std::cout << "Enter task number:\n"
-        << "1 - sort a CSV file\n"
-        << "2 - test all sorts with a CSV file"
-        << std::endl;
+              << "1 - sort a CSV file\n"
+              << "2 - test all sorts with a CSV file"
+              << std::endl;
     unsigned int task;
     std::cin >> task;
     switch (task) {
@@ -173,4 +120,65 @@ void test_all_sorts() {
 
 }
 
+UserParams get_user_params() {
+    return UserParams {
+            .csv = get_csv(),
+            .field = get_field(),
+            .reverse = get_reverse(),
+            .mode = get_mode(),
+    };
+}
 
+Csv get_csv() {
+    std::cout << "Enter a path to CSV file:" << std::endl;
+    std::string path;
+    std::getline(std::cin, path);
+    std::cout << "Reading file." << std::endl;
+    std::ifstream csv_stream(path);
+    CsvParser parser;
+    Csv csv = parser.parse(csv_stream);
+
+    return csv;
+}
+
+std::string get_field() {
+    std::cout << "Enter field field:" << std::endl;
+    std::string field;
+    std::getline(std::cin, field);
+
+    return field;
+}
+
+bool get_reverse() {
+    std::cout << "Perform reverse sort? [y/n]:" << std::flush;
+    bool reverse = prompt();
+
+    return reverse;
+}
+
+bool prompt() {
+    std::string answer;
+    while (answer != "y" && answer != "Y" &&
+           answer != "n" && answer != "N") {
+        std::cin >> answer;
+    }
+
+    if(answer == "y" || answer == "Y") return true;
+    return false;
+}
+
+sort_mode get_mode() {
+    std::cout << "Enter mode (1-3): " << std::flush;
+    unsigned int mode;
+    std::cin >> mode;
+    switch (mode) {
+        case 1:
+            return string;
+        case 2:
+            return integer;
+        case 3:
+            return floating;
+        default:
+            return string;
+    }
+};
