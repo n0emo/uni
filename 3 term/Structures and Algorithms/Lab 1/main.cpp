@@ -11,6 +11,78 @@ void sort_file();
 
 void test_all_sorts();
 
+bool prompt() {
+    std::string answer;
+    while (answer != "y" && answer != "Y" &&
+           answer != "n" && answer != "N") {
+        std::cin >> answer;
+    }
+
+    if(answer == "y" || answer == "Y") return true;
+    return false;
+}
+
+struct UserParams {
+    Csv csv;
+    std::string field;
+    bool reverse;
+    sort_mode mode;
+};
+
+Csv get_csv() {
+    std::cout << "Enter a path to CSV file:" << std::endl;
+    std::string path;
+    std::getline(std::cin, path);
+    std::cout << "Reading file." << std::endl;
+    std::ifstream csv_stream(path);
+    CsvParser parser;
+    Csv csv = parser.parse(csv_stream);
+
+    return csv;
+}
+
+std::string get_field() {
+    std::cout << "Enter field field:" << std::endl;
+    std::string field;
+    std::getline(std::cin, field);
+
+    return field;
+}
+
+bool get_reverse() {
+    std::cout << "Perform reverse sort? [y/n]:" << std::flush;
+    bool reverse = prompt();
+
+    return reverse;
+}
+
+sort_mode get_mode() {
+    std::cout << "Enter mode (1-3): " << std::flush;
+    unsigned int mode;
+    std::cin >> mode;
+    switch (mode) {
+        case 1:
+            return string;
+        case 2:
+            return integer;
+        case 3:
+            return floating;
+        default:
+            return string;
+    }
+};
+
+UserParams get_user_params() {
+    return UserParams {
+      .csv = get_csv(),
+      .field = get_field(),
+      .reverse = get_reverse(),
+      .mode = get_mode(),
+    };
+}
+
+
+
 struct Sort {
     typedef std::vector<std::string> T;
     std::string name;
@@ -31,7 +103,24 @@ std::vector<Sort> sorts = {
 };
 
 int main() {
-    test_all_sorts();
+    std::cout << "Enter task number:\n"
+        << "1 - sort a CSV file\n"
+        << "2 - test all sorts with a CSV file"
+        << std::endl;
+    unsigned int task;
+    std::cin >> task;
+    switch (task) {
+        case 1:
+            sort_file();
+            break;
+        case 2:
+            test_all_sorts();
+            break;
+        default:
+            std::cout << "Unrecognized task number.";
+            return 1;
+    }
+
     return 0;
 }
 
@@ -66,29 +155,17 @@ void sort_file() {
 }
 
 void test_all_sorts() {
-    std::cout << "Testing all sorts.\nEnter a path to CSV file:" << std::endl;
-    std::string path;
-    std::getline(std::cin, path);
-
-    std::cout << "Enter field name:" << std::endl;
-    std::string name;
-    std::getline(std::cin, name);
-
-    std::cout << "Reading file." << std::endl;
-
-    std::ifstream csv_stream(path);
-    CsvParser parser;
-    Csv csv = parser.parse(csv_stream);
+    auto params = get_user_params();
 
     std::vector<Csv> csvs;
     for(int i = 0; i < sorts.size(); i++) {
-        csvs.emplace_back(csv);
+        csvs.emplace_back(params.csv);
     }
 
     for(int i = 0; i < sorts.size(); i++) {
         std::cout << "Testing: " << sorts[i].name << '\n';
         auto start = std::chrono::high_resolution_clock::now();
-        csvs[i].sort(name, SortOptions(string, false, sorts[i].func));
+        csvs[i].sort(params.field, SortOptions(params.mode, params.reverse, sorts[i].func));
         auto end = std::chrono::high_resolution_clock::now();
         auto seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
         std::cout << "Sorted for " << seconds << " seconds\n";
