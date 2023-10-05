@@ -52,10 +52,11 @@ std::vector<Sort> sorts = {
 int main() {
     std::cout << "Enter task number:\n"
               << "1 - sort a CSV file\n"
-              << "2 - test all sorts with a CSV file"
-              << std::endl;
+              << "2 - test all sorts with a CSV file\n"
+              << std::flush;
     unsigned int task;
     std::cin >> task;
+    std::cout << std::flush;
     switch (task) {
         case 1:
             sort_file();
@@ -72,32 +73,17 @@ int main() {
 }
 
 void sort_file() {
-    bool ask_for_path = false;
-    std::string input_path = "/home/albert/Downloads/people.csv";
-    std::string output_path = "/home/albert/output.csv";
-    CsvParser parser;
+    auto params = get_user_params();
 
-    if (ask_for_path) {
-        std::cout << "Enter a path to file with data that needs to be sorted:\n";
-        std::cin >> input_path;
-    }
+    params.csv.sort(params.field, SortOptions(params.mode, params.reverse));
 
-    std::ifstream input_file(input_path);
-    auto csv = parser.parse(input_file);
-    auto csv2(csv);
-
-    csv2.sort("Index", SortOptions(floating, true, merge_sort));
-    //csv2.sort("User Id");
-
+    std::string output_path;
+    std::cout << "Enter a path to file where sorted data needs to be stored" << std::endl;
+    std::cin.ignore(100, '\n');
+    std::getline(std::cin, output_path);
     std::ofstream output_file(output_path);
-    if (ask_for_path) {
-        std::cout << "Enter a path to file where sorted data needs to be stored\n";
-        std::cin >> output_path;
-    }
 
-    output_file << csv2.to_string();
-
-    input_file.close();
+    output_file << params.csv.to_string();
     output_file.close();
 }
 
@@ -130,8 +116,9 @@ UserParams get_user_params() {
 }
 
 Csv get_csv() {
-    std::cout << "Enter a path to CSV file:" << std::endl;
+    std::cout << "Enter a path to CSV file:\n";
     std::string path;
+    std::cin.ignore(100, '\n');
     std::getline(std::cin, path);
     std::cout << "Reading file." << std::endl;
     std::ifstream csv_stream(path);
@@ -142,7 +129,7 @@ Csv get_csv() {
 }
 
 std::string get_field() {
-    std::cout << "Enter field field:" << std::endl;
+    std::cout << "Enter field name:" << std::endl;
     std::string field;
     std::getline(std::cin, field);
 
@@ -168,7 +155,11 @@ bool prompt() {
 }
 
 sort_mode get_mode() {
-    std::cout << "Enter mode (1-3): " << std::flush;
+    std::cout << "Enter mode (1-3):\n"
+              << "1 - string\n"
+              << "2 - integer\n"
+              << "3 - floating\n"
+              << std::flush;
     unsigned int mode;
     std::cin >> mode;
     switch (mode) {
