@@ -1,0 +1,7 @@
+[project]
+name = "quantum_cs"
+dependencies = [
+    "numpy",
+    "matplotlib"
+]
+requires-python = ">=3.11"
