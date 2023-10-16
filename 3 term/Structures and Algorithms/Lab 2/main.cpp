@@ -18,7 +18,7 @@ int main() {
     array_list->add(10);
     array_list->add(11);
     array_list->add(12);
-    array_list->add(13);
+    // array_list->add(13);
     array_list->add(14);
     array_list->add(15);
     array_list->add(16);
@@ -31,8 +31,13 @@ int main() {
 	std::cout << (*array_list)[i] << " ";
     }
 
-    std::cout << *(array_list->binary_search(10)) << std::endl;
-
     std::cout << std::endl;
+
+    int elem;
+    std::cin >> elem;
+    auto result = array_list->binary_search(elem);
+    std::cout << result.has_value() << std::endl;
+    std::cout << result.value() << std::endl;
+
     return 0;
 }
