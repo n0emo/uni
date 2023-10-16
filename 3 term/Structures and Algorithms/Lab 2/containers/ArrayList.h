@@ -37,7 +37,7 @@ public:
 
     void clear();
 
-    bool contains(T& element);
+    bool contains(T element);
 
     void ensure_capacity(size_t capacity);
 
@@ -59,19 +59,19 @@ public:
 
     // get enumerator
 
-    ArrayList<T> get_range(size_t start, size_t index);
+    ArrayList<T> get_range(size_t start, size_t count);
 
-    std::optional<size_t> index_of(T& element);
+    std::optional<size_t> index_of(T element);
 
-    void insert(size_t index, T& element);
+    void insert(size_t index, T element);
 
     // void insert_range()
 
-    std::optional<size_t> last_index_of(T& element);
+    std::optional<size_t> last_index_of(T element);
 
-    void remove(T& element);
+    void remove(T element);
 
-    void remove_all(T& element);
+    size_t remove_all(Predicate match);
 
     void remove_at(size_t index);
 
