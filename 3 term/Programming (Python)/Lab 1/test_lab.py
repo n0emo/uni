@@ -2,6 +2,8 @@ import unittest
 
 import lab
 
+# pylint: disable-all
+
 
 class TestTask2(unittest.TestCase):
     def test_str_len_1(self):
@@ -53,6 +55,41 @@ class TestTask4(unittest.TestCase):
 
         str4 = lab.str_replace_dollar("str", -23)
         self.assertEqual(str4, "str")
+
+
+class TestTask5(unittest.TestCase):
+    def test_str_reverse(self):
+        str1 = lab.str_reverse("")
+        self.assertEqual(str1, "")
+
+        str2 = lab.str_reverse("123")
+        self.assertEqual(str2, "321")
+
+
+class TestTask6(unittest.TestCase):
+    def test_count_symbols(self):
+        symbols1 = lab.count_symbols("")
+        self.assertEqual(symbols1, {})
+
+        symbols2 = lab.count_symbols("google.com")
+        self.assertEqual(
+            symbols2, {"o": 3, "g": 2, "e": 1, "l": 1, ".": 1, "c": 1, "m": 1}
+        )
+
+
+class TestTask7(unittest.TestCase):
+    def test_str_even_odd(self):
+        strs1 = lab.str_even_odd("")
+        self.assertEqual(strs1, ("", ""))
+
+        strs2 = lab.str_even_odd("0123456789")
+        self.assertEqual(strs2, ("02468", "13579"))
+
+
+class TestTask8(unittest.TestCase):
+    def test_str_remove(self):
+        str1 = lab.str_remove("012345", 3)
+        self.assertEqual(str1, "01245")
 
 
 class TestTask27(unittest.TestCase):
