@@ -7,6 +7,8 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "sort.h"
+
 template <typename T>
 size_t ArrayList<T>::count() {
     return m_count;
@@ -15,6 +17,16 @@ size_t ArrayList<T>::count() {
 template <typename T>
 size_t ArrayList<T>::capacity() {
     return m_capacity;
+}
+
+template <typename T>
+typename ArrayList<T>::iterator ArrayList<T>::begin() {
+    return iterator(m_array);
+}
+
+template <typename T>
+typename ArrayList<T>::iterator ArrayList<T>::end() {
+    return iterator(m_array, m_count);
 }
 
 template <typename T>
@@ -30,6 +42,18 @@ void ArrayList<T>::add(T element) {
 
     m_array[m_count] = element;
     m_count++;
+}
+
+template <typename T>
+template <typename Iter>
+void ArrayList<T>::add_range(Iter begin, Iter end) {
+    auto diff = end - begin;
+    ensure_capacity(m_count + diff);
+    for (size_t i = 0; i < diff; i++) {
+        m_array[m_count + i] = *begin;
+        begin++;
+    }
+    m_count += diff;
 }
 
 template <typename T>
@@ -340,7 +364,7 @@ std::optional<size_t> ArrayList<T>::last_index_of(T element, size_t start) {
         }
     }
 
-    std::nullopt;
+    return std::nullopt;
 }
 
 template <typename T>
@@ -428,6 +452,58 @@ void ArrayList<T>::reverse(size_t start, size_t count) {
     for (size_t i = 0; i < count / 2; i++) {
         std::swap(m_array[i + start], m_array[m_count - i - 1 + start]);
     }
+}
+
+template <typename T>
+void ArrayList<T>::sort(size_t start, size_t count) {
+    check_range(start, count);
+    heap_sort_nocmp(m_array, start, count);
+}
+
+template <typename T>
+void ArrayList<T>::sort(size_t start, size_t count, Comparer cmp) {
+    throw_if_null(cmp, "cmp");
+    check_range(start, count);
+    heap_sort_cmp(m_array, start, count, cmp);
+}
+
+template <typename T>
+void ArrayList<T>::sort() {
+    heap_sort_nocmp(m_array, 0, m_count);
+}
+
+template <typename T>
+void ArrayList<T>::sort(Comparer cmp) {
+    throw_if_null(cmp, "cmp");
+    heap_sort_cmp(m_array, 0, m_count, cmp);
+}
+
+template <typename T>
+void ArrayList<T>::trim_excess() {
+    if (m_count == m_capacity) {
+        return;
+    }
+
+    auto new_array = std::make_unique<T[]>(m_count);
+    for (size_t i = 0; i < m_count; i++) {
+        new_array[i] = m_array[i];
+    }
+
+    m_capacity = m_count;
+    m_array.swap(new_array);
+}
+
+template <typename T>
+bool ArrayList<T>::true_for_all(Predicate match) {
+    throw_if_null(match, "match");
+
+    for (size_t index = 0; index < m_count; index++) {
+        if (!match(m_array[index])) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 template <typename T>

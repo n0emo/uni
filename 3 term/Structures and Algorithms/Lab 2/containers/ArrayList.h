@@ -1,13 +1,108 @@
 #ifndef CONTAINERS_ARRAYLIST_H
 #define CONTAINERS_ARRAYLIST_H
 
+#include <bits/iterator_concepts.h>
+#include <bits/ranges_base.h>
+
 #include <cstddef>
 #include <functional>
+#include <iterator>
 #include <memory>
 #include <optional>
 
 template <typename T>
 class ArrayList {
+public:
+    class iterator {
+    private:
+        const std::unique_ptr<T[]>& m_array;
+        size_t m_index;
+
+    public:
+        using value_type = T;
+        using element_type = T;
+        using iterator_category = std::random_access_iterator_tag;
+
+        explicit iterator(const std::unique_ptr<T[]>& array)
+            : m_array(array), m_index(0){};
+        iterator(const std::unique_ptr<T[]>& array, size_t index)
+            : m_array(array), m_index(index){};
+        iterator(const iterator& iter)
+            : m_array(iter.m_array), m_index(iter.m_index){};
+        iterator() : m_array(std::move(nullptr)), m_index(0){};
+
+        iterator& operator=(const iterator& other) {
+            new (this) iterator(other);
+            return *this;
+        }
+
+        T& operator*() const { return m_array[m_index]; }
+
+        T& operator[](int index) const { return m_array[index]; }
+
+        iterator& operator++() {
+            m_index++;
+            return *this;
+        }
+
+        iterator operator++(int) {
+            auto return_value = iterator(m_array, m_index);
+            ++(*this);
+            return return_value;
+        }
+
+        iterator& operator--() {
+            m_index--;
+            return *this;
+        }
+
+        iterator operator--(int) {
+            auto return_value = iterator(m_array, m_index);
+            --(*this);
+            return return_value;
+        }
+
+        iterator& operator+=(int value) {
+            m_index += value;
+            return *this;
+        }
+
+        iterator& operator-=(int value) {
+            m_index -= value;
+            return *this;
+        }
+
+        friend auto operator<=>(iterator a, iterator b) {
+            return a.m_index <=> b.m_index;
+        };
+
+        friend int operator-(iterator a, iterator b) {
+            return a.m_index - b.m_index;
+        }
+
+        friend iterator operator-(iterator a, int value) {
+            return iterator(a.m_array, a.m_index - value);
+        }
+
+        friend iterator operator+(iterator iter, int value) {
+            return iterator(iter.m_array, iter.m_index + value);
+        }
+
+        friend iterator operator+(int value, iterator iter) {
+            return iter + value;
+        }
+
+        bool operator==(const iterator& other) const {
+            return m_index == other.m_index;
+        }
+        bool operator!=(const iterator& other) const {
+            return m_index != other.m_index;
+        }
+    };
+
+    iterator begin();
+    iterator end();
+
 private:
     typedef std::function<bool(T)> Predicate;
     typedef std::function<int(T, T)> Comparer;
@@ -41,8 +136,8 @@ public:
     // ok
     void add(T element);
 
-    // void add_range();
-
+    template <typename Iter>
+    void add_range(Iter begin, Iter end);
     // ok (untested)
     std::optional<size_t> binary_search(T element);
     std::optional<size_t> binary_search(T element, Comparer cmp);
@@ -84,8 +179,6 @@ public:
     // ok (untested)
     void for_each(std::function<void(T)> action);
 
-    // get enumerator
-
     // ok (untested)
     ArrayList<T> get_range(size_t start, size_t count);
 
@@ -97,7 +190,8 @@ public:
     // ok (untested)
     void insert(size_t index, T element);
 
-    // void insert_range()
+    template <std::forward_iterator Iter, std::sentinel_for<Iter> Sen>
+    void insert_range(size_t index, Iter begin, Sen end);
 
     // ok (untested)
     std::optional<size_t> last_index_of(T element);
@@ -119,13 +213,16 @@ public:
     void reverse();
     void reverse(size_t start, size_t count);
 
+    // ok (untested)
     void sort(size_t start, size_t count);
     void sort(size_t start, size_t count, Comparer cmp);
     void sort();
     void sort(Comparer cmp);
 
+    // ok
     void trim_excess();
 
+    // ok (untested)
     bool true_for_all(Predicate match);
 
     T& operator[](size_t index);

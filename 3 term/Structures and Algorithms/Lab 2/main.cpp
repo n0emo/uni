@@ -1,43 +1,49 @@
-#include "containers/ArrayList.h"
+#include <bits/iterator_concepts.h>
+
 #include <iostream>
+#include <iterator>
+
+#include "containers/ArrayList.h"
 
 // #include "containers/all.h"
 
 int main() {
+    static_assert(std::random_access_iterator<ArrayList<int>::iterator>);
+
     auto array_list = std::make_unique<ArrayList<int>>();
 
+    array_list->add(42);
+    array_list->add(-9);
+    array_list->add(22);
     array_list->add(1);
+    array_list->add(41);
+    array_list->add(87);
     array_list->add(2);
-    array_list->add(3);
-    array_list->add(4);
+    array_list->add(-42);
     array_list->add(5);
-    array_list->add(6);
-    array_list->add(7);
-    array_list->add(8);
-    array_list->add(9);
-    array_list->add(10);
-    array_list->add(11);
     array_list->add(12);
-    // array_list->add(13);
-    array_list->add(14);
-    array_list->add(15);
-    array_list->add(16);
-    array_list->add(17);
-    array_list->add(18);
 
-    std::cout << "Capacity is " << array_list->capacity() << std::endl;
+    array_list->trim_excess();
 
-    for (int i = 0; i < array_list->count(); i++) {
-	std::cout << (*array_list)[i] << " ";
+    ArrayList<int> list_2;
+    list_2.add(9);
+    list_2.add(8);
+    list_2.add(7);
+
+    array_list->add_range<ArrayList<int>::iterator>(list_2.begin(),
+                                                    list_2.end());
+
+    for (auto n : *array_list) {
+        std::cout << n << " ";
     }
-
     std::cout << std::endl;
 
-    int elem;
-    std::cin >> elem;
-    auto result = array_list->binary_search(elem);
-    std::cout << result.has_value() << std::endl;
-    std::cout << result.value() << std::endl;
+    std::sort(array_list->begin(), array_list->end());
+
+    for (auto n : *array_list) {
+        std::cout << n << " ";
+    }
+    std::cout << std::endl;
 
     return 0;
 }
