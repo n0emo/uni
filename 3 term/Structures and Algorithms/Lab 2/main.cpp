@@ -3,9 +3,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "containers/ArrayList.h"
-
-// #include "containers/all.h"
+#include "containers/all.h"
 
 int main() {
     static_assert(std::random_access_iterator<ArrayList<int>::iterator>);
@@ -23,7 +21,7 @@ int main() {
     array_list->add(5);
     array_list->add(12);
 
-    array_list->trim_excess();
+    // array_list->trim_excess();
 
     ArrayList<int> list_2;
     list_2.add(9);
@@ -38,7 +36,9 @@ int main() {
     }
     std::cout << std::endl;
 
-    std::sort(array_list->begin(), array_list->end());
+    // std::sort(array_list->begin(), array_list->end());
+    array_list->sort();
+    // array_list->sort([](auto a, auto b) { return a - b; });
 
     for (auto n : *array_list) {
         std::cout << n << " ";
