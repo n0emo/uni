@@ -1,6 +1,7 @@
 # 1. Выведите все символы из строки «Данная часть была посвящена больше синтаксису
 # python и вопросам документации кода», значения индексов которых делятся на 2.
-from typing import Any, List
+from functools import partial, partialmethod, reduce
+from typing import Any, Callable, List
 
 
 def task_1(s: str) -> None:
@@ -89,32 +90,117 @@ def task_9(lst: list) -> None:
 
 
 # 10. Напишите программу, которая выводит числе в диапазоне от 1 до 9, кроме 5 и 7.
+def task_10(start: int, end: int, exclude: List[int]) -> None:
+    lst = [i for i in range(start, end + 1) if i not in exclude]
+    print(lst)
+
 
 # 11. Напишите программу, выводящую сумму элементов списка [3 0 1 3 0 4 3 3 4 56 6 1 3],
 # используя цикл for, while и метод sum.
+def task_11_for(lst: list[float]) -> float:
+    res = 0
+    for n in lst:
+        res += n
+    return res
+
+
+def task_11_while(lst: list[float]) -> float:
+    res = 0
+    counter = len(lst)
+    while counter:
+        res += lst[counter]
+        counter -= 1
+    return res
+
+
+task_11_sum = sum
+
 
 # 12. Напишите программу, выводящую сумму элементов списка [3 0 1 3 0 4 3 3 4 56 6 1 3],
 # значения индексов которых делятся на без остатка на 3, используя цикл for и while.
+def compose2(f, g):
+    return lambda x: f(g(x))
+
+
+def compose(*functions):
+    return reduce(compose2, functions)
+
+
+task_12 = compose(sum, partial(filter, lambda n: n % 3 == 0))
+
 
 # 13. Сформируйте список, значения элементов которого находятся в диапазоне от 23 до 35.
+def task_13(start: int, end: int) -> list[int]:
+    return list(range(start, end + 1))
+
 
 # 14. Сформируйте список, значения элементов которого находятся в диапазоне от 3 до 15
 # с шагом 4.
+def task_14(start: int, end: int, step: int) -> list[int]:
+    return list(range(start, end + 1, step))
+
 
 # 15. Сформируйте список, значения элементов которого находятся в диапазоне от 3 до 25 и
 # без остатка делятся на 3.
+def task_15(start: int, end: int, predicate: Callable[[int], bool]) -> list[int]:
+    return list(filter(predicate, range(start, end + 1)))
+
 
 # 16. Сформируйте словарь из двух списков [3 0 1 3 0 4 3 3 4 56 6 1 3] и
 # [2, 4, 7, 26, 33], используя встроенную функцию zip. Выведите словарь
 # в консоль и объясните, почему он получился такого вида.
+def task_16(lst1: list, lst2: list) -> None:
+    dct = dict(zip(lst1, lst2))
+    print(dct)
+
 
 # 17. Выведите различными способами в консоль элементы списка
 # [3 0 1 3 0 4 3 3 4 56 6 1 3] с их индексами.
+task_17 = compose(
+    print,
+    "\n".join,
+    partial(map, (lambda i_n: f"{i_n[0]+1}: {i_n[1]}")),  # type: ignore
+    enumerate,
+)
+
 
 # 18. Напишите программу, которая считывает целое число (месяц), после чего выводит
 # сезон к которому этот месяц относится.
+def task_18(month: int) -> str:
+    match month:
+        case 1 | 2 | 12:
+            return "Winter"
+        case 3 | 4 | 5:
+            return "Spring"
+        case 6 | 7 | 8:
+            return "Summer"
+        case 9 | 10 | 11:
+            return "Autumn"
+        case _:
+            return "Unknown"
+
 
 # 19. Напишите программу, выводящую среднее из трех значений.
+def task_19(numbers: list[float]):
+    numbers_len = len(numbers)
+    match numbers:
+        case []:
+            return None
+        case [n]:
+            return n
+        case [a, b]:
+            return (a + b) / 2
+        case _ if numbers_len % 2 == 1:
+            return sorted(numbers)[numbers_len // 2]
+        case _ if numbers_len % 2 == 0:
+            second_index = len(numbers) // 2
+            first_index = second_index - 1
+            numbers = sorted(numbers)
+            return (numbers[first_index] + numbers[second_index]) / 2
 
-# 20.	Напишите программу, выводящую таблицу умножения для задаваемого пользователем
+
+# 20. Напишите программу, выводящую таблицу умножения для задаваемого пользователем
 # числа от 1 до 9 (включительно).
+def task_20(num: int) -> None:
+    strs = map(lambda i: f"{num} * {i} = {num * i}", range(1, 10))
+    print("\n".join(strs))
