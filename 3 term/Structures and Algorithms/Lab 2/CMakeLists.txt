@@ -16,6 +16,5 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_executable(${PROJECT_NAME}
     main.cpp
     containers/Queue.cpp
-    containers/ArrayList.cpp
-    containers/template-impl.cpp
+    containers/ArrayList.hpp
 )
