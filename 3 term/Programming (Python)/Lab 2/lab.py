@@ -1,30 +1,32 @@
-# 1. Выведите все символы из строки «Данная часть была посвящена больше синтаксису
-# python и вопросам документации кода», значения индексов которых делятся на 2.
-from functools import partial, partialmethod, reduce
+# pylint: skip-file
+
+from functools import partial, reduce
 from typing import Any, Callable, List
 
+# 1. Выведите все символы из строки «Данная часть была посвящена больше синтаксису
+# python и вопросам документации кода», значения индексов которых делятся на 2.
 
-def task_1(s: str) -> None:
-    str_to_print = s[::2]
-    print(str_to_print)
+
+def task_1(s: str) -> str:
+    return s[::2]
 
 
 # 2. Выведите все символы из строки «Данная часть была посвящена больше синтаксису
 # Python и вопросам документации кода», значения индексов которых без остатка делятся
 # на 3, но не делятся на 4.
-def task_2(s: str) -> None:
-    str_to_print = [s[i] if i % 3 == 0 and i % 4 != 0 else "" for i in range(len(s))]
-    str_to_print = "".join(str_to_print)
-    print(str_to_print)
+def task_2(s: str) -> str:
+    result = [s[i] if i % 3 == 0 and i % 4 != 0 else "" for i in range(len(s))]
+    result = "".join(result)
+    return result
 
 
 # 3. Выведите все символы из строки «Данная часть была посвящена больше синтаксису
 # Python и вопросам документации кода», значения индексов которых при делении на 6 дают
 # остаток 2, 4, и 5.
-def task_3(s: str) -> None:
-    str_to_print = [s[i] if i % 6 in [2, 4, 5] else "" for i in range(len(s))]
-    str_to_print = "".join(str_to_print)
-    print(str_to_print)
+def task_3(s: str) -> str:
+    result = [s[i] if i % 6 in [2, 4, 5] else "" for i in range(len(s))]
+    result = "".join(result)
+    return result
 
 
 # 4. Выведите числа из диапазона от 1 до 10, используя цикл for и while.
@@ -43,14 +45,22 @@ def task_4_while(count: int) -> None:
 
 
 # 5. Выведите числа из диапазона от –20 до 20 с шагом 3, используя цикл for и while.
-def task_5(start: int, end: int, step: int) -> None:
+def task_5_for(start: int, end: int, step: int) -> None:
     for i in range(start, end + 1, step):
         print(f"{i} ", end="")
     print()
 
 
+def task_5_while(start: int, end: int, step: int) -> None:
+    counter = start
+    while counter <= end:
+        print(f"{counter} ", end="")
+        counter += step
+    print()
+
+
 # 6. Посчитайте количество вхождений элемента со значением «3» в следующем списке:
-# [3 0 1 3 0 4 3 3 4 56 6 1 3], используя цикл for, while и метод count.
+# [3, 0, 1, 3, 0, 4, 3, 3, 4, 56, 6, 1, 3], используя цикл for, while и метод count.
 def task_6_for(lst: list, elem: Any) -> int:
     count = 0
     for e in lst:
@@ -74,28 +84,36 @@ def task_6_count(lst: list, elem: Any) -> int:
 
 # 7. Сформируйте список из элементов строки «список доступных атрибутов»,
 # используя механизм списковых включений и цикл  for.
-def task_7(s: str) -> list:
+def task_7_comp(s: str) -> list:
     return [c for c in s]
+
+
+def task_7_for(s: str) -> list:
+    result = []
+    for c in s:
+        result.append(c)
+    return result
 
 
 # 8. Сформируйте единичную матрицу N × N, используя механизм списковых включений.
 def task_8(size: int) -> List[List]:
-    return [[1 for _ in range(size)] for _ in range(size)]
+    return [[int(col == row) for col in range(size)] for row in range(size)]
 
 
-# 9. Напишите программу, выводящую элементы списка [3 0 1 3 0 4 3 3 4 56 6 1 3]
+# 9. Напишите программу, выводящую элементы списка [3, 0, 1, 3, 0, 4, 3, 3, 4, 56, 6, 1, 3]
 # в обратной последовательности.
-def task_9(lst: list) -> None:
-    print(lst[::-1])
+def task_9(lst: list) -> list:
+    return lst[::-1]
 
 
 # 10. Напишите программу, которая выводит числе в диапазоне от 1 до 9, кроме 5 и 7.
 def task_10(start: int, end: int, exclude: List[int]) -> None:
-    lst = [i for i in range(start, end + 1) if i not in exclude]
-    print(lst)
+    numbers = [i for i in range(start, end + 1) if i not in exclude]
+    strs = map(str, numbers)
+    print(", ".join(strs))
 
 
-# 11. Напишите программу, выводящую сумму элементов списка [3 0 1 3 0 4 3 3 4 56 6 1 3],
+# 11. Напишите программу, выводящую сумму элементов списка [3, 0, 1, 3, 0, 4, 3, 3, 4, 56, 6, 1, 3],
 # используя цикл for, while и метод sum.
 def task_11_for(lst: list[float]) -> float:
     res = 0
@@ -106,8 +124,8 @@ def task_11_for(lst: list[float]) -> float:
 
 def task_11_while(lst: list[float]) -> float:
     res = 0
-    counter = len(lst)
-    while counter:
+    counter = len(lst) - 1
+    while counter >= 0:
         res += lst[counter]
         counter -= 1
     return res
@@ -116,10 +134,10 @@ def task_11_while(lst: list[float]) -> float:
 task_11_sum = sum
 
 
-# 12. Напишите программу, выводящую сумму элементов списка [3 0 1 3 0 4 3 3 4 56 6 1 3],
+# 12. Напишите программу, выводящую сумму элементов списка [3, 0, 1, 3, 0, 4, 3, 3, 4, 56, 6, 1, 3],
 # значения индексов которых делятся на без остатка на 3, используя цикл for и while.
 def compose2(f, g):
-    return lambda x: f(g(x))
+    return lambda *args, **kwargs: f(g(*args, *kwargs))
 
 
 def compose(*functions):
@@ -146,16 +164,13 @@ def task_15(start: int, end: int, predicate: Callable[[int], bool]) -> list[int]
     return list(filter(predicate, range(start, end + 1)))
 
 
-# 16. Сформируйте словарь из двух списков [3 0 1 3 0 4 3 3 4 56 6 1 3] и
+# 16. Сформируйте словарь из двух списков  [3, 0, 1, 3, 0, 4, 3, 3, 4, 56, 6, 1, 3] и
 # [2, 4, 7, 26, 33], используя встроенную функцию zip. Выведите словарь
 # в консоль и объясните, почему он получился такого вида.
-def task_16(lst1: list, lst2: list) -> None:
-    dct = dict(zip(lst1, lst2))
-    print(dct)
-
+task_16 = compose(dict, zip)
 
 # 17. Выведите различными способами в консоль элементы списка
-# [3 0 1 3 0 4 3 3 4 56 6 1 3] с их индексами.
+# [3, 0, 1, 3, 0, 4, 3, 3, 4, 56, 6, 1, 3] с их индексами.
 task_17 = compose(
     print,
     "\n".join,
