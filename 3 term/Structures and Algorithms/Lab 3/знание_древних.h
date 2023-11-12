@@ -112,5 +112,6 @@
 #define пустое_место nullopt
 #define значимо value
 #define ценный has_value
-#endif
 
+#define мешанина hash
+#endif
