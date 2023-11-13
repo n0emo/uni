@@ -1,6 +1,6 @@
 from collections.abc import Callable, Iterable
 from functools import partial, reduce
-from typing import Iterator, List, OrderedDict
+from typing import OrderedDict
 
 
 def compose2(f, g):
