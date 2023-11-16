@@ -16,6 +16,6 @@ def in_list(lst: list, elem) -> bool:
         raise ValueError("lst must be List.")
 
     if len(lst) == 0:
-        raise ValueError("lst must not bew empty list.")
+        raise ValueError("lst must not be empty list.")
 
     return elem in lst
