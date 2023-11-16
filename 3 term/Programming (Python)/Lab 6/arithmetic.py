@@ -4,7 +4,7 @@ from collections.abc import Callable
 def check(func: Callable):
     def checked(pair):
         if pair.a == 0 or pair.b == 0:
-            raise ValueError("b or a was 0")
+            raise ValueError("a or b was 0")
         return func(pair)
     return checked
 
