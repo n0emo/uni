@@ -17,3 +17,4 @@ class Counter:
     def count(self) -> int:
         global _count
         return _count
+
