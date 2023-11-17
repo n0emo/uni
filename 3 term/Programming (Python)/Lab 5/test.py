@@ -9,3 +9,4 @@ if __name__ == "__main__":
     print(rect1 >= rect2)
     print(rect1 < rect2)
     print(rect1 <= rect2)
+

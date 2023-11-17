@@ -1,7 +1,7 @@
 # 10. Напишите несколько производных классов от базового класса магазинов
 # (например: ларек и супермаркет).
 
-from typing import override
+from typing import Dict, Set, override
 
 from interfaces import ShopBase, ShopItem
 
@@ -44,3 +44,42 @@ class Stall(ShopBase):
 
     def restock(self, amount: int) -> None:
         self.__amount += amount
+
+
+class Supermarket(ShopBase):
+    __items: Dict[str, ShopItem]
+    __margin: int
+
+    def __init__(self, items: Dict[str, ShopItem]) -> None:
+        super().__init__()
+        self.__items = items
+
+    @property
+    @override
+    def items(self) -> Dict[str, ShopItem]:
+        return self.__items
+
+    @property
+    @override
+    def margin(self) -> int:
+        return self.__margin
+
+    def sell(self, name: str, amount: int) -> None:
+        if name not in self.__items:
+            raise ValueError(f"Supermarket does not contain item with name '{name}'")
+
+        item = self.__items[name]
+        if amount > item.amount:
+            raise ValueError(f"Supermarket cannot sold {amount} of {name}. ({item.amount} in stock).")
+
+        item.amount -= amount
+        margin = amount * item.price
+        self.__margin += margin
+        print(f"Successfully sold {amount} of {name} for {margin}$.")
+
+    def restock(self, name: str, amount: int) -> None:
+        if name not in self.__items:
+            raise ValueError(f"Supermarket does not contain item with name '{name}'")
+
+        self.__items[name].amount += amount
+
