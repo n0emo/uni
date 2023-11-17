@@ -77,3 +77,4 @@ class AutoVaz(CarBase):
     @property
     def carriage(self) -> float:
         return self.__carriage
+

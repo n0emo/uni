@@ -58,5 +58,6 @@ class AnimalBase:
         ...
 
     @abstractmethod
-    def make_sound(self):
+    def make_sound(self) -> None:
         ...
+
