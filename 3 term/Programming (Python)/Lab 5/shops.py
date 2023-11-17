@@ -1,7 +1,7 @@
 # 10. Напишите несколько производных классов от базового класса магазинов
 # (например: ларек и супермаркет).
 
-from typing import Dict, Set, override
+from typing import Dict, override
 
 from interfaces import ShopBase, ShopItem
 
