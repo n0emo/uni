@@ -1,4 +1,3 @@
-from _typeshed import SupportsRichComparison
 from collections.abc import Callable
 from typing import List, Tuple
 import itertools
@@ -112,8 +111,8 @@ class IntNum:
 
 # 15. Напишите класс, который находит прямоугольник с максимальной площадью из
 # списка.
-class MaxBy[T, K: SupportsRichComparison]:
-    __func: Callable[[T], K]
+class MaxBy[T, K]:
+    __func: Callable[[], K]
     def __init__(self, func: Callable[[T], K]) -> None:
         self.__func = func
 
