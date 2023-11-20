@@ -53,6 +53,7 @@ class Supermarket(ShopBase):
     def __init__(self, items: Dict[str, ShopItem]) -> None:
         super().__init__()
         self.__items = items
+        self.__margin = 0
 
     @property
     @override
