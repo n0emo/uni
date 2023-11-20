@@ -51,6 +51,9 @@ class ShopItem:
         self.amount = amount
         self.price = price
 
+    def __str__(self):
+        return  f"(name='{self.name}', amount={self.amount}, price={self.price})"
+
 
 class AnimalBase:
     @abstractmethod
