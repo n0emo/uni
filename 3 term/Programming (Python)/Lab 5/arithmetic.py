@@ -112,12 +112,12 @@ class IntNum:
 # 15. Напишите класс, который находит прямоугольник с максимальной площадью из
 # списка.
 class MaxBy[T, K]:
-    __func: Callable[[], K]
+    __func: Callable[[T], K]
     def __init__(self, func: Callable[[T], K]) -> None:
         self.__func = func
 
     def get(self, lst: List[T]):
-        return max(lst, key=self.__func)
+        return max(lst, key=self.__func) # type: ignore
 
     @staticmethod
     def rect_area() -> "MaxBy[Rectangle, float]":

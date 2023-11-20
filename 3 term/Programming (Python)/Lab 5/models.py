@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict, Set
+from typing import Any, Dict, List, Set
 
 # 14. Напишите класс, который позволяет работать с json-файлом, осуществляя его
 # чтение, запись, добавление, удаление и изменение значений.
@@ -13,7 +13,7 @@ class JsonFile:
         with open(self.__path, 'w') as file:
             json.dump(obj, file)
 
-    def read(self) -> object:
+    def read(self):
         with open(self.__path, 'r') as file:
             return json.load(file)
 
@@ -110,25 +110,36 @@ class NotebookItem:
     def birthday(self, value: str) -> None:
         self.__birthday = value
 
+        
+class NotebookItemEncoder(json.JSONEncoder):
+    def default(self, o):
+        return json.dumps({
+            "name": o.name,
+            "phone": o.phone,
+            "email": o.email,
+            "birthday": o.birthday
+        })
+
+
 
 class Notebook:
-    __set: Set[NotebookItem]
+    __list: List[NotebookItem]
 
-    def __init__(self, lst: Set[NotebookItem]) -> None:
-        self.__set = lst
+    def __init__(self, set_: List[NotebookItem]) -> None:
+        self.__list = set_
 
     def add(self, item: NotebookItem):
-        self.__set.add(item)
+        self.__list.append(item)
 
     def remove(self, name: str) -> None:
-        self.__set = set(i for i in self.__set if not i.name == name)
+        self.__list = list(i for i in self.__list if not i.name == name)
 
     def json(self):
-        return json.dumps(self.__set)
+        return str([json.dumps(item, cls=NotebookItemEncoder) for item in self.__list])
 
     @staticmethod
     def from_json(json_s: str) -> "Notebook":
-        return Notebook(set(
+        return Notebook(list(
             NotebookItem(o["name"], o["phone"], o["email"], o["birthday"]) 
             for o in json.loads(json_s)
         ))
