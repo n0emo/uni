@@ -2,12 +2,11 @@
 
 #include <iostream>
 #include <iterator>
+#include <memory>
 
-#include "containers/all.h"
+#include "ArrayList.hpp"
 
 int main() {
-    static_assert(std::random_access_iterator<ArrayList<int>::iterator>);
-
     auto array_list = std::make_unique<ArrayList<int>>();
 
     array_list->add(42);
@@ -18,28 +17,24 @@ int main() {
     array_list->add(87);
     array_list->add(2);
     array_list->add(-42);
-    array_list->add(5);
+    array_list->add(23);
     array_list->add(12);
 
     // array_list->trim_excess();
-
-    ArrayList<int> list_2;
-    list_2.add(9);
-    list_2.add(8);
-    list_2.add(7);
-
-    array_list->add_range<ArrayList<int>::iterator>(list_2.begin(),
-                                                    list_2.end());
 
     for (auto n : *array_list) {
         std::cout << n << " ";
     }
     std::cout << std::endl;
 
-    // std::sort(array_list->begin(), array_list->end());
-    array_list->sort();
-    // array_list->sort([](auto a, auto b) { return a - b; });
+    // auto list2 = std::make_unique<ArrayList<int>>();
+    // list2->add(60);
+    // list2->add(61);
+    // list2->add(62);
+    // array_list->insert_range(3, list2->begin(), list2->end());
 
+    array_list->sort();
+    std::cout << array_list->binary_search(22).value_or(-1) << std::endl;
     for (auto n : *array_list) {
         std::cout << n << " ";
     }

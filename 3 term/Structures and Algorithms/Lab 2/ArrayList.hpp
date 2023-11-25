@@ -1,5 +1,5 @@
-#ifndef CONTAINERS_ARRAYLIST_H
-#define CONTAINERS_ARRAYLIST_H
+#ifndef CONTAINERS_ARRAYLIST_HPP
+#define CONTAINERS_ARRAYLIST_HPP
 
 #include <bits/iterator_concepts.h>
 #include <bits/ranges_base.h>
@@ -12,8 +12,6 @@
 #include <optional>
 #include <sstream>
 #include <stdexcept>
-
-#include "sort.h"
 
 template <typename T>
 class ArrayList {
@@ -36,74 +34,30 @@ public:
             : m_array(iter.m_array), m_index(iter.m_index){};
         iterator() : m_array(std::move(nullptr)), m_index(0){};
 
-        iterator& operator=(const iterator& other) {
-            new (this) iterator(other);
-            return *this;
-        }
-
-        T& operator*() const { return m_array[m_index]; }
-
-        T& operator[](int index) const { return m_array[index]; }
-
-        iterator& operator++() {
-            m_index++;
-            return *this;
-        }
-
-        iterator operator++(int) {
-            auto return_value = iterator(m_array, m_index);
-            ++(*this);
-            return return_value;
-        }
-
-        iterator& operator--() {
-            m_index--;
-            return *this;
-        }
-
-        iterator operator--(int) {
-            auto return_value = iterator(m_array, m_index);
-            --(*this);
-            return return_value;
-        }
-
-        iterator& operator+=(int value) {
-            m_index += value;
-            return *this;
-        }
-
-        iterator& operator-=(int value) {
-            m_index -= value;
-            return *this;
-        }
-
-        friend auto operator<=>(iterator a, iterator b) {
-            return a.m_index <=> b.m_index;
+        iterator& operator=(const iterator& other);
+        T& operator*() const;
+        T& operator[](int index) const;
+        iterator& operator++();
+        iterator operator++(int);
+        iterator& operator--();
+        iterator operator--(int);
+        iterator& operator+=(int value);
+        iterator& operator-=(int value);
+        auto operator<=>(const iterator& other) const;
+        int operator-(const iterator& other) const;
+        int operator+(const iterator& other) const;
+        iterator operator-(int value) const;
+        iterator operator+(int value) const;
+        friend iterator operator-(int value, const iterator& iter) {
+            return iter - value;
         };
-
-        friend int operator-(iterator a, iterator b) {
-            return a.m_index - b.m_index;
-        }
-
-        friend iterator operator-(iterator a, int value) {
-            return iterator(a.m_array, a.m_index - value);
-        }
-
-        friend iterator operator+(iterator iter, int value) {
-            return iterator(iter.m_array, iter.m_index + value);
-        }
-
-        friend iterator operator+(int value, iterator iter) {
+        friend iterator operator+(int value, const iterator& iter) {
             return iter + value;
-        }
-
-        bool operator==(const iterator& other) const {
-            return m_index == other.m_index;
-        }
-        bool operator!=(const iterator& other) const {
-            return m_index != other.m_index;
-        }
+        };
+        bool operator==(const iterator& other) const;
+        bool operator!=(const iterator& other) const;
     };
+    static_assert(std::random_access_iterator<iterator>);
 
     iterator begin();
     iterator end();
@@ -126,113 +80,162 @@ private:
     void check_range(size_t start, size_t count);
 
 public:
-    // ok
     ArrayList()
         : m_array(std::make_unique<T[]>(INITIAL_CAPACITY)),
           m_capacity(INITIAL_CAPACITY),
           m_count(0) {}
 
-    // ok
     size_t count();
-
-    // ok
     size_t capacity();
-
-    // ok
     void add(T element);
-
     template <typename Iter>
     void add_range(Iter begin, Iter end);
-    // ok (untested)
     std::optional<size_t> binary_search(T element);
     std::optional<size_t> binary_search(T element, Comparer cmp);
     std::optional<size_t> binary_search(size_t start, size_t count, T element,
                                         Comparer cmp);
-    // ok (untested)
     void clear();
-
-    // ok (untested)
     bool contains(T element);
-
-    // ok
     void ensure_capacity(size_t capacity);
-
-    // ok (untested)
     bool exists(Predicate match);
-
-    // ok (untested)
     std::optional<T> find(Predicate match);
-
-    // ok (untested)
     ArrayList<T> find_all(Predicate match);
-
-    // ok (untested)
     std::optional<size_t> find_index(size_t start, size_t count,
                                      Predicate match);
     std::optional<size_t> find_index(Predicate match);
     std::optional<size_t> find_index(size_t start, Predicate match);
-
-    // ok (untested)
     std::optional<T> find_last(Predicate match);
 
-    // ok (untested)
+    // TODO: Fix bug
     std::optional<size_t> find_last_index(Predicate match);
     std::optional<size_t> find_last_index(size_t start, Predicate match);
     std::optional<size_t> find_last_index(size_t start, size_t count,
                                           Predicate match);
-
-    // ok (untested)
     void for_each(std::function<void(T)> action);
-
-    // ok (untested)
     ArrayList<T> get_range(size_t start, size_t count);
-
-    // ok (untested)
     std::optional<size_t> index_of(T element, size_t start);
     std::optional<size_t> index_of(T element, size_t start, size_t count);
     std::optional<size_t> index_of(T element);
-
-    // ok (untested)
     void insert(size_t index, T element);
-
+    // TODO: Add implementation
     template <std::forward_iterator Iter, std::sentinel_for<Iter> Sen>
     void insert_range(size_t index, Iter begin, Sen end);
-
-    // ok (untested)
+    // TODO: check
     std::optional<size_t> last_index_of(T element);
     std::optional<size_t> last_index_of(T element, size_t start);
     std::optional<size_t> last_index_of(T element, size_t start, size_t count);
-
-    // ok (untested)
+    // TODO: exception
     void remove(T element);
-
     // slow
     size_t remove_all(Predicate match);
-
-    // ok (untested)
     void remove_at(size_t index);
-
+    // ?
     void remove_range(size_t start, size_t count);
-
-    // ok (untested)
     void reverse();
+    // TODO: Fix bug
     void reverse(size_t start, size_t count);
-
-    // ok (untested)
     void sort(size_t start, size_t count);
     void sort(size_t start, size_t count, Comparer cmp);
     void sort();
     void sort(Comparer cmp);
-
-    // ok
     void trim_excess();
-
-    // ok (untested)
     bool true_for_all(Predicate match);
-
     T& operator[](size_t index);
 };
 
+template <typename T>
+T& ArrayList<T>::iterator::operator*() const {
+    return m_array[m_index];
+}
+
+template <typename T>
+T& ArrayList<T>::iterator::operator[](int index) const {
+    return m_array[index];
+}
+
+template <typename T>
+ArrayList<T>::iterator& ArrayList<T>::iterator::operator=(
+    const iterator& other) {
+    new (this) iterator(other);
+    return *this;
+}
+
+template <typename T>
+ArrayList<T>::iterator& ArrayList<T>::iterator::operator++() {
+    m_index++;
+    return *this;
+}
+
+template <typename T>
+ArrayList<T>::iterator ArrayList<T>::iterator::operator++(int) {
+    auto return_value = iterator(m_array, m_index);
+    ++(*this);
+    return return_value;
+}
+
+template <typename T>
+ArrayList<T>::iterator& ArrayList<T>::iterator::operator--() {
+    m_index--;
+    return *this;
+}
+
+template <typename T>
+ArrayList<T>::iterator ArrayList<T>::iterator::operator--(int) {
+    auto return_value = iterator(m_array, m_index);
+    --(*this);
+    return return_value;
+}
+
+template <typename T>
+ArrayList<T>::iterator& ArrayList<T>::iterator::operator+=(int value) {
+    m_index += value;
+    return *this;
+}
+
+template <typename T>
+ArrayList<T>::iterator& ArrayList<T>::iterator::operator-=(int value) {
+    m_index -= value;
+    return *this;
+}
+
+template <typename T>
+auto ArrayList<T>::iterator::operator<=>(
+    const ArrayList<T>::iterator& other) const {
+    return m_index <=> other.m_index;
+};
+
+template <typename T>
+int ArrayList<T>::iterator::operator-(
+    const ArrayList<T>::iterator& other) const {
+    return m_index - other.m_index;
+};
+template <typename T>
+int ArrayList<T>::iterator::operator+(
+    const ArrayList<T>::iterator& other) const {
+    return m_index + other.m_index;
+};
+
+template <typename T>
+ArrayList<T>::iterator ArrayList<T>::iterator::operator-(int value) const {
+    return ArrayList<T>::iterator(m_array, m_index - value);
+};
+
+template <typename T>
+ArrayList<T>::iterator ArrayList<T>::iterator::operator+(int value) const {
+    return ArrayList<T>::iterator(m_array, m_index + value);
+};
+
+template <typename T>
+bool ArrayList<T>::iterator::operator==(
+    const ArrayList<T>::iterator& other) const {
+    return m_index == other.m_index;
+}
+
+template <typename T>
+bool ArrayList<T>::iterator::operator!=(
+    const ArrayList<T>::iterator& other) const {
+    return m_index != other.m_index;
+}
 template <typename T>
 size_t ArrayList<T>::count() {
     return m_count;
@@ -615,7 +618,6 @@ void ArrayList<T>::remove(T element) {
     }
 
     if (index == m_count) {
-        // maybe throw not found exception
         return;
     }
 
@@ -681,25 +683,25 @@ void ArrayList<T>::reverse(size_t start, size_t count) {
 template <typename T>
 void ArrayList<T>::sort(size_t start, size_t count) {
     check_range(start, count);
-    heap_sort_nocmp(m_array, start, count);
+    std::sort(begin() + start, begin() + (start + count));
 }
 
 template <typename T>
 void ArrayList<T>::sort(size_t start, size_t count, Comparer cmp) {
     throw_if_null(cmp, "cmp");
     check_range(start, count);
-    heap_sort_cmp(m_array, start, count, cmp);
+    std::sort(begin() + start, begin() + (start + count), cmp);
 }
 
 template <typename T>
 void ArrayList<T>::sort() {
-    heap_sort_nocmp(m_array, 0, m_count);
+    std::sort(begin(), end());
 }
 
 template <typename T>
 void ArrayList<T>::sort(Comparer cmp) {
     throw_if_null(cmp, "cmp");
-    heap_sort_cmp(m_array, 0, m_count, cmp);
+    std::sort(begin(), end(), cmp);
 }
 
 template <typename T>
@@ -767,4 +769,4 @@ T& ArrayList<T>::operator[](size_t index) {
     return m_array[index];
 }
 
-#endif  // !CONTAINERS_ARRAYLIST_H
+#endif  // !CONTAINERS_ARRAYLIST_HPP
