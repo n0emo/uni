@@ -70,6 +70,7 @@ m_I = sum(m_Is)
 
 println()
 println("======== Mixed ========")
+print_fmt("z23", m_z23)
 print_fmt("U exp.", m_U_exp)
 print_fmt("U1 exp.", m_U1_exp)
 print_fmt("U23 exp.", m_U23_exp)
