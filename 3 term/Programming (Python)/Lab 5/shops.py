@@ -71,7 +71,9 @@ class Supermarket(ShopBase):
 
         item = self.__items[name]
         if amount > item.amount:
-            raise ValueError(f"Supermarket cannot sold {amount} of {name}. ({item.amount} in stock).")
+            raise ValueError(
+                f"Supermarket cannot sold {amount} of {name}. ({item.amount} in stock)."
+                )
 
         item.amount -= amount
         margin = amount * item.price
