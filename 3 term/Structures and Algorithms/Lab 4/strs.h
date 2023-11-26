@@ -2,7 +2,10 @@
 #define STRS_H
 
 #include <cstddef>
+#include <string>
 
-int l_distance_naive(const char *a, size_t a_size, const char *b, size_t b_size);
+size_t l_distance_naive(std::string a, std::string b);
 
-#endif // STRS_H
+size_t l_distance(std::string a, std::string b);
+
+#endif  // STRS_H
