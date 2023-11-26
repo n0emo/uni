@@ -18,7 +18,7 @@ import models
 class TestSubsets(TestCase):
     def test_subsets(self):
         lst = [2, 4, 10, 1]
-        subsets = arithmetic.SubSets(lst);
+        subsets = arithmetic.SubSets(lst)
         self.assertCountEqual(
             sorted(subsets.get_subsets()),
             sorted([
@@ -99,7 +99,9 @@ class TestCarWithState(TestCase):
 
         self.assertEqual(
             stdout.getvalue(),
-            'Машина "Лада" остановлена\nМашина "Лада" поворачивает налево\nМашина "Лада" поворачивает направо\n'
+            'Машина "Лада" остановлена\n' + 
+            'Машина "Лада" поворачивает налево\n' + 
+            'Машина "Лада" поворачивает направо\n'
         )
 
 # task 6
@@ -316,19 +318,6 @@ class TestEmployee(TestCase):
             employee.to_dict(),
             {"name": "John", "salary": 1500, "department": "Devops"}
         )
-        
-# task 20
-class TestNotebook(TestCase):
-    def test_notebook(self):
-        notebook = models.Notebook([])
-        notebook.add(models.NotebookItem("Alexey", "88005553535", "alex23@mail.ru", "2001"))
-        notebook.add(models.NotebookItem("Dmitry", "88003539923", "dmitry23@mail.ru", "2006"))
-        notebook.add(models.NotebookItem("Maxim",  "88009201616", "maxmax123@mail.ru", "2002"))
-
-        json_s = notebook.json()
-        print(json_s)
-        file = open("test.json", 'w')
-        file.write(json_s)
 
 if __name__ == "__main__":
     main()

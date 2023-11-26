@@ -17,7 +17,8 @@ class SubSets:
     def get_subsets(self) -> List[List[float]]:
         def compose_subset(comb):
             for e in zip(comb, self.__list):
-                if e[0]: yield e[1]
+                if e[0]:
+                    yield e[1]
 
         pair_lists = [[False, True]] * len(self.__list)
         return list(map(
@@ -192,8 +193,8 @@ class GcdFinder:
         self.__b = value
 
     def find(self):
-        if self.__a == None or self.__b == None:
-            raise ValueError(f"Must set a and b befor finding GCD")
+        if self.__a is None or self.__b is None:
+            raise ValueError("Must set a and b before finding GCD")
 
         return math.gcd(self.__a, self.__b)
 

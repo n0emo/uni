@@ -121,7 +121,6 @@ class NotebookItemEncoder(json.JSONEncoder):
         })
 
 
-
 class Notebook:
     __list: List[NotebookItem]
 
@@ -135,7 +134,7 @@ class Notebook:
         self.__list = list(i for i in self.__list if not i.name == name)
 
     def json(self):
-        return str([json.dumps(item, cls=NotebookItemEncoder) for item in self.__list])
+        return json.dumps(self.__list, cls=NotebookItemEncoder) 
 
     @staticmethod
     def from_json(json_s: str) -> "Notebook":
