@@ -1,12 +1,10 @@
 #include <functional>
+#include <iostream>
 #include <iterator>
 #include <memory>
 #include <optional>
 
-// #include "знание_древних.h"
-
 // TODO: сотворить итератор
-// TODO: сотворить разрастание дощечки
 // TODO: сотворить методы ведания
 
 template <typename TKey, typename TValue, typename THash = std::hash<TKey>>
@@ -19,7 +17,6 @@ private:
     };
 
     struct Bucket {
-    private:
         struct Node {
             Pair pair;
             std::optional<std::shared_ptr<Node>> next;
@@ -29,14 +26,6 @@ private:
         std::shared_ptr<Node> head;
         std::weak_ptr<Node> tail;
 
-    public:
-        struct Iterator {
-            std::optional<std::shared_ptr<Node>> current;
-            Iterator(std::optional<std::shared_ptr<Node>> current)
-                : current(current) {}
-        };
-
-    public:
         Bucket() : count(0) {}
         bool empty() { return count == 0; };
         std::optional<TValue> get(TKey ключ);
@@ -52,18 +41,33 @@ public:
         using iterator_category = std::forward_iterator_tag;
 
     private:
-        std::unique_ptr<Bucket[]>& _table;
-        size_t _bucket_index;
-        std::optional<Bucket> _current_bucket;
+        const std::unique_ptr<Bucket[]>& _table;
+        size_t _bucket_count = 0;
+        size_t _bucket_index = 0;
+        std::optional<std::shared_ptr<typename Bucket::Node>> _current_node =
+            std::nullopt;
 
     public:
-        Iterator(std::unique_ptr<Bucket[]>& table, size_t index = 0)
-            : _table(table), _bucket_index(index){};
-        Iterator(const Iterator& iter);
-        Iterator()
-            : _table(nullptr),
-              _current_bucket(std::nullopt),
-              _bucket_index(0){};
+        Iterator(std::unique_ptr<Bucket[]>& table, size_t count,
+                 size_t index = 0)
+            : _table(table) {
+            _bucket_index = index;
+            _bucket_count = count;
+            _current_node = std::nullopt;
+
+            _current_node = table[0].head;
+            while (_current_node.value() == nullptr &&
+                   _bucket_index < _bucket_count) {
+                _bucket_index++;
+                _current_node = table[_bucket_index].head;
+            }
+        };
+        Iterator(const Iterator& iter)
+            : _table(iter._table),
+              _bucket_count(iter._bucket_count),
+              _bucket_index(iter._bucket_index),
+              _current_node(iter._current_node){};
+        Iterator() : _table(std::move(nullptr)){};
 
         Iterator& operator=(const Iterator& other);
         Pair operator*() const;
@@ -74,6 +78,9 @@ public:
         bool operator!=(const Iterator& other) const;
     };
     static_assert(std::forward_iterator<Iterator>);
+
+    Iterator begin();
+    Iterator end();
 
 private:
     size_t INITIAL_BICKET_COUNT = 16;
@@ -94,12 +101,110 @@ public:
           _count(0){};
 
     void add(TKey key, TValue value);
-    std::optional<TValue> get(TKey ключ);
-    void remove(TKey ключ);
-    void remove_value(TValue цена);
-    bool has_key(TKey ключ);
-    bool has_value(TValue цена);
+    std::optional<TValue> get(TKey key);
+    void remove(TKey key);
+    void remove_value(TValue value);
+    bool has_key(TKey key);
+    bool has_value(TValue value);
+
+    void show_buckets() {
+        for (int i = 0; i < _bucket_count; i++) {
+            if (_table[i].count == 0) {
+                continue;
+            }
+            std::cout << i << ": {";
+
+            std::optional<std::shared_ptr<typename Bucket::Node>> node =
+                _table[i].head;
+            while (node.has_value()) {
+                std::cout << node.value()->pair.key << ": "
+                          << node.value()->pair.value << ",";
+                node = node.value()->next;
+            }
+            std::cout << "}\n";
+        }
+    }
 };
+
+template <typename TKey, typename TValue, typename THash>
+HashTable<TKey, TValue, THash>::Iterator&
+HashTable<TKey, TValue, THash>::Iterator::operator=(
+    const HashTable<TKey, TValue, THash>::Iterator& other) {
+    new (this) Iterator(other);
+    return *this;
+}
+
+template <typename TKey, typename TValue, typename THash>
+HashTable<TKey, TValue, THash>::Pair
+HashTable<TKey, TValue, THash>::Iterator::operator*() const {
+    return _current_node.value()->pair;
+}
+
+template <typename TKey, typename TValue, typename THash>
+HashTable<TKey, TValue, THash>::Iterator&
+HashTable<TKey, TValue, THash>::Iterator::operator++() {
+    _current_node = _current_node.value()->next;
+
+    if (!_current_node.has_value()) {
+        _bucket_index++;
+        auto current = _table[_bucket_index].head;
+        while (current == nullptr) {
+            _bucket_index++;
+            if (_bucket_index == _bucket_count) {
+                break;
+            }
+            current = _table[_bucket_index].head;
+        }
+        _current_node = current;
+    }
+    return *this;
+}
+
+template <typename TKey, typename TValue, typename THash>
+HashTable<TKey, TValue, THash>::Iterator
+HashTable<TKey, TValue, THash>::Iterator::operator++(int) {
+    auto return_value = Iterator(*this);
+    ++(*this);
+    return return_value;
+}
+
+template <typename TKey, typename TValue, typename THash>
+int HashTable<TKey, TValue, THash>::Iterator::operator-(
+    const HashTable<TKey, TValue, THash>::Iterator& other) const {
+    return _bucket_index - other._bucket_index;
+}
+
+template <typename TKey, typename TValue, typename THash>
+bool HashTable<TKey, TValue, THash>::Iterator::operator==(
+    const HashTable<TKey, TValue, THash>::Iterator& other) const {
+    if (_bucket_index == _bucket_count && other._bucket_count == 0) {
+        return true;
+    }
+
+    if (!_current_node.has_value() || !other._current_node.has_value()) {
+        return false;
+    }
+
+    return _current_node.value()->pair.key ==
+           other._current_node.value()->pair.key;
+}
+
+template <typename TKey, typename TValue, typename THash>
+bool HashTable<TKey, TValue, THash>::Iterator::operator!=(
+    const HashTable<TKey, TValue, THash>::Iterator& other) const {
+    return !(*this == other);
+}
+
+template <typename TKey, typename TValue, typename THash>
+HashTable<TKey, TValue, THash>::Iterator
+HashTable<TKey, TValue, THash>::begin() {
+    return Iterator(_table, _bucket_count);
+}
+
+template <typename TKey, typename TValue, typename THash>
+HashTable<TKey, TValue, THash>::Iterator HashTable<TKey, TValue, THash>::end() {
+    return Iterator();
+}
 
 template <typename TKey, typename TValue, typename THash>
 std::optional<TValue> HashTable<TKey, TValue, THash>::Bucket::get(TKey key) {
@@ -111,7 +216,7 @@ std::optional<TValue> HashTable<TKey, TValue, THash>::Bucket::get(TKey key) {
     while (current.has_value()) {
         auto locked_current = current.value().lock();
         if (locked_current->pair.key == key) {
-            return (locked_current->pair.key);
+            return (locked_current->pair.value);
         }
         current = locked_current->next;
     }
@@ -195,17 +300,23 @@ size_t HashTable<TKey, TValue, THash>::calculate_hash(TKey key) {
 
 template <typename TKey, typename TValue, typename THash>
 void HashTable<TKey, TValue, THash>::expand() {
+    std::cout << "expand" << std::endl;
     size_t new_bucket_count = _bucket_count * 2;
     auto new_table = std::make_unique<Bucket[]>(new_bucket_count);
     for (int b_i = 0; b_i < _bucket_count; b_i++) {
-        auto node_opt = _table[b_i]->head;
+        auto node = _table[b_i].head;
+        if (node == nullptr) {
+            continue;
+        }
+
+        auto node_opt = std::optional(node);
         while (node_opt.has_value()) {
-            auto node = node_opt.value();
-            rehash(node.pair, new_table, new_bucket_count);
+            rehash(node_opt.value()->pair, new_table, new_bucket_count);
+            node_opt = node_opt.value()->next;
         }
     }
 
-    _table.reset(new_table);
+    _table.swap(new_table);
     _bucket_count = new_bucket_count;
 }
 
@@ -214,7 +325,7 @@ void HashTable<TKey, TValue, THash>::rehash(Pair pair,
                                             std::unique_ptr<Bucket[]>& table,
                                             size_t count) {
     size_t hash = THash{}(pair.key) % count;
-    table[hash]->add(pair);
+    table[hash].add(pair);
 }
 
 template <typename TKey, typename TValue, typename THash>
