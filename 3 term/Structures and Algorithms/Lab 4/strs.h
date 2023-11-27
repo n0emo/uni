@@ -29,6 +29,11 @@ std::optional<size_t> substr_index_rk(const std::string& str,
 
 std::vector<size_t> prefix_f(const std::string& s);
 
+std::vector<size_t> substr_index_kmp(const std::string& str,
+                                     const std::string& substr);
+
+std::string lcs(const std::string& a, const std::string& b);
+
 size_t l_distance_naive(std::string a, std::string b);
 
 size_t l_distance(std::string a, std::string b);

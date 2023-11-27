@@ -23,11 +23,19 @@ int main() {
     // std::cout << substr_index_rk("xdxdaaxdaabmwxdadxd", "bmw").value()
     //           << std::endl;
 
-    std::string s = "abcdabcabcdabcdab";
-    auto result = prefix_f(s);
+    // std::string s = "abcdabcabcdabcdab";
+    // auto result = prefix_f(s);
+    // for (auto n : result) {
+    //     std::cout << n << " ";
+    // }
+    // std::cout << std::endl;
+
+    std::string s = "aaaabmwaabmwaaaabmw";
+    auto result = substr_index_kmp(s, "bmw");
     for (auto n : result) {
         std::cout << n << " ";
     }
     std::cout << std::endl;
+
     return 0;
 }

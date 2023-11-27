@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <iostream>
+#include <sstream>
 
 template <typename THash = PolynomialHash>
 size_t str_hash(const std::string& str, size_t start = 0,
@@ -55,12 +56,37 @@ std::vector<size_t> prefix_f(const std::string& s) {
             max_prefix = result[max_prefix - 1];
         }
         if (s[max_prefix] == s[i]) {
-            max_prefix += 1;
+            max_prefix++;
         }
         result[i] = max_prefix;
     }
 
     return result;
+}
+
+std::vector<size_t> substr_index_kmp(const std::string& str,
+                                     const std::string& substr) {
+    auto prefix = prefix_f(str);
+    std::vector<size_t> a;
+    for (size_t i = 0, k = 0; i < str.size(); i++) {
+        while (k > 0 && str[i] != substr[k]) {
+            k = prefix[k - 1];
+        }
+        if (str[i] == substr[k]) {
+            k++;
+        }
+        if (k == substr.size()) {
+            a.emplace_back(i - substr.size() + 1);
+            k = prefix[k];
+        }
+    }
+    return a;
+}
+
+std::string lcs(const std::string& a, const std::string& b) {
+    std::stringstream ss;
+
+    return ss.str();
 }
 
 size_t l_distance_naive(std::string a, std::string b) {
