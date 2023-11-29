@@ -36,6 +36,6 @@ std::string lcs(const std::string& a, const std::string& b);
 
 size_t l_distance_naive(std::string a, std::string b);
 
-size_t l_distance(std::string a, std::string b);
+size_t l_distance(const std::wstring& a, const std::wstring& b);
 
 #endif  // STRS_H

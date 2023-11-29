@@ -85,7 +85,30 @@ std::vector<size_t> substr_index_kmp(const std::string& str,
 
 std::string lcs(const std::string& a, const std::string& b) {
     std::stringstream ss;
+    auto steps = new size_t[a.size() * b.size()];
+    size_t z = 0;
+    for (size_t i = 0; i < a.size(); i++) {
+        for (size_t j = 0; j < b.size(); j++) {
+            if (a[i] == b[j]) {
+                if (i == 0 || j == 0) {
+                    steps[i + j * a.size()] = 1;
+                } else {
+                    steps[i + j * a.size()] =
+                        steps[i - 1 + (j - 1) * a.size()] + 1;
+                }
+                if (steps[i + j * a.size()] > z) {
+                    z = steps[i + j * a.size()];
+                    ss = std::stringstream(a.substr(i - z + 1, z));
+                } else if (steps[i + j * a.size()] == z) {
+                    ss << a.substr(i - z + 1, z);
+                }
+            } else {
+                steps[i + j * a.size()] = 0;
+            }
+        }
+    }
 
+    delete[] steps;
     return ss.str();
 }
 
@@ -103,7 +126,7 @@ size_t l_distance_naive(std::string a, std::string b) {
     }
 }
 
-size_t l_distance(std::string a, std::string b) {
+size_t l_distance(const std::wstring& a, const std::wstring& b) {
     auto v0 = new size_t[b.size() + 1];
     auto v1 = new size_t[b.size() + 1];
 
