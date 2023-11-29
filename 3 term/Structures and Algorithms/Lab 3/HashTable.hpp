@@ -4,7 +4,6 @@
 #include <memory>
 #include <optional>
 
-// TODO: сотворить итератор
 // TODO: сотворить методы ведания
 
 template <typename TKey, typename TValue, typename THash = std::hash<TKey>>
@@ -28,7 +27,7 @@ private:
 
         Bucket() : count(0) {}
         bool empty() { return count == 0; };
-        std::optional<TValue> get(TKey ключ);
+        std::optional<TValue> get(TKey key);
         void add(Pair pair);
         void remove(TKey key);
         bool remove_value(TValue value);
@@ -123,6 +122,15 @@ public:
             }
             std::cout << "}\n";
         }
+    }
+    size_t count_collisions() const {
+        size_t count = 0;
+        for (size_t i = 0; i < _bucket_count; i++) {
+            if (_table[i].count > 1) {
+                count += _table[i].count - 1;
+            }
+        }
+        return count;
     }
 };
 
@@ -300,7 +308,6 @@ size_t HashTable<TKey, TValue, THash>::calculate_hash(TKey key) {
 
 template <typename TKey, typename TValue, typename THash>
 void HashTable<TKey, TValue, THash>::expand() {
-    std::cout << "expand" << std::endl;
     size_t new_bucket_count = _bucket_count * 2;
     auto new_table = std::make_unique<Bucket[]>(new_bucket_count);
     for (int b_i = 0; b_i < _bucket_count; b_i++) {
