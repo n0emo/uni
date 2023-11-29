@@ -30,12 +30,22 @@ int main() {
     // }
     // std::cout << std::endl;
 
-    std::string s = "aaaabmwaabmwaaaabmw";
-    auto result = substr_index_kmp(s, "bmw");
-    for (auto n : result) {
-        std::cout << n << " ";
-    }
-    std::cout << std::endl;
+    // std::string s = "aaaabmwaabmwaaaabmw";
+    // auto result = substr_index_kmp(s, "bmw");
+    // for (auto n : result) {
+    //     std::cout << n << " ";
+    // }
+    // std::cout << std::endl;
+
+    // std::string a = "abcdef";
+    // std::string b = "oobcdx";
+    // std::cout << lcs(a, b) << std::endl;
+    // std::cout << lcs(a, b).size() << std::endl;
+    std::wstring a = L"гипнотизёр";
+    std::wstring b = L"гипноз";
+
+    std::cout << l_distance(a, b) << std::endl;
+    // std::cout << l_distance_naive(a, b) << std::endl;
 
     return 0;
 }

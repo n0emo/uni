@@ -9,3 +9,6 @@ $(name): $(sources)
 .PHONY: run
 run: $(name)
 	./$(name)
+
+clean:
+	rm $(name) *.o *~
