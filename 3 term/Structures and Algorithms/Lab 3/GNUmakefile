@@ -1,4 +1,4 @@
-cxxflags = -g -std=gnu++20
+cxxflags = -g -std=gnu++20 -O3
 cc = gcc
 cxx = g++
 fortran = gfortran
@@ -33,5 +33,5 @@ prog.o: prog.cpp
 
 .PHONY: clean
 clean:
-	rm *.o prog cmain plot -f
+	rm *.o *.png prog cmain plot -f
 
