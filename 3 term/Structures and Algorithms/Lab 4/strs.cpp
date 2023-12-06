@@ -5,8 +5,39 @@
 #include <iostream>
 #include <sstream>
 
+PolynomialHash::Powers::Powers() {
+    _vec[0] = 1;
+    for (size_t i = 1; i < INITIAL_SIZE; i++) {
+        _vec[i] = _vec[i - 1] * PRIME;
+    }
+}
+
+size_t PolynomialHash::Powers::operator[](size_t index) {
+    if (index >= _size) {
+        expand();
+    }
+    return _vec[index];
+}
+
+void PolynomialHash::Powers::expand() {
+    size_t new_size = _size * 2;
+    _vec.resize(new_size);
+    for (size_t i = 0; i < new_size - _size; i++) {
+        _vec[_size + i] = _vec[_size + i - 1] * PRIME;
+    }
+    _size = new_size;
+}
+
+size_t PolynomialHash::operator()(const std::wstring& s) const {
+    size_t hash = 0;
+    for (size_t i = 0; i < s.size(); i++) {
+        hash = (hash + s[i]) * powers[i];
+    }
+    return hash;
+}
+
 template <typename THash = PolynomialHash>
-size_t str_hash(const std::string& str, size_t start = 0,
+size_t str_hash(const std::wstring& str, size_t start = 0,
                 size_t count = SIZE_MAX) {
     if (count == SIZE_MAX) {
         count = str.size();
@@ -20,11 +51,11 @@ T min3(T v1, T v2, T v3) {
     return std::min(v1, std::min(v2, v3));
 }
 
-std::string tail(std::string x) { return x.substr(0, x.size() - 1); }
+std::wstring tail(std::wstring x) { return x.substr(0, x.size() - 1); }
 
 template <typename THash>
-std::optional<size_t> substr_index_rk(const std::string& str,
-                                      const std::string& substr) {
+std::optional<size_t> substr_index_rk(const std::wstring& str,
+                                      const std::wstring& substr) {
     size_t substr_size = substr.size();
     size_t str_size = str.size();
     if (substr_size > str_size) {
@@ -32,13 +63,10 @@ std::optional<size_t> substr_index_rk(const std::string& str,
     }
 
     size_t substr_hash = str_hash<THash>(substr);
-    std::cout << substr_hash << std::endl;
 
     for (size_t i = 0; i < str_size - substr_size; i++) {
         size_t hash = str_hash<THash>(str, i, substr_size);
-        std::cout << hash << " ";
         if (hash == substr_hash && str.substr(i, substr_size) == substr) {
-            std::cout << std::endl;
             return std::optional(i);
         }
     }
@@ -46,7 +74,7 @@ std::optional<size_t> substr_index_rk(const std::string& str,
     return std::nullopt;
 }
 
-std::vector<size_t> prefix_f(const std::string& s) {
+std::vector<size_t> prefix_f(const std::wstring& s) {
     size_t size = s.size();
     std::vector<size_t> result(size);
 
@@ -64,8 +92,8 @@ std::vector<size_t> prefix_f(const std::string& s) {
     return result;
 }
 
-std::vector<size_t> substr_index_kmp(const std::string& str,
-                                     const std::string& substr) {
+std::vector<size_t> substr_index_kmp(const std::wstring& str,
+                                     const std::wstring& substr) {
     auto prefix = prefix_f(str);
     std::vector<size_t> a;
     for (size_t i = 0, k = 0; i < str.size(); i++) {
@@ -83,8 +111,8 @@ std::vector<size_t> substr_index_kmp(const std::string& str,
     return a;
 }
 
-std::string lcs(const std::string& a, const std::string& b) {
-    std::stringstream ss;
+std::wstring lcs(const std::wstring& a, const std::wstring& b) {
+    std::wstringstream ss;
     auto steps = new size_t[a.size() * b.size()];
     size_t z = 0;
     for (size_t i = 0; i < a.size(); i++) {
@@ -98,7 +126,7 @@ std::string lcs(const std::string& a, const std::string& b) {
                 }
                 if (steps[i + j * a.size()] > z) {
                     z = steps[i + j * a.size()];
-                    ss = std::stringstream(a.substr(i - z + 1, z));
+                    ss = std::wstringstream(a.substr(i - z + 1, z));
                 } else if (steps[i + j * a.size()] == z) {
                     ss << a.substr(i - z + 1, z);
                 }
@@ -112,7 +140,7 @@ std::string lcs(const std::string& a, const std::string& b) {
     return ss.str();
 }
 
-size_t l_distance_naive(std::string a, std::string b) {
+size_t l_distance_naive(std::wstring a, std::wstring b) {
     if (a.size() == 0) {
         return b.size();
     } else if (b.size() == 0) {
@@ -151,7 +179,7 @@ size_t l_distance(const std::wstring& a, const std::wstring& b) {
 }
 
 template std::optional<size_t> substr_index_rk<PolynomialHash>(
-    const std::string& str, const std::string& substr);
+    const std::wstring& str, const std::wstring& substr);
 
-template std::optional<size_t> substr_index_rk<std::hash<std::string>>(
-    const std::string& str, const std::string& substr);
+template std::optional<size_t> substr_index_rk<std::hash<std::wstring>>(
+    const std::wstring& str, const std::wstring& substr);
