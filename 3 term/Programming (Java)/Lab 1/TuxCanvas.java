@@ -1,5 +1,6 @@
 import java.awt.*;
 
+// Класс, отвечающий за отрисовку изображения
 public class TuxCanvas extends Canvas {
     Image _image;
 
@@ -12,7 +13,6 @@ public class TuxCanvas extends Canvas {
     public TuxCanvas(boolean printAuthor, boolean drawReference) {
         _printAuthor = printAuthor;
         _drawReference = drawReference;
-
     }
 
     @Override
@@ -29,7 +29,6 @@ public class TuxCanvas extends Canvas {
         if (_printAuthor) {
             drawAuthor(graphics);
         }
-
     }
 
     private void fillBackground(Graphics2D graphics) {
@@ -48,8 +47,7 @@ public class TuxCanvas extends Canvas {
         if (_image == null) {
             _image = getToolkit()
                     .getImage(getClass().getResource("assets/tux.jpg"))
-                    .getScaledInstance(getWidth(), getHeight(),
-                            Image.SCALE_DEFAULT);
+                    .getScaledInstance(getWidth(), getHeight(), Image.SCALE_DEFAULT);
         }
         graphics.drawImage(_image, 0, 0, this);
     }
@@ -66,11 +64,15 @@ public class TuxCanvas extends Canvas {
 
     private void drawArms(Graphics2D graphics) {
         graphics.setColor(Color.BLACK);
-        fillPolygonRel(graphics, new int[] { 240, 90, 240 }, new int[] { 505, 505, 400 }, 3);
-        fillPolygonRel(graphics, new int[] { 1000 - 240, 1000 - 120, 1000 - 240 }, new int[] { 490, 490, 400 }, 3);
+        fillPolygonRel(graphics, new int[] { 240, 90, 240 },
+                new int[] { 505, 505, 400 }, 3);
+        fillPolygonRel(graphics, new int[] { 1000 - 240, 1000 - 120, 1000 - 240 },
+                new int[] { 490, 490, 400 }, 3);
         graphics.setColor(Color.DARK_GRAY);
-        fillPolygonRel(graphics, new int[] { 240, 125, 240 }, new int[] { 495, 495, 420 }, 3);
-        fillPolygonRel(graphics, new int[] { 1000 - 240, 1000 - 150, 1000 - 240 }, new int[] { 480, 480, 410 }, 3);
+        fillPolygonRel(graphics, new int[] { 240, 125, 240 },
+                new int[] { 495, 495, 420 }, 3);
+        fillPolygonRel(graphics, new int[] { 1000 - 240, 1000 - 150, 1000 - 240 },
+                new int[] { 480, 480, 410 }, 3);
     }
 
     private void drawBody(Graphics2D graphics) {
@@ -101,7 +103,6 @@ public class TuxCanvas extends Canvas {
 
         fillOvalRel(graphics, 465, 300, 40, 40);
         fillOvalRel(graphics, 505, 320, 25, 30);
-
     }
 
     private void drawStomach(Graphics2D graphics) {
@@ -123,7 +124,8 @@ public class TuxCanvas extends Canvas {
 
         graphics.setColor(new Color(180, 180, 180));
         fillArcRel(graphics, bodyX, bodyY, bodyWidth, bodyHeight, 220, 100);
-        fillArcRel(graphics, highArcX + 1, highArcY - 1, highArcWidth, highArcHeight, 0, 180);
+        fillArcRel(graphics, highArcX + 1, highArcY - 1, highArcWidth,
+                highArcHeight, 0, 180);
         graphics.setColor(new Color(230, 230, 230));
         fillOvalRel(graphics, stomachX, stomachY, stomachWidth, stomachHeight);
     }
@@ -151,15 +153,23 @@ public class TuxCanvas extends Canvas {
         fillOvalRel(graphics, rightX, y, width, height);
     }
 
-    private void fillOvalRel(Graphics2D graphics, int x, int y, int x_rad, int y_rad) {
-        graphics.fillOval(relativeX(x), relativeY(y), relativeX(x_rad), relativeY(y_rad));
+    // Версия метода Graphics.fillOval с относительными координатами
+    private void fillOvalRel(Graphics2D graphics, int x, int y, int x_rad,
+            int y_rad) {
+        graphics.fillOval(relativeX(x), relativeY(y), relativeX(x_rad),
+                relativeY(y_rad));
     }
 
-    private void fillArcRel(Graphics2D graphics, int x, int y, int x_rad, int y_rad, int startAngle, int angle) {
-        graphics.fillArc(relativeX(x), relativeY(y), relativeX(x_rad), relativeY(y_rad), startAngle, angle);
+    // Версия метода Graphics.fillArc с относительными координатами
+    private void fillArcRel(Graphics2D graphics, int x, int y, int x_rad,
+            int y_rad, int startAngle, int angle) {
+        graphics.fillArc(relativeX(x), relativeY(y), relativeX(x_rad),
+                relativeY(y_rad), startAngle, angle);
     }
 
-    private void fillPolygonRel(Graphics2D graphics, int[] xs, int[] ys, int points) {
+    // Версия метода Graphics.fillPolygon с относительными координатами
+    private void fillPolygonRel(Graphics2D graphics, int[] xs, int[] ys,
+            int points) {
         int[] newXs = new int[xs.length];
         int[] newYs = new int[ys.length];
 
@@ -174,6 +184,9 @@ public class TuxCanvas extends Canvas {
         graphics.fillPolygon(newXs, newYs, points);
     }
 
+    // Размер виртуального холста - 1000х1000.
+    // Эти методы умножают координату на отношение
+    // реального размера окна и 1000.
     private int relativeX(int x) {
         return (int) ((double) _windowSize.width / 1000.0 * (double) x);
     }
