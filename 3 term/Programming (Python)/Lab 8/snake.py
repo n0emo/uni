@@ -1,4 +1,7 @@
 # pyright: reportGeneralTypeIssues=false
+
+# 20. Напишите программу-игру «Змейка».
+
 import enum
 import random
 import sys
@@ -36,6 +39,7 @@ class Point:
 
     def __eq__(self, other: "Point") -> bool:
         return self.x == other.x and self.y == other.y
+
 
 class Snake:
     segments: List[Point]
@@ -196,7 +200,6 @@ class MainWindow(QMainWindow):
 
     def run(self):
         self.timer.start(100)
-        pass
 
     @Slot()
     def update(self):
