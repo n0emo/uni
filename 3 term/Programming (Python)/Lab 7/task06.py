@@ -1,3 +1,6 @@
+# 6. Напишите программу, реализующую задачу про обедающих философов на основе
+# процессов.
+
 from threading import Lock, Thread, Semaphore
 import time
 

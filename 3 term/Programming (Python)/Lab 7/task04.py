@@ -1,8 +1,13 @@
+# 4. Напишите программу, осуществляющую перемножение двух матриц с
+# использованием потоков и процессов. Каждая строка новой матрицы должна
+# высчитываться в отдельном потоке (процессе).
+
 from collections import namedtuple
 from multiprocessing import Process, Queue
-
 import array
 from typing import List
+
+
 Result = namedtuple("Result", "thread row")
 
 
@@ -40,15 +45,16 @@ def mat_mul(a, b):
     results.sort(key=lambda r : r.row)
     return list(map(lambda r: r.row, results))
 
-mat_a = [
-    array.array("d", [1, 2]),
-    array.array("d", [3, 4]),
-    array.array("d", [5, 6]),
-]
+if __name__ == "__main__":
+    mat_a = [
+        array.array("d", [1, 2]),
+        array.array("d", [3, 4]),
+        array.array("d", [5, 6]),
+    ]
 
-mat_b = [
-    array.array("d", [7, 8, 9]),
-    array.array("d", [10, 11, 12]),
-]
+    mat_b = [
+        array.array("d", [7, 8, 9]),
+        array.array("d", [10, 11, 12]),
+    ]
 
-print(mat_mul(mat_a, mat_b))
+    print(mat_mul(mat_a, mat_b))
