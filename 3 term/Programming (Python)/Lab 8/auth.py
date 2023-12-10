@@ -1,12 +1,27 @@
 # pyright: reportGeneralTypeIssues=false
 
+# 10. Напишите программу, позволяющую заходить в ее основное окно только
+# авторизированным пользователям, с возможностью регистрации нового
+# пользователя. Хеш связки «логин:пароль» пользователей хранится в отдельном
+# файле.
+
 import sys
 import json
 import os
 import hashlib
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import QHBoxLayout, QMessageBox, QPushButton, QVBoxLayout, QLabel, QLineEdit, QMainWindow, QWidget, QApplication
+from PySide6.QtWidgets import (
+    QHBoxLayout,
+    QMessageBox,
+    QPushButton, 
+    QVBoxLayout, 
+    QLabel,
+    QLineEdit, 
+    QMainWindow, 
+    QWidget, 
+    QApplication
+)
 
 PASS_FILE = "passwords.json"
 
@@ -46,17 +61,17 @@ def check_login(login: str):
 
     return login in passwords
 
+
 class AuthWidget(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        vbox = QVBoxLayout()
-
         primary_font = QFont("Times", 32, QFont.Bold) 
+        secondary_font = QFont("Times", 20)
+
         self.auth_label = QLabel("Авторизация")
         self.auth_label.setFont(primary_font)
 
-        secondary_font = QFont("Times", 20)
         self.login_label = QLabel("Логин:")
         self.login_label.setFont(secondary_font)
         self.login_edit = QLineEdit()
@@ -65,35 +80,30 @@ class AuthWidget(QWidget):
         self.pass_label.setFont(secondary_font)
         self.pass_edit = QLineEdit()
 
-        buttons_layout = QHBoxLayout()
         self.enter_button = QPushButton("Войти")
         self.enter_button.setFont(secondary_font)
 
         self.reg_button = QPushButton("Зарегистрироваться")
         self.reg_button.setFont(secondary_font)
 
+        buttons_layout = QHBoxLayout()
         buttons_layout.addWidget(self.enter_button)
         buttons_layout.addWidget(self.reg_button)
 
+        vbox = QVBoxLayout()
         vbox.addWidget(self.auth_label)
         vbox.addStretch(1)
-
         vbox.addWidget(self.login_label)
         vbox.addWidget(self.login_edit)
         vbox.addStretch(1)
-
         vbox.addWidget(self.pass_label)
         vbox.addWidget(self.pass_edit)
         vbox.addStretch(1)
-
         vbox.addLayout(buttons_layout)
-
         vbox.addSpacing(30)
-
         vbox.setAlignment(Qt.AlignJustify) 
 
         hbox = QHBoxLayout()
-
         hbox.addSpacing(30)
         hbox.addLayout(vbox)
         hbox.addSpacing(30)
@@ -106,7 +116,6 @@ class RegWidget(QWidget):
 
         primary_font = QFont("Times", 32, QFont.Bold)
         secondary_font = QFont("Times", 20)
-
 
         self.reg_label = QLabel("Регистрация")
         self.reg_label.setFont(primary_font)
@@ -135,30 +144,22 @@ class RegWidget(QWidget):
         top_hbox.addWidget(self.reg_label)
 
         vbox = QVBoxLayout()
-
         vbox.addLayout(top_hbox)
         vbox.addStretch(1)
-
         vbox.addWidget(self.login_label)
         vbox.addWidget(self.login_edit)
         vbox.addStretch(1)
-
         vbox.addWidget(self.pass_label)
         vbox.addWidget(self.pass_edit)
         vbox.addStretch(1)
-
         vbox.addWidget(self.confirm_label)
         vbox.addWidget(self.confirm_edit)
         vbox.addStretch(1)
-
         vbox.addWidget(self.reg_button)
-
         vbox.addSpacing(30)
-
         vbox.setAlignment(Qt.AlignJustify)
 
         hbox = QHBoxLayout()
-
         hbox.addSpacing(30)
         hbox.addLayout(vbox)
         hbox.addSpacing(30)
@@ -174,30 +175,30 @@ class KazakhstanWidget(QWidget):
 
         self.Kazakhstan_label = QLabel("Добро пожаловать в Казахстан!")
         self.hymn_label = QLabel("""
-            Жаралған намыстан қаһарман халықпыз,
-            Азаттық жолында жалындап жаныппыз.
-            Тағдырдың тезінен, тозақтың өзінен
-            Аман-сау қалыппыз, аман-сау қалыппыз.
+Жаралған намыстан қаһарман халықпыз,
+Азаттық жолында жалындап жаныппыз.
+Тағдырдың тезінен, тозақтың өзінен
+Аман-сау қалыппыз, аман-сау қалыппыз.
 
-            Қайырмасы:
-            Еркіндік қыраны шарықта,
-            Елдікке шақырып тірлікте!
-            Алыптың қуаты – халықта,
-            Халықтың қуаты – бірлікте!
+Қайырмасы:
+Еркіндік қыраны шарықта,
+Елдікке шақырып тірлікте!
+Алыптың қуаты – халықта,
+Халықтың қуаты – бірлікте!
 
-            Ардақтап анасын, құрметтеп данасын,
-            Бауырға басқанбыз баршаның баласын.
-            Татулық, достықтың киелі бесігі
-            Мейірбан Ұлы Отан, қазақтың даласы!
+Ардақтап анасын, құрметтеп данасын,
+Бауырға басқанбыз баршаның баласын.
+Татулық, достықтың киелі бесігі
+Мейірбан Ұлы Отан, қазақтың даласы!
 
-            Қайырмасы
+Қайырмасы
 
-            Талайды өткердік, өткенге салауат,
-            Тәуліктік сәулетті, келешек ғаламат!
-            Ар-ождан, ана тіл, өнеге-салтымыз,
-            Ерлік те, елдік те ұрпаққа аманат!
+Талайды өткердік, өткенге салауат,
+Тәуліктік сәулетті, келешек ғаламат!
+Ар-ождан, ана тіл, өнеге-салтымыз,
+Ерлік те, елдік те ұрпаққа аманат!
 
-            Қайырмасы[3]
+Қайырмасы[3]
         """)
 
         self.Kazakhstan_label.setFont(primary_font)
