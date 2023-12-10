@@ -1,3 +1,4 @@
+# pyright: reportGeneralTypeIssues=false
 # 1. Напишите программу, которая осуществляет чтение данных из файла посредством
 # одного потока и запись этих данных в другом потоке в файл. Названия файлов
 # должны отличаться.
@@ -49,15 +50,16 @@ class OutputProcess(Process):
         print("Done writing")
 
 
-input_path = "task02-input.txt"
-output_path = "task02-output.txt"
+if __name__ == "__main__":
+    input_path = "task02-input.txt"
+    output_path = "task02-output.txt"
 
-event = Event()
-event.clear()
-queue = Queue()
+    event = Event()
+    event.clear()
+    queue = Queue()
 
-input_process = InputProcess(input_path, event, queue)
-output_process = OutputProcess(output_path, event, queue)
+    input_process = InputProcess(input_path, event, queue)
+    output_process = OutputProcess(output_path, event, queue)
 
-input_process.start()
-output_process.start()
+    input_process.start()
+    output_process.start()

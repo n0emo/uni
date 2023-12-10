@@ -50,15 +50,16 @@ class OutputThread(Thread):
         print("Done writing")
 
 
-input_path = "task01-input.txt"
-output_path = "task01-output.txt"
+if __name__ == "__main__":
+    input_path = "task01-input.txt"
+    output_path = "task01-output.txt"
 
-event = Event()
-event.clear()
-queue = Queue()
+    event = Event()
+    event.clear()
+    queue = Queue()
 
-input_thread = InputThread(input_path, event, queue)
-output_thread = OutputThread(output_path, event, queue)
+    input_thread = InputThread(input_path, event, queue)
+    output_thread = OutputThread(output_path, event, queue)
 
-input_thread.start()
-output_thread.start()
+    input_thread.start()
+    output_thread.start()
