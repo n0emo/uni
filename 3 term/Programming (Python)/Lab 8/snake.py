@@ -18,11 +18,13 @@ from PySide6.QtGui import (
     QPixmap,
 )
 
+
 class Direction(enum.IntEnum):
     UP = 0,
     DOWN = 1,
     LEFT = 2,
     RIGHT = 3
+
 
 class Point:
     x: int
@@ -63,6 +65,7 @@ class Snake:
             case Direction.RIGHT:
                 new_head.x += 1
         self.segments.insert(0, new_head)
+
 
 class Game:
     snake: Snake
@@ -111,8 +114,6 @@ class Game:
         if direction == Direction.RIGHT and self.snake.direction != Direction.LEFT:
             self.snake_direction = direction
 
-       
-
     def spawn_apple(self):
         while True:
             self.apple = Point(
@@ -122,6 +123,7 @@ class Game:
             if self.apple not in self.snake.segments: 
                 break
             
+
 class SnakePaint(QWidget):
     def __init__(self, width: int, height: int, segment_width: int) -> None:
         super().__init__()
@@ -167,7 +169,6 @@ class SnakePaint(QWidget):
 
         self.repaint()
 
-                    
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -212,7 +213,6 @@ class MainWindow(QMainWindow):
                 self.game.change_direction(Direction.LEFT)
             case Qt.Key_Right:
                 self.game.change_direction(Direction.RIGHT)
-
 
 
 if __name__ == "__main__":
