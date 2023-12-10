@@ -1,9 +1,14 @@
+# 7. Напишите программу, в которой 10 списков заполняются случайными значениями,
+# после чего для каждого из списка в отдельном потоке (процессе) находится
+# медиана.
+
 from collections import namedtuple
 from multiprocessing import Process, Queue
 from statistics import median
 from random import randint
 
 Result = namedtuple("Result", "median list")
+
 
 def proc_median(queue, lst):
     result = Result(median(lst), lst)
