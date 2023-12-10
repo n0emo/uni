@@ -14,14 +14,12 @@ PASS_FILE = "passwords.json"
 def pass_hash(login: str, pass_: str) -> str:
     return hashlib.sha256((pass_ + login).encode()).hexdigest()
 
-
 def create_pass_file_if_dont_exists():
     if os.path.exists(PASS_FILE):
         return
     
     with open(PASS_FILE, 'w') as file:
         file.write("{}")
-
 
 def add_pass(login: str, pass_: str) -> None:
     create_pass_file_if_dont_exists()
@@ -42,13 +40,11 @@ def check_pass(login: str, pass_: str) -> bool:
     
     return login in passwords and passwords[login] == hash_
 
-
 def check_login(login: str):
     with open(PASS_FILE, 'r') as file:
         passwords = json.load(file)
 
     return login in passwords
-
 
 class AuthWidget(QWidget):
     def __init__(self) -> None:
@@ -111,8 +107,6 @@ class RegWidget(QWidget):
         primary_font = QFont("Times", 32, QFont.Bold)
         secondary_font = QFont("Times", 20)
 
-        
-        top_hbox = QHBoxLayout()
 
         self.reg_label = QLabel("Регистрация")
         self.reg_label.setFont(primary_font)
@@ -136,6 +130,7 @@ class RegWidget(QWidget):
         self.reg_button = QPushButton("Зарегистрироваться")
         self.reg_button.setFont(secondary_font)
 
+        top_hbox = QHBoxLayout()
         top_hbox.addWidget(self.back_button)
         top_hbox.addWidget(self.reg_label)
 
@@ -209,11 +204,13 @@ class KazakhstanWidget(QWidget):
         self.hymn_label.setFont(secondary_font)
 
         self.hymn_label.setAlignment(Qt.AlignHCenter)
+        self.Kazakhstan_label.setAlignment(Qt.AlignHCenter)
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.Kazakhstan_label)
         vbox.addWidget(self.hymn_label)
         self.setLayout(vbox)
+
 
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
@@ -288,7 +285,6 @@ class MainWindow(QMainWindow):
             QMessageBox.Ok 
         )
         self.switch_to_auth()
-
 
     def warning(self, text: str):
         QMessageBox().warning(
