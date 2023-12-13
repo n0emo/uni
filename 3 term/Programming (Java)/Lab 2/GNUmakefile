@@ -2,26 +2,43 @@ javabin = /usr/lib/jvm/java-1.8.0-openjdk/bin
 java = $(javabin)/java
 javac = $(javabin)/javac
 jar = $(javabin)/jar
+
+class_files = WordLists.class\
+			  SettingsMenu.class\
+			  PhraseGenWindowAdapter.class\
+			  PhraseGenFrame.class\
+			  PhraseGen.class\
+
 args = 
 
-
-Tux.jar: *.class
+PhraseGen.jar: $(class_files)
 	@echo "Compiling jar file"
-	$(jar) -cfvm Tux.jar Tux.mft *.class assets/tux.jpg
+	$(jar) -cfvm PhraseGen.jar PhraseGen.mft *.class
 
-.PHONY: Tux.jar-no-mft
-Tux.jar-no-mft: Tux.class
-	@echo "Compiling jar file"
-	$(jar) -cfve Tux.jar Tux Tux.class TuxCanvas.class assets/*
+WordLists.class: WordLists.java
+	$(javac) WordLists.java
 
-*.class: *.java
-	@echo "Compiling java files"
-	$(javac) *.java
+SettingsMenu.class: SettingsMenu.java
+	$(javac) SettingsMenu.java
+
+PhraseGenWindowAdapter.class: PhraseGenWindowAdapter.java
+	$(javac) PhraseGenWindowAdapter.java
+
+PhraseGenFrame.class: PhraseGenFrame.java
+	$(javac) PhraseGenFrame.java
+
+PhraseGen.class: PhraseGen.java
+	$(javac) PhraseGen.java
+
+# .PHONY: Tux.jar-no-mft
+# Gui.jar-no-mft: Gui.class
+# 	@echo "Compiling jar file"
+# 	$(jar) -cfve Tux.jar Tux Tux.class TuxCanvas.class assets/*
 
 .PHONY: run
-run: Tux.jar
-	@echo "Running Tux with $(args):"
-	@$(java) -jar Tux.jar $(args)
+run: PhraseGen.jar
+	@echo "Running PhraseGen with $(args):"
+	@$(java) -jar PhraseGen.jar $(args)
 
 .PHONY: clean
 clean:
