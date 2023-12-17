@@ -2,20 +2,17 @@
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import (
-    QHBoxLayout,
-    QPushButton, 
-    QVBoxLayout, 
-    QLabel,
-    QLineEdit, 
-    QWidget, 
-)
+from PySide6.QtWidgets import (QHBoxLayout, QLabel, QLineEdit, QPushButton,
+                               QVBoxLayout, QWidget)
+
+FONT_FAMILY = "Noto Sans"
+
 class AuthWidget(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        primary_font = QFont("Times", 32, QFont.Bold) 
-        secondary_font = QFont("Times", 20)
+        primary_font = QFont(FONT_FAMILY, 32, QFont.Bold) 
+        secondary_font = QFont(FONT_FAMILY, 20)
 
         self.auth_label = QLabel("Авторизация")
         self.auth_label.setFont(primary_font)
@@ -62,8 +59,8 @@ class RegWidget(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        primary_font = QFont("Times", 32, QFont.Bold)
-        secondary_font = QFont("Times", 20)
+        primary_font = QFont(FONT_FAMILY, 32, QFont.Bold)
+        secondary_font = QFont(FONT_FAMILY, 20)
 
         self.reg_label = QLabel("Регистрация")
         self.reg_label.setFont(primary_font)
@@ -113,4 +110,3 @@ class RegWidget(QWidget):
         hbox.addSpacing(30)
         self.setLayout(hbox)
         
-

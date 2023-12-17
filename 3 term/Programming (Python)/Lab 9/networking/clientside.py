@@ -1,21 +1,11 @@
-from collections.abc import Callable
-import json
-from threading import Lock, Thread
-from time import sleep
 from socket import socket
 from typing import List
-from networking.common import (
-    recv_json,
-    recv_obj,
-    recv_response,
-    send_request,
-    send_text,
-    recv_text,
-)
 
-from models.status import StatusCode
-from models.requests import Close, GetNewMessages, MessageSend, Registration, Request, Authentication
 from models.message import Message
+from models.requests import (Authentication, Close, GetNewMessages,
+                             MessageSend, Registration)
+from models.status import StatusCode
+from networking.common import recv_response, recv_text, send_request
 
 
 def authorize(sock: socket, login: str, password: str) -> StatusCode | None:
