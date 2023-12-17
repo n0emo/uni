@@ -1,18 +1,13 @@
 import socket
-from PySide6.QtCore import Slot
-from PySide6.QtWidgets import (
-    QMessageBox,
-    QMainWindow, 
-)
 
 from app.auth import AuthWidget, RegWidget
 from app.chat import ChatWidget
-from app.messagebox import warning, info
-
+from app.messagebox import info, warning
 from models.status import StatusCode
-
 from networking.clientside import authorize, register
 from networking.common import ADDRESS
+from PySide6.QtCore import Slot
+from PySide6.QtWidgets import QMainWindow
 
 
 class ClientWindow(QMainWindow):
@@ -24,6 +19,7 @@ class ClientWindow(QMainWindow):
         self.sock = sock;
 
         self.setGeometry(0, 0, 300, 450)
+        self.setWindowTitle("Chat")
         self.switch_to_auth()
     
     @Slot()
@@ -61,6 +57,7 @@ class ClientWindow(QMainWindow):
         result = authorize(self.sock, login, password)
         if result == StatusCode.OK:
             print("Successfully logged in.")
+            self.setWindowTitle("Chat - " + login)
             self.switch_to_chat()
         else:
             warning(self, "Неправильный логин или пароль! Попробуйте снова...")

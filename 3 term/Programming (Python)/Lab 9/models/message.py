@@ -1,6 +1,7 @@
 import datetime
 import json
 
+
 class Color:
     def __init__(self, r: int, g: int, b: int):
         if not (0 <= r <= 255) or \
@@ -70,4 +71,3 @@ class Message(dict):
         for c in self["user"]:
             h = ((h * 7919) ^ (ord(c) * 7907)) * 7901
         return h % 2**32
-

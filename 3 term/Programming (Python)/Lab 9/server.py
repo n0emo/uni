@@ -1,9 +1,8 @@
 import socket
-from networking.serverside import ClientSocketThread
+
 from networking.common import ADDRESS
+from networking.serverside import ClientSocketThread
 
-
-MESSAGES_FILE = "messages.pkl"
 if __name__ == "__main__":
     clients = {}
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

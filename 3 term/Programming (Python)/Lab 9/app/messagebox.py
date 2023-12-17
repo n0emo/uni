@@ -16,4 +16,3 @@ def info(parent, text: str) -> None:
         QMessageBox.Ok, # type: ignore
         QMessageBox.Ok  # type: ignore
     )
-

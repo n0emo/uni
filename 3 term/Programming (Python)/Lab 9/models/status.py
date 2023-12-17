@@ -1,4 +1,5 @@
-from enum import IntEnum, StrEnum
+from enum import IntEnum
+
 
 class StatusCode(IntEnum):
     OK = 200
