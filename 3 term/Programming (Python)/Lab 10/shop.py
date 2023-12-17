@@ -3,7 +3,7 @@ import platform
 import sys
 from collections import namedtuple
 
-import db
+import shopdb as db
 from tabulate import tabulate
 
 Action = namedtuple("Action", ("desc", "func"))
