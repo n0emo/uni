@@ -1,4 +1,3 @@
-import json
 import enum
 
 
@@ -38,4 +37,3 @@ class GetNewMessages(Request):
 class Close(Request):
     def __init__(self):
         super().__init__(type=RequestType.CLOSE)
-
