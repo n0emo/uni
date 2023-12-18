@@ -3,7 +3,6 @@ import json
 import os
 
 PASS_FILE = "data/passwords.json"
-LOGINS_FILE = "data/logins.json"
 
 logins = []
 passwords = []
@@ -43,3 +42,4 @@ def login_exists(login: str):
         passwords = json.load(file)
 
     return login in passwords
+
