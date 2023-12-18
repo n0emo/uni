@@ -1,7 +1,7 @@
-import enum
+from enum import StrEnum
 
 
-class RequestType(enum.StrEnum):
+class RequestType(StrEnum):
     AUTHENTICATION = "authentication"
     REGISTRATION = "registration"
     MESSAGE_SEND = "message_send"
