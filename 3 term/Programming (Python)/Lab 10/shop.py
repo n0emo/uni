@@ -96,6 +96,8 @@ if __name__ == "__main__":
                 print("Введённый номер был вне границ массива")
             except ValueError:
                 print("Ошибка входного значения")
+            except KeyboardInterrupt:
+                raise KeyboardInterrupt
             except Exception as e:
                 print("Ошибка:", e)
 
