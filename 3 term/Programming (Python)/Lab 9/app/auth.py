@@ -1,5 +1,3 @@
-# pyright: reportGeneralTypeIssues=false
-
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import (QHBoxLayout, QLabel, QLineEdit, QPushButton,
@@ -11,7 +9,7 @@ class AuthWidget(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        primary_font = QFont(FONT_FAMILY, 32, QFont.Bold) 
+        primary_font = QFont(FONT_FAMILY, 32, QFont.Bold) # type: ignore
         secondary_font = QFont(FONT_FAMILY, 20)
 
         self.auth_label = QLabel("Авторизация")
@@ -46,7 +44,7 @@ class AuthWidget(QWidget):
         vbox.addStretch(1)
         vbox.addLayout(buttons_layout)
         vbox.addSpacing(30)
-        vbox.setAlignment(Qt.AlignJustify) 
+        vbox.setAlignment(Qt.AlignJustify) # type: ignore
 
         hbox = QHBoxLayout()
         hbox.addSpacing(30)
@@ -59,7 +57,7 @@ class RegWidget(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        primary_font = QFont(FONT_FAMILY, 32, QFont.Bold)
+        primary_font = QFont(FONT_FAMILY, 32, QFont.Bold) # type: ignore
         secondary_font = QFont(FONT_FAMILY, 20)
 
         self.reg_label = QLabel("Регистрация")
@@ -102,7 +100,7 @@ class RegWidget(QWidget):
         vbox.addStretch(1)
         vbox.addWidget(self.reg_button)
         vbox.addSpacing(30)
-        vbox.setAlignment(Qt.AlignJustify)
+        vbox.setAlignment(Qt.AlignJustify) # type: ignore
 
         hbox = QHBoxLayout()
         hbox.addSpacing(30)
