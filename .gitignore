@@ -1169,3 +1169,11 @@ tags
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/c,c++,vim,clion,cmake,rider,csharp,visualstudio,visualstudiocode,latex
+
+# Libreoffice
+*.odt#
+
+# Python venv
+/.venv/
+.venv/
+.venv/*
