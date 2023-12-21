@@ -3,16 +3,6 @@ import java.awt.event.*;
 import java.util.Random;
 
 public class WordLists extends Panel {
-    public class RandomButtonActionListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            randomizeListSelection(definitionList);
-            randomizeListSelection(objectList);
-            randomizeListSelection(additionList);
-            randomizeListSelection(actionList);
-            randomizeListSelection(subjectList);
-        }
-    }
-
     private final String[] definitions = { "Крутой", "Большой", "Интересный", "Сверхестественный", "Мощный",
             "Космический" };
     private final String[] objects = { "верблюд", "карандаш", "омлет" };
@@ -47,7 +37,6 @@ public class WordLists extends Panel {
         initElements();
         addElements();
 
-        this.randomButton.addActionListener(new WordLists.RandomButtonActionListener());
     }
 
     public String getDefinition() {
