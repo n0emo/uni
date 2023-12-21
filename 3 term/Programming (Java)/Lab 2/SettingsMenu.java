@@ -6,6 +6,8 @@ public class SettingsMenu extends Panel {
     private final Checkbox definitionChechbox;
     private final Checkbox additionCheckbox;
     private final Checkbox actionCheckbox;
+    private final Scrollbar fontSizeScrollbar;
+    private final Label fontSizeLabel;
 
     public SettingsMenu() {
         super();
@@ -15,6 +17,8 @@ public class SettingsMenu extends Panel {
         this.definitionChechbox = new Checkbox();
         this.additionCheckbox = new Checkbox();
         this.actionCheckbox = new Checkbox();
+        this.fontSizeLabel = new Label();
+        this.fontSizeScrollbar = new Scrollbar();
 
         setBackground(Color.lightGray);
 
@@ -22,17 +26,6 @@ public class SettingsMenu extends Panel {
         addElements();
     }
 
-    public boolean isDefinitionChecked() {
-        return definitionChechbox.getState();
-    }
-
-    public boolean isAdditionChecked() {
-        return additionCheckbox.getState();
-    }
-
-    public boolean isActionChecked() {
-        return actionCheckbox.getState();
-    }
 
     private void initElements() {
         this.label.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
@@ -49,13 +42,24 @@ public class SettingsMenu extends Panel {
         this.actionCheckbox.setLabel("Действие");
         this.actionCheckbox.setFont(checkboxFont);
         this.actionCheckbox.setState(true);
+        
+        this.fontSizeLabel.setText("Размер шрифта: 16");
+        this.fontSizeLabel.setFont(checkboxFont);
+
+        this.fontSizeScrollbar.setValue(16);
+        this.fontSizeScrollbar.setVisible(true);
+        this.fontSizeScrollbar.setOrientation(Scrollbar.HORIZONTAL);
+        this.fontSizeScrollbar.setMinimum(16);
+        this.fontSizeScrollbar.setMaximum(96);
     }
 
     private void addElements() {
         add(this.label);
+        add(this.fontSizeLabel);
+        add(this.fontSizeScrollbar);
         add(this.definitionChechbox);
         add(this.additionCheckbox);
-        add(actionCheckbox);
+        add(this.actionCheckbox);
         setLayout(this.layout);
     }
 }

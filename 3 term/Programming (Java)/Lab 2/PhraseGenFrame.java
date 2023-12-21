@@ -1,17 +1,13 @@
 import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.JTextPane;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 
 public class PhraseGenFrame extends Frame {
     private final Button generateButton;
     private final BorderLayout layout;
     private final WordLists wordLists;
-    private final JTextPane resultArea;
-    private final Panel bottomPanel;
+    private final TextArea resultArea;
     private final SettingsMenu settingsMenu;
+    private final ColorSelector colorSelector;
+    private final FontSizeSelector fontSizeSelector;
 
     public PhraseGenFrame(Dimension windowSize) {
         super();
@@ -19,9 +15,10 @@ public class PhraseGenFrame extends Frame {
         this.generateButton = new Button();
         this.layout = new BorderLayout();
         this.wordLists = new WordLists();
-        this.resultArea = new JTextPane();
-        this.bottomPanel = new Panel();
+        this.resultArea = new TextArea();
         this.settingsMenu = new SettingsMenu();
+        this.colorSelector = new ColorSelector();
+        this.fontSizeSelector = new FontSizeSelector();
 
         initFrame(windowSize);
         initElements();
@@ -39,25 +36,19 @@ public class PhraseGenFrame extends Frame {
     private void initElements() {
         this.generateButton.setLabel("Сгенерировать");
         this.generateButton.setFont(new Font(Font.MONOSPACED, Font.BOLD, 72));
+        this.generateButton.setBackground(Color.green);
 
-        SimpleAttributeSet attribs = new SimpleAttributeSet();
-        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
-        StyleConstants.setFontSize(attribs, 48);
-        StyleConstants.setFontFamily(attribs, Font.MONOSPACED);
-        this.resultArea.setParagraphAttributes(attribs, true);
         this.resultArea.setText("\nНажмите кнопку \"Сгенерировать\"...");
-
-        this.bottomPanel.setLayout(new BorderLayout());
-
+        this.resultArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 16));
     }
 
     private void addElements() {
-        this.bottomPanel.add(this.generateButton, BorderLayout.CENTER);
-        this.bottomPanel.add(this.settingsMenu, BorderLayout.LINE_END);
-
         add(this.resultArea, BorderLayout.CENTER);
-        add(this.bottomPanel, BorderLayout.PAGE_END);
+        add(this.generateButton, BorderLayout.PAGE_END);
         add(this.wordLists, BorderLayout.PAGE_START);
+
+        add(this.colorSelector, BorderLayout.LINE_START);
+        add(this.settingsMenu, BorderLayout.LINE_END);
 
     }
 }
