@@ -1,5 +1,5 @@
 javabin = /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin
-java = $(javabin)/java
+java = java
 javac = $(javabin)/javac
 jar = $(javabin)/jar
 
@@ -8,12 +8,16 @@ class_files = WordLists.class\
 			  PhraseGenWindowAdapter.class\
 			  PhraseGenFrame.class\
 			  PhraseGen.class\
+			  ColorSelector.class\
 
 args = 
 
 PhraseGen.jar: $(class_files)
 	@echo "Compiling jar file"
 	$(jar) -cfvm PhraseGen.jar PhraseGen.mft *.class
+
+ColorSelector.class: ColorSelector.java
+	$(javac) ColorSelector.java
 
 WordLists.class: WordLists.java
 	$(javac) WordLists.java
@@ -37,6 +41,7 @@ PhraseGen.class: PhraseGen.java
 
 .PHONY: run
 run: PhraseGen.jar
+	@java -version
 	@echo "Running PhraseGen with $(args):"
 	@$(java) -jar PhraseGen.jar $(args)
 
