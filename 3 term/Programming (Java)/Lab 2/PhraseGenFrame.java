@@ -25,7 +25,6 @@ public class PhraseGenFrame extends Frame {
 
         initFrame(windowSize);
         initElements();
-        addActionListeners();
         addElements();
     }
 
@@ -50,31 +49,6 @@ public class PhraseGenFrame extends Frame {
 
         this.bottomPanel.setLayout(new BorderLayout());
 
-    }
-
-    private void addActionListeners() {
-        this.generateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                StringBuilder sb = new StringBuilder();
-                sb.append('\n');
-                if (settingsMenu.isDefinitionChecked()) {
-                    sb.append(wordLists.getDefinition());
-                    sb.append(' ');
-                }
-                sb.append(wordLists.getObject());
-                sb.append(' ');
-                if (settingsMenu.isAdditionChecked()) {
-                    sb.append(wordLists.getAddition());
-                    sb.append(' ');
-                }
-                if (settingsMenu.isActionChecked()) {
-                    sb.append(wordLists.getAction());
-                    sb.append(' ');
-                    sb.append(wordLists.getSubject());
-                }
-                resultArea.setText(sb.toString());
-            }
-        });
     }
 
     private void addElements() {
