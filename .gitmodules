@@ -1,0 +1,3 @@
+[submodule "abuild"]
+	path = abuild
+	url = git@github.com:n0emo/abuild
