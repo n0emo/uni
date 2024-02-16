@@ -1177,3 +1177,8 @@ tags
 /.venv/
 .venv/
 .venv/*
+
+# Abuild
+build/
+abuild
+abuild.old
