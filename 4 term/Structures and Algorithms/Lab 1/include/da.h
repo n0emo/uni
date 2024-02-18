@@ -9,7 +9,14 @@
 #define da_append(da, item)                                                                                            \
     do                                                                                                                 \
     {                                                                                                                  \
-        if ((da).count == (da).capacity)                                                                               \
+        if ((da).items == NULL)                                                                                        \
+        {                                                                                                              \
+            (da).capacity = 8;                                                                                         \
+            (da).items = malloc(sizeof((da).items[0]) * (da).capacity);                                                \
+            assert((da).items != NULL && "Buy more RAM lol");                                                          \
+        }                                                                                                              \
+                                                                                                                       \
+        else if ((da).count == (da).capacity)                                                                          \
         {                                                                                                              \
             size_t new_cap = (da).capacity ? (da).capacity * 2 : INITIAL_CAP;                                          \
             (da).items = realloc((da).items, sizeof((da).items[0]) * new_cap);                                         \

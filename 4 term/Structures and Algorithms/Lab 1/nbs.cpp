@@ -44,6 +44,8 @@ bool build_sources_into(const std::string &output, const strvec &sources)
 bool build(const std::string program)
 {
     make_directory_if_not_exists("build");
+    if (!Cmd({"cp", "-r", "data", path({"build", "data"})}).run())
+        return false;
 
     if (program == "all" || program == "knapstack")
     {
