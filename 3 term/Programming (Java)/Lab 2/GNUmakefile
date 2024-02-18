@@ -1,5 +1,5 @@
-javabin = /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin
-java = java
+javabin = /usr/lib/jvm/java-1.8.0-openjdk/bin
+java = $(javabin)/java
 javac = $(javabin)/javac
 jar = $(javabin)/jar
 
