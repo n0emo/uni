@@ -1,3 +1,6 @@
+#ifndef DA_H
+#define DA_H
+
 #include <assert.h>
 #include <stdlib.h>
 
@@ -16,3 +19,5 @@
         (da).items[(da).count] = item;                                                                                 \
         (da).count++;                                                                                                  \
     } while (0)
+
+#endif // DA_H
