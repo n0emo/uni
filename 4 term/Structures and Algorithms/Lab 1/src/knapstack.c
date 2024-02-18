@@ -1,6 +1,9 @@
 #include "da.h"
+
+#include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct
 {
@@ -15,7 +18,7 @@ typedef struct
     size_t capacity;
 } Items;
 
-size_t bp_eval_size(Items *bp)
+size_t ks_eval_size(Items *bp)
 {
     size_t sum = 0;
     for (size_t i = 0; i < bp->count; i++)
@@ -25,7 +28,7 @@ size_t bp_eval_size(Items *bp)
     return sum;
 }
 
-size_t bp_eval_value(Items *bp)
+size_t ks_eval_value(Items *bp)
 {
     size_t sum = 0;
     for (size_t i = 0; i < bp->count; i++)
@@ -35,7 +38,7 @@ size_t bp_eval_value(Items *bp)
     return sum;
 }
 
-Items eval_max_backpack(Items *items, size_t max_size)
+Items ks_eval_max(Items *items, size_t max_size)
 {
     assert(items->count <= 64);
 
@@ -49,18 +52,19 @@ Items eval_max_backpack(Items *items, size_t max_size)
     temp_items.capacity = 64;
     temp_items.items = malloc(sizeof(Item) * 64);
 
-    for (uint64_t itemList = 1; itemList < 1ul << items->count; itemList++)
+    for (uint64_t selected = 1; selected < 1ul << items->count; selected++)
     {
+        temp_items.count = 0;
         for (size_t i = 0; i < items->count; i++)
         {
-            if (itemList & 1ul << i)
+            if (selected & (1ul << i))
                 da_append(temp_items, items->items[i]);
         }
 
-        size_t temp_size = bp_eval_size(&temp_items);
+        size_t temp_size = ks_eval_size(&temp_items);
         if (temp_size <= max_size)
         {
-            size_t temp_value = bp_eval_value(&temp_items);
+            size_t temp_value = ks_eval_value(&temp_items);
             if (temp_value > max_value)
             {
                 max_value = temp_value;
@@ -86,7 +90,7 @@ int main()
     da_append(items, ((Item){9, 19}));
     da_append(items, ((Item){2, 1}));
 
-    Items result = eval_max_backpack(&items, 50);
-    printf("%zu\n", bp_eval_value(&result));
+    Items result = ks_eval_max(&items, 15);
+    printf("%zu\n", ks_eval_value(&result));
     return 0;
 }
