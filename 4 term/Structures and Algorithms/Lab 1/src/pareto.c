@@ -44,7 +44,7 @@ Points get_points_from_file(char *path)
 
 Points get_pareto_front(Points *points)
 {
-    bool *suitable = malloc(sizeof(bool) * points->count);
+    bool suitable[points->count];
     for (size_t i = 0; i < points->count; i++)
     {
         suitable[i] = true;
