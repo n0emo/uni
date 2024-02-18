@@ -1,8 +1,7 @@
-
 #define ABUILD_IMPLEMENTATION
-#include "../../../../abuild/abuild.hpp"
+#include "../../../nbs/nbs.hpp"
 
-using namespace ab;
+using namespace nbs;
 
 int main(int argc, char **argv)
 {
@@ -23,13 +22,13 @@ int main(int argc, char **argv)
     if (subcommand == "" || subcommand == "1")
     {
         log::info("Building task 1");
-        options.exe_cmd(path({"build", "task_1"}), {"task_1.c"})
+        options.exe_cmd(path({"build", "task_1"}), {path({"src", "task_1.c"})})
             .run_or_die("Error during compilation");
     }
     if (subcommand == "" || subcommand == "2")
     {
         log::info("Building task 2");
-        options.exe_cmd(path({"build", "task_2"}), {"task_2.c"})
+        options.exe_cmd(path({"build", "task_2"}), {path({"src", "task_2.c"})})
             .run_or_die("Error during compilation");
     }
 
