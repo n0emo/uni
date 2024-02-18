@@ -1,7 +1,7 @@
 #define ABUILD_IMPLEMENTATION
-#include "../../../../abuild/abuild.hpp"
+#include "../../../nbs/nbs.hpp"
 
-using namespace ab;
+using namespace nbs;
 
 int main(int argc, char **argv)
 {
@@ -11,9 +11,10 @@ int main(int argc, char **argv)
     c::CompileOptions options
     {
         .compiler = c::GCC, 
-        .flags = {"-Wall", "-Wextra", "-pedantic", "-g"},
+        .flags = {"-Wall", "-Wextra", "-pedantic"},
         .libs = {"m"}
     };
-    options.exe_cmd(path({"build", "lab6"}), {"main.c"}).run_or_die("Error during compilation");
+    options.exe_cmd(path({"build", "lab1"}), {path({"src", "main.c"})})
+        .run_or_die("Error during compilation");
     return 0;
 }
