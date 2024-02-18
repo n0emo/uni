@@ -1,7 +1,7 @@
 #define ABUILD_IMPLEMENTATION
-#include "../../../../abuild/abuild.hpp"
+#include "../../../nbs/nbs.hpp"
 
-using namespace ab;
+using namespace nbs;
 
 int main(int argc, char **argv)
 {
@@ -14,6 +14,7 @@ int main(int argc, char **argv)
         .flags = {"-Wall", "-Wextra", "-pedantic"},
         .libs = {"m"}
     };
-    options.exe_cmd(path({"build", "lab5"}), {"main.c"}).run_or_die("Error during compilation");
+    options.exe_cmd(path({"build", "lab7"}), {path({"src", "main.c"})})
+        .run_or_die("Error during compilation");
     return 0;
 }
