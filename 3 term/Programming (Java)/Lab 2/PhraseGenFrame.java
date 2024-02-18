@@ -7,7 +7,6 @@ public class PhraseGenFrame extends Frame {
     private final TextArea resultArea;
     private final SettingsMenu settingsMenu;
     private final ColorSelector colorSelector;
-    private final FontSizeSelector fontSizeSelector;
 
     public PhraseGenFrame(Dimension windowSize) {
         super();
@@ -18,7 +17,6 @@ public class PhraseGenFrame extends Frame {
         this.resultArea = new TextArea();
         this.settingsMenu = new SettingsMenu();
         this.colorSelector = new ColorSelector();
-        this.fontSizeSelector = new FontSizeSelector();
 
         initFrame(windowSize);
         initElements();
@@ -49,6 +47,5 @@ public class PhraseGenFrame extends Frame {
 
         add(this.colorSelector, BorderLayout.LINE_START);
         add(this.settingsMenu, BorderLayout.LINE_END);
-
     }
 }
