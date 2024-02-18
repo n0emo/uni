@@ -58,6 +58,12 @@ bool build(const std::string program)
             return false;
     }
 
+    if (program == "all" || program == "sat")
+    {
+        if (!build_sources_into("sat", {"sat.c"}))
+            return false;
+    }
+
     return true;
 }
 
@@ -71,7 +77,7 @@ int main(int argc, char **argv)
     if (subcommand == "build")
     {
         std::string target = shift_args(argc, argv).value_or("all");
-        if (target != "knapstack" && target != "pareto" && target != "all")
+        if (target != "knapstack" && target != "pareto" && target != "sat" && target != "all")
         {
             log::error("Please provide valid program name. Options are:\n"
                        "  knapstack\n"
@@ -89,7 +95,7 @@ int main(int argc, char **argv)
     if (subcommand == "run")
     {
         std::string target = shift_args(argc, argv).value_or("all");
-        if (target != "knapstack" && target != "pareto")
+        if (target != "knapstack" && target != "pareto" && target != "sat")
         {
             log::error("Please provide valid program name. Options are:\n"
                        "  knapstack\n"
