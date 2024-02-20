@@ -1,4 +1,4 @@
-#define ABUILD_IMPLEMENTATION
+#define NBS_IMPLEMENTATION
 #include "../../../nbs/nbs.hpp"
 
 using namespace nbs;
