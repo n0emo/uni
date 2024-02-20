@@ -1,4 +1,5 @@
 #include "da.h"
+
 #include <ctype.h>
 #include <limits.h>
 #include <stdbool.h>
@@ -331,6 +332,47 @@ void print_tree(ExpressionTree *root, size_t depth)
         print_tree(root->as.binary.right_operand, depth + 1);
         break;
     }
+}
+
+void simplify(ExpressionTree *root)
+{
+    if (root->type == NODE_LEAF)
+        return;
+    if (root->type == NODE_UN_OP)
+        return;
+
+    if (root->as.binary.operation.type == OP_OR)
+    {
+        simplify(root->as.binary.left_operand);
+        simplify(root->as.binary.right_operand);
+        return;
+    }
+}
+
+void get_leafs(ExpressionTree *root, Tokens *output)
+{
+    if (root->type == NODE_LEAF)
+    {
+        da_append(*output, root->as.leaf);
+    }
+    else if (root->type == NODE_UN_OP)
+    {
+        get_leafs(root->as.unary.operand, output);
+    }
+    else
+    {
+        get_leafs(root->as.binary.right_operand, output);
+        get_leafs(root->as.binary.left_operand, output);
+    }
+}
+
+void multiply(ExpressionTree *left, ExpressionTree *right)
+{
+    simplify(left);
+    simplify(right);
+
+    Tokens left_term = {0};
+    Tokens right_term = {0};
 }
 
 int main()
