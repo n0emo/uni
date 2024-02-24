@@ -2,6 +2,7 @@
 #include "../../../nbs/nbs.hpp"
 
 using namespace nbs;
+using namespace os;
 
 int main(int argc, char **argv)
 {
@@ -12,9 +13,9 @@ int main(int argc, char **argv)
     {
         .compiler = c::GCC, 
         .flags = {"-Wall", "-Wextra", "-pedantic"},
-        .libs = {"m"}
+        .libs = {Path("m")}
     };
-    options.exe_cmd(path({"build", "lab5"}), {path({"src", "main.c"})})
+    options.exe_cmd("build/lab5", {"src/main.c"})
         .run_or_die("Error during compilation");
     return 0;
 }

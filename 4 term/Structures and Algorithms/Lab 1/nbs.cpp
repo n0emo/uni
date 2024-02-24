@@ -5,6 +5,11 @@
 
 using namespace nbs;
 using namespace nbs::c;
+using namespace nbs::os;
+using namespace nbs::str;
+
+const Path src_d("src");
+const Path build_d("build");
 
 std::optional<std::string> shift_args(int &argc, char **&argv)
 {
@@ -21,13 +26,13 @@ std::optional<std::string> shift_args(int &argc, char **&argv)
 
 bool build_sources_into(const std::string &output, const strvec &sources)
 {
-    CompileOptions options{.compiler = GCC, .flags = {"-Wall", "-Wextra"}, .include_paths = {"include"}};
-    strvec objects;
+    CompileOptions options{.compiler = GCC, .flags = {"-Wall", "-Wextra"}, .include_paths = {Path("include")}};
+    pathvec objects;
 
     for (const auto &source : sources)
     {
-        std::string input = path({"src", source});
-        std::string output = path({"build", change_extension(source, "o")});
+        Path input = src_d + source;
+        Path output = build_d + change_extension(source, "o");
 
         if (!options.obj_cmd(output, input).run())
             return false;
@@ -35,7 +40,7 @@ bool build_sources_into(const std::string &output, const strvec &sources)
         objects.emplace_back(output);
     }
 
-    if (!options.exe_cmd(path({"build", output}), objects).run())
+    if (!options.exe_cmd(build_d + output, objects).run())
         return false;
 
     return true;
@@ -43,8 +48,8 @@ bool build_sources_into(const std::string &output, const strvec &sources)
 
 bool build(const std::string program)
 {
-    make_directory_if_not_exists("build");
-    if (!Cmd({"cp", "-r", "data", path({"build", "data"})}).run())
+    make_directory_if_not_exists(build_d);
+    if (!Cmd({"cp", "-r", "data", (build_d + "data").str()}).run())
         return false;
 
     if (program == "all" || program == "knapstack")
@@ -109,7 +114,7 @@ int main(int argc, char **argv)
             return 1;
         }
 
-        if (!Cmd(path({".", "build", target})).run())
+        if (!Cmd((Path(".") + build_d + target).str()).run())
         {
             log::error("Error running executable");
             return 1;
