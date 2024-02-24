@@ -2,6 +2,7 @@
 #include "../../../nbs/nbs.hpp"
 
 using namespace nbs;
+using namespace os;
 
 int main(int argc, char **argv)
 {
@@ -12,7 +13,7 @@ int main(int argc, char **argv)
     {
         .compiler = c::GCC, 
         .flags = {"-Wall", "-Wextra", "-pedantic"},
-        .libs = {"m"}
+        .libs = {Path("m")}
     };
 
     std::string subcommand = "";
@@ -22,13 +23,13 @@ int main(int argc, char **argv)
     if (subcommand == "" || subcommand == "1")
     {
         log::info("Building task 1");
-        options.exe_cmd(path({"build", "task_1"}), {path({"src", "task_1.c"})})
+        options.exe_cmd("build/task_1", {"src/task_1.c"})
             .run_or_die("Error during compilation");
     }
     if (subcommand == "" || subcommand == "2")
     {
         log::info("Building task 2");
-        options.exe_cmd(path({"build", "task_2"}), {path({"src", "task_2.c"})})
+        options.exe_cmd("build/task_2", {"src/task_2.c"})
             .run_or_die("Error during compilation");
     }
 
