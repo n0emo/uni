@@ -1,8 +1,6 @@
 #define NBS_IMPLEMENTATION
 #include "../../../nbs/nbs.hpp"
 
-#include <optional>
-
 using namespace nbs;
 using namespace nbs::c;
 using namespace nbs::os;
@@ -10,19 +8,6 @@ using namespace nbs::str;
 
 const Path src_d("src");
 const Path build_d("build");
-
-std::optional<std::string> shift_args(int &argc, char **&argv)
-{
-    if (argc == 0)
-    {
-        return std::nullopt;
-    }
-
-    std::string result(*argv);
-    argv++;
-    argc--;
-    return result;
-}
 
 bool build_sources_into(const std::string &output, const strvec &sources)
 {
