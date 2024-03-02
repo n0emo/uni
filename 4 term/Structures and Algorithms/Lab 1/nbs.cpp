@@ -11,7 +11,7 @@ const Path build_d("build");
 
 bool build_sources_into(const std::string &output, const strvec &sources)
 {
-    CompileOptions options{.compiler = GXX, .flags = {"-Wall", "-Wextra"}, .include_paths = {Path("include")}};
+    CompileOptions options{.compiler = GXX, .flags = {"-Wall", "-Wextra", "-g"}, .include_paths = {Path("include")}};
     pathvec objects;
 
     for (const auto &source : sources)
@@ -50,7 +50,7 @@ bool build(const std::string program)
 
     if (program == "all" || program == "sat")
     {
-        if (!build_sources_into("sat", {"sat.c"}))
+        if (!build_sources_into("sat", {"sat.cpp", "token.cpp", "lexer.cpp", "tree.cpp"}))
             return false;
     }
 
