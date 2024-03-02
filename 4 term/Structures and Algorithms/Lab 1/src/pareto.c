@@ -80,21 +80,29 @@ Points get_pareto_front(Points *points)
 int main()
 {
     Points points = get_points_from_file("data/pareto.txt"); // never freed
-    printf("Input:\n");
-    for (size_t i = 0; i < points.count; i++)
-    {
-        Point p = points.items[i];
-        printf("  %s [%.1lf, %.1lf]\n", p.name, p.x, p.y);
-    }
-
-    printf("\nPareto front:\n");
-
     Points front = get_pareto_front(&points);
+
+    FILE *output = fopen("output.txt", "w");
+    assert(output != NULL);
+
     for (size_t i = 0; i < front.count; i++)
     {
         Point p = front.items[i];
-        printf("  %s [%.1lf, %.1lf]\n", p.name, p.x, p.y);
+        fprintf(output, "%lf %lf %s\n", p.x, p.y, p.name);
     }
+
+    fclose(output);
+
+    FILE *gnuplot = popen("gnuplot", "w");
+    assert(gnuplot != NULL);
+
+    fprintf(gnuplot, "set term png\n");
+    fprintf(gnuplot, "set output 'plot.png\n");
+    fprintf(gnuplot, "set title \"Pareto\"\n");
+    fprintf(gnuplot, "plot 'data/pareto.txt' with points pt 6"
+                     ", 'output.txt' with labels point pt 7 offset char 1,1 notitle"
+                     "\n");
+    fflush(gnuplot);
 
     return 0;
 }
