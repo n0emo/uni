@@ -6,16 +6,17 @@ using namespace nbs::c;
 using namespace nbs::os;
 using namespace nbs::str;
 
-const Path src_d("src");
 const Path build_d("build");
 
 bool build_sources_into(const std::string &output, const strvec &sources)
 {
+    Path src_d("src");
+    src_d = src_d + output;
     CompileOptions options{
         .compiler = GXX,
         .standard = "c++20",
         .flags = {"-Wall", "-Wextra", "-g"},
-        .include_paths = {Path("include")}};
+        .include_paths = {Path("include"), Path("include") + output}};
     pathvec objects;
 
     for (const auto &source : sources)
