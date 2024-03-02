@@ -37,9 +37,9 @@ bool build(const std::string program)
     if (!Cmd({"cp", "-r", "data", (build_d + "data").str()}).run())
         return false;
 
-    if (program == "all" || program == "knapstack")
+    if (program == "all" || program == "knapsack")
     {
-        if (!build_sources_into("knapstack", {"knapstack.c"}))
+        if (!build_sources_into("knapsack", {"knapsack.c"}))
             return false;
     }
     if (program == "all" || program == "pareto")
@@ -67,10 +67,10 @@ int main(int argc, char **argv)
     if (subcommand == "build")
     {
         std::string target = shift_args(argc, argv).value_or("all");
-        if (target != "knapstack" && target != "pareto" && target != "sat" && target != "all")
+        if (target != "knapsack" && target != "pareto" && target != "sat" && target != "all")
         {
             log::error("Please provide valid program name. Options are:\n"
-                       "  knapstack\n"
+                       "  knapsack\n"
                        "  pareto");
             return 1;
         }
@@ -85,10 +85,10 @@ int main(int argc, char **argv)
     if (subcommand == "run")
     {
         std::string target = shift_args(argc, argv).value_or("all");
-        if (target != "knapstack" && target != "pareto" && target != "sat")
+        if (target != "knapsack" && target != "pareto" && target != "sat")
         {
             log::error("Please provide valid program name. Options are:\n"
-                       "  knapstack\n"
+                       "  knapsack\n"
                        "  pareto");
             return 1;
         }
