@@ -11,7 +11,11 @@ const Path build_d("build");
 
 bool build_sources_into(const std::string &output, const strvec &sources)
 {
-    CompileOptions options{.compiler = GXX, .flags = {"-Wall", "-Wextra", "-g"}, .include_paths = {Path("include")}};
+    CompileOptions options{
+        .compiler = GXX,
+        .standard = "c++20",
+        .flags = {"-Wall", "-Wextra", "-g"},
+        .include_paths = {Path("include")}};
     pathvec objects;
 
     for (const auto &source : sources)
