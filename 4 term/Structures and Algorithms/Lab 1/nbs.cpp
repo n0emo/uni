@@ -11,7 +11,7 @@ const Path build_d("build");
 
 bool build_sources_into(const std::string &output, const strvec &sources)
 {
-    CompileOptions options{.compiler = GCC, .flags = {"-Wall", "-Wextra"}, .include_paths = {Path("include")}};
+    CompileOptions options{.compiler = GXX, .flags = {"-Wall", "-Wextra"}, .include_paths = {Path("include")}};
     pathvec objects;
 
     for (const auto &source : sources)
@@ -39,12 +39,12 @@ bool build(const std::string program)
 
     if (program == "all" || program == "knapsack")
     {
-        if (!build_sources_into("knapsack", {"knapsack.c"}))
+        if (!build_sources_into("knapsack", {"knapsack.cpp"}))
             return false;
     }
     if (program == "all" || program == "pareto")
     {
-        if (!build_sources_into("pareto", {"pareto.c"}))
+        if (!build_sources_into("pareto", {"pareto.cpp", "gnuplot.cpp"}))
             return false;
     }
 
