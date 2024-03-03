@@ -1,3 +1,4 @@
 -Iinclude
 -Iinclude/sat
+-Iinclude/knapsack
 -std=c++20
