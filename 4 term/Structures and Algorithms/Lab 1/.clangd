@@ -1,2 +1,2 @@
 CompileFlags:
-  Add: ['-Iinclude', '-Iinclude/sat', '-std=c++20']
+  Add: ['-Iinclude', '-Iinclude/sat', '-Iinclude/knapsack', '-std=c++20']
