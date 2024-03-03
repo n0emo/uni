@@ -1,0 +1,44 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+TABLE Customers {
+    id INTEGER [PRIMARY KEY]
+    name TEXT
+    surname TEXT
+    address TEXT
+    phone TEXT
+}
+
+TABLE BookOrders {
+    id INTEGER [PRIMARY KEY]
+    customerId INTEGER
+    datetime TEXT
+    cost REAL
+    numberOfTurns INTEGER
+    size TEXT
+    materialId INTEGER
+}
+
+TABLE PaintingOrders {
+    id INTEGER [PRIMARY KEY]
+    customerId INTEGER
+    datetime TEXT
+    cost REAL
+    width INTEGER
+    height INTEGET
+}
+
+TABLE Materials {
+    id INTEGER [PRIMARY KEY]
+    name TEXT 
+    description TEXT
+    price REAL
+    stock REAL
+}
+
+Ref: BookOrders.customerId > Customers.id // many-to-one
+
+Ref: BookOrders.materialId > Materials.id
+
+Ref: PaintingOrders.customerId > Customers.id
+
