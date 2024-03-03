@@ -1,9 +1,7 @@
 #include "genetic.hpp"
 #include <algorithm>
-#include <chrono>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
 #include <sstream>
 
 namespace ks::genetic
@@ -12,12 +10,9 @@ Knapsack eval_max(const std::vector<Item> &items, size_t max_weight)
 {
     std::srand(std::time(nullptr));
     auto population = generate_population(items, items.size() * items.size(), max_weight);
-    for (size_t i = 0; i < population.size(); i++)
+    for (size_t i = 0; i < population.size() * 2; i++)
     {
-        // auto begin = std::chrono::high_resolution_clock::now();
         next_generation(items, population, max_weight);
-        // auto end = std::chrono::high_resolution_clock::now();
-        // std::cout << (end - begin).count() << ' ' << population.size() << '\n';
     }
 
     Sample max = population[0];
@@ -28,7 +23,6 @@ Knapsack eval_max(const std::vector<Item> &items, size_t max_weight)
             max = population[i];
         }
     }
-    std::cout << max.value << " " << max.weight << std::endl;
 
     return Knapsack(items, max.bits);
 }
@@ -56,7 +50,7 @@ void next_generation(
               [](auto a, auto b) { return a.value > b.value; });
 
     size_t size = population.size();
-    size_t half = population.size() * 0.75;
+    size_t half = population.size() * 0.6;
     population.resize(half);
 
     for (size_t distance = 2;; distance++)
@@ -79,7 +73,7 @@ void next_generation(
                 child_bits[j] = first[j];
                 child_bits[j + half_len] = second[j];
             }
-            mutate(child_bits, 0.01);
+            mutate(child_bits, 0.1);
 
             auto child_ks = Knapsack(items, child_bits);
             population.emplace_back(Sample{
