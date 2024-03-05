@@ -11,6 +11,7 @@ Gnuplot::Gnuplot(bool persist)
 
 Gnuplot::~Gnuplot()
 {
+    flush();
     if (pipe)
     {
         pclose(pipe);
