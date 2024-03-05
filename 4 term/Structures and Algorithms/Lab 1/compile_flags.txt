@@ -1,4 +1,5 @@
 -Iinclude
 -Iinclude/sat
 -Iinclude/knapsack
+-Iinclude/solver
 -std=c++20
