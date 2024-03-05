@@ -87,6 +87,5 @@ int main()
                    ", 'output.txt' with labels point pt 7 offset char 1,1 notitle"
                    "\n");
 
-    gnuplot.flush();
     return 0;
 }
