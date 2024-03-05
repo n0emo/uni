@@ -15,8 +15,8 @@ bool build_sources_into(const std::string &output, const strvec &sources)
     CompileOptions options{
         .compiler = GXX,
         .standard = "c++20",
-        .flags = {"-Wall", "-Wextra", "-O3"},
-        .include_paths = {Path("include"), Path("include") + output}};
+        .flags = {"-Wall", "-Wextra", "-O3", "-g"},
+        .include_paths = {Path("include"), Path("include") + output, Path("include") + "solver"}};
     pathvec objects;
 
     for (const auto &source : sources)
@@ -44,7 +44,7 @@ bool build(const std::string program)
 
     if (program == "all" || program == "knapsack")
     {
-        if (!build_sources_into("knapsack", {"knapsack.cpp", "genetic.cpp", "naive.cpp"}))
+        if (!build_sources_into("knapsack", {"knapsack.cpp"}))
             return false;
     }
     if (program == "all" || program == "pareto")
