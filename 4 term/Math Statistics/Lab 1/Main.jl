@@ -7,12 +7,11 @@ printres(res, n) = println("Problem $n: $res\n")
 function problem_01()
     a = 0.7
     n = 1 - a
-    #                   (A1 +  A2)  +      (A3 * A4 * A5)
-    #              !   (!A1 * !A2)  +      (A3 * A4 * A5)
-    #        !    (!   (!A1 * !A2)  *  !   (A3 * A4 * A5)) 
-    result = 1 - ((1 - (n * n)) * (1 - (a * a * a)))
+    #               (A1 +  A2)  +      (A3 * A4 * A5)
+    #             !(!A1 * !A2)  +      (A3 * A4 * A5)
+    #        !    ((!A1 * !A2)  *  !   (A3 * A4 * A5)) 
+    result = 1 - ( (n   *  n)  * (1 - (a * a * a)))
     printres(result, 1)
-    println
 end
 
 function problem_02()
@@ -23,9 +22,9 @@ end
 function problem_03()
     p = [0.8, 0.9, 0.85]
     n = [1, 1, 1] - p
-    result_a = p[1] * n[2] * n[3] + n[1] * p[2] * n[3] + n[1] * n[2] * p[3]
-    result_b = n[1] * p[2] * p[3] + p[1] * n[2] * p[3] + p[1] * p[2] * n[3]
-    result_c = 1 - n[1] * n[2] * n[3]
+    result_a = p[1]*n[2]*n[3] + n[1]*p[2]*n[3] + n[1]*n[2]*p[3]
+    result_b = n[1]*p[2]*p[3] + p[1]*n[2]*p[3] + p[1]*p[2]*n[3]
+    result_c = 1 - n[1]*n[2]*n[3]
     println("Problem 3:")
     println("  a) $result_a")
     println("  b) $result_b")
