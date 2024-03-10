@@ -1,50 +1,58 @@
 #include "tree.hpp"
-#include <climits>
-#include <cstddef>
-#include <memory>
+#include <cassert>
+#include <iostream>
 
-std::unique_ptr<Node> Tree::build_tree(const std::vector<Token> &tokens)
+void Tree::print(const std::unique_ptr<Node> &root, size_t depth) const
 {
-    auto root = find_root(tokens);
+    const std::unique_ptr<Node> &node = root ? root : this->root;
 
-    if (!root.has_value())
+    if (auto *r = std::get_if<NodeLeaf>(node.get()))
     {
-        size_t non_brace = 0;
-        while (tokens[non_brace].type == TOK_OB || tokens[non_brace].type == TOK_CB)
-        {
-            non_brace++;
-        }
-
-        return std::make_unique<Node>(NodeLeaf(tokens[non_brace]));
+        print_indent(depth);
+        if (auto var = std::get_if<Var>(r))
+            std::cout << (var->inverse ? "!" : "") << "x" << var->num << '\n';
+        else if (auto con = std::get_if<Const>(r))
+            std::cout << *con << '\n';
     }
-    else if (tokens[*root].type == OP_NOT)
+    else if (auto *r = std::get_if<NodeUnOp>(node.get()))
     {
-        std::vector<Token> child_tokens;
-        for (size_t i = *root + 1; i < tokens.size(); i++)
-        {
-            child_tokens.emplace_back(tokens[i]);
-        }
-        return std::make_unique<Node>(NodeUnOp(tokens[*root], build_tree(child_tokens)));
+        print_indent(depth);
+        std::cout << r->operation.str() << '\n';
+        print(r->operand, depth + 1);
     }
-    else
+    else if (auto *r = std::get_if<NodeBinOp>(node.get()))
     {
-        std::vector<Token> left;
-        for (size_t i = 0; i < *root; i++)
-        {
-            left.emplace_back(tokens[i]);
-        }
-
-        std::vector<Token> right;
-        for (size_t i = *root + 1; i < tokens.size(); i++)
-        {
-            right.emplace_back(tokens[i]);
-        }
-
-        return std::make_unique<Node>(NodeBinOp(tokens[*root], build_tree(left), build_tree(right)));
+        print(r->left_operand, depth + 1);
+        print_indent(depth);
+        std::cout << r->operation.str() << '\n';
+        print(r->right_operand, depth + 1);
     }
 }
 
-std::optional<size_t> Tree::find_root(const std::vector<Token> &tokens)
+void Tree::normalize()
+{
+    normilize_node(root);
+}
+
+void Tree::simplify()
+{
+    // normalize();
+}
+
+Tree Tree::build_tree(const std::vector<Token> &tokens)
+{
+    return Tree{build_tree_node(tokens)};
+}
+
+void print_indent(size_t depth)
+{
+    for (size_t i = 0; i < depth; i++)
+    {
+        std::cout << "  ";
+    }
+}
+
+std::optional<size_t> find_root(const std::vector<Token> &tokens)
 {
     ssize_t last_1_prec = -1; // !
     ssize_t last_1_brace = SSIZE_MAX;
@@ -111,4 +119,94 @@ std::optional<size_t> Tree::find_root(const std::vector<Token> &tokens)
     }
 
     return min_prec;
+}
+
+std::unique_ptr<Node> build_tree_node(const std::vector<Token> &tokens)
+{
+    auto root = find_root(tokens);
+
+    if (!root.has_value())
+    {
+        size_t non_brace = 0;
+        while (tokens[non_brace].type == TOK_OB || tokens[non_brace].type == TOK_CB)
+        {
+            non_brace++;
+        }
+
+        Token tok = tokens[non_brace];
+        switch (tok.type)
+        {
+        case TOK_X:
+            return std::make_unique<Node>(Var(tok.x_num, false));
+        case TOK_1:
+            return std::make_unique<Node>(Const(true));
+        case TOK_0:
+            return std::make_unique<Node>(Const(false));
+        default:
+            assert(0 && "Bad leaf type");
+        }
+    }
+    else if (tokens[*root].type == OP_NOT)
+    {
+        std::vector<Token> child_tokens;
+        for (size_t i = *root + 1; i < tokens.size(); i++)
+        {
+            child_tokens.emplace_back(tokens[i]);
+        }
+        return std::make_unique<Node>(NodeUnOp(tokens[*root], build_tree_node(child_tokens)));
+    }
+    else
+    {
+        std::vector<Token> left;
+        for (size_t i = 0; i < *root; i++)
+        {
+            left.emplace_back(tokens[i]);
+        }
+
+        std::vector<Token> right;
+        for (size_t i = *root + 1; i < tokens.size(); i++)
+        {
+            right.emplace_back(tokens[i]);
+        }
+
+        return std::make_unique<Node>(NodeBinOp(tokens[*root], build_tree_node(left), build_tree_node(right)));
+    }
+}
+
+void normilize_node(std::unique_ptr<Node> &node)
+{
+    if (std::holds_alternative<NodeLeaf>(*node))
+        return;
+
+    if (auto op = std::get_if<NodeUnOp>(node.get()))
+    {
+        assert(op->operation.type == OP_NOT);
+        if (auto leaf = std::get_if<NodeLeaf>(op->operand.get()))
+        {
+            if (auto var = std::get_if<Var>(leaf))
+                var->inverse = !var->inverse;
+            else if (auto con = std::get_if<Const>(leaf))
+                *con = !(*con);
+
+            node = std::move(op->operand);
+        }
+        else
+        {
+            normilize_node(op->operand);
+        }
+    }
+
+    if (auto op = std::get_if<NodeBinOp>(node.get()))
+    {
+        normilize_node(op->left_operand);
+        normilize_node(op->right_operand);
+    }
+
+    if (auto op = std::get_if<NodeOp>(node.get()))
+    {
+        for (auto &operand : op->operands)
+        {
+            normilize_node(operand);
+        }
+    }
 }
