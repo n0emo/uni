@@ -41,22 +41,22 @@ size_t value(const std::vector<Item> &items, size_t max_weight)
     return weight <= max_weight ? value : 0;
 }
 
-compare<Item> make_compare(size_t max_weight)
+get_key_t<Item> make_get_key(size_t max_weight)
 {
-    return [=](const std::vector<Item> &a, const std::vector<Item> &b) {
-        return value(a, max_weight) > value(b, max_weight);
+    return [=](const std::vector<Item> &a) {
+        return value(a, max_weight);
     };
 }
 
 std::vector<Item> eval_max_naive(const std::vector<Item> &items, size_t max_weight)
 {
-    auto eval_max = naive::make_eval(make_compare(max_weight));
+    auto eval_max = naive::make_eval(make_get_key(max_weight));
     return eval_max(items);
 }
 
 std::vector<Item> eval_genetic(const std::vector<Item> &items, size_t max_weight)
 {
-    auto eval = genetic::make_eval(make_compare(max_weight), 0.1, 0.6, 0.15);
+    auto eval = genetic::make_eval(make_get_key(max_weight), 0.1, 0.6, 0.15);
     return eval(items);
 }
 
