@@ -59,6 +59,12 @@ bool build(const std::string program)
             return false;
     }
 
+    if (program == "all" || program == "set_cover")
+    {
+        if (!build_sources_into("set_cover", {"set_cover.cpp"}))
+            return false;
+    }
+
     return true;
 }
 
@@ -72,11 +78,13 @@ int main(int argc, char **argv)
     if (subcommand == "build")
     {
         std::string target = shift_args(argc, argv).value_or("all");
-        if (target != "knapsack" && target != "pareto" && target != "sat" && target != "all")
+        if (target != "knapsack" && target != "pareto" && target != "sat" && target != "set_cover" && target != "all")
         {
             log::error("Please provide valid program name. Options are:\n"
                        "  knapsack\n"
-                       "  pareto");
+                       "  pareto\n"
+                       "  sat\n"
+                       "  set_cover");
             return 1;
         }
 
@@ -90,7 +98,7 @@ int main(int argc, char **argv)
     if (subcommand == "run")
     {
         std::string target = shift_args(argc, argv).value_or("all");
-        if (target != "knapsack" && target != "pareto" && target != "sat")
+        if (target != "knapsack" && target != "pareto" && target != "sat" && target != "set_cover")
         {
             log::error("Please provide valid program name. Options are:\n"
                        "  knapsack\n"
