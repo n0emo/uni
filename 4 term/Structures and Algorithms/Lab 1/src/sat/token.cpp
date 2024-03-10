@@ -36,6 +36,8 @@ std::string Token::str() const
     case TOK_INVALID:
         c = 'E';
         break;
+    default:
+        c = '\0';
     }
     std::stringstream ss;
     ss << c;
