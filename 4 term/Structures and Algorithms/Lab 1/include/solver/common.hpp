@@ -1,7 +1,6 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -12,10 +11,7 @@ namespace solver
 typedef std::vector<char> Bits;
 
 template <typename Item>
-using predicate = std::function<bool(const std::vector<Item> &)>;
-
-template <typename Item>
-using compare = std::function<bool(const std::vector<Item> &, const std::vector<Item> &)>;
+using get_key_t = std::function<intmax_t(const std::vector<Item> &)>;
 
 template <typename Item>
 using get_chosen_t = std::function<std::vector<Item>(Bits bits)>;

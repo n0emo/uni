@@ -4,7 +4,6 @@
 #include "common.hpp"
 #include "ctime"
 #include <cmath>
-#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -49,22 +48,23 @@ static inline void mutate(Bits &bits, float rate)
 template <typename Item>
 std::vector<Bits> next_generation(
     const std::vector<Bits> &population,
-    compare<Item> compare,
+    get_key_t<Item> get_key,
     get_chosen_t<Item> get_chosen,
     float survival_rate,
     float mutation_rate)
 {
-    using pair = std::pair<Bits, std::vector<Item>>;
+    using pair = std::pair<std::vector<Bits>::const_iterator, intmax_t>;
 
     size_t size = population.size();
-    std::vector<pair> solutions(size);
-    for (size_t i = 0; i < size; i++)
+    std::vector<pair> solutions;
+    solutions.reserve(population.size());
+    for (std::vector<Bits>::const_iterator iter = population.cbegin(); iter != population.cend(); ++iter)
     {
-        solutions[i] = pair({population[i], get_chosen(population[i])});
+        solutions.emplace_back(pair({iter, get_key(get_chosen(*iter))}));
     }
 
     std::sort(solutions.begin(), solutions.end(),
-              [=](auto a, auto b) { return compare(std::get<1>(a), std::get<1>(b)); });
+              [=](auto a, auto b) { return std::get<1>(a) > std::get<1>(b); });
 
     size_t survived = population.size() * survival_rate;
 
@@ -73,7 +73,7 @@ std::vector<Bits> next_generation(
 
     for (size_t i = 0; i < survived; i++)
     {
-        new_population.emplace_back(std::get<0>(solutions[i]));
+        new_population.emplace_back(*std::get<0>(solutions[i]));
     }
 
     for (size_t distance = 2;; distance++)
@@ -106,7 +106,7 @@ std::vector<Bits> next_generation(
 template <typename Item>
 std::vector<Item> eval_max(
     const std::vector<Item> &items,
-    compare<Item> compare,
+    get_key_t<Item> get_key,
     float initial_prob,
     float survival_rate,
     float mutation_rate)
@@ -120,15 +120,19 @@ std::vector<Item> eval_max(
 
     for (size_t i = 0; i < gen_count; i++)
     {
-        population = next_generation(population, compare, get_chosen, survival_rate, mutation_rate);
+        population = next_generation(population, get_key, get_chosen, survival_rate, mutation_rate);
     }
 
     std::vector<Item> max = get_chosen(population[0]);
+    intmax_t max_key = get_key(max);
     for (size_t i = 1; i < population.size(); i++)
     {
         auto sol = get_chosen(population[i]);
-        if (compare(sol, max))
+        if (get_key(sol) > max_key)
+        {
             max = sol;
+            max_key = get_key(sol);
+        }
     }
 
     return max;
@@ -136,13 +140,13 @@ std::vector<Item> eval_max(
 
 template <typename Item>
 constexpr eval_t<Item> make_eval(
-    compare<Item> compare,
+    get_key_t<Item> get_key,
     float initial_prob,
     float survival_rate,
     float mutation_rate)
 {
     return [=](const std::vector<Item> &items) {
-        return eval_max(items, compare, initial_prob, survival_rate, mutation_rate);
+        return eval_max(items, get_key, initial_prob, survival_rate, mutation_rate);
     };
 }
 
