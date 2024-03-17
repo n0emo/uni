@@ -27,6 +27,15 @@ void Tree::print(const std::unique_ptr<Node> &root, size_t depth) const
         std::cout << r->operation.str() << '\n';
         print(r->right_operand, depth + 1);
     }
+    else if (auto *r = std::get_if<NodeOp>(node.get()))
+    {
+        print_indent(depth);
+        std::cout << r->operation.str() << '\n';
+        for (const auto &operand : r->operands)
+        {
+            print(operand, depth + 1);
+        }
+    }
 }
 
 void Tree::normalize()
@@ -36,7 +45,7 @@ void Tree::normalize()
 
 void Tree::simplify()
 {
-    // normalize();
+    normalize();
 }
 
 Tree Tree::build_tree(const std::vector<Token> &tokens)
@@ -175,7 +184,7 @@ std::unique_ptr<Node> build_tree_node(const std::vector<Token> &tokens)
 
 void normilize_node(std::unique_ptr<Node> &node)
 {
-    if (std::holds_alternative<NodeLeaf>(*node))
+    if (std::get_if<NodeLeaf>(node.get()))
         return;
 
     if (auto op = std::get_if<NodeUnOp>(node.get()))
@@ -198,15 +207,68 @@ void normilize_node(std::unique_ptr<Node> &node)
 
     if (auto op = std::get_if<NodeBinOp>(node.get()))
     {
-        normilize_node(op->left_operand);
-        normilize_node(op->right_operand);
+        // There is no implication, so all binary operations
+        // are any term number operations.
+        auto new_node = std::make_unique<Node>(NodeOp(
+            op->operation,
+            std::move(op->left_operand),
+            std::move(op->right_operand)));
+        node = std::move(new_node);
     }
 
     if (auto op = std::get_if<NodeOp>(node.get()))
     {
-        for (auto &operand : op->operands)
+        std::vector<std::unique_ptr<Node>> new_operands;
+        for (auto &o : op->operands)
         {
-            normilize_node(operand);
+            normilize_node(o);
+
+            auto o1 = std::get_if<NodeOp>(o.get());
+            if (o1 && o1->operation.type == op->operation.type)
+            {
+                for (auto &o2 : o1->operands)
+                {
+                    new_operands.emplace_back(std::move(o2));
+                }
+            }
+            else
+            {
+                new_operands.emplace_back(std::move(o));
+            }
         }
+
+        op->operands = std::move(new_operands);
     }
 }
+
+void simplify_normilized(std::unique_ptr<Node> &node)
+{
+    auto o = std::get_if<NodeOp>(node.get());
+    if (!o)
+        return;
+
+    if (o->operation.type == OP_OR || o->operation.type == OP_AND)
+    {
+        for (auto &o1 : o->operands)
+        {
+            simplify_normilized(o1);
+        }
+    }
+
+    if (o->operation.type == OP_AND)
+    {
+    }
+}
+
+// std::unique_ptr<Node> and_open_parentheses_2(
+//     const std::unique_ptr<Node> &a,
+//     const std::unique_ptr<Node> &b)
+//
+// {
+//     NodeOp result(OP_AND);
+//
+//     auto a1 = std::get_if<NodeOp>(a.get());
+//     auto b1 = std::get_if<NodeOp>(b.get());
+//
+//     return std::make_unique<Node>(std::move(result));
+// }

@@ -15,7 +15,7 @@ bool build_sources_into(const std::string &output, const strvec &sources)
     CompileOptions options{
         .compiler = GXX,
         .standard = "c++20",
-        .flags = {"-Wall", "-Wextra", "-O3", "-g"},
+        .flags = {"-Wall", "-Wextra", /* "-O3", */ "-g"},
         .include_paths = {Path("include"), Path("include") + output, Path("include") + "solver"}};
     pathvec objects;
 
