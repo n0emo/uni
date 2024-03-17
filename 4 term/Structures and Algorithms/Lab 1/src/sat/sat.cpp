@@ -4,7 +4,7 @@
 
 int main()
 {
-    const char *data = "!!!1 & x1 | !(!x2 | x3 & !0) | x3 & x2";
+    const char *data = "x1 | x2 | x3 | !(x4 & x5)";
     Lexer lex(data);
 
     auto tokens = std::get<std::vector<Token>>(lex.get_all_tokens());

@@ -22,6 +22,10 @@ void print_indent(size_t depth);
 std::optional<size_t> find_root(const std::vector<Token> &tokens);
 std::unique_ptr<Node> build_tree_node(const std::vector<Token> &tokens);
 void normilize_node(std::unique_ptr<Node> &node);
+void simplify_normilized(std::unique_ptr<Node> &node);
+std::unique_ptr<Node> and_open_parentheses_2(
+    const std::unique_ptr<Node> &a,
+    const std::unique_ptr<Node> &b);
 
 struct Tree
 {
@@ -58,14 +62,22 @@ struct NodeOp
     Token operation;
     std::vector<std::unique_ptr<Node>> operands;
 
-    NodeOp(Token operation, std::vector<std::unique_ptr<Node>> &operands)
+    NodeOp(Token operation)
+        : operation(operation)
+    {
+    }
+
+    NodeOp(Token operation, std::vector<std::unique_ptr<Node>> operands)
+        : operation(operation), operands(std::move(operands))
+    {
+    }
+
+    NodeOp(Token operation, std::unique_ptr<Node> a, std::unique_ptr<Node> b)
         : operation(operation)
     {
         this->operands = std::vector<std::unique_ptr<Node>>();
-        for (auto &op : operands)
-        {
-            this->operands.emplace_back(std::move(op));
-        }
+        this->operands.emplace_back(std::move(a));
+        this->operands.emplace_back(std::move(b));
     }
 };
 
