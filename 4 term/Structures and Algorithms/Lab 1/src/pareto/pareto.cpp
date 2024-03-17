@@ -1,62 +1,76 @@
 #include "gnuplot.hpp"
+#include <algorithm>
+#include <cstdio>
 #include <fstream>
 #include <gnuplot.hpp>
-#include <sstream>
+#include <ranges>
 #include <string>
 #include <vector>
 
+#define NBS_IMPLEMENTATION
+#include "../../../../nbs/nbs.hpp"
+
+template <size_t N>
 struct Point
 {
-    double x, y;
-    std::string name;
+    const std::array<double, N> coordinates;
+    const std::string name;
+    double operator[](size_t index) const
+    {
+        return coordinates[index];
+    }
 };
 
-std::vector<Point> get_points_from_file(const std::string &path)
+template <size_t N>
+std::vector<Point<N>> get_points_from_file(const std::filesystem::path &path)
 {
-    std::vector<Point> points;
+    std::vector<Point<N>> points;
     std::ifstream fin(path);
     std::string line;
     while (std::getline(fin, line))
     {
-        // TODO: Error handling
-        Point p;
-        std::istringstream line_stream(line);
-        line_stream >> p.x >> p.y;
-        line_stream.ignore(1);
-        std::getline(line_stream, p.name);
-        points.emplace_back(p);
+        std::vector<std::string> tokens = nbs::str::split(line, " ");
+        assert(tokens.size() == N + 1);
+        std::array<double, N> coordinates;
+        std::transform(tokens.begin(), tokens.end() - 1, coordinates.begin(),
+                       [](auto s) { return std::stod(s); });
+        points.emplace_back(Point{coordinates, tokens.back()});
     }
 
     return points;
 }
 
-std::vector<Point> get_pareto_front(const std::vector<Point> &points)
+template <size_t N>
+std::vector<Point<N>> get_pareto_front(
+    const std::vector<Point<N>> &points,
+    const std::array<bool, N> negative_criteria = std::array<bool, N>())
 {
-    std::vector<bool> suitable(points.size());
-    for (size_t i = 0; i < points.size(); i++)
-    {
-        suitable[i] = true;
-    }
-
-    for (size_t i = 0; i < points.size(); i++)
+    const size_t count = points.size();
+    std::vector<bool> suitable(count, true);
+    for (size_t i = 0; i < count; i++)
     {
         if (!suitable[i])
             continue;
 
-        Point current = points[i];
         for (size_t j = 0; j < points.size(); j++)
         {
             if (!suitable[j] || i == j)
                 continue;
 
-            Point p = points[j];
-            if (p.x <= current.x && p.y <= current.y)
-                suitable[j] = false;
+            if (std::ranges::none_of(
+                    std::ranges::views::iota(0u, N),
+                    [&](auto k) {
+                        return negative_criteria[k]
+                                   ? points[j][k] > points[i][k]
+                                   : points[j][k] < points[i][k];
+                    }))
+            {
+                suitable[i] = false;
+            }
         }
     }
-
-    std::vector<Point> front;
-    for (size_t i = 0; i < points.size(); i++)
+    std::vector<Point<N>> front;
+    for (size_t i = 0; i < count; i++)
     {
         if (suitable[i])
             front.emplace_back(points[i]);
@@ -65,27 +79,77 @@ std::vector<Point> get_pareto_front(const std::vector<Point> &points)
     return front;
 }
 
+template <size_t N>
+void write_points_to_file(
+    const std::filesystem::path &path,
+    const std::vector<Point<N>> &points)
+{
+    std::ofstream fout(path);
+    for (const auto &p : points)
+    {
+        for (const auto &c : p.coordinates)
+        {
+            fout << c << " ";
+        }
+        fout << p.name << '\n';
+    }
+}
+
+void plot_pareto_2(const std::filesystem::path &source, bool png = false)
+{
+    auto points = get_points_from_file<2>(source);
+    auto front = get_pareto_front<2>(points);
+    write_points_to_file<2>("output.txt", front);
+
+    auto gnuplot = Gnuplot(!png);
+    if (png)
+    {
+        gnuplot.printf("set term png\n"
+                       "set putput 'plot.png'\n");
+    }
+    else
+    {
+        gnuplot.printf("set term qt\n");
+    }
+    gnuplot.printf(
+        "set title \"Pareto\"\n"
+        "plot 'data/pareto.txt' with points pt 6, "
+        "'output.txt' with labels point pt 7 offset char 1,1 notitle\n");
+}
+
+void plot_pareto_3(const std::filesystem::path &source, bool png = false)
+{
+    auto points = get_points_from_file<3>(source);
+    auto front = get_pareto_front<3>(points, {false, true, false});
+    write_points_to_file<3>("output.txt", front);
+
+    auto gnuplot = Gnuplot(!png);
+    if (png)
+    {
+        gnuplot.printf("set term png\n"
+                       "set putput 'plot.png'\n");
+    }
+    else
+    {
+        gnuplot.printf("set term qt\n");
+    }
+    gnuplot.printf(
+        "set title \"Pareto\"\n"
+
+        "set dgrid3d 30, 30 qnorm 5\n"
+        "splot '%s' using 1:2:3 with points pt 6 nogrid, "
+        "'%s' using 1:2:3:4 with labels point pt 7 offset char 1,1 nogrid\n"
+        "replot '%s' using 1:2:3 with lines\n"
+        "pause mouse close\n",
+
+        source.c_str(),
+        "output.txt",
+        "output.txt");
+}
+
 int main()
 {
-    auto points = get_points_from_file("data/pareto.txt"); // never freed
-    auto front = get_pareto_front(points);
-
-    std::ofstream fout("output.txt");
-
-    for (const Point &p : front)
-    {
-        fout << p.x << " " << p.y << " " << p.name << "\n";
-    }
-    fout.close();
-
-    Gnuplot gnuplot;
-
-    gnuplot.printf("set term png\n");
-    gnuplot.printf("set output 'plot.png\n");
-    gnuplot.printf("set title \"Pareto\"\n");
-    gnuplot.printf("plot 'data/pareto.txt' with points pt 6"
-                   ", 'output.txt' with labels point pt 7 offset char 1,1 notitle"
-                   "\n");
-
+    // plot_pareto_2("data/pareto.txt");
+    plot_pareto_3("data/pareto3.txt");
     return 0;
 }
