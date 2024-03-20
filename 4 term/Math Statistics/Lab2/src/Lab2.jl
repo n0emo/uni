@@ -21,7 +21,9 @@ function problem_2()
     p_a_1 = 0.4
     p_a_2 = 0.6
     p_a = n(p_a_1) * p_a_2
-    p_a2_na = ()
+    p_a2_na = (p_a_1 * p_a_2) / n(p_a)
+    println("P(A) = $p_a")
+    println("P(A2|!A) = $p_a2_na")
 end
 
 function problem_3()
@@ -42,7 +44,7 @@ end
 
 function problem_4()
     n = 350
-    p = 0.6
+    p = big(0.6)
     m = 213
     m1 = 196
     m2 = 225
