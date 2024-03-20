@@ -67,9 +67,9 @@ void bench(
 {
     namespace ch = std::chrono;
 
-    size_t max_weight = 20;
+    size_t max_weight = 300;
 
-    auto begin = std::chrono::high_resolution_clock::now();
+    auto begin = ch::high_resolution_clock::now();
     auto result = eval_max(items, max_weight);
     auto end = ch::high_resolution_clock::now();
     ch::duration<double, std::milli> time = end - begin;
