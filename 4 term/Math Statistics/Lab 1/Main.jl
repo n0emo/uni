@@ -1,3 +1,5 @@
+using SymPy
+
 P = factorial ∘ big
 A(m, n) = P(n) // P(n - m)
 C(m, n) = P(n) // (P(m) * P(n - m))
@@ -78,12 +80,34 @@ function problem_07()
     n = 400
     p = 0.6
     q = 0.4
+
     pn(m) = C(m, n) * p^m * q^(n - m)
 
     result_a = pn(245)
     result_b = sum(pn.(245:250))
 
     println("Problem 7:")
+    println("  a) $result_a")
+    println("  b) $result_b\n")
+end
+
+function problem_07_limits()
+    n = 400
+    p = 0.6
+    q = 0.4
+
+    ϕ(x) = exp(-(x^2) / 2) / sqrt(2pi)
+    xm(m) = (m - n * p) / sqrt(n * p * q)
+    Pn(m) = ϕ(xm(m)) / sqrt(n * p * q)
+
+    @syms u
+    f(x) = exp(-(x^2) / 2)
+    Φ0(x) = float(integrate(f(u), (u, 0, x)) / sqrt(2pi))
+    Pn(a, b) = Φ0(xm(b)) - Φ0(xm(a))
+
+    result_a = Pn(245)
+    result_b = Pn(245, 250)
+    println("Problem 7 (limits):")
     println("  a) $result_a")
     println("  b) $result_b\n")
 end
@@ -96,3 +120,4 @@ problem_04()
 problem_05()
 problem_06()
 problem_07()
+problem_07_limits()
