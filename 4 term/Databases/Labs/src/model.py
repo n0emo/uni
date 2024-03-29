@@ -22,6 +22,19 @@ class Customer:
         self.address = address
         self.phone = phone
 
+    @staticmethod
+    def new_from_db(
+        id: int,
+        name: str,
+        surname: str,
+        address: str,
+        phone: str,
+    ):
+        return Customer(name, surname, address, phone, id)
+
+    def __str__(self) -> str:
+        return str(self.__dict__)
+
 
 class BookOrder:
     id: int | None
@@ -53,6 +66,23 @@ class BookOrder:
         else:
             self.datetime = str(dt.datetime.now())
 
+    def __str__(self) -> str:
+        return str(self.__dict__)
+
+    @staticmethod
+    def new_frob_db(
+        id: int,
+        customer_id: int,
+        cost: float,
+        number_of_turns: int,
+        size: str,
+        materialId: int,
+        datetime: str,
+    ):
+        return BookOrder(
+            customer_id, cost, number_of_turns, size, materialId, datetime, id
+        )
+
 
 class PaintingOrder:
     id: int | None
@@ -81,6 +111,9 @@ class PaintingOrder:
         else:
             self.datetime = str(dt.datetime.now())
 
+    def __str__(self) -> str:
+        return str(self.__dict__)
+
 
 class Material:
     id: int | None
@@ -102,3 +135,16 @@ class Material:
         self.description = description
         self.price = price
         self.stock = stock
+
+    @staticmethod
+    def new_from_db(
+        id: int,
+        name: str,
+        description: str,
+        price: float,
+        stock: float,
+    ):
+        return Material(name, description, price, stock, id)
+
+    def __str__(self) -> str:
+        return str(self.__dict__)
