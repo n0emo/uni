@@ -12,10 +12,11 @@ CREATE TABLE IF NOT EXISTS BookOrders (
     datetime TEXT NOT NULL,
     cost REAL NOT NULL,
     numberOfTurns INTEGER NOT NULL,
-    size TEXT NOT NULL,
+    sizeId INTEGER NOT NULL,
     materialId INTEGER NOT NULL,
     FOREIGN KEY(customerId) REFERENCES Customers(id),
-    FOREIGN KEY(materialId) REFERENCES Materials(id)
+    FOREIGN KEY(materialId) REFERENCES Materials(id),
+    FOREIGN KEY(sizeId)     REFERENCES Sizes(id)
 );
 
 CREATE TABLE IF NOT EXISTS PaintingOrders (
@@ -34,6 +35,11 @@ CREATE TABLE IF NOT EXISTS Materials (
     description TEXT NOT NULL,
     price REAL NOT NULL,
     stock REAL NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Sizes (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL
 );
 
 CREATE VIEW MaterialStockView AS

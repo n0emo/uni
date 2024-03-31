@@ -57,6 +57,16 @@ def add_material(material: Material) -> None:
             sql, (material.name, material.description, material.price, material.stock)
         )
 
+def add_size(size: Size) -> None:
+    with get_connection() as conn:
+        cur = conn.cursor()
+        sql = """
+            INSERT INTO Sizes
+            (name)
+            VALUES(?)
+        """
+        cur.execute(sql, (size.name,))
+
 
 def update_material_stock(name: str, new_stock: float) -> None:
     with get_connection() as conn:
@@ -70,7 +80,7 @@ def add_book_order(order: BookOrder) -> None:
         cur = conn.cursor()
         sql = """
             INSERT INTO BookOrders 
-            (customerId, datetime, cost, numberOfTurns, size, materialId)
+            (customerId, datetime, cost, numberOfTurns, sizeId, materialId)
             VALUES (?, ?, ?, ?, ?, ?)
         """
         cur.execute(
@@ -80,8 +90,8 @@ def add_book_order(order: BookOrder) -> None:
                 order.datetime,
                 order.cost,
                 order.number_of_turns,
-                order.size,
-                order.materialId,
+                order.size_id,
+                order.material_id,
             ],
         )
 
@@ -134,7 +144,7 @@ def earliest_book() -> BookOrder:
         date = cur.fetchone()[0]
         sql = "SELECT * FROM BookOrders WHERE datetime = ?"
         result = cur.execute(sql, (date,)).fetchone()
-        return BookOrder.new_frob_db(*result)
+        return BookOrder.new_from_db(*result)
 
 
 def get_customers_with_prefix(prefix: str) -> list[Customer]:
@@ -171,8 +181,8 @@ def get_books_grouped_by_size_having_overall_cost_more_than(cost: int):
     with get_connection() as conn:
         cur = conn.cursor()
         sql = """
-            SELECT size, sum(cost) FROM BookOrders
-            GROUP BY size
+            SELECT sizeId, sum(cost) FROM BookOrders
+            GROUP BY sizeId
             HAVING sum(cost) > ?
         """
         return cur.execute(sql, (cost,)).fetchall()
@@ -182,3 +192,13 @@ def get_materials_sorted_by_stock() -> list:
     with get_connection() as conn:
         cur = conn.cursor()
         return cur.execute("SELECT * FROM MaterialStockView").fetchall()
+
+def cross_join_materials_sizes() -> list:
+    with get_connection() as conn:
+        cur = conn.cursor()
+        sql = """
+            SELECT Materials.name, Sizes.name
+            FROM Materials
+            CROSS JOIN Sizes
+        """
+        return cur.execute(sql).fetchall()

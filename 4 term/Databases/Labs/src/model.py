@@ -1,150 +1,57 @@
-import datetime as dt
+from typing import Type, TypeVar
 
+T = TypeVar('T', bound='DatabaseRecord')
 
-class Customer:
+class DatabaseRecord:
     id: int | None
+
+    def __str__(self) -> str:
+        return str(self.__dict__)
+
+    def __init__(self, *args):
+        cls = self.__class__
+        assert len(args) == len(cls.__annotations__)
+        self.id = None
+        for (anot, arg) in zip(cls.__annotations__, args):
+            self.__dict__[anot] = arg
+
+    @classmethod
+    def new_from_db(cls: Type[T], *args) -> T:
+        obj = cls.__new__(cls)
+        obj.__init__(*args[1:])
+        obj.id = args[0] # type: ignore
+        return obj
+
+class Customer(DatabaseRecord):
     name: str
     surname: str
     address: str
     phone: str
 
-    def __init__(
-        self,
-        name: str,
-        surname: str,
-        address: str,
-        phone: str,
-        id: int | None = None,
-    ) -> None:
-        self.id = id
-        self.name = name
-        self.surname = surname
-        self.address = address
-        self.phone = phone
 
-    @staticmethod
-    def new_from_db(
-        id: int,
-        name: str,
-        surname: str,
-        address: str,
-        phone: str,
-    ):
-        return Customer(name, surname, address, phone, id)
-
-    def __str__(self) -> str:
-        return str(self.__dict__)
-
-
-class BookOrder:
-    id: int | None
+class BookOrder(DatabaseRecord):
     customer_id: int
     datetime: str
     cost: float
     number_of_turns: int
-    size: str
-    materialId: int
-
-    def __init__(
-        self,
-        customer_id: int,
-        cost: float,
-        number_of_turns: int,
-        size: str,
-        materialId: int,
-        datetime: str | None = None,
-        id: int | None = None,
-    ) -> None:
-        self.id = id
-        self.customer_id = customer_id
-        self.cost = cost
-        self.number_of_turns = number_of_turns
-        self.size = size
-        self.materialId = materialId
-        if datetime:
-            self.datetime = datetime
-        else:
-            self.datetime = str(dt.datetime.now())
-
-    def __str__(self) -> str:
-        return str(self.__dict__)
-
-    @staticmethod
-    def new_frob_db(
-        id: int,
-        customer_id: int,
-        cost: float,
-        number_of_turns: int,
-        size: str,
-        materialId: int,
-        datetime: str,
-    ):
-        return BookOrder(
-            customer_id, cost, number_of_turns, size, materialId, datetime, id
-        )
+    size_id: int
+    material_id: int
 
 
-class PaintingOrder:
-    id: int | None
+class PaintingOrder(DatabaseRecord):
     customer_id: int
     cost: float
     width: int
     height: int
     datetime: str
 
-    def __init__(
-        self,
-        customer_id: int,
-        cost: float,
-        width: int,
-        height: int,
-        datetime: str | None = None,
-        id: int | None = None,
-    ) -> None:
-        self.id = id
-        self.customer_id = customer_id
-        self.cost = cost
-        self.width = width
-        self.height = height
-        if datetime:
-            self.datetime = datetime
-        else:
-            self.datetime = str(dt.datetime.now())
 
-    def __str__(self) -> str:
-        return str(self.__dict__)
-
-
-class Material:
-    id: int | None
+class Material(DatabaseRecord):
     name: str
     description: str
     price: float
     stock: float
 
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        stock: float,
-        id: int | None = None,
-    ) -> None:
-        self.id = id
-        self.name = name
-        self.description = description
-        self.price = price
-        self.stock = stock
 
-    @staticmethod
-    def new_from_db(
-        id: int,
-        name: str,
-        description: str,
-        price: float,
-        stock: float,
-    ):
-        return Material(name, description, price, stock, id)
-
-    def __str__(self) -> str:
-        return str(self.__dict__)
+class Size(DatabaseRecord):
+    name : str
