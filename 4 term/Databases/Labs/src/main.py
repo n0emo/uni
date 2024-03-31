@@ -3,9 +3,28 @@ import os
 import create
 import db
 from model import *
+from tabulate import tabulate
 
-if __name__ == "__main__":
-    # create.main()
+def main()-> None:
+    create.main()
+
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        sql = """
+            SELECT * FROM Materials
+        """
+        print("Таблица Sizes\n")
+        print(
+            tabulate(cur.execute(sql).fetchall(), 
+                headers=[
+            "ID", "Название", "Описание", "Цена", "Количество"]))
+    # 
+    #
+    # print("Декартово произведение материалов и размеров:")
+    # for row in db.cross_join_materials_sizes():
+    #     print(row)
+    
+    return
     print(f"Количество клиентов: {db.count_customers()}\n")
     print(f"Сумма выручки с картин: {db.sum_painting_orders()}\n")
     print(f"Средняя цена фотокниги: {db.avg_book_cost()}\n")
@@ -30,9 +49,15 @@ if __name__ == "__main__":
     cost = 25000
     print(f"Группы книг по размеру, где общая стоимость заказов больше {cost}:")
     for book in db.get_books_grouped_by_size_having_overall_cost_more_than(cost):
-        print(book)
+        print(f"ID Размера: {book[0]}, Общая стоимость заказов: {book[1]}")
     print()
 
-    print("Материалы, отсортированные по количеству на складе:")
+    print("Материалы, отсортированные по количеству на складе:\n")
+    print("ID | Название           | Количество на складе")
     for material in db.get_materials_sorted_by_stock():
-        print(material)
+        s = f"{material[0]:2} | {material[1]:18} | {material[2]:5}"
+        print('_' * 50)
+        print(s)
+
+if __name__ == "__main__":
+    main()
