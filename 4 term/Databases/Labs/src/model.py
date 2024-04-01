@@ -1,6 +1,7 @@
 from typing import Type, TypeVar
 
-T = TypeVar('T', bound='DatabaseRecord')
+T = TypeVar("T", bound="DatabaseRecord")
+
 
 class DatabaseRecord:
     id: int | None
@@ -12,15 +13,16 @@ class DatabaseRecord:
         cls = self.__class__
         assert len(args) == len(cls.__annotations__)
         self.id = None
-        for (anot, arg) in zip(cls.__annotations__, args):
+        for anot, arg in zip(cls.__annotations__, args):
             self.__dict__[anot] = arg
 
     @classmethod
     def new_from_db(cls: Type[T], *args) -> T:
         obj = cls.__new__(cls)
         obj.__init__(*args[1:])
-        obj.id = args[0] # type: ignore
+        obj.id = args[0]  # type: ignore
         return obj
+
 
 class Customer(DatabaseRecord):
     name: str
@@ -54,4 +56,4 @@ class Material(DatabaseRecord):
 
 
 class Size(DatabaseRecord):
-    name : str
+    name: str

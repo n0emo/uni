@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from typing import Any
 
 from model import BookOrder, Customer, Material, PaintingOrder, Size
 
@@ -16,202 +17,203 @@ def get_connection() -> sqlite3.Connection:
     return conn
 
 
-def create_tables() -> None:
+def execute_sql(sql: str, params=None) -> None:
+    if params is None:
+        params = []
     with get_connection() as conn:
         cur = conn.cursor()
-
-        sql = open("sql/create.sql").read()
-
-        cur.executescript(sql)
+        cur.execute(sql, params)
 
 
-def add_customer(customer: Customer) -> None:
+def execute_script(script: str) -> None:
     with get_connection() as conn:
         cur = conn.cursor()
-        sql = """
-            INSERT INTO Customers 
-            (name, surname, address, phone) 
-            VALUES (?, ?, ?, ?)
-        """
-        cur.execute(
-            sql, (customer.name, customer.surname, customer.address, customer.phone)
-        )
+        cur.executescript(script)
 
 
-def remove_customer_by_id(id: int) -> None:
+def fetchone_sql(sql: str, params=None) -> Any:
+    if params is None:
+        params = []
     with get_connection() as conn:
         cur = conn.cursor()
-        sql = "DELETE FROM Customers WHERE id = ?"
-        cur.execute(sql, [id])
-
-
-def add_material(material: Material) -> None:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
-            INSERT INTO Materials 
-            (name, description, price, stock)
-            VALUES(?, ?, ?, ?)
-        """
-        cur.execute(
-            sql, (material.name, material.description, material.price, material.stock)
-        )
-
-
-def add_size(size: Size) -> None:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
-            INSERT INTO Sizes
-            (name)
-            VALUES(?)
-        """
-        cur.execute(sql, (size.name,))
-
-
-def update_material_stock(name: str, new_stock: float) -> None:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = "UPDATE Materials SET stock = ? WHERE name = ?"
-        cur.execute(sql, [new_stock, name])
-
-
-def add_book_order(order: BookOrder) -> None:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
-            INSERT INTO BookOrders 
-            (customerId, datetime, cost, numberOfTurns, sizeId, materialId)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """
-        cur.execute(
-            sql,
-            [
-                order.customer_id,
-                order.datetime,
-                order.cost,
-                order.number_of_turns,
-                order.size_id,
-                order.material_id,
-            ],
-        )
-
-
-def add_painting_order(order: PaintingOrder) -> None:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
-            INSERT INTO PaintingOrders
-            (customerId, datetime, cost, width, height)
-            VALUES (?, ?, ?, ?, ?)
-        """
-        cur.execute(
-            sql,
-            [order.customer_id, order.datetime, order.cost, order.width, order.height],
-        )
-
-
-def int_sql(sql: str) -> int:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        cur.execute(sql)
+        cur.execute(sql, params)
         return cur.fetchone()[0]
 
 
+def fetchall_sql(sql: str, params=None) -> list:
+    if params is None:
+        params = []
+    with get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        return cur.fetchall()
+
+
+def create_tables() -> None:
+    with open("sql/create.sql") as file:
+        sql = file.read()
+        execute_script(sql)
+
+
+def add_customer(customer: Customer) -> None:
+    execute_sql(
+        """
+            INSERT INTO Customers 
+            (name, surname, address, phone) 
+            VALUES (?, ?, ?, ?)
+        """,
+        (customer.name, customer.surname, customer.address, customer.phone),
+    )
+
+
+def remove_customer_by_id(id: int) -> None:
+    execute_sql("DELETE FROM Customers WHERE id = ?", (id,))
+
+
+def add_material(material: Material) -> None:
+    execute_sql(
+        """
+            INSERT INTO Materials 
+            (name, description, price, stock)
+            VALUES(?, ?, ?, ?)
+        """,
+        (material.name, material.description, material.price, material.stock),
+    )
+
+
+def add_size(size: Size) -> None:
+    execute_sql(
+        """
+            INSERT INTO Sizes
+            (name)
+            VALUES(?)
+        """,
+        (size.name,),
+    )
+
+
+def update_material_stock(name: str, new_stock: float) -> None:
+    return execute_sql(
+        "UPDATE Materials SET stock = ? WHERE name = ?", (new_stock, name)
+    )
+
+
+def add_book_order(order: BookOrder) -> None:
+    return execute_sql(
+        """
+            INSERT INTO BookOrders 
+            (customerId, datetime, cost, numberOfTurns, sizeId, materialId)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """,
+        (
+            order.customer_id,
+            order.datetime,
+            order.cost,
+            order.number_of_turns,
+            order.size_id,
+            order.material_id,
+        ),
+    )
+
+
+def add_painting_order(order: PaintingOrder) -> None:
+    execute_sql(
+        """
+            INSERT INTO PaintingOrders
+            (customerId, datetime, cost, width, height)
+            VALUES (?, ?, ?, ?, ?)
+        """,
+        (order.customer_id, order.datetime, order.cost, order.width, order.height),
+    )
+
+
 def count_customers() -> int:
-    return int_sql("SELECT COUNT(*) FROM Customers")
+    return fetchone_sql("SELECT COUNT(*) FROM Customers")
 
 
 def sum_painting_orders() -> int:
-    return int_sql("SELECT SUM(cost) FROM PaintingOrders")
+    return fetchone_sql("SELECT SUM(cost) FROM PaintingOrders")
 
 
 def avg_book_cost() -> int:
-    return int_sql("SELECT AVG(cost) FROM BookOrders")
+    return fetchone_sql("SELECT AVG(cost) FROM BookOrders")
 
 
 def max_painting_cost() -> int:
-    return int_sql("SELECT MAX(cost) FROM PaintingOrders")
+    return fetchone_sql("SELECT MAX(cost) FROM PaintingOrders")
 
 
 def min_book_number_of_turns() -> int:
-    return int_sql("SELECT MIN(numberOfTurns) FROM BookOrders")
+    return fetchone_sql("SELECT MIN(numberOfTurns) FROM BookOrders")
 
 
 def earliest_book() -> BookOrder:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        cur.execute("SELECT MIN(datetime) FROM BookOrders")
-        date = cur.fetchone()[0]
-        sql = "SELECT * FROM BookOrders WHERE datetime = ?"
-        result = cur.execute(sql, (date,)).fetchone()
-        return BookOrder.new_from_db(*result)
+    date = fetchone_sql("SELECT MIN(datetime) FROM BookOrders")
+    return BookOrder.new_from_db(
+        *fetchall_sql("SELECT * FROM BookOrders WHERE datetime = ?", (date,))[0]
+    )
 
 
 def get_customers_with_prefix(prefix: str) -> list[Customer]:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = "SELECT * FROM Customers WHERE (name || ' ' || surname) LIKE ?"
-        result = cur.execute(sql, (f"{prefix}%",)).fetchall()
-        return [Customer.new_from_db(*r) for r in result]
+    return [
+        Customer.new_from_db(*r)
+        for r in fetchall_sql(
+            "SELECT * FROM Customers WHERE (name || ' ' || surname) LIKE ?",
+            (f"{prefix}%",),
+        )
+    ]
 
 
 def get_painting_dimensions(id: int) -> str:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
+    return fetchone_sql(
+        """
             SELECT cast(width as text) || 'x' || cast(height as text)
             FROM PaintingOrders 
             WHERE id=?
-        """
-        result = cur.execute(sql, (id,))
-        return result.fetchone()[0]
+        """,
+        (id,),
+    )
 
 
 def get_books_grouped_by_material_id():
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
+    return fetchall_sql(
+        """
             SELECT materialId, SUM(cost) FROM BookOrders
             GROUP BY materialId
         """
-        return cur.execute(sql).fetchall()
+    )
 
 
 def get_books_grouped_by_size_having_overall_cost_more_than(cost: int):
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
+    return fetchall_sql(
+        """
             SELECT sizeId, sum(cost) FROM BookOrders
             GROUP BY sizeId
             HAVING sum(cost) > ?
-        """
-        return cur.execute(sql, (cost,)).fetchall()
+        """,
+        (cost,),
+    )
 
 
 def get_materials_sorted_by_stock() -> list:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        return cur.execute("SELECT * FROM MaterialStockView").fetchall()
+    return fetchall_sql("SELECT * FROM MaterialStockView")
 
 
 def cross_join_materials_sizes() -> list:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
+    return fetchall_sql(
+        """
             SELECT Materials.name, Sizes.name
             FROM Materials
             CROSS JOIN Sizes
         """
-        return cur.execute(sql).fetchall()
+    )
 
 
-def natural_join() -> list:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        sql = """
+def join_on() -> list:
+    return fetchall_sql(
+        """
             SELECT BookOrders.id, BookOrders.cost, Materials.name, BookOrders.datetime
             FROM BookOrders
             JOIN Materials on Materials.id = BookOrders.materialId
         """
-        return cur.execute(sql).fetchall()
+    )
