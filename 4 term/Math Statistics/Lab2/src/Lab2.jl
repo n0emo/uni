@@ -51,11 +51,27 @@ function problem_4()
 
     q = 1 - p
 
-    pm(μ) = C(μ, n) * p^μ * q^(n - μ)
+    pn(μ) = C(μ, n) * p^μ * q^(n - μ)
 
-    println("μ = m: $(pm(m))")
-    println("μ ≤ m: $(sum(pm.(0:m)))")
-    println("m1 ≤ μ ≤ m2: $(sum(pm.(m1:m2)))")
+    ϕ(x) = exp(-(x^2) / 2) / sqrt(2pi)
+    xm(m) = (m - n * p) / sqrt(n * p * q)
+    pn_appr(m) = ϕ(xm(m)) / sqrt(n * p * q)
+
+    @syms u
+    f(x) = exp(-(x^2) / 2)
+    Φ0(x) = float(integrate(f(u), (u, 0, x)) / sqrt(2pi))
+    pn_appr(a, b) = Φ0(xm(b)) - Φ0(xm(a))
+
+    println("Exact answer:")
+    println("  μ = m: $(pn(m))")
+    println("  μ ≤ m: $(sum(pn.(0:m)))")
+    println("  m1 ≤ μ ≤ m2: $(sum(pn.(m1:m2)))")
+
+    println()
+    println("Approximate answer (Laplace):")
+    println("  μ = m: $(pn_appr(big(m)))")
+    println("  μ ≤ m: $(pn_appr(big(0), m))")
+    println("  m1 ≤ μ ≤ m2: $(pn_appr(big(m1), m2))")
 end
 
 function problem_5()
@@ -67,12 +83,20 @@ function problem_5()
 
     q = 1 - p
 
-    pm(μ) = C(μ, n) * p^μ * q^(n - μ)
+    λ = n * p
 
-    println(sum(pm.(0:100)))
+    pn(μ) = C(μ, n) * p^μ * q^(n - μ)
+    pn_appr(μ) = λ^μ / P(μ) * exp(-λ)
 
-    println("μ = m: $(pm(m))")
-    println("μ ≤ m: $(sum(pm.(0:m)))")
-    println("m1 ≤ μ ≤ m2: $(sum(pm.(m1:m2)))")
+    println("Exact answer:")
+    println("  μ = m: $(pn(m))")
+    println("  μ ≤ m: $(sum(pn.(0:m)))")
+    println("  m1 ≤ μ ≤ m2: $(sum(pn.(m1:m2)))")
+
+    println()
+    println("Approximate answer (Puasson):")
+    println("  μ = m: $(pn_appr(m))")
+    println("  μ ≤ m: $(sum(pn_appr.(0:m)))")
+    println("  m1 ≤ μ ≤ m2: $(sum(pn_appr.(m1:m2)))")
 end
 end # module Lab2
