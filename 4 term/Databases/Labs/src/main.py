@@ -7,7 +7,7 @@ from tabulate import tabulate
 def main() -> None:
     create.main()
 
-    print(tabulate(db.natural_join()))
+    print(tabulate(db.join_on()))
     return
 
     with db.get_connection() as conn:
