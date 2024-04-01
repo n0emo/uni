@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-from model import *
+from model import BookOrder, Customer, Material, PaintingOrder, Size
 
 _db_filename_ = "fbook.db"
 
@@ -56,6 +56,7 @@ def add_material(material: Material) -> None:
         cur.execute(
             sql, (material.name, material.description, material.price, material.stock)
         )
+
 
 def add_size(size: Size) -> None:
     with get_connection() as conn:
@@ -193,6 +194,7 @@ def get_materials_sorted_by_stock() -> list:
         cur = conn.cursor()
         return cur.execute("SELECT * FROM MaterialStockView").fetchall()
 
+
 def cross_join_materials_sizes() -> list:
     with get_connection() as conn:
         cur = conn.cursor()
@@ -200,5 +202,16 @@ def cross_join_materials_sizes() -> list:
             SELECT Materials.name, Sizes.name
             FROM Materials
             CROSS JOIN Sizes
+        """
+        return cur.execute(sql).fetchall()
+
+
+def natural_join() -> list:
+    with get_connection() as conn:
+        cur = conn.cursor()
+        sql = """
+            SELECT BookOrders.id, BookOrders.cost, Materials.name, BookOrders.datetime
+            FROM BookOrders
+            JOIN Materials on Materials.id = BookOrders.materialId
         """
         return cur.execute(sql).fetchall()
