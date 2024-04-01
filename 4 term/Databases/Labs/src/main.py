@@ -1,12 +1,14 @@
-import os
-
 import create
 import db
 from model import *
 from tabulate import tabulate
 
-def main()-> None:
+
+def main() -> None:
     create.main()
+
+    print(tabulate(db.natural_join()))
+    return
 
     with db.get_connection() as conn:
         cur = conn.cursor()
@@ -15,15 +17,17 @@ def main()-> None:
         """
         print("Таблица Sizes\n")
         print(
-            tabulate(cur.execute(sql).fetchall(), 
-                headers=[
-            "ID", "Название", "Описание", "Цена", "Количество"]))
-    # 
+            tabulate(
+                cur.execute(sql).fetchall(),
+                headers=["ID", "Название", "Описание", "Цена", "Количество"],
+            )
+        )
+    #
     #
     # print("Декартово произведение материалов и размеров:")
     # for row in db.cross_join_materials_sizes():
     #     print(row)
-    
+
     return
     print(f"Количество клиентов: {db.count_customers()}\n")
     print(f"Сумма выручки с картин: {db.sum_painting_orders()}\n")
@@ -56,8 +60,9 @@ def main()-> None:
     print("ID | Название           | Количество на складе")
     for material in db.get_materials_sorted_by_stock():
         s = f"{material[0]:2} | {material[1]:18} | {material[2]:5}"
-        print('_' * 50)
+        print("_" * 50)
         print(s)
+
 
 if __name__ == "__main__":
     main()
