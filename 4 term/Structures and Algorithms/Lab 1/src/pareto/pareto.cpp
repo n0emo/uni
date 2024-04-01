@@ -105,7 +105,7 @@ void plot_pareto_2(const std::filesystem::path &source, bool png = false)
     if (png)
     {
         gnuplot.printf("set term png\n"
-                       "set putput 'plot.png'\n");
+                       "set output 'plot.png'\n");
     }
     else
     {
