@@ -40,7 +40,8 @@ bool is_satisfies(const std::vector<Item> &items, const Set &set)
 
     return std::includes(
         accumulator.begin(), accumulator.end(),
-        set.begin(), set.end());
+ 
+		set.begin(), set.end());
 }
 
 intmax_t total_cost(const std::vector<Item> &items)
