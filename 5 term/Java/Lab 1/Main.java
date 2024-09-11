@@ -1,6 +1,4 @@
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,13 +6,12 @@ public class Main {
             return;
         }
 
-        float[] numbers = new float[args.length];
+        final float[] numbers;
         try {
-            for (int i = 0; i < args.length; i++) {
-                numbers[i] = Float.parseFloat(args[i]);
-            }
+            numbers = parseFloatArray(args);
         } catch (NumberFormatException e) {
             fatalPrintln("Error reading numbers: ", e.getMessage());
+            return; // Java things stat this function does not exists after System.exit
         }
 
         try {
@@ -23,10 +20,22 @@ public class Main {
             fatalPrintln(e.getMessage());
         }
 
+        printArray(numbers);
+    }
+
+    private static float[] parseFloatArray(String[] strings) {
+        final float[] floats = new float[strings.length];
+        for (int i = 0; i < strings.length; i++) {
+            floats[i] = Float.parseFloat(strings[i]);
+        }
+        return floats;
+    }
+
+    private static void printArray(float[] array) {
         final DecimalFormat format = new DecimalFormat("#.#####");
-        print(format.format(numbers[0]));
-        for (int i = 1; i < numbers.length; i++) {
-            print(", ", format.format(numbers[i]));
+        print(format.format(array[0]));
+        for (int i = 1; i < array.length; i++) {
+            print(", ", format.format(array[i]));
         }
         println();
     }
