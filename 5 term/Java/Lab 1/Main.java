@@ -11,7 +11,7 @@ public class Main {
             numbers = parseFloatArray(args);
         } catch (NumberFormatException e) {
             fatalPrintln("Error reading numbers: ", e.getMessage());
-            return; // Java things stat this function does not exists after System.exit
+            return; // Java thinks that this function does not exits after System.exit
         }
 
         try {
@@ -23,7 +23,7 @@ public class Main {
         printArray(numbers);
     }
 
-    private static float[] parseFloatArray(String[] strings) {
+    private static float[] parseFloatArray(String[] strings) throws NumberFormatException {
         final float[] floats = new float[strings.length];
         for (int i = 0; i < strings.length; i++) {
             floats[i] = Float.parseFloat(strings[i]);
