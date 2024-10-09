@@ -1,0 +1,161 @@
+﻿<Window x:Class="SovietTextEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Closed="MainWindow_OnClosed"
+        Background="Red"
+        mc:Ignorable="d"
+        Loaded="MainWindowLoaded"
+        Title="Советский Текстовый Редактор" Height="350" Width="525">
+    <Window.CommandBindings>
+        <CommandBinding
+            Command="Open"
+            Executed="CommandOpenExecuted" />
+        <CommandBinding
+            Command="Save"
+            Executed="CommandSaveExecute" />
+        <CommandBinding
+            Command="SaveAs"
+            Executed="CommandSaveasExecute" />
+        <CommandBinding
+            Command="New"
+            Executed="CommandNewExecute" />
+        <CommandBinding
+            Command="Close"
+            Executed="CommandCloseExecute" />
+    </Window.CommandBindings>
+    <DockPanel
+        VerticalAlignment="Stretch"
+        HorizontalAlignment="Stretch">
+        <Menu
+            Background="Yellow"
+            DockPanel.Dock="Top"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Stretch">
+            <MenuItem Header="Файл"
+                Background="Yellow">
+                <MenuItem  Command="New" Header="Новый" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconNew.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="Open" Header="Открыть..." >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconOpen.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="Save" Header="Сохранить" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconSave.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="SaveAs" Header="Сохранить как..." > </MenuItem>
+                <Separator />
+                <MenuItem Command="Close" Header="Заняться другой работой" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconSoviet.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Редактировать"
+                Background="Yellow">
+                <MenuItem Command="Cut" Header="Вырезать" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconCut.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="Copy" Header="Копировать" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconCopy.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="Paste" Header="Вставить" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconPaste.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="Undo" Header="Отменить" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconUndo.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Command="SelectAll" Header="Выбрать всё" >
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Icons/IconSelectAll.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Советская музыка"
+                      x:Name="MusicMenu"
+                Background="Yellow">
+            </MenuItem>
+        </Menu>
+        <ToolBarTray 
+            Background="Red"
+            DockPanel.Dock="Top"
+            Height="50">
+            <ToolBar
+                Background="Red"
+                Height="50">
+                <Button Command="Open">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="Assets/Icons/IconOpen.png" Stretch="Fill"/>
+                </Button>
+                <Button Command="Save">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="Assets/Icons/IconSave.png" Stretch="Fill"/>
+                </Button>
+            </ToolBar>
+            <ToolBar
+                Background="Red"
+                Height="50">
+                <Button Command="Cut">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="Assets/Icons/IconCut.png" Stretch="Fill"/>
+                </Button>
+                <Button Command="Copy">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="Assets/Icons/IconCopy.png" Stretch="Fill"/>
+                </Button>
+                <Button Command="Paste">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="Assets/Icons/IconPaste.png" Stretch="Fill"/>
+                </Button>
+            </ToolBar>
+            <ToolBar
+                Background="Red">
+                <Button Click="USSRButtonClick">
+                    <Image
+                        Width="40"
+                        Height="40"
+                        Source="Assets/Icons/SovietHerb.png" Stretch="Fill"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+       
+        <TextBox
+            Background="DarkRed"
+            Foreground="Yellow"
+            FontSize="16"
+            TextChanged="MainTextBox_OnTextChanged"
+            Name="MainTextBox"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Visible"
+            Margin="1" >
+        </TextBox>
+    </DockPanel>
+</Window>

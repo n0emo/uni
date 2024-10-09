@@ -1,0 +1,10 @@
+BasedOnStyle: Google
+IndentWidth: 4
+IndentAccessModifiers: false
+AccessModifierOffset: -4
+BreakAfterAttributes: Always
+AlwaysBreakTemplateDeclarations: Yes
+DerivePointerAlignment: false
+PointerAlignment: Left
+InsertBraces: true
+InsertNewlineAtEOF: true
