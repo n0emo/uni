@@ -1,0 +1,37 @@
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #9f51a5 url("sources/background.jpg") center;
+    background-size: 226px 226px;
+}
+
+nav {
+    position: static;
+    display: block;
+    width: 100%;
+    top: 0;
+    background-color: #69338d;
+    height: 53px;
+    border-bottom: 3px solid #7838a5;
+    font-size: 1.2em;
+}
+
+
+.nav_main {
+    text-align: left;
+    position: relative;
+    left: 1%;
+    display: inline-flex;
+    height: 10px;
+    color: #b690d0;
+}
+
+.nav_about {
+    text-align: right;
+    position: relative;
+    left: 90%;
+    display: inline-flex;
+    height: 5px;
+    color: #9f76ba;
+}

@@ -1,5 +1,0 @@
-DROP TABLE IF EXISTS book_orders;
-DROP TABLE IF EXISTS painting_orders;
-DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS materials;
-DROP TABLE IF EXISTS sizes;

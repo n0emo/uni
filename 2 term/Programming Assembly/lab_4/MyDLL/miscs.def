@@ -1,5 +1,0 @@
-LIBRARY miscs
-EXPORTS dllmain
-EXPORTS get_arr_from_console
-EXPORTS sort_arr
-EXPORTS write_arr_to_console
