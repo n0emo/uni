@@ -1,0 +1,4 @@
+address: 0.0.0.0
+port: 8090
+db_url: postgres://postgres:UltraStrongPassword228@localhost:5432/lab1
+

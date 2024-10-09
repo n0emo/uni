@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+abstract class Task {
++{abstract}get_description() : string
++{abstract}execute() : void
+#func()
+#trim()
+}
+
+class FunctionValueCalculation {
+    +get_description() : string
+    +execute() : void
+
+    -argument: double
+    -value: double
+    -get_argument() : void
+    -evaluate_function() : void
+    -output_value() : void
+}
+
+class FunctionValueComparison {
+    +get_description() : string
+    +execute() : void
+
+    -argument_a: double
+    -argument_b: double
+    -value = 0: double
+    -get_arguments() : void
+    -output_value() : void
+    -evaluate_max_value() : void
+}
+
+class FunctionTableCalculation {
+    +get_description() : string
+    +execute() : void
+    -start : double
+    -end : double
+    -step : double
+    -argument : double
+    -OUTPUT_WIDTH : int = 10
+    -OUTPUT_PRECISION : int = 5
+    -get_table_args() : void
+    -output_table() : void
+    write_table_row() : void
+}
+
+Task <|-- FunctionValueCalculation
+Task <|--  FunctionValueComparison
+Task <|--  FunctionTableCalculation
+
+@enduml

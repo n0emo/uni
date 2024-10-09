@@ -1,4 +1,0 @@
-# Neovim compilation files
-out/
-.cache/
-compile_commands.json

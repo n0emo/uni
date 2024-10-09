@@ -1,0 +1,21 @@
+[PROJECT]
+Type=2
+ReleaseCommandLine=
+DebugCommandLine=
+AutoIncFileVersion=0
+RCSilent=0
+PellesTools=0
+[MAKE]
+ActiveBuild=0
+CompileRC=/v
+RCToObj=
+Assemble=/c /coff /Cp /nologo
+Link=/SUBSYSTEM:CONSOLE /RELEASE /VERSION:4.0
+Out=
+DebAssemble=/c /coff /Cp /nologo /Fm /Zi /Zd
+DebLink=/SUBSYSTEM:CONSOLE /DEBUG /VERSION:4.0
+DebOut=
+[FILES]
+1=lab_2_1.asm
+[SHOWFILE]
+1=000000000000000096050000CC020000000000000300000047000000B3
