@@ -1,7 +1,10 @@
 (ns csv.core
   (:gen-class)
   (:require [clojure.java.io :as io])
-  (:require [csv.parse :as parse]))
+
+  (:require [csv.calculate :as calculate])
+  (:require [csv.parse :as parse])
+  (:require [csv.print :as csv-print]))
 
 (defn usage []
   (println (str
@@ -17,10 +20,18 @@
     (doall (line-seq reader))))
 
 (defn command-print [file]
-  (parse/parse (get-lines file)))
+  (->> file
+       (get-lines)
+       (parse/parse-csv)
+       (csv-print/print-csv)))
 
 (defn command-calculate [file]
-  (println "execute calculate" file))
+  (->> file
+       (get-lines)
+       (parse/parse-csv)
+       (parse/csv-cells-to-doubles)
+       (calculate/calculate-csv-averages)
+       (csv-print/print-rows)))
 
 (defn run [subcommand file]
   (try
@@ -32,7 +43,7 @@
         (System/exit 1)))
     (catch Exception e
       (do
-        (println "Error:" (.getMessage e))
+        (println "Error:" (.toString e))
         (System/exit 1)))))
 
 (defn -main
