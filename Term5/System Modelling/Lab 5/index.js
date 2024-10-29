@@ -18,10 +18,21 @@
  */
 
 /**
- * @typedef State
- * @prop jobs {Job[]}
- * @prop queue {Job[]}
- * @prop queueSamples {QueueSample[]}
+ * @typedef ModellingParams
+ * @prop maxQueue {number}
+ * @prop maxTime {number}
+ * @prop loadRate {number}
+ * @prop processingRate {number}
+ * @prop jobCount {number}
+ */
+
+/**
+ * @typedef ModellingStats
+ * @prop averageStayingTime {number}
+ * @prop rejectionFrequency {number}
+ * @prop averageWaitTime {number}
+ * @prop averageProcessingTime {number}
+ * @prop variationCoefficient {number}
  */
 
 const jobInput = document.querySelector("#jobInput");
@@ -45,97 +56,92 @@ const hyperExponentialRand = (rate1, rate2, threshold) =>
     exponentialRand(threshold > Math.random() ? rate1 : rate2)
 
 /**
- * @param state {State}
+ * @param params {ModellingParams}
+ * @returns {ModellingStats}
  */
-const evaluateState = (state) => {
-    state = structuredClone(state)
+const doModelling = (params) => {
+    let rejected = 0;
+    let processed = 0;
+    let modellingTime = 0;
+    let channelReleaseTime = 1 / 0;
+    let stayingTime = 0;
+    let queue = [];
+    let waitTimes = [];
+    let processingTimes = [];
 
-    const queueSamples = []
+    do {
+        const arrivalTime = modellingTime + exponentialRand(params.loadRate);
 
-    while (state.queue.length > 0 || state.jobs.length > 0) {
-        state.jobs.pop();
+        if (arrivalTime > channelReleaseTime) {
+            modellingTime = channelReleaseTime;
+            const currentProcessingTime = exponentialRand(params.processingRate);
+            processingTimes.push(currentProcessingTime);
+
+            channelReleaseTime = queue.length == 1
+                ? channelReleaseTime = 1 / 0
+                : channelReleaseTime = modellingTime + currentProcessingTime;
+
+            console.assert(queue.length > 0);
+            stayingTime += (modellingTime - queue[0])
+
+            const waitTime = Math.max(0, modellingTime - queue[0] - currentProcessingTime);
+            waitTimes.push(waitTime);
+
+            queue.splice(0, 1);
+
+            processed++;
+        } else {
+            modellingTime = arrivalTime
+
+            if (queue.length == 0) {
+                const currentProcessingTime = exponentialRand(params.processingRate);
+                channelReleaseTime = modellingTime + currentProcessingTime;
+            }
+
+            if (queue.length >= params.maxQueue) {
+                rejected++;
+            } else {
+                queue.push(modellingTime);
+            }
+        }
+    } while (modellingTime < params.maxTime && processed + rejected < params.jobCount);
+
+    const averageStayingTime = stayingTime / processed;
+    const rejectionFrequency = rejected / modellingTime;
+    const averageWaitTime = waitTimes.reduce((a, b) => a + b, 0) / waitTimes.length;
+    const averageProcessingTime = processingTimes.reduce((a, b) => a + b, 0) / processingTimes.length;
+    const variationCoefficient = 0 / averageProcessingTime; // TODO
+
+    return {
+        averageStayingTime,
+        rejectionFrequency,
+        averageWaitTime,
+        averageProcessingTime,
+        variationCoefficient
     }
-
-    return { queueSamples }
 }
 
 
 const main = () => {
     // @ts-ignore
-    const loadFactor = parseFloat(loadFactorInput.value);
+    const loadRate = parseFloat(loadFactorInput.value);
     // @ts-ignore
-    const processingFactor = parseFloat(processingFactorInput.value);
+    const processingRate = parseFloat(processingFactorInput.value);
     // @ts-ignore
     const jobCount = parseInt(jobInput.value);
 
-    /** @type {Job[]} */
-    const jobs = Array(jobCount)
-    .fill(undefined)
-    .map((_) => {
-        return {
-            arrivalTime: exponentialRand(loadFactor),
-            processingTime: exponentialRand(processingFactor),
-            waitTime: 0,
-        }
-    })
-
-    /** @type {State} */
-    const initialState = {
-        jobs,
-        queue: [],
-        queueSamples: [],
+    /** @type {ModellingParams} */
+    const params = {
+        maxQueue: 1000,
+        maxTime: 1000,
+        loadRate,
+        processingRate,
+        jobCount,
     };
 
-    const result = evaluateState(initialState);
+    const result = doModelling(params);
     console.log(result)
 }
 
 // @ts-ignore
 startButton.onclick = main
-
-/*
-
-    const getProcessedJobs = (remainingTime, queue, processed = 0, processingTime = 0) => {
-        const timeToProcess = exponentialRand(processingFactor);
-
-        if (queue == 0) {
-            return { remainingTime: 0, processed, processingTime}
-        } else if (timeToProcess > remainingTime) {
-            return { remainingTime, processed, processingTime }
-        } else {
-            return getProcessedJobs(remainingTime - timeToProcess, queue - 1, processed + 1, processingTime + timeToProcess);
-        }
-    }
-
-    const nextState = (state, job) => {
-        const queue = state.queue + 1;
-        const processedJobs = job > state.remainingProcessingTime
-            ? getProcessedJobs(job - state.remainingProcessingTime, queue)
-            : {
-                remainingTime: state.remainingProcessingTime - job,
-                processed: 0,
-                processingTime: job,
-            };
-
-        return {
-            queue: queue - processedJobs.processed,
-            remainingProcessingTime: processedJobs.remainingTime,
-            waitTime: state.waitTime,
-            processingTime: state.processingTime + processedJobs.processingTime,
-        }
-    };
-
-    const finalizeState = (state) => {
-        const remainingQueueProcessingTime = Array(state.queue)
-            .fill(processingFactor)
-            .map(exponentialRand)
-            .reduce((a, b) => a + b, 0);
-
-        return {
-            queue: 0,
-            remainingProcessingTime: 0,
-            waitTime: state.waitTime,
-            processingTime: state.processingTime + remainingQueueProcessingTime + state.remainingProcessingTime,
-        }
-    }
-*/
