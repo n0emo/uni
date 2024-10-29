@@ -39,6 +39,7 @@ const jobInput = document.querySelector("#jobInput");
 const loadFactorInput = document.querySelector("#loadFactorInput");
 const processingFactorInput = document.querySelector("#processingFactorInput");
 const startButton = document.querySelector("#startButton");
+const outputParagraph = document.querySelector("#outputParagraph")
 
 /**
  * @param rate {number}
@@ -54,6 +55,16 @@ const exponentialRand = (rate) => (-1 / rate) * Math.log(Math.random())
  */
 const hyperExponentialRand = (rate1, rate2, threshold) => 
     exponentialRand(threshold > Math.random() ? rate1 : rate2)
+
+/**
+ * @param array {number[]}
+ * @returns {number}
+ */
+const standardDeviation = (array) => {
+  const n = array.length
+  const mean = array.reduce((a, b) => a + b) / n
+  return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+}
 
 /**
  * @param params {ModellingParams}
@@ -110,7 +121,7 @@ const doModelling = (params) => {
     const rejectionFrequency = rejected / modellingTime;
     const averageWaitTime = waitTimes.reduce((a, b) => a + b, 0) / waitTimes.length;
     const averageProcessingTime = processingTimes.reduce((a, b) => a + b, 0) / processingTimes.length;
-    const variationCoefficient = 0 / averageProcessingTime; // TODO
+    const variationCoefficient = standardDeviation(processingTimes) / averageProcessingTime;
 
     return {
         averageStayingTime,
@@ -140,7 +151,13 @@ const main = () => {
     };
 
     const result = doModelling(params);
-    console.log(result)
+    // @ts-ignore
+    outputParagraph.innerText =
+        `Среднее время пребывания в системе: ${result.averageStayingTime}\n` +
+        `Частота отказов: ${result.rejectionFrequency}\n` +
+        `Среднее время ожидания: ${result.averageWaitTime}\n` +
+        `Среднее время обслуживания: ${result.averageProcessingTime}\n` +
+        `Коэффециент вариации времени обслуживания: ${result.variationCoefficient}\n`
 }
 
 // @ts-ignore
