@@ -1,33 +1,35 @@
-(ns csv.print)
-
-(defn row-to-string [row]
-  (map str row))
-
-(defn csv-to-string [csv]
-  (map row-to-string csv))
+(ns csv.print
+  (:require [clojure.string :as str]))
 
 (defn transpose
   ([] (vector))
   ([m] (apply mapv vector m)))
 
-(defn max-str-len-in-row [row]
-  (apply max (map count row)))
-
-(defn max-cols [m]
-  (map max-str-len-in-row m))
-
-(defn fill-row [element max-len row]
-  (concat row (repeat (- max-len (count row)) element)))
-
-(defn csv-to-str-matrix [csv]
-  (let [csv (csv-to-string csv)
-        max-row (apply max (map count csv))]
-    (map #(fill-row "" max-row %) csv)))
+(defn print-element
+  [width element]
+  (let
+   [space (- width (count element))
+    left (+ (/ space 2) (mod space 2) 1)
+    right (+ (/ space 2) 1)
+    print-spaces #(print (str/join "" (repeat % " ")))]
+    (print-spaces left)
+    (print element)
+    (print-spaces right)))
 
 (defn print-csv [csv]
-  (let [table (csv-to-str-matrix csv)
-        max-cols (max-cols table)]
-    (println max-cols table)))
+  (let
+   [max-row (apply max (map count csv))
+    table (map #(map str %) csv)
+    matrix (map #(concat % (repeat (- max-row (count %)) " ")) table)
+    max-cols (map #(apply max (map count %)) (transpose matrix))
+    rows (map #(zipmap max-cols %) matrix)
+    delimeter-width (apply + max-cols)]
+    (doseq [row rows]
+      (doseq [element row]
+        (print "|")
+        (print-element (first element) (second element)))
+      (println "|")
+      (println (str/join "" (repeat delimeter-width "-"))))))
 
 (defn print-rows [rows]
   (doseq [[i row] (map-indexed vector rows)]
