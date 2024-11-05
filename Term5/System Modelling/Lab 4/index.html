@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Моделирование систем</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <h1>Шефнер Альберт - лабораторная работа №4.</h1>
+    <h2>
+      Дисциплина "Моделирование систем"<br>
+      Кафедра "Информационные и вычислительные системы"
+    </h2>
+    <div>
+      <table>
+        <tr>
+          <td><p>Количество заявок</p></td>
+          <td><input id="jobInput" type="number" value="1000"/></td>
+        </tr>
+        <tr>
+          <td><p>Интенсивность нагрузки: параметр λ1</p></td>
+          <td><input id="loadFactorRate1Input" type="number" value="0.5"/></td>
+        </tr>
+        <tr>
+          <td><p>Интенсивность нагрузки: параметр λ2</p></td>
+          <td><input id="loadFactorRate2Input" type="number" value="0.5"/></td>
+        </tr>
+        <tr>
+          <td><p>Интенсивность нагрузки: параметр порога</p></td>
+          <td><input id="loadFactorThresholdInput" type="number" value="0.5"/></td>
+        </tr>
+        <tr>
+          <td><p>Интенсивность обработки</p></td>
+          <td><input id="processingFactorInput" type="number" value="0.5"/></td>
+        </tr>
+        <tr>
+          <td><p>Размер очереди</p></td>
+          <td><input id="maxQueueInput" type="number" value=""/></td>
+        </tr>
+        <tr>
+          <td><p>Предельное время моделирования</p></td>
+          <td><input id="maxTimeInput" type="number" value="1000"/></td>
+        </tr>
+      </table>
+    <div>
+      <button id="startButton" type="button"> Вычислить </button>
+    </div>
+    <div>
+      <h2>Результат моделирования</h2>
+      <p id="outputParagraph">Нажмите "Вычислить" для провередия расчётов</p>
+    </div>
+  </body>
+
+  <script src="index.js"> </script>
+</html>
