@@ -21,7 +21,9 @@
  * @typedef ModellingParams
  * @prop maxQueue {number}
  * @prop maxTime {number}
- * @prop loadRate {number}
+ * @prop loadFactorRate1 {number}
+ * @prop loadFactorRate2 {number}
+ * @prop loadFactorThreshold {number}
  * @prop processingRate {number}
  * @prop jobCount {number}
  */
@@ -35,11 +37,15 @@
  * @prop variationCoefficient {number}
  */
 
-const jobInput = document.querySelector("#jobInput");
-const loadFactorInput = document.querySelector("#loadFactorInput");
-const processingFactorInput = document.querySelector("#processingFactorInput");
-const startButton = document.querySelector("#startButton");
-const outputParagraph = document.querySelector("#outputParagraph")
+const jobInput = /** @type {HTMLInputElement} */ (document.querySelector("#jobInput"));
+const loadFactorRate1Input = /** @type {HTMLInputElement} */ (document.querySelector("#loadFactorRate1Input"));
+const loadFactorRate2Input = /** @type {HTMLInputElement} */ (document.querySelector("#loadFactorRate2Input"));
+const loadFactorThresholdInput = /** @type {HTMLInputElement} */ (document.querySelector("#loadFactorThresholdInput"));
+const processingFactorInput = /** @type {HTMLInputElement} */ (document.querySelector("#processingFactorInput"));
+const maxQueueInput = /** @type {HTMLInputElement} */ (document.querySelector("#maxQueueInput"));
+const maxTimeInput = /** @type {HTMLInputElement} */ (document.querySelector("#maxTimeInput"));
+const startButton = /** @type {HTMLInputElement} */ (document.querySelector("#startButton"));
+const outputParagraph = /** @type {HTMLInputElement} */ (document.querySelector("#outputParagraph"))
 
 /**
  * @param rate {number}
@@ -81,7 +87,11 @@ const doModelling = (params) => {
     let processingTimes = [];
 
     do {
-        const arrivalTime = modellingTime + exponentialRand(params.loadRate);
+        const arrivalTime = modellingTime + hyperExponentialRand(
+            params.loadFactorRate1,
+            params.loadFactorRate2,
+            params.loadFactorThreshold,
+        );
 
         if (arrivalTime > channelReleaseTime) {
             modellingTime = channelReleaseTime;
@@ -117,10 +127,10 @@ const doModelling = (params) => {
         }
     } while (modellingTime < params.maxTime && processed + rejected < params.jobCount);
 
-    const averageStayingTime = stayingTime / processed;
     const rejectionFrequency = rejected / modellingTime;
     const averageWaitTime = waitTimes.reduce((a, b) => a + b, 0) / waitTimes.length;
     const averageProcessingTime = processingTimes.reduce((a, b) => a + b, 0) / processingTimes.length;
+    const averageStayingTime = isNaN(averageWaitTime) ? averageProcessingTime : stayingTime / processed;
     const variationCoefficient = standardDeviation(processingTimes) / averageProcessingTime;
 
     return {
@@ -134,29 +144,31 @@ const doModelling = (params) => {
 
 
 const main = () => {
-    // @ts-ignore
-    const loadRate = parseFloat(loadFactorInput.value);
-    // @ts-ignore
-    const processingRate = parseFloat(processingFactorInput.value);
-    // @ts-ignore
-    const jobCount = parseInt(jobInput.value);
+    const loadFactorRate1     = parseFloat(loadFactorRate1Input.value);
+    const loadFactorRate2     = parseFloat(loadFactorRate2Input.value);
+    const loadFactorThreshold = parseFloat(loadFactorThresholdInput.value);
+    const processingRate      = parseFloat(processingFactorInput.value);
+    const maxQueue            = maxQueueInput.value ? parseFloat(maxQueueInput.value) : 1 / 0;
+    const maxTime             = maxTimeInput.value ? parseFloat(maxTimeInput.value) : 1 / 0;
+    const jobCount            = parseInt(jobInput.value);
 
     /** @type {ModellingParams} */
     const params = {
-        maxQueue: 1000,
-        maxTime: 1000,
-        loadRate,
+        maxQueue,
+        maxTime,
+        loadFactorRate1,
+        loadFactorRate2,
+        loadFactorThreshold,
         processingRate,
         jobCount,
     };
 
     const result = doModelling(params);
-    // @ts-ignore
     outputParagraph.innerText =
-        `Среднее время пребывания в системе: ${result.averageStayingTime}\n` +
         `Частота отказов: ${result.rejectionFrequency}\n` +
         `Среднее время ожидания: ${result.averageWaitTime}\n` +
         `Среднее время обслуживания: ${result.averageProcessingTime}\n` +
+        `Среднее время пребывания в системе: ${result.averageStayingTime}\n` +
         `Коэффециент вариации времени обслуживания: ${result.variationCoefficient}\n`
 }
 
