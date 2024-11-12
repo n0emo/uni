@@ -117,6 +117,7 @@ const doModelling = (params) => {
             if (queue.length == 0) {
                 const currentProcessingTime = exponentialRand(params.processingRate);
                 channelReleaseTime = modellingTime + currentProcessingTime;
+                waitTimes.push(0);
             }
 
             if (queue.length >= params.maxQueue) {
