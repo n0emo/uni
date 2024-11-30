@@ -11,7 +11,7 @@
    [:ul
     (nav-link "На главную" "/")
     (nav-link "Факультеты" "/faculties")
-    (nav-link "Дисциплины" "/")
+    (nav-link "Дисциплины" "/disciplines")
     (nav-link "Группы" "/")
     (nav-link "Студенты" "/")
     (nav-link "О цифровом деканате" "/")]])
