@@ -2,13 +2,7 @@
   (:require
    [students.pages.base :refer [anti-forgery-input base]]))
 
-(defn- create-form []
-  [:form {:action "/faculties" :method "post"}
-   [:input {:type "text" :name "name"}]
-   [:input {:type "submit" :value "+"}]
-   (anti-forgery-input)])
-
-(defn- render-faculty-table [faculties]
+(defn- faculty-table [faculties]
   [:table
    (for [f faculties]
      (let
@@ -19,12 +13,33 @@
          [:form {:action (str "/faculties/" id "/delete") :method "post"}
           [:input {:type "submit" :value "x"}]
           (anti-forgery-input)]]
+        [:td [:a {:href (str "/faculties/" id "/edit")} "✏️"]]
         [:td id]
         [:td name]]))])
+
+(defn- create-form []
+  [:form {:action "/faculties" :method "post"}
+   [:input {:type "text" :name "name"}]
+   [:input {:type "submit" :value "+"}]
+   (anti-forgery-input)])
 
 (defn render [faculties]
   (str
     (base
-      [:h1 "Faculties"]
-      (render-faculty-table faculties)
+      [:h1 "Редактировать факультеты"]
+      (faculty-table faculties)
       (create-form))))
+
+(defn- edit-form [faculty]
+  (let [id (get faculty :id)
+        name (get faculty :name)]
+    [:form {:action (str "/faculties/" id "/edit") :method "post"}
+     [:input {:type "text" :name "name" :value name}]
+     [:input {:type "submit" :value "Изменить"}
+      (anti-forgery-input)]]))
+
+(defn render-edit [faculty]
+  (str
+    (base
+      [:h1 "Редактировать факультет"]
+      (edit-form faculty))))

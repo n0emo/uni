@@ -1,4 +1,4 @@
-(ns students.routes.faculties 
+(ns students.routes.faculties
   (:require
    [compojure.coercions :refer [as-int]]
    [compojure.core :refer [context defroutes GET POST]]
@@ -19,9 +19,19 @@
   (db-faculties/delete-by-id db {:id id})
   (redirect "/faculties"))
 
+(defn- handle-edit-get [id]
+  (let [faculty (db-faculties/get-by-id db {:id id})]
+    (html/render-edit faculty)))
+
+(defn- handle-edit-post [id name]
+  (db-faculties/update-name db {:id id :name name})
+  (redirect "/faculties"))
+
 (defroutes faculties-routes
   (context
     "/faculties" []
     (GET    "/" [] (handle-get))
     (POST   "/" [name] (handle-post name))
-    (POST "/:id/delete" [id :<< as-int] (handle-delete id))))
+    (POST   "/:id/delete" [id :<< as-int] (handle-delete id))
+    (GET    "/:id/edit" [id :<< as-int] (handle-edit-get id))
+    (POST   "/:id/edit" [id :<< as-int name] (handle-edit-post id name))))
