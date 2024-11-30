@@ -2,6 +2,12 @@
   (:require
    [students.pages.base :refer [anti-forgery-input base]]))
 
+(defn- create-form []
+  [:form {:action "/faculties" :method "post"}
+   [:input {:type "text" :name "name"}]
+   [:input {:type "submit" :value "+"}]
+   (anti-forgery-input)])
+
 (defn- faculty-table [faculties]
   [:table
    (for [f faculties]
@@ -14,14 +20,7 @@
           [:input {:type "submit" :value "x"}]
           (anti-forgery-input)]]
         [:td [:a {:href (str "/faculties/" id "/edit")} "✏️"]]
-        [:td id]
         [:td name]]))])
-
-(defn- create-form []
-  [:form {:action "/faculties" :method "post"}
-   [:input {:type "text" :name "name"}]
-   [:input {:type "submit" :value "+"}]
-   (anti-forgery-input)])
 
 (defn render [faculties]
   (str
