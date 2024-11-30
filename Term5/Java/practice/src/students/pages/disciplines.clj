@@ -54,8 +54,8 @@
     (for [f faculties]
       (let [f-id (get f :id)
             f-name (get f :name)]
-        [:option {:value f-id :selected (= f-id faculty-id) } f-name]))
-   [:input {:type "submit" :value "Изменить"}]]
+        [:option {:value f-id :selected (= f-id faculty-id)} f-name]))]
+   [:input {:type "submit" :value "Изменить"}]
    (anti-forgery-input)]))
 
 (defn render-edit [discipline faculties]
