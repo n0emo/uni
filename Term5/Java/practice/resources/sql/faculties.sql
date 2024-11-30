@@ -20,7 +20,7 @@ insert into
 values
     (:name);
 
--- :name update-name :!
+-- :name update-faculty :!
 update
     faculties
 set

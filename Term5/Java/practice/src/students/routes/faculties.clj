@@ -24,7 +24,7 @@
     (html/render-edit faculty)))
 
 (defn- handle-edit-post [id name]
-  (db-faculties/update-name db {:id id :name name})
+  (db-faculties/update-faculty db {:id id :name name})
   (redirect "/faculties"))
 
 (defroutes faculties-routes

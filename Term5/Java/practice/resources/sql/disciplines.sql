@@ -31,7 +31,7 @@ insert into
 values
     (:name, :faculty-id);
 
--- :name update :!
+-- :name update-discipline :!
 update
     disciplines
 set
