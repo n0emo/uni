@@ -37,10 +37,12 @@
   (str
     (let [id (get group :id)
           name (get group :name)
+          year (get group :year-formed)
           program (get group :program)]
       (base
         [:h1 (str "Группа " name)]
         [:p (str "Программа: " program)]
+        [:p (str "Год формирования: " year)]
         [:a {:href (str "/groups/" id "/edit")} "Редактировать"]
         [:form {:action (str "/groups/" id "/delete") :method "post"}
          [:input {:type "submit" :value "Удалить"}]
