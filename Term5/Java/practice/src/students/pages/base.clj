@@ -12,6 +12,7 @@
     (nav-link "На главную" "/")
     (nav-link "Факультеты" "/faculties")
     (nav-link "Дисциплины" "/disciplines")
+    (nav-link "Программы" "/programs")
     (nav-link "Группы" "/")
     (nav-link "Студенты" "/")
     (nav-link "О цифровом деканате" "/")]])
