@@ -13,8 +13,7 @@
     (nav-link "Факультеты" "/faculties")
     (nav-link "Дисциплины" "/disciplines")
     (nav-link "Программы" "/programs")
-    (nav-link "Группы" "/")
-    (nav-link "Студенты" "/")
+    (nav-link "Группы" "/groups")
     (nav-link "О цифровом деканате" "/")]])
 
 (defn base [& content]
