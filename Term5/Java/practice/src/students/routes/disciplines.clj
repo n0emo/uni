@@ -30,7 +30,7 @@
     (html/render-edit discipline faculties)))
 
 (defn- handle-edit-post [id name faculty-id]
-  (db-disciplines/update db {:id id :name name :faculty-id faculty-id})
+  (db-disciplines/update-discipline db {:id id :name name :faculty-id faculty-id})
   (redirect "/disciplines"))
 
 (defroutes disciplines-routes
