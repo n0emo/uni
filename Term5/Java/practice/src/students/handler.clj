@@ -8,13 +8,15 @@
    [students.routes.disciplines :refer [disciplines-routes]]
    [students.routes.faculties :refer [faculties-routes]]
    [students.routes.groups :refer [groups-routes]]
-   [students.routes.programs :refer [programs-routes]]))
+   [students.routes.programs :refer [programs-routes]]
+   [students.routes.students :refer [students-routes]]))
 
 (defroutes app-routes
   faculties-routes
   disciplines-routes
   programs-routes
   groups-routes
+  students-routes
   (GET "/" [] (index/render))
   (route/not-found (not-found/render)))
 
