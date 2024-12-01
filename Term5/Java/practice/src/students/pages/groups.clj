@@ -33,7 +33,7 @@
        [:input {:type "submit" :value "Создать"}]
        (anti-forgery-input)])))
 
-(defn render-single [group]
+(defn render-single [group students]
   (str
     (let [id (get group :id)
           name (get group :name)
@@ -47,7 +47,20 @@
         [:form {:action (str "/groups/" id "/delete") :method "post"}
          [:input {:type "submit" :value "Удалить"}]
          (anti-forgery-input)]
-        [:h2 "Список студентов"]))))
+        [:h2 "Список студентов"]
+        [:table
+         (for [s students]
+           (let [s-id (get s :id)
+                 s-name (get s :name)
+                 s-surname (get s :surname)
+                 s-fathersname (get s :fathersname)
+                 s-year (get s :year-of-birth)]
+             [:tr
+              [:td
+               [:a {:href (str "/students/" s-id)}
+                (str s-name " " s-surname " " s-fathersname)]]
+              [:td s-year]]))]
+        [:a {:href (str "/students/new?group-id=" id)} "Добавить студента"]))))
 
 (defn render-edit [group]
   (str

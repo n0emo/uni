@@ -5,6 +5,7 @@
    [ring.util.response :refer [redirect]]
    [students.db.core :refer [db]]
    [students.db.groups :as db-groups]
+   [students.db.students :as db-students]
    [students.pages.groups :as html]))
 
 (defn- handle-get []
@@ -19,8 +20,9 @@
   (redirect "/groups"))
 
 (defn- handle-id-get [id]
-  (let [group (db-groups/get-by-id db {:id id})]
-    (html/render-single group)))
+  (let [group (db-groups/get-by-id db {:id id})
+        students (db-students/get-students-short db)]
+    (html/render-single group students)))
 
 (defn- handle-id-edit-get [id]
   (let [group (db-groups/get-by-id db {:id id})]
