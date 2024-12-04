@@ -1,19 +1,21 @@
 create table mark_kinds(
-    id integer primary key not null,
-    name text not null,
-    unique(name)
+    name text primary key not null,
+    title text not null,
+    unique(title)
 );
 
-insert into mark_kinds(id, name) values
-    (1, 'credit'),
-    (2, 'exam'),
-    (3, 'practice');
+insert into mark_kinds(name, title) values
+    ('credit', 'Зачёт'),
+    ('exam', 'Экзамен'),
+    ('practice', 'Практика');
 
 create table marks(
     id serial primary key not null,
-    kind_id integer not null,
-    study_year integer not null,
-    foreign key (kind_id) references mark_kinds(id)
+    kind text not null,
+    card_id integer not null,
+    study_term integer not null,
+    foreign key (kind) references mark_kinds(name),
+    foreign key (card_id) references student_cards(id)
 );
 
 create table credit_marks(
