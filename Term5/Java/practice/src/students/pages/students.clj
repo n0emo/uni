@@ -24,19 +24,25 @@
        [:input {:type "submit" :value "Добавить"}]
        (anti-forgery-input)])))
 
-(defn render-single [student]
-  (let [id (get student :id)
-        name (get student :name)
-        surname (get student :surname)
-        fathersname (get student :fathersname)]
-    (str
+(defn render-single [student marks]
+  (let [id (get student :id)]
+   (str
       (base
         [:h1 "Информация о студенте"]
-        [:p (str name " " surname " " fathersname)]
+        [:p (str (get student :name) " " (get student :surname) " " (get student :fathersname))]
         [:p (str "Год рождения: " (get student :year-of-birth))]
         [:p (str "Год поступления: " (get student :year-of-admission))]
         [:p (str "Группа: " (get student :group))]
-        [:a {:href (str "/students/" id "/edit")} "Редактировать"]))))
+        [:a {:href (str "/students/" id "/edit")} "Редактировать"]
+        [:h2 "Оценки"]
+        (for [m marks]
+          (let [term (str (get m :study-term) " семестр ")]
+           [:p
+           (case (get m :kind)
+            "credit"   (str term " экзамен "(get m :discipline) " - зачтено")
+            "exam"     (str term " зачёт " (get m :discipline) " - " (get m :value))
+            "practice" (str term " практика - " (get m :description)))]))
+        [:a {:href (str "/marks/new?student-id=" id)} "Добавить"]))))
 
 (defn render-edit [student]
   (str
