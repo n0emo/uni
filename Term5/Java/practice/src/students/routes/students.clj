@@ -6,6 +6,7 @@
    [compojure.core :refer [context defroutes GET POST]]
    [ring.util.response :refer [redirect]]
    [students.db.core :refer [db]]
+   [students.db.marks :as db-marks]
    [students.db.students :as db-students]
    [students.pages.students :as html]))
 
@@ -30,8 +31,9 @@
       (redirect (str "/groups/" group-id)))))
 
 (defn- handle-get [id]
-  (let [student (db-students/get-student-by-id db {:id id})]
-    (html/render-single student)))
+  (let [student (db-students/get-student-by-id db {:id id})
+        marks (db-marks/get-all db {:card-id (get student :card-id)})]
+    (html/render-single student marks)))
 
 (defn- handle-edit-get [id]
   (let [student (db-students/get-student-by-id db {:id id})]
