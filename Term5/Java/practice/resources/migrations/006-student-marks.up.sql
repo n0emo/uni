@@ -30,7 +30,7 @@ create table exam_marks(
     id serial primary key not null,
     mark_id integer not null,
     discipline_id integer not null,
-    value integer not null,
+    "value" integer not null,
     foreign key (mark_id) references marks(id),
     foreign key (discipline_id) references disciplines(id)
 );
