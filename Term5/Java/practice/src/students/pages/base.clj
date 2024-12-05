@@ -1,5 +1,6 @@
 (ns students.pages.base
   (:require
+   [hiccup.page :refer [include-css]]
    [hiccup2.core :as h]
    [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
 
@@ -22,6 +23,7 @@
     [:html
      [:head
       [:meta {:charset "UTF-8"}]]
+      (include-css "/css/base.css")
      [:body
       (nav-sidebar)
       content]]))

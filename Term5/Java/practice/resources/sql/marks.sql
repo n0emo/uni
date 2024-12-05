@@ -13,7 +13,7 @@ select
     coalesce(c.discipline_id, e.discipline_id) as "discipline-id",
     d.name as discipline,
     f.name as faculty,
-    e.value as value,
+    e."value" as "value",
     p.description as description
 from
     marks m
