@@ -3,7 +3,7 @@ use std::{borrow::Cow, sync::{Arc, Mutex}};
 use leptos::{html, logging::log, prelude::*, task::spawn_local};
 use web_sys::HtmlCanvasElement;
 use winit::{
-    event::{Event, WindowEvent}, event_loop::{EventLoop, EventLoopBuilder}, platform::web::WindowExtWebSys, window::{Window, WindowBuilder}
+    event::{Event, WindowEvent}, event_loop::{EventLoop, EventLoopBuilder}, platform::web::{EventLoopExtWebSys, WindowExtWebSys}, window::{Window, WindowBuilder}
 };
 
 #[derive(Clone)]
@@ -12,7 +12,6 @@ pub struct Application {
 
 
 pub struct Context {
-
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -33,9 +32,9 @@ pub fn FullName() -> impl IntoView {
             e => panic!("Cannot create event loop: {e:?}"),
         }
     };
-    let window = WindowBuilder::new().build(&event_loop).unwrap();
+    let window = Arc::new(WindowBuilder::new().build(&event_loop).unwrap());
     let canvas: HtmlCanvasElement = window.canvas().unwrap();
-    canvas.style("display: block");
+    canvas.style("display: block; width: 100%; height: 100%; aspect-ratio: 16 / 9");
 
     container.on_load(move |c| {
         c.append_child(&canvas).unwrap();
@@ -55,14 +54,14 @@ pub fn FullName() -> impl IntoView {
     )
 }
 
-async fn run(event_loop: EventLoop<UserEvent>, window: Window) {
+async fn run(event_loop: EventLoop<UserEvent>, window: Arc<Window>) {
     let mut size = window.inner_size();
     size.width = size.width.max(1);
     size.height = size.height.max(1);
 
     let instance = wgpu::Instance::default();
 
-    let surface = instance.create_surface(&window).unwrap();
+    let surface = instance.create_surface(window.clone()).unwrap();
     let adapter = instance
         .request_adapter(&wgpu::RequestAdapterOptions {
             power_preference: wgpu::PowerPreference::default(),
@@ -131,67 +130,64 @@ async fn run(event_loop: EventLoop<UserEvent>, window: Window) {
         .unwrap();
     surface.configure(&device, &config);
 
-    let window = &window;
-    event_loop
-        .run(move |event, target| {
-            // Have the closure take ownership of the resources.
-            // `event_loop.run` never returns, therefore we must do this to ensure
-            // the resources are properly cleaned up.
-            let _ = (&instance, &adapter, &shader, &pipeline_layout);
+    event_loop.spawn(move |event, target| {
+        // Have the closure take ownership of the resources.
+        // `event_loop.run` never returns, therefore we must do this to ensure
+        // the resources are properly cleaned up.
+        let _ = (&instance, &adapter, &shader, &pipeline_layout);
 
-            match event {
-                Event::WindowEvent { window_id: _, event } => match event {
-                    WindowEvent::Resized(new_size) => {
-                        // Reconfigure the surface with the new size
-                        config.width = new_size.width.max(1);
-                        config.height = new_size.height.max(1);
-                        surface.configure(&device, &config);
-                        // On macos the window needs to be redrawn manually after resizing
-                        window.request_redraw();
+        match event {
+            Event::WindowEvent { window_id: _, event } => match event {
+                WindowEvent::Resized(new_size) => {
+                    // Reconfigure the surface with the new size
+                    config.width = new_size.width.max(1);
+                    config.height = new_size.height.max(1);
+                    surface.configure(&device, &config);
+                    // // On macos the window needs to be redrawn manually after resizing
+                    window.request_redraw();
+                }
+                WindowEvent::RedrawRequested => {
+                    let frame = surface
+                        .get_current_texture()
+                        .expect("Failed to acquire next swap chain texture");
+                    let view = frame
+                        .texture
+                        .create_view(&wgpu::TextureViewDescriptor::default());
+                    let mut encoder =
+                    device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                        label: None,
+                    });
+                    {
+                        let mut rpass =
+                        encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+                            label: None,
+                            color_attachments: &[Some(wgpu::RenderPassColorAttachment {
+                                view: &view,
+                                resolve_target: None,
+                                ops: wgpu::Operations {
+                                    load: wgpu::LoadOp::Clear(wgpu::Color::GREEN),
+                                    store: wgpu::StoreOp::Store,
+                                },
+                            })],
+                            depth_stencil_attachment: None,
+                            timestamp_writes: None,
+                            occlusion_query_set: None,
+                        });
+                        rpass.set_pipeline(&render_pipeline);
+                        rpass.draw(0..3, 0..1);
                     }
-                    WindowEvent::RedrawRequested => {
-                        let frame = surface
-                            .get_current_texture()
-                            .expect("Failed to acquire next swap chain texture");
-                        let view = frame
-                            .texture
-                            .create_view(&wgpu::TextureViewDescriptor::default());
-                        let mut encoder =
-                            device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                                label: None,
-                            });
-                        {
-                            let mut rpass =
-                                encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                                    label: None,
-                                    color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                                        view: &view,
-                                        resolve_target: None,
-                                        ops: wgpu::Operations {
-                                            load: wgpu::LoadOp::Clear(wgpu::Color::GREEN),
-                                            store: wgpu::StoreOp::Store,
-                                        },
-                                    })],
-                                    depth_stencil_attachment: None,
-                                    timestamp_writes: None,
-                                    occlusion_query_set: None,
-                                });
-                            rpass.set_pipeline(&render_pipeline);
-                            rpass.draw(0..3, 0..1);
-                        }
 
-                        queue.submit(Some(encoder.finish()));
-                        frame.present();
-                    },
-                    WindowEvent::CloseRequested => target.exit(),
-                    _ => {},
-                }
-                Event::UserEvent(UserEvent::Close) => {
-                    log!("Closing EventLoop");
-                    target.exit();
-                }
+                    queue.submit(Some(encoder.finish()));
+                    frame.present();
+                },
+                WindowEvent::CloseRequested => target.exit(),
                 _ => {},
             }
-        })
-        .unwrap();
+            Event::UserEvent(UserEvent::Close) => {
+                log!("Closing EventLoop");
+                target.exit();
+            }
+            _ => {},
+        }
+    });
 }
