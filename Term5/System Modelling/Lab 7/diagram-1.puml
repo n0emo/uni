@@ -1,0 +1,60 @@
+@startuml Use-Case
+
+left to right direction
+
+actor "Бездомный" as hobo
+actor "Домовладелец" as capitalist
+actor "Дом" as house
+
+package "Информационная система жилищного агенства" {
+    (Проверка баланса) as check_balance
+    (Выбор срока аренды) as choose_time
+    (Посуточная аренда) as daily
+    (Ежемесячная оплата) as monthly
+    (Выбор дома) as choose_house
+    (Звонок домовладельцу) as call
+    (Проверка дома) as check_house
+    (Звонок бездомному) as callback
+    (Оплата аренда) as payment
+    (Внесение информации об аренде в базу) as insert
+    (Заселение) as inhabitate
+    (Использование дома) as use_house
+    (Звонок домовладельцу и выселении) as call_about_exit
+    (Проверка дома после использования) as check_house_after_exit
+    (Удаление информации об аренде из базы) as delete
+    (Бездомный снова бездомный) as hobo_again
+
+    hobo -- check_balance
+    capitalist -- call
+    house -- check_house
+
+    check_balance ..> choose_time
+    
+    choose_time ..> daily
+    choose_time ..> monthly
+    
+    daily ..> choose_house
+    monthly ..> choose_house
+    
+    choose_house ..> call
+    capitalist -- check_house
+    
+    check_house ..> callback
+    hobo -- callback
+    
+    callback ..> payment
+    payment ..> insert
+
+    insert ..> inhabitate
+    hobo -- inhabitate
+    
+    inhabitate .> use_house
+    use_house .> call_about_exit
+    call_about_exit .> check_house_after_exit
+    check_house_after_exit .> delete
+    delete .> hobo_again
+    
+    hobo -- hobo_again
+}
+
+@enduml
