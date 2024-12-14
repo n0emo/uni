@@ -23,14 +23,17 @@
     matrix (map #(concat % (repeat (- max-row (count %)) " ")) table)
     max-cols (map #(apply max (map count %)) (transpose matrix))
     rows (map #(zipmap max-cols %) matrix)
-    delimeter-width (apply + max-cols)]
+    delimeter-width (+ (apply + max-cols) (* (count max-cols) 3) 1)
+    delimeter (str/join "" (repeat delimeter-width "-"))]
+   (println delimeter)
     (doseq [row rows]
       (doseq [element row]
         (print "|")
         (print-element (first element) (second element)))
       (println "|")
-      (println (str/join "" (repeat delimeter-width "-"))))))
+      (println delimeter))))
 
 (defn print-rows [rows]
+  (println "Result:")
   (doseq [[i row] (map-indexed vector rows)]
-    (println (format "Row %d: %f" (inc i) row))))
+    (println (format "  %d: %f" (inc i) row))))
