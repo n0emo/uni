@@ -1,0 +1,26 @@
+[package]
+name = "image-storage"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.94"
+askama = { version = "0.12.1", features = ["with-axum"] }
+askama_axum = "0.4.0"
+axum = { version = "0.7.9", features = ["macros", "multipart"] }
+axum_typed_multipart = "0.14.0"
+itertools = "0.13.0"
+rust-s3 = { version = "0.35.1", default-features = false, features = [
+    "fail-on-err",
+    "futures",
+    "hyper",
+    "minidom",
+    "tags",
+    "tokio",
+    "tokio-rustls-tls",
+    "tokio-stream",
+    "with-tokio"
+]}
+tokio = { version = "1.42.0", features = ["full"] }
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"

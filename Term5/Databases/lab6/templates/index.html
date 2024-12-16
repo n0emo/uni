@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ПГУПС Галерея</title>
+  </head>
+  <body>
+    <h1>Добро пожаловать в ПГУПС галерею!</h1>
+    <form action="/images" method="get" >
+      <input type="submit" value="Загрузить фото" />
+    </form>
+    {% for image in images %}
+    <img src="/images/{{ image }}" alt="{{ image }}" />
+    {% endfor %}
+  </body>
+</html>
