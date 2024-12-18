@@ -40,8 +40,8 @@
           (let [term (str (get m :study-term) " семестр ")]
            [:p
            (case (get m :kind)
-            "credit"   (str term " экзамен "(get m :discipline) " - зачтено")
-            "exam"     (str term " зачёт " (get m :discipline) " - " (get m :value))
+            "credit"   (str term " зачёт "(get m :discipline) " - зачтено")
+            "exam"     (str term " экзамен " (get m :discipline) " - " (get m :value))
             "practice" (str term " практика - " (get m :description)))]))
         [:a {:href (str "/marks/new?student-id=" id) :class "button"} "Добавить"]))))
 
