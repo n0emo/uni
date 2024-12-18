@@ -12,10 +12,11 @@
         faculty (get p :faculty)]
        [:tr
         [:td
-         [:form {:action (str "/programs/" id "/delete") :method "post"}
+         [:form {:action (str "/programs/" id "/delete") :method "post"
+                 :class "single-button"}
           [:input {:type "submit" :value "x"}]
           (anti-forgery-input)]]
-        [:td [:a {:href (str "/programs/" id "/edit")} "✏️"]]
+        [:td [:a {:href (str "/programs/" id "/edit") :class "button"} "✏️"]]
         [:td id]
         [:td name]
         [:td kind]
@@ -26,10 +27,11 @@
     (base
       [:h1 "Редактировать программы обучения"]
       (program-table programs)
-      [:a {:href "/programs/new"} "Добавить программу"])))
+      [:a {:href "/programs/new" :class "button"} "Добавить программу"])))
 
 (defn- create-form [kinds faculties]
-  [:form {:action "/programs/new" :method "post"}
+  [:form {:action "/programs/new" :method "post"
+          :class "primary"}
    [:label {:for "name"} "Название"]
    [:input {:type "text" :name "name" :id "name"}]
 
@@ -56,7 +58,8 @@
         name (get program :name)
         kind-id (get program :kind-id)
         faculty-id (get program :faculty-id)]
-  [:form {:action (str "/programs/" id "/edit") :method "post"}
+  [:form {:action (str "/programs/" id "/edit") :method "post"
+          :class "primary"}
    [:label {:for "name"} "Название"]
    [:input {:type "text" :name "name" :id "name" :value name}]
 

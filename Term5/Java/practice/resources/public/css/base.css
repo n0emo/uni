@@ -10,10 +10,10 @@ body{
 
 nav {
     background-color: #C8E3CC;
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
     padding: 10px 0;
 }
@@ -32,20 +32,23 @@ nav li {
 
 nav li:last-child {
     border-right: none;
+    float: right;
 }
 
 nav li a {
     display: inline-block;
     color: #17252a;
     text-align: center;
-    padding: 15px 20px;
+    margin: 15px 20px;
     text-decoration: none;
 }
 
-a:hover, a:active {
-    background-color: #99c7b0;
-    border-radius: 5px;
-    color: #1e2421;
+form.nav-button {
+    display: inline-block;
+    color: #17252a;
+    text-align: center;
+    margin: 8px 10px;
+    text-decoration: none;
 }
 
 h1 {
@@ -54,17 +57,43 @@ h1 {
     font-size: 40px;
 }
 
-a {
-    background-color: #C8E3CC;
+a.button {
+    background-color: #c8e3cc;
     color: #1e2421;
-    /* float: center; */
     padding: 5px 5px;
     text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
 }
 
-form {
-    max-width: 600px;
+a.button:hover, a.button:active {
+    background-color: #99c7b0;
+    color: #1e2421;
+}
+
+form.single-button {
     margin: 15px 5px;
+    padding: 0px;
+    box-shadow: 0 2px 5px #;
+}
+
+form.single-button input {
+    background-color: #c8e3cc;
+    border: 0px;
+    padding: 5px 5px;
+    border-radius: 5px;
+    color: #1e2421;
+}
+
+form.single-button input:hover,
+form.single-button input:active {
+    background-color: #99c7b0;
+    color: #1e2421;
+}
+
+form.primary {
+    max-width: 600px;
+    margin: 15px auto;
     padding: 5px 5px;
     background-color: #e9f2ed;
     border: 1px solid #638773;
@@ -72,7 +101,7 @@ form {
     box-shadow: 0 2px 5px #;
 }
 
-label {
+form.primary label {
     display: block;
     margin-bottom: 5px;
     color: #333;
@@ -80,7 +109,7 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"] {
+form.primary input[type="text"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 5px;
@@ -90,14 +119,20 @@ input[type="text"] {
     font-size: 16px;
 }
 
-input[type="submit"] {
+form.primary input[type="submit"] {
     background-color: #b2d6c2;
     border: none;
     border-radius: 10px;
     font-size: 16px;
 }
 
-select {
+form.primary input[type="submit"]:hover,
+form.primary input[type="submit"]:active {
+    background-color: #99c7b0;
+    color: #1e2421;
+}
+
+form.primary select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;

@@ -1,6 +1,6 @@
 (ns students.pages.marks
   (:require
-   [hiccup.form :refer [form-to hidden-field label submit-button text-field]]
+   [hiccup.form :refer [hidden-field label submit-button text-field]]
    [students.pages.base :refer [anti-forgery-input base]]))
 
 (defn- credit-fields [disciplines]
@@ -25,8 +25,8 @@
   (str
     (base
       [:h1 "Добавить оценку"]
-      (form-to
-        [:post "/marks/new"]
+      [:form {:action "/marks/new" :method "post"
+              :class "primary"}
         (label "mark-kind" "Тип оценки")
         [:select {:name "mark-kind" :id "mark-kind"}
          (for [k mark-kinds]
@@ -43,5 +43,5 @@
         (hidden-field "student-id" (get student :id))
         (hidden-field "card-id" (get student :card-id))
         (submit-button "Добавить")
-        (anti-forgery-input))
+        (anti-forgery-input)]
       [:script {:src "/js/marks.js"}])))

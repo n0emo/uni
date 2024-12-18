@@ -12,15 +12,16 @@
                name (get g :name)
                program (get g :program)]
            [:tr
-            [:td [:a {:href (str "/groups/" id)} name]]
+            [:td [:a {:href (str "/groups/" id) :class "button"} name]]
             [:td program]]))]
-      [:a {:href "/groups/new"} "Добавить группу"])))
+      [:a {:href "/groups/new" :class "button"} "Добавить группу"])))
 
 (defn render-new []
   (str
     (base
       [:h1 "Новая группа"]
-      [:form {:action "/groups/new" :method "post"}
+      [:form {:action "/groups/new" :method "post"
+              :class "primary"}
        [:label {:for "name"} "Название"]
        [:input {:type "text" :name "name" :id "name"}]
 
@@ -43,8 +44,9 @@
         [:h1 (str "Группа " name)]
         [:p (str "Программа: " program)]
         [:p (str "Год формирования: " year)]
-        [:a {:href (str "/groups/" id "/edit")} "Редактировать"]
-        [:form {:action (str "/groups/" id "/delete") :method "post"}
+        [:a {:href (str "/groups/" id "/edit") :class "button"} "Редактировать"]
+        [:form {:action (str "/groups/" id "/delete") :method "post"
+                :class "single-button"}
          [:input {:type "submit" :value "Удалить"}]
          (anti-forgery-input)]
         [:h2 "Список студентов"]
@@ -57,10 +59,10 @@
                  s-year (get s :year-of-birth)]
              [:tr
               [:td
-               [:a {:href (str "/students/" s-id)}
+               [:a {:href (str "/students/" s-id) :class "button"}
                 (str s-name " " s-surname " " s-fathersname)]]
               [:td s-year]]))]
-        [:a {:href (str "/students/new?group-id=" id)} "Добавить студента"]))))
+        [:a {:href (str "/students/new?group-id=" id) :class "button"} "Добавить студента"]))))
 
 (defn render-edit [group]
   (str
@@ -69,7 +71,8 @@
           year (get group :year-formed)
           program-id (get group :program-id)]
       (base
-      [:form {:action (str "/groups/" id "/edit") :method "post"}
+      [:form {:action (str "/groups/" id "/edit") :method "post"
+              :class "primary"}
        [:label {:for "name"} "Название"]
        [:input {:type "text" :name "name" :id "name" :value name}]
 
