@@ -1,4 +1,4 @@
-(ns students.routes.marks 
+(ns students.routes.marks
   (:require
    [clojure.java.jdbc :as java.jdbc]
    [compojure.coercions :refer [as-int]]
