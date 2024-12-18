@@ -6,7 +6,8 @@
   (str
     (base
       [:h1 "Добавить студента"]
-      [:form {:action "/students/new" :method "post"}
+      [:form {:action "/students/new" :method "post"
+              :class "primary"}
        [:label {:for "name"} "Имя"]
        [:input {:type "text" :name "name" :id "name"}]
 
@@ -33,7 +34,7 @@
         [:p (str "Год рождения: " (get student :year-of-birth))]
         [:p (str "Год поступления: " (get student :year-of-admission))]
         [:p (str "Группа: " (get student :group))]
-        [:a {:href (str "/students/" id "/edit")} "Редактировать"]
+        [:a {:href (str "/students/" id "/edit") :class "button"} "Редактировать"]
         [:h2 "Оценки"]
         (for [m marks]
           (let [term (str (get m :study-term) " семестр ")]
@@ -42,13 +43,14 @@
             "credit"   (str term " экзамен "(get m :discipline) " - зачтено")
             "exam"     (str term " зачёт " (get m :discipline) " - " (get m :value))
             "practice" (str term " практика - " (get m :description)))]))
-        [:a {:href (str "/marks/new?student-id=" id)} "Добавить"]))))
+        [:a {:href (str "/marks/new?student-id=" id) :class "button"} "Добавить"]))))
 
 (defn render-edit [student]
   (str
     (base
       [:h1 "Редактировать студента"]
-      [:form {:action (str "/students/" (get student :id) "/edit") :method "post"}
+      [:form {:action (str "/students/" (get student :id) "/edit") :method "post"
+              :class "primary"}
        [:label {:for "name"} "Имя"]
        [:input {:type "text" :name "name" :id "name" :value (get student :name)}]
 

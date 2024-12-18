@@ -4,6 +4,7 @@
    [compojure.route :as route]
    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
    [ring.middleware.session.cookie :refer [cookie-store]]
+   [students.pages.about :as about]
    [students.pages.index :as index]
    [students.pages.not-found :as not-found]
    [students.routes.disciplines :refer [disciplines-routes]]
@@ -23,7 +24,8 @@
         groups-routes
         students-routes
         marks-routes
-        (GET "/" [] (index/render)))
+        (GET "/" [] (index/render))
+        (GET "/about" [] (about/render)))
       (wrap-routes wrap-protected))
   (route/resources "/")
   (route/not-found (not-found/render)))
