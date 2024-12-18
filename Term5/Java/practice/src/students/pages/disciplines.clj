@@ -11,10 +11,11 @@
         faculty (get d :faculty)]
        [:tr
         [:td
-         [:form {:action (str "/disciplines/" id "/delete") :method "post"}
+         [:form {:action (str "/disciplines/" id "/delete") :method "post"
+                 :class "single-button"}
           [:input {:type "submit" :value "x"}]
           (anti-forgery-input)]]
-        [:td [:a {:href (str "/disciplines/" id "/edit")} "✏️"]]
+        [:td [:a {:href (str "/disciplines/" id "/edit") :class "button"} "✏️"]]
         [:td id]
         [:td name]
         [:td faculty]]))])
@@ -24,15 +25,16 @@
     (base
       [:h1 "Редактировать дисциплины"]
       (discipline-table disciplines)
-      [:a {:href "/disciplines/new"} "Добавить дисциплину"])))
+      [:a {:href "/disciplines/new" :class "button"} "Добавить дисциплину"])))
 
-(defn- create-form [faculties]
-  [:form {:action "/disciplines/new" :method "post"}
+(defn- create-form [disciplines]
+  [:form {:action "/disciplines/new" :method "post"
+          :class "primary"}
    [:label {:for "name"} "Название"]
    [:input {:type "text" :name "name" :id "name"}]
    [:label {:for "faculty"} "Факультет"]
    [:select {:name "faculty-id" :id "faculty"}
-    (for [d faculties]
+    (for [d disciplines]
       [:option {:value (get d :id)} (get d :name)])]
    [:input {:type "submit" :value "Создать"}]
    (anti-forgery-input)])
@@ -46,7 +48,8 @@
   (let [id (get discipline :id)
         name (get discipline :name)
         faculty-id (get discipline :faculty-id)]
-  [:form {:action (str "/disciplines/" id "/edit") :method "post"}
+  [:form {:action (str "/disciplines/" id "/edit") :method "post"
+          :class "primary"}
    [:label {:for "name"} "Название"]
    [:input {:type "text" :name "name" :id "name" :value name}]
    [:label {:for "faculty"} "Факультет"]
