@@ -1,0 +1,25 @@
+[package]
+name = "web"
+version = "0.1.0"
+edition = "2021"
+
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[dependencies]
+framework = { path = "../framework" }
+
+console_log.workspace = true
+log.workspace = true
+anyhow = "1.0.94"
+console_error_panic_hook = "0.1.7"
+leptos = { version = "0.7.0", features = ["csr"] }
+leptos_router = "0.7.0"
+web-sys = { version = "0.3.74", features = ["HtmlCanvasElement", "HtmlDivElement"] }
+wgpu = { version = "23.0.1", features = ["vulkan-portability"] }
+winit = "0.29.15"
+
