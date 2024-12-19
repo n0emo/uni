@@ -48,5 +48,3 @@
                        name
                        faculty-id :<< as-int]
           (handle-edit-post id name faculty-id))))
-
-

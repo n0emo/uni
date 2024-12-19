@@ -39,7 +39,7 @@ nav li a {
     display: inline-block;
     color: #17252a;
     text-align: center;
-    margin: 15px 20px;
+    margin: 5px 20px !important;
     text-decoration: none;
 }
 
@@ -63,7 +63,7 @@ a.button {
     padding: 5px 5px;
     text-decoration: none;
     border-radius: 5px;
-    margin: 5px;
+    margin: 15px;
 }
 
 a.button:hover, a.button:active {

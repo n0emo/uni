@@ -1,6 +1,5 @@
 (defproject students "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Система цифрового деканата для управления базой данных образовательной организации"
   :min-lein-version "2.0.0"
   :dependencies [[com.h2database/h2 "2.3.232"]
                  [com.layerware/hugsql "0.5.3"]
@@ -13,7 +12,6 @@
                  [ring/ring-json "0.5.1"]]
   :aot [students.core]
   :plugins [[lein-ring "0.12.5"]]
-  :javac-options ["-target" "1.8" "-source" "1.8" "-Xlint:-options"]
   :ring {:handler students.handler/app}
   :aliases {"migrate"  ["run" "-m" "user/migrate"]
             "rollback" ["run" "-m" "user/rollback"]}
