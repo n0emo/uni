@@ -1,1 +1,1 @@
-pub mod lab;
+pub mod gpu_app;
