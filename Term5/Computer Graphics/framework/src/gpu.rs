@@ -1,9 +1,13 @@
 use std::sync::Arc;
 
+use crate::evloop::UserEvent;
 use anyhow::Context as _;
 use wgpu::{Adapter, CreateSurfaceError, Device, Instance, Queue, Surface, SurfaceConfiguration};
-use winit::{dpi::PhysicalSize, event::{Event, StartCause}, window::Window};
-use crate::evloop::UserEvent;
+use winit::{
+    dpi::PhysicalSize,
+    event::{Event, StartCause},
+    window::Window,
+};
 
 pub struct WgpuContext {
     pub instance: Instance,
@@ -18,23 +22,30 @@ impl WgpuContext {
 
         surface.pre_adapter(&instance, Arc::clone(&window))?;
         let adapter = wgpu::util::initialize_adapter_from_env_or_default(&instance, surface.get())
-            .await.context("Could not get adapter")?;
+            .await
+            .context("Could not get adapter")?;
 
-        let (device, queue) = adapter.request_device(
-            &wgpu::DeviceDescriptor {
-                label: None,
-                // TODO: features
-                required_features: wgpu::Features::empty(),
-                // TODO: limits
-                required_limits: wgpu::Limits::downlevel_webgl2_defaults(),
-                memory_hints: wgpu::MemoryHints::MemoryUsage,
-            },
-            None,
-        )
-        .await
-        .map_err(|e| anyhow::anyhow!("Could not get device: {e}"))?;
+        let (device, queue) = adapter
+            .request_device(
+                &wgpu::DeviceDescriptor {
+                    label: None,
+                    // TODO: features
+                    required_features: wgpu::Features::empty(),
+                    // TODO: limits
+                    required_limits: wgpu::Limits::downlevel_webgl2_defaults(),
+                    memory_hints: wgpu::MemoryHints::MemoryUsage,
+                },
+                None,
+            )
+            .await
+            .map_err(|e| anyhow::anyhow!("Could not get device: {e}"))?;
 
-        Ok(Self { instance, adapter, device, queue })
+        Ok(Self {
+            instance,
+            adapter,
+            device,
+            queue,
+        })
     }
 }
 
@@ -53,7 +64,11 @@ impl SurfaceWrapper {
         self.config.as_ref().unwrap()
     }
 
-    pub fn pre_adapter(&mut self, instance: &Instance, window: Arc<Window>) -> Result<(), CreateSurfaceError>  {
+    pub fn pre_adapter(
+        &mut self,
+        instance: &Instance,
+        window: Arc<Window>,
+    ) -> Result<(), CreateSurfaceError> {
         if cfg!(target_arch = "wasm32") {
             self.surface = Some(instance.create_surface(window)?);
         }
@@ -130,4 +145,3 @@ impl SurfaceWrapper {
         surface.configure(&context.device, config);
     }
 }
-

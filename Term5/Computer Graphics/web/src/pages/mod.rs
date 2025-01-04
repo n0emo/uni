@@ -1,7 +1,7 @@
-mod index;
 mod about;
+mod index;
 mod lab;
 
-pub use index::*;
 pub use about::*;
+pub use index::*;
 pub use lab::*;

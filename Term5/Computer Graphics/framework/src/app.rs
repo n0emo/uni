@@ -1,7 +1,10 @@
 use std::sync::{Arc, Mutex};
 
 use wgpu::SurfaceConfiguration;
-use winit::{event::{Event, WindowEvent}, event_loop::{EventLoop, EventLoopProxy, EventLoopWindowTarget}};
+use winit::{
+    event::{Event, WindowEvent},
+    event_loop::{EventLoop, EventLoopProxy, EventLoopWindowTarget},
+};
 
 use crate::{EventLoopWrapper, SurfaceWrapper, UserEvent, WgpuContext};
 
@@ -32,11 +35,7 @@ pub trait Application {
         wgpu::Limits::downlevel_webgl2_defaults()
     }
 
-    fn resize(
-        &mut self,
-        config: &SurfaceConfiguration,
-        ctx: &WgpuContext
-    ) {
+    fn resize(&mut self, config: &SurfaceConfiguration, ctx: &WgpuContext) {
         let _ = (config, ctx);
     }
 
@@ -47,13 +46,12 @@ pub trait Application {
 
 #[derive(Default)]
 pub struct ApplicationHandle {
-    proxy: Option<EventLoopProxy<UserEvent>>
+    proxy: Option<EventLoopProxy<UserEvent>>,
 }
 
 impl ApplicationHandle {
     pub fn exit(&self) {
-        let _ = self.proxy.as_ref().unwrap()
-            .send_event(UserEvent::Close);
+        let _ = self.proxy.as_ref().unwrap().send_event(UserEvent::Close);
     }
 }
 
@@ -67,14 +65,19 @@ pub fn run<A: Application + 'static>(title: String, handle: Option<Arc<Mutex<App
     }
 }
 
-pub async fn start<A: Application + 'static>(title: String, handle: Option<Arc<Mutex<ApplicationHandle>>>) {
+pub async fn start<A: Application + 'static>(
+    title: String,
+    handle: Option<Arc<Mutex<ApplicationHandle>>>,
+) {
     println!("Starting application");
     let EventLoopWrapper { event_loop, window } = EventLoopWrapper::new(title).unwrap();
     if let Some(handle) = handle {
         handle.lock().unwrap().proxy = Some(event_loop.create_proxy());
     }
     let mut surface = SurfaceWrapper::default();
-    let context = WgpuContext::new(&mut surface, window.clone()).await.unwrap();
+    let context = WgpuContext::new(&mut surface, window.clone())
+        .await
+        .unwrap();
 
     cfg_if::cfg_if! {
         if #[cfg(target_arch = "wasm32")] {
@@ -99,12 +102,13 @@ pub async fn start<A: Application + 'static>(title: String, handle: Option<Arc<M
                         app = Some(A::init(surface.config(), &context))
                     }
                 }
-                Event::WindowEvent { window_id: _, event } => match event {
+                Event::WindowEvent {
+                    window_id: _,
+                    event,
+                } => match event {
                     WindowEvent::CloseRequested => target.exit(),
                     WindowEvent::RedrawRequested => {
-                        let Some(app) = app.as_mut() else {
-                            return
-                        };
+                        let Some(app) = app.as_mut() else { return };
 
                         let frame = surface.acquire(&context);
                         let view = frame.texture.create_view(&wgpu::TextureViewDescriptor {
@@ -114,18 +118,18 @@ pub async fn start<A: Application + 'static>(title: String, handle: Option<Arc<M
 
                         app.render(&view, &context);
                         frame.present();
-                    },
+                    }
                     WindowEvent::Resized(size) => {
                         surface.resize(&context, size);
                         app.as_mut().unwrap().resize(&surface.config(), &context);
                     }
-                    _e => { }
-                }
+                    _e => {}
+                },
                 Event::UserEvent(e) => match e {
                     UserEvent::Close => target.exit(),
-                }
-                _e => { }
+                },
+                _e => {}
             }
-        }
+        },
     );
 }

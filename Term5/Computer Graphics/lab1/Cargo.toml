@@ -6,5 +6,7 @@ edition = "2021"
 [dependencies]
 framework = { path = "../framework" }
 
-winit.workspace = true
+bytemuck.workspace = true
+lazy_static.workspace = true
 wgpu.workspace = true
+winit.workspace = true

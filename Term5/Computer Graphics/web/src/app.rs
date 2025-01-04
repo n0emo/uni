@@ -1,7 +1,10 @@
 use std::time::Duration;
 
 use leptos::prelude::*;
-use leptos_router::{components::{Route, Router, Routes, RoutingProgress, A}, path};
+use leptos_router::{
+    components::{Route, Router, Routes, RoutingProgress, A},
+    path,
+};
 
 use crate::pages::{About, Index, Lab};
 
@@ -13,11 +16,11 @@ pub fn App() -> impl IntoView {
             <nav>
                 <ul>
                     <li><A href="/">"На главную"</A></li>
-                    <li><A href="/lab/1">"1. ФИО на WebGPU"</A></li>
-                    <li><A href="/lab/2">"2. 3D-объект вроде"</A></li>
-                    <li><A href="/lab/3">"3. Что-то про шейдеры?"</A></li>
-                    <li><A href="/lab/4">"4. Освещение"</A></li>
-                    <li><A href="/lab/5">"5. Что-то ещё не помню"</A></li>
+                    <li><A href="/lab/1">"ЛР№1. Фамилия на WebGPU"</A></li>
+                    <li><A href="/lab/2">"ЛР№2. (не готово)"</A></li>
+                    <li><A href="/lab/3">"ЛР№3. (не готово)"</A></li>
+                    <li><A href="/lab/4">"ЛР№4. (не готово)"</A></li>
+                    <li><A href="/lab/5">"ЛР№5. (не готово)"</A></li>
                     <li><A href="/about">"О проекте"</A></li>
                 </ul>
             </nav>
@@ -34,4 +37,3 @@ pub fn App() -> impl IntoView {
         </Router>
     )
 }
-

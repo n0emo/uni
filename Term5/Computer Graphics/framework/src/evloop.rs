@@ -1,7 +1,10 @@
 use std::sync::Arc;
 
 use anyhow::Context;
-use winit::{event_loop::{EventLoop, EventLoopBuilder}, window::{Window, WindowBuilder}};
+use winit::{
+    event_loop::{EventLoop, EventLoopBuilder},
+    window::{Window, WindowBuilder},
+};
 
 #[derive(Clone, Debug)]
 pub enum UserEvent {
@@ -31,12 +34,18 @@ impl EventLoopWrapper {
                 .get_element_by_id("canvas")
                 .context("There is no element with id `canvas`")?
                 .dyn_into::<web_sys::HtmlCanvasElement>()
-                .map_err(|_| anyhow::anyhow!("Could not cast element with id `canvas` to HtmlCanvas"))?;
+                .map_err(|_| {
+                    anyhow::anyhow!("Could not cast element with id `canvas` to HtmlCanvas")
+                })?;
             builder = builder.with_canvas(Some(canvas));
         }
         builder = builder.with_title(title);
 
-        let window = Arc::new(builder.build(&event_loop).context("Coult not create window")?);
+        let window = Arc::new(
+            builder
+                .build(&event_loop)
+                .context("Coult not create window")?,
+        );
         Ok(Self { event_loop, window })
     }
 }
