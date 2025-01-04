@@ -7,7 +7,9 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
+bytemuck = { version = "1.21.0", features = ["derive"] }
 cfg-if = "1"
+lazy_static = "1.5.0"
 log = "0.4"
 wgpu = "23.0"
 winit = { version = "0.29" }

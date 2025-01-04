@@ -6,4 +6,3 @@ pub fn Index() -> impl IntoView {
         <h1>"Главная"</h1>
     )
 }
-
