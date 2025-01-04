@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use leptos_router::{hooks::use_params, params::Params};
 
-use crate::components::lab::{FullName, Lightning};
+use crate::components::lab::Lab1;
 
 #[derive(Params, PartialEq)]
 struct LabParams {
@@ -15,8 +15,7 @@ pub fn Lab() -> impl IntoView {
 
     view!(
         {move || match id() {
-            1 => FullName.into_any(),
-            4 => Lightning.into_any(),
+            1 => Lab1.into_any(),
             _ => view!(<h1>"Лабораторной с таким номером \""{id()}"\" нет!"</h1>).into_any(),
         }}
     )

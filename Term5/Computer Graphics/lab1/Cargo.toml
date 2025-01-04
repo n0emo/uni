@@ -1,0 +1,10 @@
+[package]
+name = "lab1"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+framework = { path = "../framework" }
+
+winit.workspace = true
+wgpu.workspace = true

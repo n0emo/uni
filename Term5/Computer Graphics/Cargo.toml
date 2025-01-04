@@ -1,5 +1,7 @@
 [workspace]
-members = [ "framework",
+members = [
+    "framework",
+    "lab1",
     "web",
 ]
 resolver = "2"

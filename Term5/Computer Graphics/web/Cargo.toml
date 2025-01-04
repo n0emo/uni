@@ -12,6 +12,7 @@ panic = "abort"
 
 [dependencies]
 framework = { path = "../framework" }
+lab1 = { path = "../lab1" }
 
 console_log.workspace = true
 log.workspace = true
