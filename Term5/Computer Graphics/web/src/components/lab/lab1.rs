@@ -1,35 +1,10 @@
 use std::sync::{Arc, Mutex};
+use lab1::Application;
 
 use leptos::prelude::*;
 
-#[derive(Clone)]
-pub struct Application {
-}
-
-impl framework::Application for Application {
-    fn init() -> Self {
-        todo!()
-    }
-
-    fn resize() {
-        todo!()
-    }
-
-    fn update() {
-        todo!()
-    }
-
-    fn render() {
-        todo!()
-    }
-}
-
-
-pub struct Context {
-}
-
 #[component]
-pub fn FullName() -> impl IntoView {
+pub fn Lab1() -> impl IntoView {
     let handle = Arc::new(Mutex::new(framework::ApplicationHandle::default()));
     framework::run::<Application>("Hello, World!".to_owned(), Some(handle.clone()));
 
