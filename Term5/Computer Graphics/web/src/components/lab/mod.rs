@@ -1,5 +1,4 @@
-mod full_name;
-mod lightning;
+mod lab1;
 
-pub use full_name::*;
-pub use lightning::*;
+pub use lab1::*;
+
