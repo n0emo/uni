@@ -1,12 +1,14 @@
-use std::time::Duration;
+use std::{marker::PhantomData, time::Duration};
 
+use framework::Application as _;
 use leptos::prelude::*;
 use leptos_router::{
     components::{Route, Router, Routes, RoutingProgress, A},
     path,
 };
 
-use crate::pages::{About, Index, Lab};
+use crate::pages::{About, Index};
+use crate::components::gpu_app::App as GpuApp;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -16,7 +18,7 @@ pub fn App() -> impl IntoView {
             <nav>
                 <ul>
                     <li><A href="/">"На главную"</A></li>
-                    <li><A href="/lab/1">"ЛР№1. Фамилия на WebGPU"</A></li>
+                    <li><A href="/lab/1">{lab1::Application::NAME}</A></li>
                     <li><A href="/lab/2">"ЛР№2. (не готово)"</A></li>
                     <li><A href="/lab/3">"ЛР№3. (не готово)"</A></li>
                     <li><A href="/lab/4">"ЛР№4. (не готово)"</A></li>
@@ -30,7 +32,7 @@ pub fn App() -> impl IntoView {
             <main>
                 <Routes transition=true fallback=|| "Невозможно найти запрошенную страницу">
                     <Route path=path!("/") view=Index/>
-                    <Route path=path!("/lab/:id") view=Lab/>
+                    <Route path=path!("/lab/1") view=|| view!(<GpuApp marker={PhantomData::<lab1::Application>} />)/>
                     <Route path=path!("/about") view=About/>
                 </Routes>
             </main>
