@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use crate::evloop::UserEvent;
+use crate::{evloop::UserEvent, Application};
 use anyhow::Context as _;
 use wgpu::{Adapter, CreateSurfaceError, Device, Instance, Queue, Surface, SurfaceConfiguration};
 use winit::{
@@ -17,7 +17,7 @@ pub struct WgpuContext {
 }
 
 impl WgpuContext {
-    pub async fn new(surface: &mut SurfaceWrapper, window: Arc<Window>) -> anyhow::Result<Self> {
+    pub async fn new<A: Application>(surface: &mut SurfaceWrapper, window: Arc<Window>) -> anyhow::Result<Self> {
         let instance = Instance::default();
 
         surface.pre_adapter(&instance, Arc::clone(&window))?;
@@ -29,10 +29,9 @@ impl WgpuContext {
             .request_device(
                 &wgpu::DeviceDescriptor {
                     label: None,
-                    // TODO: features
-                    required_features: wgpu::Features::empty(),
-                    // TODO: limits
-                    required_limits: wgpu::Limits::downlevel_webgl2_defaults(),
+                    required_features: A::required_features(),
+                    required_limits: A::required_limits()
+                        .using_resolution(adapter.limits()),
                     memory_hints: wgpu::MemoryHints::MemoryUsage,
                 },
                 None,

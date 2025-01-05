@@ -1,5 +1,6 @@
 use std::sync::{Arc, Mutex};
 
+use log::info;
 use wgpu::SurfaceConfiguration;
 use winit::{
     event::{Event, WindowEvent},
@@ -9,11 +10,15 @@ use winit::{
 use crate::{EventLoopWrapper, SurfaceWrapper, UserEvent, WgpuContext};
 
 pub trait Application {
+    const SRGB: bool = true;
+
+    const NAME: &str;
+
+    const DESCRIPTION: &str;
+
     fn init(config: &SurfaceConfiguration, ctx: &WgpuContext) -> Self;
 
     fn render(&mut self, view: &wgpu::TextureView, ctx: &WgpuContext);
-
-    const SRGB: bool = true;
 
     fn optional_features() -> wgpu::Features {
         wgpu::Features::empty()
@@ -55,27 +60,27 @@ impl ApplicationHandle {
     }
 }
 
-pub fn run<A: Application + 'static>(title: String, handle: Option<Arc<Mutex<ApplicationHandle>>>) {
+pub fn run<A: Application + 'static>(handle: Option<Arc<Mutex<ApplicationHandle>>>) {
     cfg_if::cfg_if! {
         if #[cfg(target_arch = "wasm32")] {
-            wasm_bindgen_futures::spawn_local(async move { start::<A>(title, handle).await });
+            wasm_bindgen_futures::spawn_local(async move { start::<A>(handle).await });
         } else {
-            todo!("Native platform")
+            pollster::block_on(start::<A>(handle));
         }
     }
 }
 
 pub async fn start<A: Application + 'static>(
-    title: String,
     handle: Option<Arc<Mutex<ApplicationHandle>>>,
 ) {
-    println!("Starting application");
+    info!("Starting application");
+    let title = A::NAME.to_owned();
     let EventLoopWrapper { event_loop, window } = EventLoopWrapper::new(title).unwrap();
     if let Some(handle) = handle {
         handle.lock().unwrap().proxy = Some(event_loop.create_proxy());
     }
     let mut surface = SurfaceWrapper::default();
-    let context = WgpuContext::new(&mut surface, window.clone())
+    let context = WgpuContext::new::<A>(&mut surface, window.clone())
         .await
         .unwrap();
 

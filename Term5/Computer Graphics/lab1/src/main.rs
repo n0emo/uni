@@ -1,3 +1,6 @@
+use lab1::Application;
+use framework::run;
+
 fn main() {
-    println!("Hello, world!");
+    run::<Application>(None);
 }
