@@ -27,6 +27,7 @@ impl EventLoopWrapper {
         {
             use wasm_bindgen::JsCast;
             use winit::platform::web::WindowBuilderExtWebSys;
+
             let canvas = web_sys::window()
                 .context("Could not get web window")?
                 .document()
