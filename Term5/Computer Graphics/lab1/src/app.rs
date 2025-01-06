@@ -19,72 +19,72 @@ impl framework::Application for Application {
 
     const DESCRIPTION: &str = "Лабораторная рабоа №1 - Вывод на экран графического примитива (отрисовка фамилии с помощью WebGPU)";
 
-    fn init(
-        config: &SurfaceConfiguration,
-        WgpuContext {
-            instance: _,
-            adapter: _,
-            device,
-            queue: _,
-        }: &WgpuContext,
-    ) -> Self {
-        let shader = device.create_shader_module(include_wgsl!("shader.wgsl"));
+fn init(
+    config: &SurfaceConfiguration,
+    WgpuContext {
+        instance: _,
+        adapter: _,
+        device,
+        queue: _,
+    }: &WgpuContext,
+) -> Self {
+    let shader = device.create_shader_module(include_wgsl!("shader.wgsl"));
 
-        let pipeline = device.create_render_pipeline(&RenderPipelineDescriptor {
-            label: Some("Render Pipeline"),
-            layout: Some(
-                &device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                    label: Some("Pipeline Layout"),
-                    bind_group_layouts: &[],
-                    push_constant_ranges: &[],
-                }),
-            ),
-            vertex: wgpu::VertexState {
-                module: &shader,
-                entry_point: Some("vs_main"),
-                buffers: &[Vertex::layout()],
-                compilation_options: PipelineCompilationOptions::default(),
-            },
-            fragment: Some(wgpu::FragmentState {
-                module: &shader,
-                entry_point: Some("fs_main"),
-                compilation_options: PipelineCompilationOptions::default(),
-                targets: &[Some(wgpu::ColorTargetState {
-                    format: config.view_formats[0],
-                    blend: Some(wgpu::BlendState::ALPHA_BLENDING),
-                    write_mask: wgpu::ColorWrites::ALL,
-                })],
+    let pipeline = device.create_render_pipeline(&RenderPipelineDescriptor {
+        label: Some("Render Pipeline"),
+        layout: Some(
+            &device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+                label: Some("Pipeline Layout"),
+                bind_group_layouts: &[],
+                push_constant_ranges: &[],
             }),
-            primitive: PrimitiveState {
-                topology: wgpu::PrimitiveTopology::TriangleList,
-                strip_index_format: None,
-                front_face: wgpu::FrontFace::Ccw,
-                cull_mode: Some(wgpu::Face::Back),
-                polygon_mode: wgpu::PolygonMode::Fill,
-                unclipped_depth: false,
-                conservative: false,
-            },
-            multisample: MultisampleState {
-                count: 1,
-                mask: !0,
-                alpha_to_coverage_enabled: false,
-            },
-            depth_stencil: None,
-            multiview: None,
-            cache: None,
-        });
+        ),
+        vertex: wgpu::VertexState {
+            module: &shader,
+            entry_point: Some("vs_main"),
+            buffers: &[Vertex::layout()],
+            compilation_options: PipelineCompilationOptions::default(),
+        },
+        fragment: Some(wgpu::FragmentState {
+            module: &shader,
+            entry_point: Some("fs_main"),
+            compilation_options: PipelineCompilationOptions::default(),
+            targets: &[Some(wgpu::ColorTargetState {
+                format: config.view_formats[0],
+                blend: Some(wgpu::BlendState::ALPHA_BLENDING),
+                write_mask: wgpu::ColorWrites::ALL,
+            })],
+        }),
+        primitive: PrimitiveState {
+            topology: wgpu::PrimitiveTopology::TriangleList,
+            strip_index_format: None,
+            front_face: wgpu::FrontFace::Ccw,
+            cull_mode: Some(wgpu::Face::Back),
+            polygon_mode: wgpu::PolygonMode::Fill,
+            unclipped_depth: false,
+            conservative: false,
+        },
+        multisample: MultisampleState {
+            count: 1,
+            mask: !0,
+            alpha_to_coverage_enabled: false,
+        },
+        depth_stencil: None,
+        multiview: None,
+        cache: None,
+    });
 
-        let vertex_buf = device.create_buffer_init(&BufferInitDescriptor {
-            label: Some("Surname Vertex Buffer"),
-            contents: bytemuck::cast_slice(&VERTICES),
-            usage: wgpu::BufferUsages::VERTEX,
-        });
+    let vertex_buf = device.create_buffer_init(&BufferInitDescriptor {
+        label: Some("Surname Vertex Buffer"),
+        contents: bytemuck::cast_slice(&VERTICES),
+        usage: wgpu::BufferUsages::VERTEX,
+    });
 
-        Self {
-            pipeline,
-            vertex_buf,
-        }
+    Self {
+        pipeline,
+        vertex_buf,
     }
+}
 
     fn render(
         &mut self,
@@ -122,8 +122,8 @@ impl framework::Application for Application {
 
         rpass.set_pipeline(&self.pipeline);
         rpass.set_vertex_buffer(0, self.vertex_buf.slice(..));
-        let len = VERTICES.len();
-        rpass.draw(0..len as u32, 0..1);
+        let len = VERTICES.len() as u32;
+        rpass.draw(0..len, 0..1);
 
         drop(rpass);
 
