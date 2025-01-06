@@ -53,6 +53,7 @@ fn make_vertices() -> Vec<Vertex> {
                     let x = (x as f32 + 1.0) * xsize - 1.025;
                     let y = 0.65 - (y as f32 + 1.0) * ysize;
                     let col: [f32; 3] = [0.9, 0.1, 0.2];
+
                     let top_right = Vertex {
                         pos: [x + xsize, y + ysize, 0.0],
                         col,
