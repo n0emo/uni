@@ -1,4 +1,4 @@
-struct VertexInput {
+struct Vertex {
     @location(0) pos: vec3<f32>,
     @location(1) col: vec3<f32>,
 }
@@ -10,7 +10,7 @@ struct VertexOutput {
 
 @vertex
 fn vs_main(
-    vertex: VertexInput,
+    vertex: Vertex,
 ) -> VertexOutput {
     var out: VertexOutput;
 
