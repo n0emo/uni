@@ -2,12 +2,14 @@
 members = [
     "framework",
     "lab1",
+    "lab2",
     "web",
 ]
 resolver = "2"
 
 [workspace.dependencies]
 bytemuck = { version = "1.21.0", features = ["derive"] }
+cgmath = "0.18.0"
 cfg-if = "1"
 lazy_static = "1.5.0"
 log = "0.4"

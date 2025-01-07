@@ -1,26 +1,30 @@
 use framework::WgpuContext;
 use wgpu::{
-    include_wgsl,
     util::{BufferInitDescriptor, DeviceExt as _},
-    CommandEncoderDescriptor, MultisampleState, Operations, PipelineCompilationOptions,
-    PrimitiveState, RenderPassDescriptor, RenderPipeline, RenderPipelineDescriptor,
-    SurfaceConfiguration, TextureView,
+    ColorTargetState, CommandEncoderDescriptor, FragmentState, MultisampleState,
+    PipelineCompilationOptions, PipelineLayoutDescriptor, PrimitiveState, RenderPassDescriptor,
+    RenderPipeline, RenderPipelineDescriptor, TextureView, VertexState,
 };
 
-use crate::model::{Vertex, VERTICES};
+use crate::model::{Vertex, CUBE};
 
 pub struct Application {
     pipeline: RenderPipeline,
     vertex_buf: wgpu::Buffer,
+    index_buf: wgpu::Buffer,
 }
 
 impl framework::Application for Application {
-    const NAME: &str = "ЛР№1. Фамилия на WebGPU";
+    const NAME: &str = "ЛР№2. 3D-объект";
 
-    const DESCRIPTION: &str = "Лабораторная рабоа №1 - Вывод на экран графического примитива (отрисовка фамилии с помощью WebGPU)";
+    const DESCRIPTION: &str = "Лабораторная работа №2 - вывод на экран трёхмерного изображения";
+
+    fn required_features() -> wgpu::Features {
+        wgpu::Features::empty()
+    }
 
     fn init(
-        config: &SurfaceConfiguration,
+        config: &wgpu::SurfaceConfiguration,
         WgpuContext {
             instance: _,
             adapter: _,
@@ -28,32 +32,30 @@ impl framework::Application for Application {
             queue: _,
         }: &WgpuContext,
     ) -> Self {
-        let shader = device.create_shader_module(include_wgsl!("shader.wgsl"));
+        let shader = device.create_shader_module(wgpu::include_wgsl!("shader.wgsl"));
 
         let pipeline = device.create_render_pipeline(&RenderPipelineDescriptor {
-            label: Some("Render Pipeline"),
-            layout: Some(
-                &device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                    label: Some("Pipeline Layout"),
-                    bind_group_layouts: &[],
-                    push_constant_ranges: &[],
-                }),
-            ),
-            vertex: wgpu::VertexState {
+            label: Some("3D Pipeline"),
+            layout: Some(&device.create_pipeline_layout(&PipelineLayoutDescriptor {
+                label: Some("3D Pipeline Layout"),
+                bind_group_layouts: &[],
+                push_constant_ranges: &[],
+            })),
+            vertex: VertexState {
                 module: &shader,
                 entry_point: Some("vs_main"),
                 buffers: &[Vertex::layout()],
                 compilation_options: PipelineCompilationOptions::default(),
             },
-            fragment: Some(wgpu::FragmentState {
+            fragment: Some(FragmentState {
                 module: &shader,
                 entry_point: Some("fs_main"),
-                compilation_options: PipelineCompilationOptions::default(),
-                targets: &[Some(wgpu::ColorTargetState {
+                targets: &[Some(ColorTargetState {
                     format: config.view_formats[0],
                     blend: Some(wgpu::BlendState::ALPHA_BLENDING),
                     write_mask: wgpu::ColorWrites::ALL,
                 })],
+                compilation_options: PipelineCompilationOptions::default(),
             }),
             primitive: PrimitiveState {
                 topology: wgpu::PrimitiveTopology::TriangleList,
@@ -75,14 +77,21 @@ impl framework::Application for Application {
         });
 
         let vertex_buf = device.create_buffer_init(&BufferInitDescriptor {
-            label: Some("Surname Vertex Buffer"),
-            contents: bytemuck::cast_slice(&VERTICES),
+            label: Some("3D Object Vertex Buffer"),
+            contents: bytemuck::cast_slice(&CUBE.vertices),
             usage: wgpu::BufferUsages::VERTEX,
+        });
+
+        let index_buf = device.create_buffer_init(&BufferInitDescriptor {
+            label: Some("3D Object Index Buffer"),
+            contents: bytemuck::cast_slice(&CUBE.indices),
+            usage: wgpu::BufferUsages::INDEX,
         });
 
         Self {
             pipeline,
             vertex_buf,
+            index_buf,
         }
     }
 
@@ -98,7 +107,7 @@ impl framework::Application for Application {
         }: &WgpuContext,
     ) {
         let mut encoder = device.create_command_encoder(&CommandEncoderDescriptor {
-            label: Some("Render Encoder"),
+            label: Some("Command Encoder"),
         });
 
         let mut rpass = encoder.begin_render_pass(&RenderPassDescriptor {
@@ -106,7 +115,7 @@ impl framework::Application for Application {
             color_attachments: &[Some(wgpu::RenderPassColorAttachment {
                 view,
                 resolve_target: None,
-                ops: Operations {
+                ops: wgpu::Operations {
                     load: wgpu::LoadOp::Clear(wgpu::Color {
                         r: 0.1,
                         g: 0.1,
@@ -123,8 +132,9 @@ impl framework::Application for Application {
 
         rpass.set_pipeline(&self.pipeline);
         rpass.set_vertex_buffer(0, self.vertex_buf.slice(..));
-        let len = VERTICES.len() as u32;
-        rpass.draw(0..len, 0..1);
+        rpass.set_index_buffer(self.index_buf.slice(..), wgpu::IndexFormat::Uint16);
+        let len = CUBE.indices.len() as u32;
+        rpass.draw_indexed(0..len, 0, 0..1);
 
         drop(rpass);
 

@@ -14,7 +14,7 @@ fn vs_main(
 ) -> VertexOutput {
     var out: VertexOutput;
 
-    out.pos = vec4<f32>(vertex.pos, 1.0);
+    out.pos = vec4<f32>(vertex.pos.x * 9.0 / 16.0, vertex.pos.yz, 1.0);
     out.col = vertex.col;
 
     return out;
@@ -24,9 +24,5 @@ fn vs_main(
 fn fs_main(
     in: VertexOutput,
 ) -> @location(0) vec4<f32> {
-    let x = in.col.x * (1.0 - 0.35 * sin(0.01 * in.pos.x / in.pos.w));
-    let y = in.col.y * (1.0 - 0.35 * cos(0.02 * in.pos.y / in.pos.w));
-    let z = in.col.z;
-    let color = vec3<f32>(x, y, z);
-    return vec4<f32>(color, 1.0);
+    return vec4<f32>(in.col, 1.0);
 }
