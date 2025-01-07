@@ -19,10 +19,7 @@ pub fn App() -> impl IntoView {
                 <ul>
                     <li><A href="/">"На главную"</A></li>
                     <li><A href="/lab/1">{lab1::Application::NAME}</A></li>
-                    <li><A href="/lab/2">"ЛР№2. (не готово)"</A></li>
-                    <li><A href="/lab/3">"ЛР№3. (не готово)"</A></li>
-                    <li><A href="/lab/4">"ЛР№4. (не готово)"</A></li>
-                    <li><A href="/lab/5">"ЛР№5. (не готово)"</A></li>
+                    <li><A href="/lab/2">{lab2::Application::NAME}</A></li>
                     <li><A href="/about">"О проекте"</A></li>
                 </ul>
             </nav>
@@ -33,6 +30,7 @@ pub fn App() -> impl IntoView {
                 <Routes transition=true fallback=|| "Невозможно найти запрошенную страницу">
                     <Route path=path!("/") view=Index/>
                     <Route path=path!("/lab/1") view=|| view!(<GpuApp marker={PhantomData::<lab1::Application>} />)/>
+                    <Route path=path!("/lab/2") view=|| view!(<GpuApp marker={PhantomData::<lab2::Application>} />)/>
                     <Route path=path!("/about") view=About/>
                 </Routes>
             </main>

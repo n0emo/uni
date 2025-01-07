@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.94"
 cfg-if.workspace = true
+chrono = "0.4.39"
 log.workspace = true
 pollster = "0.4.0"
 wgpu.workspace = true

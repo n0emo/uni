@@ -22,7 +22,9 @@ impl EventLoopWrapper {
             .build()
             .context("Could not create event loop")?;
 
-        let mut builder = WindowBuilder::new();
+        let mut builder = WindowBuilder::new()
+            .with_title(title);
+
         #[cfg(target_arch = "wasm32")]
         {
             use wasm_bindgen::JsCast;
@@ -40,7 +42,10 @@ impl EventLoopWrapper {
                 })?;
             builder = builder.with_canvas(Some(canvas));
         }
-        builder = builder.with_title(title);
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            builder = builder.with_inner_size(winit::dpi::PhysicalSize { width: 1280, height: 720 });
+        }
 
         let window = Arc::new(
             builder
