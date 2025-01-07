@@ -18,7 +18,7 @@ pub trait Application {
 
     fn init(config: &SurfaceConfiguration, ctx: &WgpuContext) -> Self;
 
-    fn render(&mut self, view: &wgpu::TextureView, ctx: &WgpuContext);
+    fn render(&mut self, view: &wgpu::TextureView, dt: f32, ctx: &WgpuContext);
 
     fn optional_features() -> wgpu::Features {
         wgpu::Features::empty()
@@ -94,6 +94,7 @@ pub async fn start<A: Application + 'static>(
     }
 
     let mut app = None;
+    let mut time = chrono::Local::now();
 
     #[allow(clippy::let_unit_value)]
     let _ = (event_loop_function)(
@@ -121,7 +122,13 @@ pub async fn start<A: Application + 'static>(
                             ..wgpu::TextureViewDescriptor::default()
                         });
 
-                        app.render(&view, &context);
+                        let time_now = chrono::Local::now();
+                        let dt = time_now - time;
+                        const NANOS_PER_SECOND: f32 = 1_000_000_000.0;
+                        let dt = (dt.num_seconds() as f32) + (dt.subsec_nanos() as f32 / NANOS_PER_SECOND);
+                        time = time_now;
+
+                        app.render(&view, dt, &context);
                         frame.present();
                     }
                     WindowEvent::Resized(size) => {

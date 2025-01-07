@@ -24,6 +24,7 @@ impl WgpuContext {
         let adapter = wgpu::util::initialize_adapter_from_env_or_default(&instance, surface.get())
             .await
             .context("Could not get adapter")?;
+        log::info!("Using `{}` backend", adapter.get_info().backend);
 
         let (device, queue) = adapter
             .request_device(
