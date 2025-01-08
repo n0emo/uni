@@ -3,6 +3,10 @@ struct Vertex {
     @location(1) tex_coords: vec2<f32>,
 }
 
+struct Instance {
+    @location(2) pos: vec3<f32>,
+}
+
 struct VertexOutput {
     @builtin(position) pos: vec4<f32>,
     @location(0) tex_coords: vec2<f32>,
@@ -23,11 +27,12 @@ var<uniform> camera: CameraUniform;
 @vertex
 fn vs_main(
     vertex: Vertex,
+    instance: Instance,
 ) -> VertexOutput {
     var out: VertexOutput;
 
     out.tex_coords = vertex.tex_coords;
-    out.pos = camera.view_proj * vec4<f32>(vertex.pos, 1.0);
+    out.pos = camera.view_proj * vec4<f32>(vertex.pos + instance.pos, 1.0);
 
     return out;
 }

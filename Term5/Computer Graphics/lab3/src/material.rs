@@ -1,12 +1,15 @@
 use framework::WgpuContext;
 use wgpu::{
     BindGroupDescriptor, BindGroupEntry, BindGroupLayoutDescriptor, BindGroupLayoutEntry,
-    BindingType, Extent3d, SamplerDescriptor, ShaderStages, TextureDescriptor, TextureDimension,
-    TextureFormat, TextureSampleType, TextureUsages, TextureViewDescriptor,
+    BindingType, ShaderStages, TextureSampleType,
 };
 
+use crate::texture::Texture;
+
 pub struct Material {
+    #[allow(unused)]
     pub basecolor: Texture,
+    #[allow(unused)]
     pub normal: Texture,
     pub bind_group: wgpu::BindGroup,
 }
@@ -67,65 +70,3 @@ impl Material {
     }
 }
 
-pub struct Texture {
-    pub texture: wgpu::Texture,
-    pub view: wgpu::TextureView,
-    pub sampler: wgpu::Sampler,
-}
-
-impl Texture {
-    pub fn from_bytes(bytes: &[u8], ctx: &WgpuContext) -> anyhow::Result<Self> {
-        let image = image::load_from_memory(bytes)?.to_rgba8();
-
-        let dimensions = image.dimensions();
-        let size = Extent3d {
-            width: dimensions.0,
-            height: dimensions.1,
-            depth_or_array_layers: 1,
-        };
-
-        let texture = ctx.device.create_texture(&TextureDescriptor {
-            label: Some("Fabric Basecolor"),
-            size,
-            mip_level_count: 1,
-            sample_count: 1,
-            dimension: TextureDimension::D2,
-            format: TextureFormat::Rgba8UnormSrgb,
-            usage: TextureUsages::TEXTURE_BINDING | TextureUsages::COPY_DST,
-            view_formats: &[],
-        });
-
-        ctx.queue.write_texture(
-            wgpu::ImageCopyTextureBase {
-                texture: &texture,
-                mip_level: 0,
-                origin: wgpu::Origin3d::ZERO,
-                aspect: wgpu::TextureAspect::All,
-            },
-            &image,
-            wgpu::ImageDataLayout {
-                offset: 0,
-                bytes_per_row: Some(4 * dimensions.0),
-                rows_per_image: Some(dimensions.1),
-            },
-            size,
-        );
-
-        let view = texture.create_view(&TextureViewDescriptor::default());
-        let sampler = ctx.device.create_sampler(&SamplerDescriptor {
-            address_mode_u: wgpu::AddressMode::Repeat,
-            address_mode_v: wgpu::AddressMode::Repeat,
-            address_mode_w: wgpu::AddressMode::Repeat,
-            mag_filter: wgpu::FilterMode::Linear,
-            min_filter: wgpu::FilterMode::Nearest,
-            mipmap_filter: wgpu::FilterMode::Nearest,
-            ..Default::default()
-        });
-
-        Ok(Self {
-            texture,
-            view,
-            sampler,
-        })
-    }
-}
