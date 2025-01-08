@@ -1,4 +1,4 @@
-use std::mem;
+use std::{mem, ops::Range};
 
 use framework::WgpuContext;
 use wgpu::{
@@ -62,11 +62,16 @@ impl Model {
         }
     }
 
-    pub fn draw(&self, rpass: &mut wgpu::RenderPass) {
-        rpass.set_bind_group(0, &self.material.bind_group, &[]);
+    pub fn draw(&self, rpass: &mut wgpu::RenderPass, range: Range<u32>) {
         rpass.set_vertex_buffer(0, self.vertex_buf.slice(..));
         rpass.set_index_buffer(self.index_buf.slice(..), wgpu::IndexFormat::Uint16);
-        rpass.draw_indexed(0..self.indices.len() as u32, 0, 0..1);
+        rpass.set_bind_group(0, &self.material.bind_group, &[]);
+        rpass.draw_indexed(0..self.indices.len() as u32, 0, range);
+    }
+
+    pub fn draw_instanced(&self, rpass: &mut wgpu::RenderPass, buf: &Buffer, len: u32) {
+        rpass.set_vertex_buffer(1, buf.slice(..));
+        self.draw(rpass, 0..len);
     }
 }
 
