@@ -2,11 +2,20 @@ use std::f32::consts::PI;
 
 use framework::WgpuContext;
 use wgpu::{
-    util::{BufferInitDescriptor, DeviceExt}, BlendState, Buffer, BufferUsages, ColorTargetState, ColorWrites, CommandEncoderDescriptor, CompareFunction, DepthBiasState, DepthStencilState, FragmentState, PipelineCompilationOptions, PipelineLayoutDescriptor, PrimitiveState, PrimitiveTopology, RenderPassColorAttachment, RenderPassDescriptor, RenderPipeline, RenderPipelineDescriptor, StencilState, SurfaceConfiguration, TextureDescriptor, VertexState
+    util::{BufferInitDescriptor, DeviceExt},
+    BlendState, Buffer, BufferUsages, ColorTargetState, ColorWrites, CommandEncoderDescriptor,
+    CompareFunction, DepthBiasState, DepthStencilState, FragmentState, PipelineCompilationOptions,
+    PipelineLayoutDescriptor, PrimitiveState, PrimitiveTopology, RenderPassColorAttachment,
+    RenderPassDescriptor, RenderPipeline, RenderPipelineDescriptor, StencilState,
+    SurfaceConfiguration, VertexState,
 };
 
 use crate::{
-    camera::{Camera, CameraParams}, instance::{make_surname_instances, Instance}, material::Material, model::{Model, Vertex}, texture, SAMPLE_COUNT
+    camera::{Camera, CameraParams},
+    instance::{make_surname_instances, Instance},
+    material::Material,
+    model::{Model, Vertex},
+    texture, SAMPLE_COUNT,
 };
 
 pub struct Application {
@@ -113,7 +122,8 @@ impl framework::Application for Application {
         let instance_len = instances.len() as u32;
 
         let msaa_texture = texture::create_msaa_texture(config.width, config.height, &ctx.device);
-        let depth_texture = texture::Texture::create_depth_texture(config.width, config.height, &ctx.device);
+        let depth_texture =
+            texture::Texture::create_depth_texture(config.width, config.height, &ctx.device);
 
         Self {
             pipeline,
@@ -186,4 +196,3 @@ impl framework::Application for Application {
         self.recreate_textures = Some((config.width, config.height))
     }
 }
-

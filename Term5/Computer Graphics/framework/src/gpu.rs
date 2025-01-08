@@ -17,7 +17,10 @@ pub struct WgpuContext {
 }
 
 impl WgpuContext {
-    pub async fn new<A: Application>(surface: &mut SurfaceWrapper, window: Arc<Window>) -> anyhow::Result<Self> {
+    pub async fn new<A: Application>(
+        surface: &mut SurfaceWrapper,
+        window: Arc<Window>,
+    ) -> anyhow::Result<Self> {
         let instance = Instance::default();
 
         surface.pre_adapter(&instance, Arc::clone(&window))?;
@@ -31,8 +34,7 @@ impl WgpuContext {
                 &wgpu::DeviceDescriptor {
                     label: None,
                     required_features: A::required_features(),
-                    required_limits: A::required_limits()
-                        .using_resolution(adapter.limits()),
+                    required_limits: A::required_limits().using_resolution(adapter.limits()),
                     memory_hints: wgpu::MemoryHints::MemoryUsage,
                 },
                 None,
