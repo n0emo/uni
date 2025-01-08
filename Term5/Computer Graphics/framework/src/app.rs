@@ -130,6 +130,8 @@ pub async fn start<A: Application + 'static>(
 
                         app.render(&view, dt, &context);
                         frame.present();
+
+                        window.request_redraw();
                     }
                     WindowEvent::Resized(size) => {
                         surface.resize(&context, size);

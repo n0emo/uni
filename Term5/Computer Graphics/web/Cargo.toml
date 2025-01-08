@@ -14,15 +14,17 @@ panic = "abort"
 framework = { path = "../framework" }
 lab1 = { path = "../lab1" }
 lab2 = { path = "../lab2" }
+lab3 = { path = "../lab3" }
 course-project = { path = "../course-project" }
 
 console_log.workspace = true
 log.workspace = true
-anyhow = "1.0.94"
+anyhow.workspace = true
+winit.workspace = true
+web-sys = { workspace = true, features = ["HtmlCanvasElement", "HtmlDivElement"] }
+wgpu = { workspace = true, features = ["vulkan-portability"] }
+
 console_error_panic_hook = "0.1.7"
 leptos = { version = "0.7.0", features = ["csr"] }
 leptos_router = "0.7.0"
-web-sys = { version = "0.3.74", features = ["HtmlCanvasElement", "HtmlDivElement"] }
-wgpu = { version = "23.0.1", features = ["vulkan-portability"] }
-winit = "0.29.15"
 

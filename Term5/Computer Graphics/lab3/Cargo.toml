@@ -1,0 +1,16 @@
+[package]
+name = "lab3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+framework = { path = "../framework" }
+
+anyhow.workspace = true
+bytemuck.workspace = true
+cgmath.workspace = true
+image.workspace = true
+lazy_static.workspace = true
+log.workspace = true
+wgpu.workspace = true
+winit.workspace = true
