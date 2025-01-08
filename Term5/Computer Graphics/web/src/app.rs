@@ -7,8 +7,8 @@ use leptos_router::{
     path,
 };
 
-use crate::pages::{About, Index};
 use crate::components::gpu_app::App as GpuApp;
+use crate::pages::{About, Index};
 
 #[component]
 pub fn App() -> impl IntoView {
