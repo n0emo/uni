@@ -1,5 +1,8 @@
 use framework::WgpuContext;
-use wgpu::{AddressMode, CompareFunction, Device, Extent3d, FilterMode, SamplerDescriptor, TextureDescriptor, TextureDimension, TextureFormat, TextureUsages, TextureViewDescriptor};
+use wgpu::{
+    AddressMode, CompareFunction, Device, Extent3d, FilterMode, SamplerDescriptor,
+    TextureDescriptor, TextureDimension, TextureFormat, TextureUsages, TextureViewDescriptor,
+};
 
 use crate::SAMPLE_COUNT;
 
@@ -101,7 +104,11 @@ impl Texture {
             ..Default::default()
         });
 
-        Self { texture, view, sampler }
+        Self {
+            texture,
+            view,
+            sampler,
+        }
     }
 }
 

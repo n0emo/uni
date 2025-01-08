@@ -82,5 +82,5 @@ fn make_cube() -> Cube {
         2, 6, 7, 7, 3, 2, // top
     ];
 
-Cube { vertices, indices }
+    Cube { vertices, indices }
 }

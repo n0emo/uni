@@ -70,9 +70,7 @@ pub fn run<A: Application + 'static>(handle: Option<Arc<Mutex<ApplicationHandle>
     }
 }
 
-pub async fn start<A: Application + 'static>(
-    handle: Option<Arc<Mutex<ApplicationHandle>>>,
-) {
+pub async fn start<A: Application + 'static>(handle: Option<Arc<Mutex<ApplicationHandle>>>) {
     info!("Starting application");
     let title = A::NAME.to_owned();
     let EventLoopWrapper { event_loop, window } = EventLoopWrapper::new(title).unwrap();
@@ -125,7 +123,8 @@ pub async fn start<A: Application + 'static>(
                         let time_now = chrono::Local::now();
                         let dt = time_now - time;
                         const NANOS_PER_SECOND: f32 = 1_000_000_000.0;
-                        let dt = (dt.num_seconds() as f32) + (dt.subsec_nanos() as f32 / NANOS_PER_SECOND);
+                        let dt = (dt.num_seconds() as f32)
+                            + (dt.subsec_nanos() as f32 / NANOS_PER_SECOND);
                         time = time_now;
 
                         app.render(&view, dt, &context);
