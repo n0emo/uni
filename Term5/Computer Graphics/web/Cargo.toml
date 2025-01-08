@@ -14,6 +14,7 @@ panic = "abort"
 framework = { path = "../framework" }
 lab1 = { path = "../lab1" }
 lab2 = { path = "../lab2" }
+course-project = { path = "../course-project" }
 
 console_log.workspace = true
 log.workspace = true

@@ -20,6 +20,7 @@ pub fn App() -> impl IntoView {
                     <li><A href="/">"На главную"</A></li>
                     <li><A href="/lab/1">{lab1::Application::NAME}</A></li>
                     <li><A href="/lab/2">{lab2::Application::NAME}</A></li>
+                    <li><A href="/course-project">{course_project::Application::NAME}</A></li>
                     <li><A href="/about">"О проекте"</A></li>
                 </ul>
             </nav>
@@ -31,6 +32,7 @@ pub fn App() -> impl IntoView {
                     <Route path=path!("/") view=Index/>
                     <Route path=path!("/lab/1") view=|| view!(<GpuApp marker={PhantomData::<lab1::Application>} />)/>
                     <Route path=path!("/lab/2") view=|| view!(<GpuApp marker={PhantomData::<lab2::Application>} />)/>
+                    <Route path=path!("/course-project") view=|| view!(<GpuApp marker={PhantomData::<course_project::Application>} />)/>
                     <Route path=path!("/about") view=About/>
                 </Routes>
             </main>

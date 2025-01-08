@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "course-project",
     "framework",
     "lab1",
     "lab2",
