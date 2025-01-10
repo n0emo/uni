@@ -9,19 +9,15 @@ use crate::texture::Texture;
 pub struct Material {
     #[allow(unused)]
     pub basecolor: Texture,
-    #[allow(unused)]
-    pub normal: Texture,
     pub bind_group: wgpu::BindGroup,
 }
 
 impl Material {
     pub fn from_texture_bytes(
         basecolor: &[u8],
-        normal: &[u8],
         ctx: &WgpuContext,
     ) -> anyhow::Result<Self> {
         let basecolor = Texture::from_bytes(basecolor, ctx)?;
-        let normal = Texture::from_bytes(normal, ctx)?;
 
         let bind_group = ctx.device.create_bind_group(&BindGroupDescriptor {
             layout: &Self::bind_group_layout(&ctx.device),
@@ -40,7 +36,6 @@ impl Material {
 
         Ok(Self {
             basecolor,
-            normal,
             bind_group,
         })
     }

@@ -12,8 +12,8 @@ pub struct Camera {
 }
 
 impl Camera {
-    pub fn bind(&self, rpass: &mut RenderPass) {
-        rpass.set_bind_group(1, &self.bind_group, &[]);
+    pub fn bind(&self, rpass: &mut RenderPass, slot: u32) {
+        rpass.set_bind_group(slot, &self.bind_group, &[]);
     }
 
     pub fn update_buffer(&self, queue: &Queue) {

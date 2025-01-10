@@ -9,7 +9,7 @@ pub struct Instance {
 }
 
 impl Instance {
-    const ATTRIBUTES: &[wgpu::VertexAttribute] = &wgpu::vertex_attr_array![2 => Float32x3];
+    const ATTRIBUTES: &[wgpu::VertexAttribute] = &wgpu::vertex_attr_array![3 => Float32x3];
 
     pub fn layout() -> VertexBufferLayout<'static> {
         VertexBufferLayout {
