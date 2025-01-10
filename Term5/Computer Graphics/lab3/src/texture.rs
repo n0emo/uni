@@ -4,8 +4,6 @@ use wgpu::{
     TextureDescriptor, TextureDimension, TextureFormat, TextureUsages, TextureViewDescriptor,
 };
 
-use crate::SAMPLE_COUNT;
-
 pub struct Texture {
     #[allow(unused)]
     pub texture: wgpu::Texture,
@@ -82,7 +80,7 @@ impl Texture {
                 depth_or_array_layers: 1,
             },
             mip_level_count: 1,
-            sample_count: SAMPLE_COUNT,
+            sample_count: 1,
             dimension: TextureDimension::D2,
             format: Self::DEPTH_FORMAT,
             usage: TextureUsages::RENDER_ATTACHMENT | TextureUsages::TEXTURE_BINDING,
@@ -110,25 +108,4 @@ impl Texture {
             sampler,
         }
     }
-}
-
-pub fn create_msaa_texture(width: u32, height: u32, device: &wgpu::Device) -> wgpu::TextureView {
-    device
-        .create_texture(
-            &(TextureDescriptor {
-                label: Some("MSAA Texture"),
-                size: wgpu::Extent3d {
-                    width,
-                    height,
-                    depth_or_array_layers: 1,
-                },
-                mip_level_count: 1,
-                sample_count: SAMPLE_COUNT,
-                dimension: wgpu::TextureDimension::D2,
-                format: wgpu::TextureFormat::Bgra8UnormSrgb,
-                usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
-                view_formats: &[],
-            }),
-        )
-        .create_view(&Default::default())
 }

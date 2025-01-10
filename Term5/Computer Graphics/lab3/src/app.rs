@@ -1,10 +1,14 @@
 use std::{cell::RefCell, f32::consts::PI, rc::Rc};
 
 use framework::WgpuContext;
-use wgpu::{CommandEncoderDescriptor,  SurfaceConfiguration};
+use wgpu::{CommandEncoderDescriptor, SurfaceConfiguration};
 
 use crate::{
-    camera::{Camera, CameraParams}, color::hsv_to_rgb, light::{Light, LightUniform}, render::{create_rpass, LightSourceState, SurnameState}, texture
+    camera::{Camera, CameraParams},
+    color::hsv_to_rgb,
+    light::{Light, LightUniform},
+    render::{create_rpass, LightSourceState, SurnameState},
+    texture,
 };
 
 pub struct Application {
@@ -14,7 +18,6 @@ pub struct Application {
     light_source_state: LightSourceState,
     time: f32,
     recreate_textures: Option<(u32, u32)>,
-    msaa_texture: wgpu::TextureView,
     depth_texture: texture::Texture,
 }
 
@@ -38,10 +41,11 @@ impl framework::Application for Application {
                 position: [0.0, 0.0, 5.0],
                 ..Default::default()
             },
-            &ctx.device)));
+            &ctx.device,
+        )));
 
-        let msaa_texture = texture::create_msaa_texture(config.width, config.height, &ctx.device);
-        let depth_texture = texture::Texture::create_depth_texture(config.width, config.height, &ctx.device);
+        let depth_texture =
+            texture::Texture::create_depth_texture(config.width, config.height, &ctx.device);
 
         let surname_state = SurnameState::new(config, ctx, camera.clone(), light.clone());
         let light_source_state = LightSourceState::new(config, ctx, camera.clone(), light.clone());
@@ -53,7 +57,6 @@ impl framework::Application for Application {
             light_source_state,
             time: 0.0,
             recreate_textures: None,
-            msaa_texture,
             depth_texture,
         }
     }
@@ -79,7 +82,6 @@ impl framework::Application for Application {
         }
 
         if let Some((width, height)) = self.recreate_textures.take() {
-            self.msaa_texture = texture::create_msaa_texture(width, height, &ctx.device);
             self.depth_texture = texture::Texture::create_depth_texture(width, height, &ctx.device);
         }
 
@@ -87,7 +89,7 @@ impl framework::Application for Application {
             .device
             .create_command_encoder(&CommandEncoderDescriptor::default());
 
-        let mut rpass = create_rpass(&mut encoder, &self.msaa_texture, view, &self.depth_texture);
+        let mut rpass = create_rpass(&mut encoder, view, &self.depth_texture);
 
         self.surname_state.render(&mut rpass);
         self.light_source_state.render(&mut rpass);

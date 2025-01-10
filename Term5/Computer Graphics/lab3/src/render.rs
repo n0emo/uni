@@ -1,9 +1,24 @@
 use std::{cell::RefCell, rc::Rc};
 
 use framework::WgpuContext;
-use wgpu::{include_wgsl, util::{BufferInitDescriptor, DeviceExt as _}, BindGroupLayout, BlendState, Buffer, BufferUsages, ColorTargetState, ColorWrites, CompareFunction, DepthBiasState, DepthStencilState, FragmentState, PipelineCompilationOptions, PipelineLayoutDescriptor, PrimitiveState, PrimitiveTopology, RenderPass, RenderPassColorAttachment, RenderPassDescriptor, RenderPipeline, RenderPipelineDescriptor, ShaderModule, StencilState, SurfaceConfiguration, VertexBufferLayout, VertexState};
+use wgpu::{
+    include_wgsl,
+    util::{BufferInitDescriptor, DeviceExt as _},
+    BindGroupLayout, BlendState, Buffer, BufferUsages, ColorTargetState, ColorWrites,
+    CompareFunction, DepthBiasState, DepthStencilState, FragmentState, PipelineCompilationOptions,
+    PipelineLayoutDescriptor, PrimitiveState, PrimitiveTopology, RenderPass,
+    RenderPassColorAttachment, RenderPassDescriptor, RenderPipeline, RenderPipelineDescriptor,
+    ShaderModule, StencilState, SurfaceConfiguration, VertexBufferLayout, VertexState,
+};
 
-use crate::{camera::Camera, instance::{make_surname_instances, Instance}, light::{Light, LightUniform}, material::Material, model::{Mesh, Model, Vertex}, texture, SAMPLE_COUNT};
+use crate::{
+    camera::Camera,
+    instance::{make_surname_instances, Instance},
+    light::{Light, LightUniform},
+    material::Material,
+    model::{Mesh, Model, Vertex},
+    texture,
+};
 
 pub struct SurnameState {
     pipeline: RenderPipeline,
@@ -39,11 +54,9 @@ impl SurnameState {
             ctx,
         );
 
-        let fabric_material = Material::from_texture_bytes(
-            include_bytes!("../res/fabric_basecolor.png"),
-            ctx,
-        )
-        .unwrap();
+        let fabric_material =
+            Material::from_texture_bytes(include_bytes!("../res/fabric_basecolor.png"), ctx)
+                .unwrap();
 
         let cube = Model {
             mesh: Mesh::create_cube(ctx),
@@ -72,21 +85,21 @@ impl SurnameState {
         rpass.set_pipeline(&self.pipeline);
         self.camera.borrow_mut().bind(rpass, 1);
         self.light.borrow_mut().bind(rpass, 2);
-        self.cube.draw_instanced(rpass, &self.instance_buf, self.instance_len);
+        self.cube
+            .draw_instanced(rpass, &self.instance_buf, self.instance_len);
     }
 }
 
 pub fn create_rpass<'a>(
     encoder: &'a mut wgpu::CommandEncoder,
-    msaa_texture: &wgpu::TextureView,
     view: &wgpu::TextureView,
-    depth_texture: &texture::Texture
+    depth_texture: &texture::Texture,
 ) -> wgpu::RenderPass<'a> {
     encoder.begin_render_pass(&RenderPassDescriptor {
         label: Some("Render Pass"),
         color_attachments: &[Some(RenderPassColorAttachment {
-            view: msaa_texture,
-            resolve_target: Some(view),
+            view,
+            resolve_target: None,
             ops: wgpu::Operations {
                 load: wgpu::LoadOp::Clear(wgpu::Color {
                     r: 0.1,
@@ -130,13 +143,7 @@ impl LightSourceState {
             &LightUniform::bind_group_layout(&ctx.device),
         ];
         let vertex_buffers = &[Vertex::layout()];
-        let pipeline = create_pipeline(
-            config,
-            bind_group_layouts,
-            vertex_buffers,
-            &shader,
-            ctx,
-        );
+        let pipeline = create_pipeline(config, bind_group_layouts, vertex_buffers, &shader, ctx);
 
         let cube = Mesh::create_cube(ctx);
 
@@ -207,12 +214,11 @@ fn create_pipeline(
                 bias: DepthBiasState::default(),
             }),
             multisample: wgpu::MultisampleState {
-                count: SAMPLE_COUNT,
+                count: 1,
                 mask: !0,
                 alpha_to_coverage_enabled: false,
             },
             multiview: None,
             cache: None,
         })
-
 }
