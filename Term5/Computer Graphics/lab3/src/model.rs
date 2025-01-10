@@ -80,7 +80,6 @@ impl Mesh {
             indices,
             index_buf,
         }
-
     }
 
     pub fn draw(&self, rpass: &mut wgpu::RenderPass, range: Range<u32>) {
@@ -126,7 +125,11 @@ impl Vertex {
         &wgpu::vertex_attr_array![0 => Float32x3, 1 => Float32x2, 2 => Float32x3];
 
     pub fn new(pos: [f32; 3], tex_coords: [f32; 2], normal: [f32; 3]) -> Self {
-        Self { pos, tex_coords, normal }
+        Self {
+            pos,
+            tex_coords,
+            normal,
+        }
     }
 
     pub fn layout() -> VertexBufferLayout<'static> {

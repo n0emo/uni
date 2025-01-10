@@ -1,4 +1,8 @@
-use wgpu::{util::{BufferInitDescriptor, DeviceExt as _}, BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayout, BindGroupLayoutDescriptor, BindingType, Buffer, BufferBindingType, Device, Queue, RenderPass, ShaderStages};
+use wgpu::{
+    util::{BufferInitDescriptor, DeviceExt as _},
+    BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayout, BindGroupLayoutDescriptor,
+    BindingType, Buffer, BufferBindingType, Device, Queue, RenderPass, ShaderStages,
+};
 
 pub struct Light {
     pub light_uniform: LightUniform,

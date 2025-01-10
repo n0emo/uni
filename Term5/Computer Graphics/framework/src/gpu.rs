@@ -141,8 +141,8 @@ impl SurfaceWrapper {
         log::info!("Surface resize {size:?}");
 
         let config = self.config.as_mut().unwrap();
-        config.width = size.width.max(1);
-        config.height = size.height.max(1);
+        config.width = size.width.max(1).min(4096);
+        config.height = size.height.max(1).min(4096);
         let surface = self.surface.as_ref().unwrap();
         surface.configure(&context.device, config);
     }
