@@ -6,6 +6,7 @@ mod material;
 mod model;
 mod render;
 mod texture;
+mod color;
 
 pub use app::Application;
 

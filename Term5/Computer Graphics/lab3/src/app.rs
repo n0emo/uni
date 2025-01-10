@@ -4,7 +4,7 @@ use framework::WgpuContext;
 use wgpu::{CommandEncoderDescriptor,  SurfaceConfiguration};
 
 use crate::{
-    camera::{Camera, CameraParams}, light::{Light, LightUniform}, render::{create_rpass, LightSourceState, SurnameState}, texture
+    camera::{Camera, CameraParams}, color::hsv_to_rgb, light::{Light, LightUniform}, render::{create_rpass, LightSourceState, SurnameState}, texture
 };
 
 pub struct Application {
@@ -62,13 +62,21 @@ impl framework::Application for Application {
         self.time += dt;
 
         let zoom = ((self.time * 0.6).sin() + 3.5) * 10.0;
-        self.camera.borrow_mut().params.eye.y = (self.time * 1.0).sin() * 15.0;
-        self.camera.borrow_mut().params.eye.x = (self.time * 0.3 - PI * 0.7).sin() * zoom;
-        self.camera.borrow_mut().params.eye.z = (self.time * 0.3 - PI * 0.7).cos() * zoom;
-        self.camera.borrow_mut().update_buffer(&ctx.queue);
+        {
+            let mut camera = self.camera.borrow_mut();
+            camera.params.eye.y = (self.time * 1.0).sin() * 15.0;
+            camera.params.eye.x = (self.time * 0.3 - PI * 0.7).sin() * zoom;
+            camera.params.eye.z = (self.time * 0.3 - PI * 0.7).cos() * zoom;
+            camera.update_buffer(&ctx.queue);
+        }
 
-        self.light.borrow_mut().light_uniform.position[0] = (self.time * 0.5).cos() * 20.0;
-        self.light.borrow_mut().update_buffer(&ctx.queue);
+        {
+            let mut light = self.light.borrow_mut();
+            light.light_uniform.position[0] = (self.time * 0.5).cos() * 20.0;
+            let hue = (self.time * 20.0) % 360.0;
+            light.light_uniform.color = hsv_to_rgb([hue, 0.5, 1.0]);
+            light.update_buffer(&ctx.queue);
+        }
 
         if let Some((width, height)) = self.recreate_textures.take() {
             self.msaa_texture = texture::create_msaa_texture(width, height, &ctx.device);
