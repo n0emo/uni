@@ -13,10 +13,7 @@ pub struct Material {
 }
 
 impl Material {
-    pub fn from_texture_bytes(
-        basecolor: &[u8],
-        ctx: &WgpuContext,
-    ) -> anyhow::Result<Self> {
+    pub fn from_texture_bytes(basecolor: &[u8], ctx: &WgpuContext) -> anyhow::Result<Self> {
         let basecolor = Texture::from_bytes(basecolor, ctx)?;
 
         let bind_group = ctx.device.create_bind_group(&BindGroupDescriptor {
