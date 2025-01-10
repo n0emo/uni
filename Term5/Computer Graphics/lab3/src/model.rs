@@ -21,14 +21,36 @@ impl Model {
     pub fn create_cube(material: Material, ctx: &WgpuContext) -> Self {
         #[rustfmt::skip]
         let vertices = vec![
-            Vertex { pos: [-1.0, -1.0, -1.0], texture_coord: [0.0, 0.0], }, // 0
-            Vertex { pos: [ 1.0, -1.0, -1.0], texture_coord: [1.0, 0.0], }, // 1
-            Vertex { pos: [-1.0,  1.0, -1.0], texture_coord: [0.0, 1.0], }, // 2
-            Vertex { pos: [ 1.0,  1.0, -1.0], texture_coord: [1.0, 1.0], }, // 3
-            Vertex { pos: [-1.0, -1.0,  1.0], texture_coord: [1.0, 1.0], }, // 4
-            Vertex { pos: [ 1.0, -1.0,  1.0], texture_coord: [0.0, 1.0], }, // 5
-            Vertex { pos: [-1.0,  1.0,  1.0], texture_coord: [1.0, 0.0], }, // 6
-            Vertex { pos: [ 1.0,  1.0,  1.0], texture_coord: [0.0, 0.0], }, // 7
+            // front
+            Vertex::new([-1.0, -1.0, -1.0], [0.0, 0.0]), // 0
+            Vertex::new([ 1.0, -1.0, -1.0], [1.0, 0.0]), // 1
+            Vertex::new([-1.0,  1.0, -1.0], [0.0, 1.0]), // 2
+            Vertex::new([ 1.0,  1.0, -1.0], [1.0, 1.0]), // 3
+            // right
+            Vertex::new([ 1.0, -1.0, -1.0], [0.0, 0.0]), // 4
+            Vertex::new([ 1.0, -1.0,  1.0], [1.0, 0.0]), // 5
+            Vertex::new([ 1.0,  1.0, -1.0], [0.0, 1.0]), // 6
+            Vertex::new([ 1.0,  1.0,  1.0], [1.0, 1.0]), // 7
+            // back
+            Vertex::new([ 1.0, -1.0,  1.0], [0.0, 0.0]), // 8
+            Vertex::new([-1.0, -1.0,  1.0], [1.0, 0.0]), // 9
+            Vertex::new([ 1.0,  1.0,  1.0], [0.0, 1.0]), // 10
+            Vertex::new([-1.0,  1.0,  1.0], [1.0, 1.0]), // 11
+            // left
+            Vertex::new([-1.0, -1.0,  1.0], [0.0, 0.0]), // 12
+            Vertex::new([-1.0, -1.0, -1.0], [1.0, 0.0]), // 13
+            Vertex::new([-1.0,  1.0,  1.0], [0.0, 1.0]), // 14
+            Vertex::new([-1.0,  1.0, -1.0], [1.0, 1.0]), // 15
+            // top
+            Vertex::new([-1.0,  1.0, -1.0], [0.0, 0.0]), // 16
+            Vertex::new([ 1.0,  1.0, -1.0], [1.0, 0.0]), // 17
+            Vertex::new([-1.0,  1.0,  1.0], [0.0, 1.0]), // 18
+            Vertex::new([ 1.0,  1.0,  1.0], [1.0, 1.0]), // 19
+            // bottom
+            Vertex::new([-1.0, -1.0,  1.0], [0.0, 0.0]), // 20
+            Vertex::new([ 1.0, -1.0,  1.0], [1.0, 0.0]), // 21
+            Vertex::new([-1.0, -1.0, -1.0], [0.0, 1.0]), // 22
+            Vertex::new([ 1.0, -1.0, -1.0], [1.0, 1.0]), // 23
         ];
 
         let vertex_buf = ctx.device.create_buffer_init(&BufferInitDescriptor {
@@ -39,12 +61,12 @@ impl Model {
 
         #[rustfmt::skip]
         let indices = vec![
-            0, 2, 1, 1, 2, 3, // front
-            1, 3, 5, 5, 3, 7, // right
-            4, 6, 0, 0, 6, 2, // left
-            4, 5, 6, 6, 5, 7, // back
-            0, 1, 4, 4, 1, 5, // bottom
-            2, 6, 7, 7, 3, 2, // top
+            0,  2,  1,  1,  2,  3,  // front
+            4,  6,  5,  5,  6,  7,  // right
+            8,  10, 9,  9,  10, 11, // back
+            12, 14, 13, 13, 14, 15, // left
+            16, 18, 17, 17, 18, 19, // top
+            20, 22, 21, 21, 22, 23, // bottom
         ];
 
         let index_buf = ctx.device.create_buffer_init(&BufferInitDescriptor {
@@ -79,12 +101,16 @@ impl Model {
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct Vertex {
     pub pos: [f32; 3],
-    pub texture_coord: [f32; 2],
+    pub tex_coords: [f32; 2],
 }
 
 impl Vertex {
     const ATTRIBUTES: &'static [VertexAttribute] =
         &wgpu::vertex_attr_array![0 => Float32x3, 1 => Float32x2];
+
+    pub fn new(pos: [f32; 3], tex_coords: [f32; 2]) -> Self {
+        Self { pos, tex_coords }
+    }
 
     pub fn layout() -> VertexBufferLayout<'static> {
         VertexBufferLayout {
