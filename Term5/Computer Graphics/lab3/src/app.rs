@@ -142,7 +142,7 @@ impl framework::Application for Application {
         self.time += dt;
 
         let zoom = ((self.time * 0.6).sin() + 3.5) * 10.0;
-        self.camera.params.eye.y = (self.time * 0.2).sin() * 5.0;
+        self.camera.params.eye.y = (self.time * 1.0).sin() * 15.0;
         self.camera.params.eye.x = (self.time * 0.3 - PI * 0.7).sin() * zoom;
         self.camera.params.eye.z = (self.time * 0.3 - PI * 0.7).cos() * zoom;
         self.camera.update_buffer(&ctx.queue);
