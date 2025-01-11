@@ -188,7 +188,7 @@ fn create_pipeline(
                 buffers: vertex_buffers,
             },
             fragment: Some(FragmentState {
-                module: &shader,
+                module: shader,
                 entry_point: Some("fs_main"),
                 compilation_options: PipelineCompilationOptions::default(),
                 targets: &[Some(ColorTargetState {

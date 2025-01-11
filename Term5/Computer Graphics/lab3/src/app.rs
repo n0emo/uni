@@ -22,9 +22,9 @@ pub struct Application {
 }
 
 impl framework::Application for Application {
-    const NAME: &str = "ЛР№3.";
+    const NAME: &str = "ЛР№3. 3D-сцена";
 
-    const DESCRIPTION: &str = "Лабораторная работа №3";
+    const DESCRIPTION: &str = "Лабораторная работа №3 - Реализация динамической трёхмерной сцены";
 
     fn init(config: &SurfaceConfiguration, ctx: &WgpuContext) -> Self {
         let camera = Rc::new(RefCell::new(Camera::new(

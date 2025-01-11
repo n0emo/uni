@@ -17,7 +17,7 @@ pub struct Application {
 impl framework::Application for Application {
     const NAME: &str = "ЛР№2. 3D-объект";
 
-    const DESCRIPTION: &str = "Лабораторная работа №2 - вывод на экран трёхмерного изображения";
+    const DESCRIPTION: &str = "Лабораторная работа №2 - Вывод на экран трёхмерного изображения";
 
     fn required_features() -> wgpu::Features {
         wgpu::Features::empty()
