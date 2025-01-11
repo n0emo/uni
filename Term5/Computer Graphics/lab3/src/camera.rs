@@ -1,8 +1,6 @@
 use cgmath::{perspective, Deg, Matrix4, Point3, Vector3};
 use wgpu::{
-    util::DeviceExt as _, BindGroup, BindGroupDescriptor, BindGroupLayout,
-    BindGroupLayoutDescriptor, BindingType, Buffer, BufferUsages, Device, Queue, RenderPass,
-    ShaderStages,
+    util::DeviceExt as _, BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayout, BindGroupLayoutDescriptor, BindGroupLayoutEntry, BindingType, Buffer, BufferBindingType, BufferUsages, Device, Queue, RenderPass, ShaderStages
 };
 
 pub struct Camera {
@@ -45,11 +43,11 @@ impl Camera {
     pub fn bind_group_layout(device: &Device) -> BindGroupLayout {
         device.create_bind_group_layout(&BindGroupLayoutDescriptor {
             label: Some("Camera Bind Group Layout"),
-            entries: &[wgpu::BindGroupLayoutEntry {
+            entries: &[BindGroupLayoutEntry {
                 binding: 0,
                 visibility: ShaderStages::VERTEX,
                 ty: BindingType::Buffer {
-                    ty: wgpu::BufferBindingType::Uniform,
+                    ty: BufferBindingType::Uniform,
                     has_dynamic_offset: false,
                     min_binding_size: None,
                 },
@@ -62,7 +60,7 @@ impl Camera {
         device.create_bind_group(&BindGroupDescriptor {
             label: Some("Camera Bind Group"),
             layout: &Self::bind_group_layout(device),
-            entries: &[wgpu::BindGroupEntry {
+            entries: &[BindGroupEntry {
                 binding: 0,
                 resource: buf.as_entire_binding(),
             }],
