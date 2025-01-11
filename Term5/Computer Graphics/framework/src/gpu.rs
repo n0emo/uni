@@ -79,10 +79,7 @@ impl SurfaceWrapper {
     }
 
     pub fn start_condition(e: &Event<UserEvent>) -> bool {
-        match e {
-            Event::NewEvents(StartCause::Init) => true,
-            _ => false,
-        }
+        matches!(e, Event::NewEvents(StartCause::Init))
     }
 
     pub fn resume(&mut self, context: &WgpuContext, window: Arc<Window>, srgb: bool) {
@@ -141,8 +138,8 @@ impl SurfaceWrapper {
         log::info!("Surface resize {size:?}");
 
         let config = self.config.as_mut().unwrap();
-        config.width = size.width.max(1).min(4096);
-        config.height = size.height.max(1).min(4096);
+        config.width = size.width.clamp(1, 4096);
+        config.height = size.height.clamp(1, 4096);
         let surface = self.surface.as_ref().unwrap();
         surface.configure(&context.device, config);
     }

@@ -22,7 +22,7 @@ impl Camera {
     }
 
     pub fn new(device: &Device, params: CameraParams) -> Self {
-        let (buffer, bind_group) = Self::create_buffer(&params, &device);
+        let (buffer, bind_group) = Self::create_buffer(&params, device);
         Self {
             params,
             buffer,
