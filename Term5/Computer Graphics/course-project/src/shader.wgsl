@@ -55,14 +55,9 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
         }
     }
 
-    let sun = normalize(vec3<f32>(5.0, 10.0, -10.0));
-    let light_diffuse = max(dot(scene_normal(point), sun), 0);
-    let light_ambient = 0.2;
-    let shadow = max(scene_shadow(point, sun), 0.2);
-    let light = min(light_diffuse * shadow + light_ambient, 1.0);
-    let col = color * light;
+    apply_lights(point, ray_direction, &color);
 
-    return vec4<f32>(col, 1.0);
+    return vec4<f32>(color, 1.0);
 }
 
 fn scene(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
@@ -134,6 +129,20 @@ fn box_sdf(p: vec3<f32>, b: vec3<f32>) -> f32 {
 // **************************************
 //           Light and shadows
 // **************************************
+
+fn apply_lights(point: vec3<f32>, ray_direction: vec3<f32>, color: ptr<function, vec3<f32>>) {
+    let sun = normalize(vec3<f32>(20.0, 10.0, -10.0));
+    let normal = scene_normal(point);
+
+    let light_diffuse = max(dot(normal, sun), 0.0);
+    let light_ambient = 0.2;
+    let light_bounce = max(dot(normal, -sun), 0.0);
+    let shadow = max(scene_shadow(point, sun), 0.2);
+    let light = min((light_diffuse + 0.1 * light_bounce) * shadow + light_ambient, 1.0);
+    let light_specular = max(dot((ray_direction + normal) * 0.5, sun), 0.0);
+
+    *color = (*color) * light + 15.0 * pow(light_specular, 4.0);
+}
 
 fn scene_normal(p: vec3<f32>) -> vec3<f32> {
     let e = vec2<f32>(1.0, -1.0) * 0.5773 * 0.0005;
