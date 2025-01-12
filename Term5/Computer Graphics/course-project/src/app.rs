@@ -1,10 +1,13 @@
+use std::f32::consts::PI;
+
 use framework::WgpuContext;
 use wgpu::{
     util::{BufferInitDescriptor, DeviceExt as _}, BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayoutDescriptor, BindGroupLayoutEntry, BindingType, BlendState, Buffer, BufferBindingType, BufferUsages, ColorTargetState, ColorWrites, CommandEncoderDescriptor, FragmentState, Operations, PipelineCompilationOptions, PrimitiveState, RenderPassColorAttachment, RenderPassDescriptor, RenderPipelineDescriptor, ShaderStages, VertexAttribute, VertexBufferLayout, VertexState, VertexStepMode
 };
+use winit::{event::WindowEvent, keyboard::{KeyCode, PhysicalKey}};
 
 #[repr(C)]
-#[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable, Default)]
+#[derive(Debug, Clone, Copy, bytemuck::Pod, bytemuck::Zeroable, Default)]
 struct StateUniform {
     time: f32,
     width: f32,
@@ -14,8 +17,14 @@ struct StateUniform {
     camera_zoom: f32,
 }
 
-impl StateUniform {
-
+#[derive(Default, Debug)]
+struct CameraController {
+    rotate_left: bool,
+    rotate_right: bool,
+    rotate_up: bool,
+    rotate_down: bool,
+    zoom_in: bool,
+    zoom_out: bool,
 }
 
 pub struct Application {
@@ -24,6 +33,7 @@ pub struct Application {
     state_uniform: StateUniform,
     state_buffer: Buffer,
     state_bind_group: BindGroup,
+    camera_controler: CameraController,
 }
 
 impl framework::Application for Application {
@@ -133,12 +143,15 @@ impl framework::Application for Application {
                     cache: None,
                 });
 
+        let camera_controler = CameraController::default();
+
         Self {
             pipeline,
             vertex_buf,
             state_uniform,
             state_buffer,
             state_bind_group,
+            camera_controler,
         }
     }
 
@@ -154,6 +167,27 @@ impl framework::Application for Application {
         }: &WgpuContext,
     ) {
         self.state_uniform.time += dt;
+
+        {
+            let c = &self.camera_controler;
+            let u = &mut self.state_uniform;
+            let s = dt;
+
+            if c.rotate_left  { u.camera_angle_horizontal -= s; }
+            if c.rotate_right { u.camera_angle_horizontal += s; }
+            if c.rotate_up    { u.camera_angle_vertical   += s;}
+            if c.rotate_down  { u.camera_angle_vertical   -= s;}
+            if c.zoom_in      { u.camera_zoom             -= s;}
+            if c.zoom_out     { u.camera_zoom             += s;}
+
+            u.camera_zoom = u.camera_zoom.clamp(1.0, 10.0);
+            u.camera_angle_vertical %= 2.0 * PI;
+            u.camera_angle_vertical =  u.camera_angle_vertical.clamp(0.0, PI * 0.3);
+            u.camera_angle_horizontal %= 2.0 * PI;
+
+            log::info!("{:?}", self.state_uniform);
+        }
+
         queue.write_buffer(&self.state_buffer, 0, bytemuck::bytes_of(&self.state_uniform));
 
         let mut encoder = device.create_command_encoder(&CommandEncoderDescriptor {
@@ -188,6 +222,36 @@ impl framework::Application for Application {
         drop(rpass);
 
         queue.submit(std::iter::once(encoder.finish()));
+    }
+
+    fn update(&mut self, event: WindowEvent) {
+        match event {
+            WindowEvent::KeyboardInput { device_id: _, event, is_synthetic: _ } => {
+                let PhysicalKey::Code(code) = event.physical_key else {
+                    return;
+                };
+
+                let pressed = event.state.is_pressed();
+
+                match code {
+                    KeyCode::KeyW => self.camera_controler.rotate_up    = pressed,
+                    KeyCode::KeyS => self.camera_controler.rotate_down  = pressed,
+                    KeyCode::KeyA => self.camera_controler.rotate_left  = pressed,
+                    KeyCode::KeyD => self.camera_controler.rotate_right = pressed,
+                    KeyCode::KeyQ => self.camera_controler.zoom_in      = pressed,
+                    KeyCode::KeyE => self.camera_controler.zoom_out     = pressed,
+                    _ => {},
+                }
+
+            },
+            WindowEvent::CursorMoved { device_id: _, position: _ } => {},
+            WindowEvent::MouseWheel { device_id: _, delta: _, phase: _ } => {},
+            WindowEvent::MouseInput { device_id: _, state: _, button: _ } => {},
+            WindowEvent::TouchpadMagnify { device_id: _, delta: _, phase: _ } => {},
+            WindowEvent::SmartMagnify { device_id: _ } => {},
+            WindowEvent::Touch(_touch) => {},
+            _ => {},
+        }
     }
 
     fn resize(&mut self, config: &wgpu::SurfaceConfiguration, _ctx: &WgpuContext) {
