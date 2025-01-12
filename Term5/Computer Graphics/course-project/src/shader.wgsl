@@ -113,7 +113,7 @@ fn sponge_sdf(pos: vec3<f32>) -> f32 {
     let scale = 81.0;
 
     var p = pos * scale;
-    for (var s = scale; s >= 1.0; s /= 3) {
+    for (var s = scale; s >= 1.0; s /= 3.0) {
         p = trans(p, s);
     }
 

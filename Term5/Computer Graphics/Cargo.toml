@@ -20,6 +20,9 @@ wgpu = "23.0"
 winit = { version = "0.29" }
 image = { version = "0.25.5", default-features = false, features = ["png"]}
 
+# native dependencies
+env_logger = "0.11.6"
+
 # wasm32 dependencies
 console_error_panic_hook = "0.1.7"
 console_log = "1"
