@@ -70,56 +70,60 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
         }
     }
 
-    // apply_lights(point, rd, &color);
-    color *= travelled * 0.04;
+    apply_lights(point, rd, &color);
 
     return vec4<f32>(color, 1.0);
 }
 
 fn scene(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
     let s = sponge(pos, color);
-    // let p = pillar(pos, color);
-    let g = ground(pos, color);
-    return min(min(s, s), g);
+    let b = bottom(pos, color);
+    return min(s, b);
 }
 
 // **************************************
 //              Objects
 // **************************************
 
-fn ground(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
-    let d = ground_sdf(pos - vec3<f32>(0.0, -5.0, 0.0));
+fn bottom(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
+    let t = temple(pos, color);
+    var c2 = vec3<f32>(0.0);
+    let g = ground_sdf(pos - vec3<f32>(0.0, -2.0, 0.0));
+    let d = smin(t, g, 0.1);
 
-    if d < EPSILON {
+    if d < EPSILON  && g > EPSILON {
+        *color = vec3<f32>(1.0, 1.0, 0.7);
+    } else if g < EPSILON {
         *color = vec3<f32>(1.0, 1.0, 0.5);
     }
 
     return d;
+
 }
 
-fn pillar(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
-    // let q = pos - vec3<f32>(0.0, -2.5, 0.0);
-    // let c = capped_cylinder_sdf(q, 2.0, 0.5);
+fn temple(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
+    let q_c = pos - vec3<f32>(0.0, -2.8, 0.0);
+    let c = capped_cylinder_sdf(q_c, 2.0, 0.4) - 0.03;
 
-    let n = 8;
-    let p = pos.xz;
-    let sp = 6.283185 / f32(n);
-    let an = atan2(p.y, p.x);
-    let id = floor(an / sp);
+    let size = vec2<i32>(2, 2);
+    let rep = 4.7;
+    let rep_v = repeat_rectangular(pos.xz, size, rep);
+    let q_p = vec3<f32>(rep_v.x, pos.y, rep_v.y);
+    let p = capped_cylinder_sdf(q_p, 2.8, 0.3);
 
-    let a1 = sp * (id+0.0);
-    let a2 = sp * (id+1.0);
-    let r1 = mat2x2<f32>(cos(a1), -sin(a1), sin(a1), cos(a1)) * p;
-    let r2 = mat2x2<f32>(cos(a2), -sin(a2), sin(a2), cos(a2)) * p;
+    let q_r = pos - vec3<f32>(0.0, 2.7, 0.0);
+    let r = box_sdf(q_r, vec3<f32>(2.9, 0.1, 2.9)) - 0.05;
 
-    let d = min(
-        capped_cylinder_sdf(vec3<f32>(r1.xy, 0.0), 1.0, 0.1),
-        capped_cylinder_sdf(vec3<f32>(r2.xy, 0.0), 1.0, 0.1),
-    );
+    let q_b = pos - vec3<f32>(0.0, -2.0, 0.0);
+    let b = box_sdf(q_b, vec3<f32>(3.0, 0.15, 3.0)) - 0.05;
 
+    let s = 0.05;
+    let d = smin(p,
+            smin(c,
+            smin(b, r, s), s), s);
 
     if d < EPSILON {
-        *color = vec3<f32>(0.5, 1.0, 0.5);
+        *color = vec3<f32>(1.0, 1.0, 0.7);
     }
 
     return d;
@@ -127,16 +131,16 @@ fn pillar(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
 
 fn sponge(pos: vec3<f32>, color: ptr<function, vec3<f32>>) -> f32 {
     let q = rot_3d(
-        pos - vec3<f32>(0.0, sin(state.time * 1.5) * 0.25, 0.0),
+        pos - vec3<f32>(0.0, sin(state.time * 2.0) * 0.1, 0.0),
         normalize(vec3<f32>(1.0, 1.0, 1.0)),
         3.141592 * fract(state.time * 0.2) * 2.0
     );
 
     let scale = 0.25;
-    let d = sponge_sdf(q / scale) * scale;
+    let d = sponge_sdf(q / scale) * scale - 0.001;
 
     if d < EPSILON {
-        *color = vec3<f32>(1.0, 0.0, 0.0);
+        *color = vec3<f32>(0.49, 0.604, 0.89);
     }
 
     return d;
@@ -171,7 +175,6 @@ fn sponge_sdf(pos: vec3<f32>) -> f32 {
     return box_sdf(p, vec3<f32>(0.5)) / scale;
 }
 
-
 fn box_sdf(p: vec3<f32>, b: vec3<f32>) -> f32 {
     let q = abs(p) - b;
     return length(max(q, vec3<f32>(0.0))) + min(max(q.x, max(q.y, q.z)), 0.0);
@@ -181,20 +184,18 @@ fn box_sdf(p: vec3<f32>, b: vec3<f32>) -> f32 {
 //           Light and shadows
 // **************************************
 
-fn apply_lights(point: vec3<f32>, rd: vec3<f32>, color: ptr<function, vec3<f32>>) {
+fn apply_lights(point: vec3<f32>, ray_direction: vec3<f32>, color: ptr<function, vec3<f32>>) {
     let sun = normalize(vec3<f32>(20.0, 10.0, -10.0));
     let normal = scene_normal(point);
 
     let light_diffuse = max(dot(normal, sun), 0.0);
     let light_ambient = 0.2;
-    let light = min(light_diffuse + light_ambient, 1.0);
-    //let light_bounce = max(dot(normal, -sun), 0.0);
-    //let shadow = max(scene_shadow(point, sun), 0.2);
-    //let light = min((light_diffuse + 0.1 * light_bounce) * shadow + light_ambient, 1.0);
-    //let light_specular = max(dot((rd + normal) * 0.5, sun), 0.0);
+    let light_bounce = max(dot(normal, -sun), 0.0);
+    let shadow = max(scene_shadow(point, sun), 0.2);
+    let light = min((light_diffuse + 0.1 * light_bounce) * shadow + light_ambient, 1.0);
+    let light_specular = max(dot((ray_direction + normal) * 0.5, sun), 0.0);
 
-    // *color = (*color) * light + 15.0 * pow(light_specular, 4.0);
-    *color = (*color) * light;
+    *color = (*color) * light + 1.5 * pow(light_specular, 4.0);
 }
 
 fn scene_normal(p: vec3<f32>) -> vec3<f32> {
@@ -258,4 +259,20 @@ fn rot_3d(p: vec3<f32>, axis: vec3<f32>, angle: f32) -> vec3<f32> {
     let m = mix(dot(axis, p) * axis, p, cos(angle));
     let c = cross(axis, p) * sin(angle);
     return m + c;
+}
+
+fn smin(d1: f32, d2: f32, k: f32) -> f32 {
+    let h = clamp(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0);
+    return mix(d2, d1, h) - k * h * (1.0 - h);
+}
+
+fn repeat_rectangular(pos: vec2<f32>, size: vec2<i32>, spacing: f32) -> vec2f {
+    var p = abs(pos / spacing) - (vec2<f32>(size) * 0.5 - 0.5);
+    if p.x < p.y {
+        p = p.yx;
+    }
+
+    p.y -= min(0.0, round(p.y));
+
+    return p*spacing;
 }

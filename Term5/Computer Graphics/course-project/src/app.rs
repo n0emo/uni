@@ -65,6 +65,7 @@ impl framework::Application for Application {
         let state_uniform = StateUniform {
             width: config.width as f32,
             height: config.height as f32,
+            camera_zoom: 2.0,
             ..Default::default()
         };
 
@@ -171,21 +172,20 @@ impl framework::Application for Application {
         {
             let c = &self.camera_controler;
             let u = &mut self.state_uniform;
-            let s = dt;
+            let a_s = dt;
+            let z_s = dt * 3.0;
 
-            if c.rotate_left  { u.camera_angle_horizontal -= s; }
-            if c.rotate_right { u.camera_angle_horizontal += s; }
-            if c.rotate_up    { u.camera_angle_vertical   += s;}
-            if c.rotate_down  { u.camera_angle_vertical   -= s;}
-            if c.zoom_in      { u.camera_zoom             -= s;}
-            if c.zoom_out     { u.camera_zoom             += s;}
+            if c.rotate_left  { u.camera_angle_horizontal -= a_s; }
+            if c.rotate_right { u.camera_angle_horizontal += a_s; }
+            if c.rotate_up    { u.camera_angle_vertical   += a_s;}
+            if c.rotate_down  { u.camera_angle_vertical   -= a_s;}
+            if c.zoom_in      { u.camera_zoom             -= z_s;}
+            if c.zoom_out     { u.camera_zoom             += z_s;}
 
-            u.camera_zoom = u.camera_zoom.clamp(1.0, 10.0);
+            u.camera_zoom = u.camera_zoom.clamp(0.01, 10.0);
             u.camera_angle_vertical %= 2.0 * PI;
             u.camera_angle_vertical =  u.camera_angle_vertical.clamp(0.0, PI * 0.3);
             u.camera_angle_horizontal %= 2.0 * PI;
-
-            log::info!("{:?}", self.state_uniform);
         }
 
         queue.write_buffer(&self.state_buffer, 0, bytemuck::bytes_of(&self.state_uniform));
