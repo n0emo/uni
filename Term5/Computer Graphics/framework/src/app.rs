@@ -136,7 +136,9 @@ pub async fn start<A: Application + 'static>(handle: Option<Arc<Mutex<Applicatio
                         surface.resize(&context, size);
                         app.as_mut().unwrap().resize(surface.config(), &context);
                     }
-                    _e => {}
+                    e => {
+                        app.as_mut().unwrap().update(e);
+                    }
                 },
                 Event::UserEvent(e) => match e {
                     UserEvent::Close => target.exit(),
