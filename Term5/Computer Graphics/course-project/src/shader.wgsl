@@ -1,6 +1,6 @@
 const EPSILON: f32 = 0.001;
 const MAX_DISTANCE: f32 = 100.0;
-const MAX_ITERATIONS: i32 = 200;
+const MAX_ITERATIONS: i32 = 300;
 const SHADOW_SHARPNESS: f32 = 30.0;
 
 struct VertexInput {
@@ -56,7 +56,7 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
     rd = vec3<f32>(rdxz.x, rd.y, rdxz.y);
 
     var travelled = 0.0;
-    var color = vec3<f32>(1.0);
+    var color = vec3<f32>(0.7, 0.8, 1.0);
 
     var i = 0;
     var point: vec3<f32>;
@@ -65,7 +65,7 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
         let distance = scene(point, &color);
         travelled += distance;
 
-        if distance < 0.001 || travelled > 100.0 {
+        if distance < EPSILON || travelled > MAX_DISTANCE {
             break;
         }
     }
