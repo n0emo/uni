@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+}
+
+.sidebar {
+  background-color: #F0F8FF;
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  border-right: 1px solid #899fb3;
+}
+
+.page {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #899fb3;
+  }
+
+  .page {
+    margin-left: 0;
+  }
+}
+
