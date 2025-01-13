@@ -1,0 +1,24 @@
+.link a {
+  background-color: #F0F8FF;
+  color: black;
+  padding: 7px;
+  display: block;
+  text-decoration: none;
+  text-align: left;
+  font-size: 20px;
+
+}
+
+.link.top a {
+  padding-top: 20px;
+}
+
+.link.active a {
+  background-color: #89BAE9;
+  color: white;
+}
+
+.link:not(.active) a:hover {
+  background-color: #D4E9FC;
+  color: black;
+}

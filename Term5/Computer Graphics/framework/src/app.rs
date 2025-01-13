@@ -20,20 +20,8 @@ pub trait Application {
 
     fn render(&mut self, view: &wgpu::TextureView, dt: f32, ctx: &WgpuContext);
 
-    fn optional_features() -> wgpu::Features {
-        wgpu::Features::empty()
-    }
-
     fn required_features() -> wgpu::Features {
         wgpu::Features::empty()
-    }
-
-    fn required_downlevel_capabilities() -> wgpu::DownlevelCapabilities {
-        wgpu::DownlevelCapabilities {
-            flags: wgpu::DownlevelFlags::empty(),
-            shader_model: wgpu::ShaderModel::Sm5,
-            ..wgpu::DownlevelCapabilities::default()
-        }
     }
 
     fn required_limits() -> wgpu::Limits {
