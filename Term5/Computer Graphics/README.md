@@ -23,7 +23,7 @@ Make sure you have `~/.cargo/bin` (or alternative location) in your PATH.
 Install `trunk` and `stylance` using `cargo`:
 
 ```console
-$ cargo install trunk stylance
+$ cargo install trunk stylance-cli
 ```
 
 ### Build native
