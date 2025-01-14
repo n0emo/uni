@@ -55,9 +55,9 @@ $ trunk serve
 
 ## Screenshots
 
-![Web Application](/screenshots/webapp.png?raw=true)
+![Web Application](https://raw.githubusercontent.com/n0emo/uni/main/Term5/Computer%20Graphics/screenshots/webapp.png)
 
-![Course Project](/screenshots/course-project.png?raw=true)
+![Course Project](https://raw.githubusercontent.com/n0emo/uni/main/Term5/Computer%20Graphics/screenshots/course-project.png)
 
 ## Acknowledgments
 
