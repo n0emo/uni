@@ -16,7 +16,7 @@ If you are going to build web application, make sure `wasm32-unknown-unknown`
 target is added. If not, you can do so using `rustup`:
 
 ```console
-rustup target add wasm32-unknown-unknown
+$ rustup target add wasm32-unknown-unknown
 ```
 
 Make sure you have `~/.cargo/bin` (or alternative location) in your PATH.
