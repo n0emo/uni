@@ -1,5 +1,5 @@
 .link a {
-  background-color: #F0F8FF;
+  background-color: var(--sidebar-background-color);
   color: black;
   padding: 7px;
   display: block;
@@ -14,11 +14,11 @@
 }
 
 .link.active a {
-  background-color: #89BAE9;
+  background-color: var(--sidebar-active-color);
   color: white;
 }
 
 .link:not(.active) a:hover {
-  background-color: #D4E9FC;
+  background-color: var(--sidebar-hover-color);
   color: black;
 }

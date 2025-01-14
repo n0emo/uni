@@ -2,16 +2,24 @@
   margin: 0;
 }
 
+:root {
+  --sidebar-width: 230px;
+  --sidebar-border-color: #899fb3;
+  --sidebar-background-color: #F0F8FF;
+  --sidebar-hover-color: #D4E9FC;
+  --sidebar-active-color: #89BAE9;
+}
+
 .sidebar {
-  background-color: #F0F8FF;
+  background-color: var(--sidebar-background-color);
   position: fixed;
-  width: 250px;
+  width: var(--sidebar-width);
   height: 100%;
-  border-right: 1px solid #899fb3;
+  border-right: 1px solid var(--sidebar-border-color);
 }
 
 .page {
-  margin-left: 250px;
+  margin-left: var(--sidebar-width);
   padding: 20px;
 }
 
@@ -21,7 +29,7 @@
     width: 100%;
     height: auto;
     border-right: none;
-    border-bottom: 1px solid #899fb3;
+    border-bottom: 2px solid var(--sidebar-border-color);
   }
 
   .page {
