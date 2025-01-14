@@ -2,7 +2,7 @@
 
 This project is a Cargo workspace containing WebGPU/winit framework, web
 application, 3 laboratory works and course project for the "Computer Graphics"
-discipline.
+discipline. Check out https://cg-labs.fly.dev for live demo.
 
 ## Build
 
