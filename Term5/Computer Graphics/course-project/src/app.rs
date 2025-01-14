@@ -2,9 +2,18 @@ use std::f32::consts::PI;
 
 use framework::WgpuContext;
 use wgpu::{
-    util::{BufferInitDescriptor, DeviceExt as _}, BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayoutDescriptor, BindGroupLayoutEntry, BindingType, BlendState, Buffer, BufferBindingType, BufferUsages, ColorTargetState, ColorWrites, CommandEncoderDescriptor, FragmentState, Operations, PipelineCompilationOptions, PrimitiveState, RenderPassColorAttachment, RenderPassDescriptor, RenderPipelineDescriptor, ShaderStages, VertexAttribute, VertexBufferLayout, VertexState, VertexStepMode
+    util::{BufferInitDescriptor, DeviceExt as _},
+    BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayoutDescriptor,
+    BindGroupLayoutEntry, BindingType, BlendState, Buffer, BufferBindingType, BufferUsages,
+    ColorTargetState, ColorWrites, CommandEncoderDescriptor, FragmentState, Operations,
+    PipelineCompilationOptions, PrimitiveState, RenderPassColorAttachment, RenderPassDescriptor,
+    RenderPipelineDescriptor, ShaderStages, VertexAttribute, VertexBufferLayout, VertexState,
+    VertexStepMode,
 };
-use winit::{event::WindowEvent, keyboard::{KeyCode, PhysicalKey}};
+use winit::{
+    event::WindowEvent,
+    keyboard::{KeyCode, PhysicalKey},
+};
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, bytemuck::Pod, bytemuck::Zeroable, Default)]
@@ -75,19 +84,21 @@ impl framework::Application for Application {
             usage: BufferUsages::UNIFORM | BufferUsages::COPY_DST,
         });
 
-        let state_bind_group_layout = ctx.device.create_bind_group_layout(&BindGroupLayoutDescriptor {
-            label: Some("State Uniform Bind Group Layout"),
-            entries: &[BindGroupLayoutEntry {
-                binding: 0,
-                visibility: ShaderStages::VERTEX_FRAGMENT,
-                ty: BindingType::Buffer {
-                    ty: BufferBindingType::Uniform,
-                    has_dynamic_offset: false,
-                    min_binding_size: None,
-                },
-                count: None,
-            }],
-        });
+        let state_bind_group_layout =
+            ctx.device
+                .create_bind_group_layout(&BindGroupLayoutDescriptor {
+                    label: Some("State Uniform Bind Group Layout"),
+                    entries: &[BindGroupLayoutEntry {
+                        binding: 0,
+                        visibility: ShaderStages::VERTEX_FRAGMENT,
+                        ty: BindingType::Buffer {
+                            ty: BufferBindingType::Uniform,
+                            has_dynamic_offset: false,
+                            min_binding_size: None,
+                        },
+                        count: None,
+                    }],
+                });
 
         let state_bind_group = ctx.device.create_bind_group(&BindGroupDescriptor {
             label: Some("State Uniform Bind Group"),
@@ -175,20 +186,36 @@ impl framework::Application for Application {
             let a_s = dt;
             let z_s = dt * 3.0;
 
-            if c.rotate_left  { u.camera_angle_horizontal -= a_s; }
-            if c.rotate_right { u.camera_angle_horizontal += a_s; }
-            if c.rotate_up    { u.camera_angle_vertical   += a_s;}
-            if c.rotate_down  { u.camera_angle_vertical   -= a_s;}
-            if c.zoom_in      { u.camera_zoom             -= z_s;}
-            if c.zoom_out     { u.camera_zoom             += z_s;}
+            if c.rotate_left {
+                u.camera_angle_horizontal -= a_s;
+            }
+            if c.rotate_right {
+                u.camera_angle_horizontal += a_s;
+            }
+            if c.rotate_up {
+                u.camera_angle_vertical += a_s;
+            }
+            if c.rotate_down {
+                u.camera_angle_vertical -= a_s;
+            }
+            if c.zoom_in {
+                u.camera_zoom -= z_s;
+            }
+            if c.zoom_out {
+                u.camera_zoom += z_s;
+            }
 
             u.camera_zoom = u.camera_zoom.clamp(0.01, 10.0);
             u.camera_angle_vertical %= 2.0 * PI;
-            u.camera_angle_vertical =  u.camera_angle_vertical.clamp(0.0, PI * 0.3);
+            u.camera_angle_vertical = u.camera_angle_vertical.clamp(0.0, PI * 0.3);
             u.camera_angle_horizontal %= 2.0 * PI;
         }
 
-        queue.write_buffer(&self.state_buffer, 0, bytemuck::bytes_of(&self.state_uniform));
+        queue.write_buffer(
+            &self.state_buffer,
+            0,
+            bytemuck::bytes_of(&self.state_uniform),
+        );
 
         let mut encoder = device.create_command_encoder(&CommandEncoderDescriptor {
             label: Some("Ray Marching Command Encoder"),
@@ -226,7 +253,11 @@ impl framework::Application for Application {
 
     fn update(&mut self, event: WindowEvent) {
         match event {
-            WindowEvent::KeyboardInput { device_id: _, event, is_synthetic: _ } => {
+            WindowEvent::KeyboardInput {
+                device_id: _,
+                event,
+                is_synthetic: _,
+            } => {
                 let PhysicalKey::Code(code) = event.physical_key else {
                     return;
                 };
@@ -234,23 +265,16 @@ impl framework::Application for Application {
                 let pressed = event.state.is_pressed();
 
                 match code {
-                    KeyCode::KeyW => self.camera_controler.rotate_up    = pressed,
-                    KeyCode::KeyS => self.camera_controler.rotate_down  = pressed,
-                    KeyCode::KeyA => self.camera_controler.rotate_left  = pressed,
+                    KeyCode::KeyW => self.camera_controler.rotate_up = pressed,
+                    KeyCode::KeyS => self.camera_controler.rotate_down = pressed,
+                    KeyCode::KeyA => self.camera_controler.rotate_left = pressed,
                     KeyCode::KeyD => self.camera_controler.rotate_right = pressed,
-                    KeyCode::KeyQ => self.camera_controler.zoom_in      = pressed,
-                    KeyCode::KeyE => self.camera_controler.zoom_out     = pressed,
-                    _ => {},
+                    KeyCode::KeyQ => self.camera_controler.zoom_in = pressed,
+                    KeyCode::KeyE => self.camera_controler.zoom_out = pressed,
+                    _ => {}
                 }
-
-            },
-            WindowEvent::CursorMoved { device_id: _, position: _ } => {},
-            WindowEvent::MouseWheel { device_id: _, delta: _, phase: _ } => {},
-            WindowEvent::MouseInput { device_id: _, state: _, button: _ } => {},
-            WindowEvent::TouchpadMagnify { device_id: _, delta: _, phase: _ } => {},
-            WindowEvent::SmartMagnify { device_id: _ } => {},
-            WindowEvent::Touch(_touch) => {},
-            _ => {},
+            }
+            _ => {}
         }
     }
 

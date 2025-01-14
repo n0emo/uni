@@ -35,7 +35,7 @@ impl WgpuContext {
                     label: None,
                     required_features: A::required_features(),
                     required_limits: A::required_limits().using_resolution(adapter.limits()),
-                    memory_hints: wgpu::MemoryHints::MemoryUsage,
+                    memory_hints: wgpu::MemoryHints::Performance,
                 },
                 None,
             )

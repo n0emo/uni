@@ -1,6 +1,5 @@
-mod nav_link;
 mod header;
+mod nav_link;
 
-pub use nav_link::Link;
 pub use header::Header;
-
+pub use nav_link::Link;

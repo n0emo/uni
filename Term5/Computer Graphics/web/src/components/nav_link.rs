@@ -1,7 +1,7 @@
 use leptos::prelude::*;
+use leptos_router::location::LocationProvider;
 use leptos_router::{components::A, location::BrowserUrl};
 use stylance::import_crate_style;
-use leptos_router::location::LocationProvider;
 
 import_crate_style!(style, "src/components/nav_link.module.scss");
 
@@ -9,8 +9,7 @@ import_crate_style!(style, "src/components/nav_link.module.scss");
 pub fn Link(
     text: &'static str,
     href: &'static str,
-    #[prop(default = false)]
-    top: bool,
+    #[prop(default = false)] top: bool,
 ) -> impl IntoView {
     let location = use_context::<BrowserUrl>().unwrap();
 

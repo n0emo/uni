@@ -7,7 +7,10 @@ use leptos_router::{
     path,
 };
 
-use crate::{components::{Link, Header}, pages::{CourseProject, Index, Lab1, Lab2, Lab3}};
+use crate::{
+    components::{Header, Link},
+    pages::{CourseProject, Index, Lab1, Lab2, Lab3},
+};
 
 stylance::import_crate_style!(pub style, "src/app.module.scss");
 

@@ -1,6 +1,8 @@
 use cgmath::{perspective, Deg, Matrix4, Point3, Vector3};
 use wgpu::{
-    util::DeviceExt as _, BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayout, BindGroupLayoutDescriptor, BindGroupLayoutEntry, BindingType, Buffer, BufferBindingType, BufferUsages, Device, Queue, RenderPass, ShaderStages
+    util::DeviceExt as _, BindGroup, BindGroupDescriptor, BindGroupEntry, BindGroupLayout,
+    BindGroupLayoutDescriptor, BindGroupLayoutEntry, BindingType, Buffer, BufferBindingType,
+    BufferUsages, Device, Queue, RenderPass, ShaderStages,
 };
 
 pub struct Camera {
