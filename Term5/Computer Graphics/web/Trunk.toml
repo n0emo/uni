@@ -1,0 +1,12 @@
+[build]
+target = "index.html"
+dist = "dist"
+
+[watch]
+watch = ["../"]
+ignore = ["../target", "./public/bundle.scss"]
+
+[[hooks]]
+stage = "pre_build"
+command = "stylance"
+command_arguments = ["."]
