@@ -3,8 +3,14 @@ target = "index.html"
 dist = "dist"
 
 [watch]
-watch = ["../"]
-ignore = ["../target", "./public/bundle.scss"]
+watch = [
+    "src",
+    "../course-project/src",
+    "../framework/src",
+    "../lab1/src",
+    "../lab2/src",
+    "../lab3/src",
+]
 
 [[hooks]]
 stage = "pre_build"
