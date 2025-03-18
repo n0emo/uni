@@ -1,0 +1,6 @@
+*.obj
+build
+nbs
+nbs.old
+nbs.exe
+nbs.exe.old

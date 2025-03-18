@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [-DNBS_IMPLEMENTATION]
+
+Diagnostics:
+  Suppress:
+    - macro-redefined
+    - misc-definitions-in-headers
