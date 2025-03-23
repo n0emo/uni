@@ -1,0 +1,8 @@
+[package]
+name = "bfjit"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+iced-x86 = { version = "1.21.0", features = ["code_asm"] }
+windows-sys = { version = "0.59.0", features = ["Win32_System_LibraryLoader", "Win32_System_Memory"] }
