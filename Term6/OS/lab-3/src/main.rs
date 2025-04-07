@@ -1,11 +1,19 @@
-use std::{ffi::c_void, mem};
+use std::{ffi::c_void, io, mem};
 
-use windows_sys::Win32::System::Console;
-use windows_sys::Win32::System::SystemServices::{
-    PROCESS_HEAP_ENTRY_BUSY, PROCESS_HEAP_ENTRY_DDESHARE, PROCESS_HEAP_ENTRY_MOVEABLE,
-    PROCESS_HEAP_REGION, PROCESS_HEAP_UNCOMMITTED_RANGE,
+use windows_sys::Win32::{
+    Foundation::{FALSE, GetLastError, INVALID_HANDLE_VALUE},
+    System::{
+        Console::{GetStdHandle, STD_OUTPUT_HANDLE, WriteConsoleA},
+        Memory::{
+            GetProcessHeap, HeapAlloc, HeapCreate, HeapDestroy, HeapFree, HeapLock, HeapUnlock,
+            HeapWalk, PROCESS_HEAP_ENTRY,
+        },
+        SystemServices::{
+            PROCESS_HEAP_ENTRY_BUSY, PROCESS_HEAP_ENTRY_DDESHARE, PROCESS_HEAP_ENTRY_MOVEABLE,
+            PROCESS_HEAP_REGION, PROCESS_HEAP_UNCOMMITTED_RANGE,
+        },
+    },
 };
-use windows_sys::Win32::{Foundation::FALSE, System::Memory};
 
 fn main() {
     let action = dialoguer::Select::new()
@@ -18,8 +26,8 @@ fn main() {
 
     match action {
         0 => unsafe {
-            let default_heap = Memory::GetProcessHeap();
-            enumerate_heap(default_heap);
+            let default_heap = GetProcessHeap();
+            enumerate_heap(default_heap).unwrap();
         },
 
         1 | 2 => {
@@ -29,23 +37,23 @@ fn main() {
                 String::from("Lorem ipsum dolor sit amet")
             };
 
-            unsafe {
-                copy_some_string_around(s);
-            }
+            copy_some_string_around(s).unwrap();
         }
         _ => unreachable!(),
     }
 }
 
-unsafe fn enumerate_heap(hhandle: *mut c_void) {
+unsafe fn enumerate_heap(hhandle: *mut c_void) -> Result<(), io::Error> {
     println!("Enumerating Heap:");
 
     unsafe {
-        Memory::HeapLock(hhandle);
+        if HeapLock(hhandle) == FALSE {
+            return Err(io::Error::from_raw_os_error(GetLastError() as i32));
+        };
 
-        let mut entry: Memory::PROCESS_HEAP_ENTRY = mem::zeroed();
+        let mut entry: PROCESS_HEAP_ENTRY = mem::zeroed();
 
-        while Memory::HeapWalk(hhandle, &mut entry) != FALSE {
+        while HeapWalk(hhandle, &mut entry) != FALSE {
             let f = entry.wFlags as u32;
             if f & PROCESS_HEAP_ENTRY_BUSY != 0 {
                 println!("  Allocated Block");
@@ -75,22 +83,42 @@ unsafe fn enumerate_heap(hhandle: *mut c_void) {
             println!("    Region index: {}", entry.iRegionIndex);
         }
 
-        Memory::HeapUnlock(hhandle);
+        if HeapUnlock(hhandle) == FALSE {
+            return Err(io::Error::from_raw_os_error(GetLastError() as i32));
+        };
     }
+
+    Ok(())
 }
 
-unsafe fn copy_some_string_around(s: String) {
+fn copy_some_string_around(s: String) -> Result<(), io::Error> {
     let size = s.len();
 
     unsafe {
-        let heap = Memory::HeapCreate(0, 0, 0);
-        let ptr = Memory::HeapAlloc(heap, 0, size) as *mut u8;
+        let heap = HeapCreate(0, 0, 0);
+        if heap.is_null() {
+            return Err(io::Error::from_raw_os_error(GetLastError() as i32));
+        }
+
+        let ptr = HeapAlloc(heap, 0, size) as *mut u8;
+        if ptr.is_null() {
+            return Err(io::Error::from_raw_os_error(GetLastError() as i32));
+        }
 
         std::ptr::copy(s.as_ptr(), ptr, size);
-        let hout = Console::GetStdHandle(Console::STD_OUTPUT_HANDLE);
-        Console::WriteConsoleA(hout, ptr, size as u32, 0 as *mut u32, 0 as *const c_void);
+        let hout = GetStdHandle(STD_OUTPUT_HANDLE);
+        if hout == INVALID_HANDLE_VALUE {
+            return Err(io::Error::from_raw_os_error(GetLastError() as i32));
+        }
 
-        Memory::HeapFree(heap, 0, ptr as *const c_void);
-        Memory::HeapDestroy(heap);
+        let ret = WriteConsoleA(hout, ptr, size as u32, 0 as *mut u32, 0 as *const c_void);
+        if ret == FALSE {
+            return Err(io::Error::from_raw_os_error(GetLastError() as i32));
+        }
+
+        HeapFree(heap, 0, ptr as *const c_void);
+        HeapDestroy(heap);
     }
+
+    Ok(())
 }
