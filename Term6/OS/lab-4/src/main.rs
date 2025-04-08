@@ -27,7 +27,13 @@ fn main() {
         }
     };
 
-    let il = parse::parse_bf(&bf);
+    let il = match parse::parse_bf(&bf) {
+        Ok(il) => il,
+        Err(e) => {
+            eprintln!("Error parsing file: {e}");
+            std::process::exit(1);
+        }
+    };
 
     let asm = match compile::assemble_x64(&il) {
         Ok(asm) => asm,
