@@ -10,10 +10,9 @@ pub enum IntermediateInstruction {
     LoopEnd,
 }
 
-pub fn parse_bf(program: &[u8]) -> Vec<IntermediateInstruction> {
+pub fn parse_bf(program: &[u8]) -> Result<Vec<IntermediateInstruction>, String> {
     let mut result = Vec::new();
-    let mut stack = Vec::new();
-    let mut i = 0;
+    let mut brace_counter = 0;
     for c in program {
         match *c {
             b'>' => result.push(IntermediateInstruction::IncrementPointer),
@@ -23,19 +22,20 @@ pub fn parse_bf(program: &[u8]) -> Vec<IntermediateInstruction> {
             b'.' => result.push(IntermediateInstruction::Output),
             b',' => result.push(IntermediateInstruction::Accept),
             b'[' => {
-                stack.push(i);
                 result.push(IntermediateInstruction::LoopStart);
+                brace_counter -= 1;
             }
             b']' => {
-                let _start = stack.pop().unwrap();
                 result.push(IntermediateInstruction::LoopEnd);
+                brace_counter += 1;
             }
-            _ => {
-                i -= 1;
-            }
+            _ => { }
         }
-
-        i += 1;
     }
-    result
+
+    if brace_counter != 0 {
+        return Err(String::from("Syntax error: Unmatched braces"));
+    }
+
+    Ok(result)
 }
