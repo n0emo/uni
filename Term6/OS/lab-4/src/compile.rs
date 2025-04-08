@@ -21,7 +21,7 @@ pub fn assemble_x64(program: &[IntermediateInstruction]) -> Result<Vec<u8>, code
 
     let mut loop_stack = Vec::new();
 
-    let shadow = 40;
+    let shadow = 64;
     a.sub(rsp, shadow)?;
 
     a.mov(ecx, STDIN_QUERY)?;
