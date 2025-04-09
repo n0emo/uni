@@ -1,9 +1,4 @@
-use std::ffi::c_void;
-
 use utils::VirtualBox;
-use windows_sys::Win32::System::Memory::{
-    MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE, VirtualAlloc,
-};
 
 mod compile;
 mod parse;
@@ -44,16 +39,15 @@ fn main() {
     };
 
     let program = unsafe {
-        let size = asm.len();
-        let ptr = VirtualAlloc(
-            0 as *const c_void,
-            size,
-            MEM_COMMIT | MEM_RESERVE,
-            PAGE_EXECUTE_READWRITE,
-        );
-        std::ptr::copy(asm.as_ptr() as *const c_void, ptr, size);
+        let mut program = VirtualBox::new_with_size(asm.len());
+        program.copy_from(asm.as_ptr());
 
-        VirtualBox::from_raw_parts(ptr, size)
+        if let Err(e) = program.make_executable() {
+            eprintln!("Error granting executable permissions for program: {e}");
+            std::process::exit(1);
+        }
+
+        program
     };
 
     unsafe {

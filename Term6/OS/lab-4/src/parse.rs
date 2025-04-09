@@ -29,7 +29,7 @@ pub fn parse_bf(program: &[u8]) -> Result<Vec<IntermediateInstruction>, String> 
                 result.push(IntermediateInstruction::LoopEnd);
                 brace_counter += 1;
             }
-            _ => { }
+            _ => {}
         }
     }
 
