@@ -46,7 +46,7 @@ pub fn assemble_x64(program: &[IntermediateInstruction]) -> Result<Vec<u8>, code
                 a.xor(r9, r9)?;
                 a.mov(r8, 1u64)?;
                 a.call(write_file as u64)?;
-            },
+            }
             IntermediateInstruction::Accept => {
                 a.and(qword_ptr(rsp) + 32, 0)?;
                 a.mov(rcx, ptr(hin))?;
@@ -54,7 +54,7 @@ pub fn assemble_x64(program: &[IntermediateInstruction]) -> Result<Vec<u8>, code
                 a.xor(r9, r9)?;
                 a.mov(r8, 1u64)?;
                 a.call(read_file as u64)?;
-            },
+            }
             IntermediateInstruction::LoopStart => {
                 let mut loop_start = a.create_label();
                 let loop_end = a.create_label();
@@ -65,12 +65,12 @@ pub fn assemble_x64(program: &[IntermediateInstruction]) -> Result<Vec<u8>, code
                 a.jz(loop_end)?;
 
                 loop_stack.push((loop_start, loop_end));
-            },
+            }
             IntermediateInstruction::LoopEnd => {
                 let (loop_start, mut loop_end) = loop_stack.pop().unwrap();
                 a.jmp(loop_start)?;
                 a.set_label(&mut loop_end)?;
-            },
+            }
         };
     }
 
