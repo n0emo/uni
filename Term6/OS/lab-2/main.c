@@ -15,7 +15,7 @@ int job(void *arg) {
 
 int main() {
     ThreadPool pool;
-    thrdpool_init(&pool, 4);
+    thrdpool_init(&pool, 100);
 
     printf("Press 'SPACE' to create a new job\n");
     printf("Press 'q' to exit\n");

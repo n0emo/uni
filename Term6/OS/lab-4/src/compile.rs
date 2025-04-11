@@ -5,7 +5,6 @@ use crate::{parse::IntermediateInstruction, utils::get_windows_fn};
 
 pub fn assemble_x64(program: &[IntermediateInstruction]) -> Result<Vec<u8>, code_asm::IcedError> {
     use iced_x86::code_asm::*;
-    let _ = program;
 
     const STDIN_QUERY: i32 = -10;
     const STDOUT_QUERY: i32 = -11;
@@ -35,10 +34,10 @@ pub fn assemble_x64(program: &[IntermediateInstruction]) -> Result<Vec<u8>, code
     a.lea(rsi, ptr(data))?;
     for instr in program {
         match instr {
-            IntermediateInstruction::IncrementPointer => a.add(rsi, 1)?,
-            IntermediateInstruction::DecrementPointer => a.sub(rsi, 1)?,
-            IntermediateInstruction::IncrementValue => a.add(byte_ptr(rsi), 1)?,
-            IntermediateInstruction::DecrementValue => a.sub(byte_ptr(rsi), 1)?,
+            IntermediateInstruction::IncrementPointer => a.inc(rsi)?,
+            IntermediateInstruction::DecrementPointer => a.dec(rsi)?,
+            IntermediateInstruction::IncrementValue => a.inc(byte_ptr(rsi))?,
+            IntermediateInstruction::DecrementValue => a.dec(byte_ptr(rsi))?,
             IntermediateInstruction::Output => {
                 a.and(qword_ptr(rsp) + 32, 0)?;
                 a.mov(rcx, ptr(hout))?;
