@@ -1,0 +1,12 @@
+format:
+    cargp +nightly fmt
+
+build:
+    cargo build --release
+
+run:
+    cargo run
+
+watch:
+    cargo watch -x run
+
