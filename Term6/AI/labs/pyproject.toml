@@ -9,9 +9,11 @@ dependencies = [
     "mermaid-py>=0.7.1",
     "numpy>=2.2.5",
     "pandas>=2.2.3",
+    "pillow>=11.2.1",
     "pycountry>=24.6.1",
     "seaborn>=0.13.2",
     "torch>=2.7.0",
+    "torchvision>=0.22.0",
 ]
 
 [dependency-groups]
