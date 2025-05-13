@@ -1,0 +1,135 @@
+@startuml "Кальмар кальмарыч"
+
+/'
+
+This diagram resembles the example from 
+https://vitechcorp.com/resources/GENESYS/onlinehelp/desktop/Views/Enhanced_Function_Flow_Block_Diagram_(EFBD).htm
+
+This is meant as a proof-of-concept for using PlantUML for 
+creating Enhanced Function Flow Block diagrams.
+
+'/
+
+left to right direction
+skinparam Nodesep 20
+skinparam Ranksep 20
+skinparam Dpi 300
+skinparam wrapMessageWidth 120
+
+title Кальмар Кальмарыч\n
+
+!procedure $fn($ref, $header, $line1, $line2, $footer)
+  rectangle $ref #lightyellow [
+    $header
+    ---
+    $line1
+    $line2
+    ---
+    $footer
+  ]
+!endprocedure
+
+!procedure $trigger($ref, $header, $line1, $line2)
+  rectangle $ref #lightgreen [
+    $header
+    ---
+    $line1
+    $line2
+  ]
+!endprocedure
+
+!procedure $datastore($ref, $header, $line1, $line2)
+  rectangle $ref #lightgray [
+    $header
+    ---
+    $line1
+    $line2
+  ]
+!endprocedure
+
+package "Продажа кальмаров 'Как есть'" as p1 {
+
+$datastore("d1_1", "D.1.1", "Клиентская база", "Данные клиентов")
+$datastore("d1_2", "D.1.2", "Договор", "Менеджер")
+$datastore("d1_3", "D.1.3", "Кальмары", "Склад")
+
+$fn("fn1_1", "FN.1.1", "Обзвонить клиентов", "Клиентская база", "Менеджер")
+$fn("fn1_2", "FN.1.2", "Проверить задолженность", "Клиент", "Менеджер")
+$fn("fn1_3", "FN.1.3", "Составить/пролонгировать договор", "Клиент", "Менеджер")
+$fn("fn1_4", "FN.1.4", "Проверить склад", "Склад", "Менеджер")
+$fn("fn1_5", "FN.1.5", "Направить форму клиенту", "База документов", "Менеджер")
+$fn("fn1_6", "FN.1.6", "Передать форму на склад", "Склад", "Менеджер")
+$fn("fn1_7", "FN.1.7", "Передать форму в бухгалтерию", "Бухгалтерия", "Менеджер")
+$fn("fn1_8", "FN.1.8", "Передать клиенту квитанцию", "Клиент", "Бухгалтерия")
+$fn("fn1_9", "FN.1.9", "Загрузить товар", "Кальмары", "Склад")
+$fn("fn1_10", "FN.1.10", "Сообщить клиенту о товаре", "Клиент", "Менеджер")
+
+$trigger("t1_1", "T.1.1", "Согласие на покупку", "Клиент")
+$trigger("t1_2", "T.1.2", "Заполненная форма", "Клиент")
+$trigger("t1_3", "T.1.3", "Оплата", "Клиент")
+
+label " " as startnode1
+label " " as endnode1
+
+startnode1 --> fn1_1
+
+ d1_1  -left->  fn1_1
+fn1_1  -left->   t1_1
+ t1_1  -left->  fn1_2 : "Нет договора или есть задолженность"
+fn1_2  -->      fn1_3
+ t1_1  -->       d1_2
+fn1_3  -->       d1_2
+ d1_2  -right-> fn1_4
+ d1_3  -->      fn1_4
+fn1_4  -->      fn1_5 : "Кальмары есть на складе"
+fn1_5  -right->  t1_2
+ t1_2  -->      fn1_6 
+fn1_6  -->      fn1_8
+ t1_2  -->      fn1_7
+fn1_7  -->      fn1_9
+fn1_8  -->      fn1_10
+fn1_9  -->      fn1_10
+fn1_10 -right->  t1_3
+
+t1_3  --> endnode1
+
+}
+
+package "Оптимизированная продажа кальмаров" as p2 {
+
+$datastore("d2_1", "D.2.1", "Клиентская база", "Данные клиентов")
+$datastore("d2_2", "D.2.1", "База заказов", "Заказы")
+
+$fn("fn2_1", "FN.2.1", "Проверить клиента в базе", "Клиент", "КИС")
+$fn("fn2_2", "FN.2.2", "Составить договор", "Клиент", "Менеджер")
+$fn("fn2_3", "FN.2.3", "Направить клиенту квитанцию", "Клиент", "КИС")
+$fn("fn2_4", "FN.2.4", "Передать заказ в службу доставки", "Служба доставки", "КИС")
+$fn("fn2_5", "FN.2.5", "Загрузить информацию о заказе в базу данных", "База данных", "КИС")
+
+$trigger("t2_1", "T.2.1", "Заказ с сайта КИС", "КИС")
+$trigger("t2_2", "T.2.2", "Оплата", "КИС")
+$trigger("t2_3", "T.2.3", "Клиент подтвердил получение", "КИС")
+
+label " " as startnode2
+label " " as endnode2
+
+startnode2 --> fn2_1
+
+ t2_1 -left->  fn2_1
+ d2_1 -right-> fn2_1
+fn2_1 -->      fn2_2 : "Клиент заказывает впервые"
+ d2_1 -->      fn2_2
+fn2_1 -right-> fn2_3 : "Клиент есть в базе"
+fn2_2 -right-> fn2_3
+fn2_3 -right->  t2_2
+ t2_2 -->      fn2_4
+fn2_4 -left->   t2_3
+ t2_3 -->      fn2_5
+ d2_2 -right-> fn2_5
+
+fn2_5 --> endnode2
+}
+
+p1 -[hidden]- p2
+
+@enduml
