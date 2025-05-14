@@ -4,7 +4,6 @@ use std::{
     ptr,
 };
 
-use num::BigUint;
 use windows_sys::{
     s, Win32::{
         Foundation::{self, FALSE, TRUE},
@@ -13,11 +12,20 @@ use windows_sys::{
     }
 };
 
+// Массив, содержащий в себе 4196 символов 'a'
 const BUF: [u8; 4196] = [b'a'; 4196];
+// Будет записан в файл 500000 раз
 const BUF_WRITE_TIMES: usize = 500000;
 
+// Вспомогательная структура, реализующая освобождение
+// ресурсов Windows с помощью идиомы RAII
 pub struct HandleGuard(Foundation::HANDLE);
 
+// Для освобождения в Rust используется типаж Drop.
+// В его реализации и будет вызван CloseHandle.
+// Таким образом, метод CloseHandle будет вызван для всех
+// переменных типа HandleGuard независимо от причины её выхода
+// из области видимости
 impl Drop for HandleGuard {
     fn drop(&mut self) {
         unsafe {
@@ -40,7 +48,10 @@ impl DerefMut for HandleGuard {
     }
 }
 
+// Входная точка приложения
 fn main() {
+    // Предложение пользователю выбрать синхронную или
+    // асинхронную операцию с файлом.
     let input = dialoguer::Select::new()
         .with_prompt("Select action")
         .item("Sync benchmark")
@@ -55,6 +66,7 @@ fn main() {
     };
 }
 
+// Синхронный режим работы
 fn bench_sync() -> io::Result<()> {
     println!("Starting writing garbage to data.txt");
 
@@ -67,22 +79,21 @@ fn bench_sync() -> io::Result<()> {
     }
 
     println!("Finished writing garbage to data.txt");
-    println!("Starting computation");
-    let computation = fib(250000).to_string();
-    println!("Finished computation.");
-
-    unsafe {
-        let file = open_for_writing(s!("result.txt"), false)?;
-        write(*file, computation.as_bytes())?;
-    }
-    println!("Result has been written to result.txt");
 
     Ok(())
 }
 
+// Асинхронный режим работы
+//
+// Для выполнения операции используется очередь асинхронных операций.
+// В эту очередь добавляется единственная задача, которая запишет
+// буфер в файл лишь 1 раз. Идея заключается в том, что эта задача
+// будет вызывать саму себя N раз.
 fn bench_async() -> io::Result<()> {
     unsafe {
         let file = open_for_writing(s!("data.txt"), true)?;
+
+        println!("Starting writing garbage to data.txt");
         let event = Threading::CreateEventA(
             ptr::null(),
             TRUE,
@@ -112,6 +123,7 @@ fn bench_async() -> io::Result<()> {
             }
         }
 
+        println!("Finished writing garbage to data.txt");
     }
 
     Ok(())
@@ -152,6 +164,7 @@ unsafe extern "system" fn async_write_routine(
     }
 }
 
+// Вспомогательная функция для открытия файла
 unsafe fn open_for_writing(name: *const u8, overlapped: bool) -> io::Result<HandleGuard> {
     let flags = match overlapped {
         true => FileSystem::FILE_FLAG_OVERLAPPED,
@@ -177,6 +190,7 @@ unsafe fn open_for_writing(name: *const u8, overlapped: bool) -> io::Result<Hand
     Ok(HandleGuard(file))
 }
 
+// Вспомогательная функция для синхронной записи в файл
 unsafe fn write(file: Foundation::HANDLE, buf: &[u8]) -> io::Result<usize> {
     unsafe {
         let mut written: u32 = mem::zeroed();
@@ -196,6 +210,7 @@ unsafe fn write(file: Foundation::HANDLE, buf: &[u8]) -> io::Result<usize> {
     }
 }
 
+// Вспомогательная функция для асинхронной записи в файл
 unsafe fn write_async(
     file: Foundation::HANDLE,
     buf: &[u8],
@@ -212,15 +227,4 @@ unsafe fn write_async(
     }
 
     Ok(())
-}
-
-fn fib(n: usize) -> BigUint {
-    let mut f0 = BigUint::ZERO;
-    let mut f1 = BigUint::from(1u32);
-    for _ in 0..n {
-        let f2 = f0 + &f1;
-        f0 = f1;
-        f1 = f2;
-    }
-    f0
 }
