@@ -1,0 +1,5 @@
+run-server host="127.0.0.1:8080":
+    go run server/main.go {{ host }}
+
+run-client host="127.0.0.1:8080":
+    go run client/main.go {{ host }}
