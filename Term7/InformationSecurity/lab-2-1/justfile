@@ -1,0 +1,6 @@
+open_text := "ГНЕВ ЭТО КРАТКОВРЕМЕННОЕ БЕЗУМИЕ"
+
+run-lab-tasks:
+    go run Main.go replace "{{ open_text }}" 14
+    go run Main.go permute "{{ open_text }}" 52641730
+    go run Main.go gamming "{{ open_text }}" "ГОРАЦИИ"
