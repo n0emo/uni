@@ -4,6 +4,7 @@ import (
 	"ciphered-chat/common"
 	"crypto/aes"
 	"crypto/cipher"
+	"crypto/ed25519"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
@@ -41,6 +42,9 @@ type Server struct {
 	addr     string
 	listener net.Listener
 	clients  map[string]Client
+
+	signingPrivateKey ed25519.PrivateKey
+	signingPublicKey  ed25519.PublicKey
 }
 
 type Client struct {
@@ -58,10 +62,17 @@ func NewServer(host string) (*Server, error) {
 	salt := make([]byte, 4096)
 	rand.Read(salt)
 
+	edPublicKey, edPrivateKey, err := ed25519.GenerateKey(rand.Reader)
+	if err != nil {
+		return nil, err
+	}
+
 	server := &Server{
-		clients:  make(map[string]Client),
-		addr:     tcplistener.Addr().String(),
-		listener: tcplistener,
+		clients:           make(map[string]Client),
+		addr:              tcplistener.Addr().String(),
+		listener:          tcplistener,
+		signingPrivateKey: edPrivateKey,
+		signingPublicKey:  edPublicKey,
 	}
 
 	return server, nil
@@ -127,9 +138,16 @@ func (s *Server) handleConnection(conn net.Conn) {
 			s.mu.Unlock()
 
 		case msg := <-client.ch:
+			sig := ed25519.Sign(s.signingPrivateKey, msg)
+
 			streamCipher := cipher.NewCTR(client.aesBlock, common.IV)
 			streamCipher.XORKeyStream(msg, msg)
-			err := common.WriteMessage(client.conn, msg)
+			err = common.WriteMessage(client.conn, msg)
+			if err != nil {
+				log.Printf("Could not write to %v: %v", addr, err)
+				return
+			}
+			err = common.WriteMessage(client.conn, sig)
 			if err != nil {
 				log.Printf("Could not write to %v: %v", addr, err)
 				return
@@ -175,6 +193,14 @@ func (s *Server) performHandshake(conn net.Conn) (Client, error) {
 	aesBlock, err := aes.NewCipher(symmetricKey[:])
 	if err != nil {
 		return Client{}, err
+	}
+
+	n, err = conn.Write(s.signingPublicKey)
+	if err != nil {
+		return Client{}, err
+	}
+	if n != ed25519.PublicKeySize {
+		return Client{}, errors.New("Could not send public signing key")
 	}
 
 	client := Client{
