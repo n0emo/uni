@@ -5,12 +5,18 @@ import (
 	"crypto/cipher"
 	"crypto/des"
 	"crypto/rand"
+	"crypto/rc4"
 	"crypto/sha256"
 	"encoding/base64"
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"os"
+	"time"
+
+	"github.com/resaec/go-rc5"
+	"github.com/zmap/rc2"
 )
 
 var IvSource = []byte("47NpeJQkhyKOx8zcVur0PQljGgh1k927ThPSNIkvFJaZphiPO3ZXqpAfYsqUzj352eyOEYbZkaKNCFJObJcFwux8HALI4Lc44BaVHGaVVNAYtBFM39OvOsT26IuY6Sob")
@@ -99,7 +105,28 @@ func main() {
 		fmt.Println(string(input))
 
 	case "stats":
-		break
+		ciph, err := getCipher(flags.algorithm, flags.key)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		input, err := io.ReadAll(os.Stdin)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		inputEntropy := computeEntropy(input)
+		beginTime := time.Now()
+		ciph.XORKeyStream(input, input)
+		execTime := time.Since(beginTime)
+		outputEntropy := computeEntropy(input)
+
+		fmt.Printf("Open text entropy:      %v\n", inputEntropy);
+		fmt.Printf("Encrypted text entropy: %v\n", outputEntropy);
+		fmt.Printf("Encryption time:        %v\n", execTime);
+
 	}
 }
 
@@ -124,38 +151,79 @@ func getCipher(name string, key string) (cipher.Stream, error) {
 	} else {
 		keyHash = sha256.Sum256([]byte(key))
 	}
-	var block cipher.Block
-	var iv []byte
+
+	var stream cipher.Stream
 	switch name {
+
 	case "aes":
-		aesBlock, err := aes.NewCipher(keyHash[:aes.BlockSize])
+		block, err := aes.NewCipher(keyHash[:aes.BlockSize])
 		if err != nil {
 			return nil, err
 		}
-		block = aesBlock
-		iv = IvSource[:aes.BlockSize]
+		iv := IvSource[:aes.BlockSize]
+		stream = cipher.NewCTR(block, iv)
 
 	case "des":
-		desBlock, err := des.NewCipher(keyHash[:des.BlockSize])
+		block, err := des.NewCipher(keyHash[:des.BlockSize])
 		if err != nil {
 			return nil, err
 		}
-		block = desBlock
-		iv = IvSource[:des.BlockSize]
+		iv := IvSource[:des.BlockSize]
+		stream = cipher.NewCTR(block, iv)
 
 	case "tdes":
-		tdesBlock, err := des.NewTripleDESCipher(keyHash[:des.BlockSize])
+		block, err := des.NewTripleDESCipher(keyHash[:des.BlockSize*3])
 		if err != nil {
 			return nil, err
 		}
-		block = tdesBlock
-		iv = IvSource[:des.BlockSize]
+		iv := IvSource[:des.BlockSize]
+		stream = cipher.NewCTR(block, iv)
+
+	case "rc2":
+		block, err := rc2.NewCipher(keyHash[:])
+		if err != nil {
+			return nil, err
+		}
+		iv := IvSource[:block.BlockSize()]
+		stream = cipher.NewCTR(block, iv)
+
+	case "rc4":
+		block, err := rc4.NewCipher(keyHash[:])
+		if err != nil {
+			return nil, err
+		}
+		stream = block
+
+	case "rc5":
+		block, err := rc5.NewCipher64(keyHash[:], 12)
+		if err != nil {
+			return nil, err
+		}
+		iv := IvSource[:block.BlockSize()]
+		stream = cipher.NewCTR(block, iv)
 
 	default:
 		return nil, errors.New("unknown algorithm")
 	}
 
-	stream := cipher.NewCTR(block, iv)
-
 	return stream, nil
+}
+
+func computeEntropy(bytes []byte) (float64) {
+	counts := [256]int{}
+	for _, b := range bytes {
+		counts[b] += 1
+	}
+
+	sum := float64(0)
+	for i := range counts {
+		p := float64(counts[i]) / float64(len(bytes))
+		if p == 0 {
+			continue
+		}
+
+		sum += p * math.Log2(p)
+	}
+
+	return -sum
 }

@@ -1,0 +1,6 @@
+github.com/euphratesdata/go-bigmath v0.0.0-20170130043953-c75ff338001b h1:S0PjYTawc+AE+amxkkqqdgL5LPKNpyYCk1W9/TdXm8w=
+github.com/euphratesdata/go-bigmath v0.0.0-20170130043953-c75ff338001b/go.mod h1:YWjFvYcPIEeGcPwFUJdIUrQptfiQbWmFwYan0LvHk7M=
+github.com/resaec/go-rc5 v0.0.0-20230629220728-112dec842030 h1:ltMpPpsJleC8q5YG7obCx+F8Z/npKl/DK1os/B04oAU=
+github.com/resaec/go-rc5 v0.0.0-20230629220728-112dec842030/go.mod h1:qRRZgEa1EQEyzh6/VRLHmqOf1eLA7glPWoMxDYSsR7A=
+github.com/zmap/rc2 v0.0.0-20190804163417-abaa70531248 h1:Nzukz5fNOBIHOsnP+6I79kPx3QhLv8nBy2mfFhBRq30=
+github.com/zmap/rc2 v0.0.0-20190804163417-abaa70531248/go.mod h1:3YZ9o3WnatTIZhuOtot4IcUfzoKVjUHqu6WALIyI0nE=
