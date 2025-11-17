@@ -13,6 +13,7 @@ import (
 	"io"
 	"math"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/resaec/go-rc5"
@@ -22,8 +23,9 @@ import (
 var IvSource = []byte("47NpeJQkhyKOx8zcVur0PQljGgh1k927ThPSNIkvFJaZphiPO3ZXqpAfYsqUzj352eyOEYbZkaKNCFJObJcFwux8HALI4Lc44BaVHGaVVNAYtBFM39OvOsT26IuY6Sob")
 
 type Flags struct {
-	algorithm string
-	key       string
+	algorithm      string
+	key            string
+	printDecrypted bool
 }
 
 func main() {
@@ -53,6 +55,16 @@ func main() {
 			fallthrough
 		case "--key":
 			flags.key = value
+
+		case "-p":
+			fallthrough
+		case "--print-encrypted":
+			var err error
+			flags.printDecrypted, err = strconv.ParseBool(value)
+			if err != nil {
+				fmt.Printf("Invalid value for flag %s: %s: %v\n", flag, value, err)
+				os.Exit(64)
+			}
 
 		default:
 			fmt.Printf("unknown flag %s\n", flag)
@@ -123,10 +135,15 @@ func main() {
 		execTime := time.Since(beginTime)
 		outputEntropy := computeEntropy(input)
 
-		fmt.Printf("Open text entropy:      %v\n", inputEntropy);
-		fmt.Printf("Encrypted text entropy: %v\n", outputEntropy);
-		fmt.Printf("Encryption time:        %v\n", execTime);
-
+		fmt.Printf("Open text entropy:      %v\n", inputEntropy)
+		fmt.Printf("Encrypted text entropy: %v\n", outputEntropy)
+		fmt.Printf("Encryption time:        %v\n", execTime)
+		if flags.printDecrypted {
+			fmt.Printf("Encrypted text:         ")
+			encoder := base64.NewEncoder(base64.URLEncoding, os.Stdout)
+			encoder.Write(input)
+			fmt.Println()
+		}
 	}
 }
 
@@ -134,14 +151,15 @@ func printUsage() {
 	fmt.Println("Usage: ./program <subcommand> [OPTIONS]")
 	fmt.Println()
 	fmt.Println("Subcommands:")
-	fmt.Println("  help                   print this message")
-	fmt.Println("  encrypt                encrypt input from stdin")
-	fmt.Println("  decrypt                decrypt input from stdin")
-	fmt.Println("  stats                  compute some statistics about cipher using input from stdin")
+	fmt.Println("  help                             print this message")
+	fmt.Println("  encrypt                          encrypt input from stdin")
+	fmt.Println("  decrypt                          decrypt input from stdin")
+	fmt.Println("  stats                            compute some statistics about cipher using input from stdin")
 	fmt.Println()
 	fmt.Println("Options:")
-	fmt.Println("  -a, --alg <algorithm>  algorithm to use [aes|des|tdes]")
-	fmt.Println("  -k, --key <key>        provide your own key")
+	fmt.Println("  -a, --alg <algorithm>            algorithm to use [aes|des|tdes]")
+	fmt.Println("  -k, --key <key>                  provide your own key")
+	fmt.Println("  -p, --print-encrypted <boolean>  when computing statd, print encrypted text?")
 }
 
 func getCipher(name string, key string) (cipher.Stream, error) {
@@ -209,7 +227,7 @@ func getCipher(name string, key string) (cipher.Stream, error) {
 	return stream, nil
 }
 
-func computeEntropy(bytes []byte) (float64) {
+func computeEntropy(bytes []byte) float64 {
 	counts := [256]int{}
 	for _, b := range bytes {
 		counts[b] += 1
