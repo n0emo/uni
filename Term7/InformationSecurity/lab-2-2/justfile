@@ -1,0 +1,20 @@
+@stats alg key:
+    echo "  Alg: {{ alg }}"
+    go run . stats --alg {{ alg }} --key {{ key }}
+    echo ""
+
+@stats-all source key:
+    echo "Using {{ source }}\n"
+    {{ source }} | just stats aes {{ key }}
+    {{ source }} | just stats des {{ key }}
+    {{ source }} | just stats tdes {{ key }}
+    {{ source }} | just stats rc2 {{ key }}
+    {{ source }} | just stats rc4 {{ key }}
+    {{ source }} | just stats rc5 {{ key }}
+    echo "\n"
+
+stats-for-lab key="h3SDn2lkeEbm29nnFe": \
+    (stats-all "echo 'He мысля гордый свет забавить'" key) \
+    (stats-all "echo 'He мысля гордый свет забавить, Вниманье дружбы возлюбя'" key) \
+    (stats-all "echo 'He мысля гордый свет забавить, Вниманье дружбы возлюбя, Хотел бы я тебе представить Залог достойнее тебя'" key) \
+    (stats-all "cat eugene-onegin.txt" key)
