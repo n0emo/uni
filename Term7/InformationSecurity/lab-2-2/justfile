@@ -1,20 +1,20 @@
-@stats alg key:
+@stats alg key print-encrypted="false":
     echo "  Alg: {{ alg }}"
-    go run . stats --alg {{ alg }} --key {{ key }}
+    go run . stats --alg {{ alg }} --key {{ key }} --print-encrypted {{ print-encrypted }}
     echo ""
 
-@stats-all source key:
+@stats-all source key print-encrypted="false":
     echo "Using {{ source }}\n"
-    {{ source }} | just stats aes {{ key }}
-    {{ source }} | just stats des {{ key }}
-    {{ source }} | just stats tdes {{ key }}
-    {{ source }} | just stats rc2 {{ key }}
-    {{ source }} | just stats rc4 {{ key }}
-    {{ source }} | just stats rc5 {{ key }}
+    {{ source }} | just stats rc2 {{ key }} {{ print-encrypted }}
+    {{ source }} | just stats rc4 {{ key }} {{ print-encrypted }}
+    {{ source }} | just stats rc5 {{ key }} {{ print-encrypted }}
+    {{ source }} | just stats des {{ key }} {{ print-encrypted }}
+    {{ source }} | just stats tdes {{ key }} {{ print-encrypted }}
+    {{ source }} | just stats aes {{ key }} {{ print-encrypted }}
     echo "\n"
 
 stats-for-lab key="h3SDn2lkeEbm29nnFe": \
-    (stats-all "echo 'He мысля гордый свет забавить'" key) \
-    (stats-all "echo 'He мысля гордый свет забавить, Вниманье дружбы возлюбя'" key) \
-    (stats-all "echo 'He мысля гордый свет забавить, Вниманье дружбы возлюбя, Хотел бы я тебе представить Залог достойнее тебя'" key) \
+    (stats-all "echo 'He мысля гордый свет забавить'" key "true") \
+    (stats-all "echo 'He мысля гордый свет забавить, Вниманье дружбы возлюбя'" key "true") \
+    (stats-all "echo 'He мысля гордый свет забавить, Вниманье дружбы возлюбя, Хотел бы я тебе представить Залог достойнее тебя'" key "true") \
     (stats-all "cat eugene-onegin.txt" key)
