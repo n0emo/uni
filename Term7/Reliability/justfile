@@ -1,0 +1,13 @@
+build-folder:
+    mkdir -p build
+
+build-all: \
+    (build "2") \
+    (build "3") \
+    (build "4")
+
+build num: build-folder
+    typst compile practice-{{ num }}.typ build/practice-{{ num }}.pdf
+
+watch num: build-folder
+    typst watch practice-{{ num }}.typ build/practice-{{ num }}.pdf
