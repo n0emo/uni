@@ -1,5 +1,5 @@
 #import "@preview/cetz:0.4.2"
-#import "@preview/cetz-plot:0.1.3": chart, plot
+#import "@preview/cetz-plot:0.1.3": plot
 #import "@preview/oxifmt:1.0.0": strfmt
 
 #import "template.typ": conf
