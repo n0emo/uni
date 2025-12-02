@@ -62,7 +62,7 @@
     ],
     grid.cell[
       #align(center)[
-        #underline(" "*50)
+        #underline(" " * 50)
       ]
     ],
     grid.cell[
@@ -76,7 +76,7 @@
     ],
     grid.cell[
       #align(center)[
-        #underline(" "*50)
+        #underline(" " * 50)
       ]
     ],
     grid.cell[
@@ -138,6 +138,8 @@
   show figure.where(
     kind: table,
   ): set figure.caption(position: top)
+
+  show figure.where(kind: image): set figure(supplement: [Рисунок])
 
   doc
 }
