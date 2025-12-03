@@ -1,4 +1,4 @@
-#let title_page(
+#let title-page(
   number: text,
   name: text,
   department: text,
@@ -9,16 +9,6 @@
   teacher_post: text,
   teacher: text,
 ) = {
-  set text(
-    lang: "ru",
-    size: 14pt,
-    font: "Times New Roman",
-  )
-
-  set page(
-    margin: (left: 30mm, right: 15mm, top: 20mm, bottom: 20mm),
-  )
-
   align(center)[
     ФЕДЕРАЛЬНОЕ АГЕНСТВО ЖЕЛЕЗНОДОРОЖНОГО ТРАНСПОРТА
 
@@ -87,9 +77,9 @@
   )
 
   align(center + bottom)[Санкт-Петербург \ 2025]
-
-  pagebreak()
 }
+
+#let text-indent = 12.5mm
 
 #let conf(
   number: text,
@@ -113,33 +103,65 @@
     margin: (left: 30mm, right: 15mm, top: 20mm, bottom: 20mm),
   )
 
-  title_page(
-    number: number,
-    name: title,
-    department: department,
-    discipline: discipline,
-    variant: variant,
-    author: author,
-    author_post: author_post,
-    teacher: teacher,
-    teacher_post: teacher_post,
+  set par(
+    first-line-indent: (amount: 12.5mm, all: true),
+    justify: true,
   )
+
+  page[
+    #title-page(
+      number: number,
+      name: title,
+      department: department,
+      discipline: discipline,
+      variant: variant,
+      author: author,
+      author_post: author_post,
+      teacher: teacher,
+      teacher_post: teacher_post,
+    )
+  ]
 
   set page(
     numbering: "1",
     number-align: right,
   )
 
-  set par(
-    first-line-indent: (amount: 5mm, all: true),
-    justify: true,
-  )
+  show heading.where(level: 1): it => {
+    set align(center)
+    set text(size: 14pt)
+
+    pagebreak()
+    upper(it)
+  }
+
+  show heading.where(level: 2): it => {
+    set text(size: 14pt)
+    set par(first-line-indent: (amount: text-indent, all: true))
+
+    pad(left: text-indent, it)
+  }
+
+  show heading.where(level: 3): it => {
+    set text(size: 14pt, style: "italic")
+    set par(first-line-indent: (amount: text-indent, all: true))
+
+    pad(left: text-indent, it)
+  }
 
   show figure.where(
     kind: table,
   ): set figure.caption(position: top)
 
   show figure.where(kind: image): set figure(supplement: [Рисунок])
+  show figure.where(kind: image): it => {
+    rect(stroke: 0.5pt, it.body)
+    it.caption
+  }
+
+  show list: set list(marker: [--])
+  show list: set list(indent: text-indent)
+  show enum: set enum(indent: text-indent)
 
   doc
 }
