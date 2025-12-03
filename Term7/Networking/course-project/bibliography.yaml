@@ -1,0 +1,15 @@
+rust:
+  type: Web
+  title: Rust Programming Language
+  url: https://rust-lang.org/
+
+rust-in-action:
+  type: Book
+  title: "Rust в действии: Пер. с англ."
+  author: Макнамара Т.
+  publisher: 
+    name: 'ООО "БХВ-Петербург"'
+    location: СПб.
+  date: 2023
+  page-total: 528
+  serial-number: { isbn: "978-5-9775-1166-7" }

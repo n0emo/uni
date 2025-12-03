@@ -273,5 +273,7 @@
   show list: set list(indent: text-indent)
   show enum: set enum(indent: text-indent)
 
+  set bibliography(style: "gost-r-705-2008-numeric", )
+
   doc
 }

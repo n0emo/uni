@@ -9,22 +9,36 @@
 
 #heading(outlined: false)[Аннотация]
 
-#include "chapters/00-abstract.typ"
+#include "chapters/abstract.typ"
 
 #outline()
 
 = Введение
 
-#include "chapters/01-introduction.typ"
+#include "chapters/introduction.typ"
 
-= 1. Сетевой уровень 
+= 1. Использованные технологии
 
-= 2. Транспортный уровень
+#include "chapters/1-techstack.typ"
 
-= 3. Уровень приложения
+= 2. Сетевой уровень 
 
-= 4. Проверка работоспособности
+#include "chapters/2-network-layer.typ"
+
+= 3. Транспортный уровень
+
+#include "chapters/3-transport-layer.typ"
+
+= 4. Уровень приложения
+
+#include "chapters/4-application-layer.typ"
+
+= 5. Проверка работоспособности
+
+#include "chapters/5-demo.typ"
 
 = Выводы
 
-= Список литературы
+#include "chapters/conclusion.typ"
+
+#bibliography("bibliography.yaml")
