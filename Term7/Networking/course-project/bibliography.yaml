@@ -39,3 +39,10 @@ stack-overflow:
   url:
    value: https://survey.stackoverflow.co/2025/technology/#most-popular-technologies
    date: 2025-12-04
+
+rfc-6455:
+  type: Web
+  title: RFC 6455 - The WebSocket Protocol
+  url:
+    value: https://www.rfc-editor.org/rfc/rfc6455
+    date: 2025-12-04
