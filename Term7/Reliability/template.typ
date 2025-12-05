@@ -12,19 +12,25 @@
   align(center)[
     ФЕДЕРАЛЬНОЕ АГЕНСТВО ЖЕЛЕЗНОДОРОЖНОГО ТРАНСПОРТА
 
-    Федеральное государственное бюджетное образовательное учреждение высшего образования
+    Федеральное государственное бюджетное \
+    образовательное учреждение высшего образования
 
-    "ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ ПУТЕЙ СООБЩЕНИЯ Императора Александра I"
+    "ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ \
+    УНИВЕРСИТЕТ ПУТЕЙ СООБЩЕНИЯ ИМПЕРАТОРА АЛЕКСАНДРА I"
 
     *(ФГБОУ ВО ПГУПС)*
 
-    \ \
+    #linebreak()
 
     Кафедра "#department"
 
     Дисциплина "#discipline"
 
-    \ \ \
+    #linebreak()
+    #linebreak()
+    #linebreak()
+    #linebreak()
+    #linebreak()
 
     *ОТЧЁТ*
 
@@ -52,7 +58,8 @@
     ],
     grid.cell[
       #align(center)[
-        #underline(" " * 50)
+        #underline(" " * 50) \
+        (дата, подпись)
       ]
     ],
     grid.cell[
@@ -66,7 +73,8 @@
     ],
     grid.cell[
       #align(center)[
-        #underline(" " * 50)
+        #underline(" " * 50) \
+        (дата, подпись)
       ]
     ],
     grid.cell[
@@ -95,7 +103,7 @@
 ) = {
   set text(
     lang: "ru",
-    size: 14pt,
+    size: 12pt,
     font: "Times New Roman",
   )
 
@@ -127,23 +135,22 @@
     number-align: right,
   )
 
+  show heading: set text(size: 12pt)
   show heading.where(level: 1): it => {
     set align(center)
-    set text(size: 14pt)
 
     pagebreak()
     upper(it)
   }
 
   show heading.where(level: 2): it => {
-    set text(size: 14pt)
     set par(first-line-indent: (amount: text-indent, all: true))
 
     pad(left: text-indent, it)
   }
 
   show heading.where(level: 3): it => {
-    set text(size: 14pt, style: "italic")
+    set text(style: "italic")
     set par(first-line-indent: (amount: text-indent, all: true))
 
     pad(left: text-indent, it)
