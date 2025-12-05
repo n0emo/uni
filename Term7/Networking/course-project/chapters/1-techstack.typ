@@ -72,29 +72,29 @@ JavaScript, Python. В то же время Rust остаётся весьма �
 
 Для разработки сервера и его API использованы следующие библиотеки:
 
-- argon2
-- axum
-- chrono
-- deadpool-redis
-- rustls
-- serde
-- sqlx
-- testcontainers
-- tokio
-- tracing
-- tungstenite
-- utoipa
+- argon2;
+- axum;
+- chrono;
+- deadpool-redis;
+- rustls;
+- serde;
+- sqlx;
+- testcontainers;
+- tokio;
+- tracing;
+- tungstenite;
+- utoipa.
 
 == 1.4 Сторонние библиотеки клиента
 
 Для разработки клиента для устройств отображения использованы следующие
 библиотеки:
 
-- chrono
-- eframe
-- egui
-- ewebsock
-- jni
-- rustls
-- serde
-- tracing
+- chrono;
+- eframe;
+- egui;
+- ewebsock;
+- jni;
+- rustls;
+- serde;
+- tracing.

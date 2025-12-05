@@ -37,8 +37,8 @@
 
 #include "chapters/5-demo.typ"
 
-= Выводы
+= Заключение
 
 #include "chapters/conclusion.typ"
 
-#bibliography("bibliography.yaml")
+#bibliography("bibliography.yaml", title: "Библиографический список")
