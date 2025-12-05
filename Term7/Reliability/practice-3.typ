@@ -73,11 +73,18 @@
 
 // Text body
 
-= Цель работы
+= Задание 
+
+== Цель работы
 
 Выразить предложение по доработке системы с учётом рассчётных показателей надёжности
 
-= Исходные данные
+== Выполнить:
+
+Рассчитать показатели надёжности для исходной и доработанной системы. Построить
+графики зависимостей показателей надёжности.
+
+== Исходные данные
 
 #figure(
   table(
@@ -147,17 +154,19 @@
 #figure(
   cetz.canvas({
     plot.plot(
-      size: (13, 10),
+      size: (6, 3),
 
       x-label: $t_з$,
       x-mode: "log",
       x-min: 80,
       x-max: 15000,
+      x-ticks: (100, 500, 1000, 10000),
 
       y-label: $P_(accent(T, hat)_с) (t_з)$,
       y-min: 0.01,
       y-max: 1,
-      x-ticks: (100, 500, 1000, 10000),
+      y-tick-step: 0.2,
+
       {
         plot.add(
           working-times.map(t => (t, p(lambda-sum, t))),
@@ -204,7 +213,7 @@ $
 #figure(
   cetz.canvas({
     plot.plot(
-      size: (13, 10),
+      size: (7, 5),
 
       x-label: $gamma$,
       x-mode: "log",
@@ -505,6 +514,37 @@ $K_"ог" (t) = overline(K)_г (t) dot P_(accent(T, hat)_с)(t)$
 
 === Решение
 
+Коэффициент технического использования вычисляется по формуле:
+
 $
   K_"ти" = frac(T_с, T_с + T_в + T_"рр")
 $
+
+Результаты вычислений для исходной и доработанной системы при различных режимах
+регламентных работ приведена на таблице
+
+#let service-params = (
+  "ГТО": (t-work: 365*24, t-service: 7*24*3),
+  "ГТО+ПГТО": (t-work: 365*24/2, t-service: 7*24*5),
+   "ГТО+ПГТО+КвТО": (t-work: 365*24/4, t-service: 7*24*6),
+)
+
+#figure(
+  table(
+    columns: 3,
+    [$T_"рр"$], [$K_"ти"$ исх. системы], [$K_"ти"$ дор. системы],
+    ..("ГТО", "ГТО+ПГТО", "ГТО+ПГТО+КвТО").map(kind => {
+      let t-w = service-params.at(kind).t-work
+      let t-s = service-params.at(kind).t-service
+
+      let t-rec-base = 1 / weighted-recovery-time(lambda-base, recovery-times)
+      let t-rec-impr = 1 / weighted-recovery-time(lambda-improved, recovery-times)
+
+      let k-base = t-w / (t-w + t-rec-base + t-s)
+      let k-impr = t-w / (t-w + t-rec-impr + t-s)
+
+      ([#kind], [#k-base], [#k-impr])
+    }).flatten()
+  ),
+  caption: [Коэффициент технического использования]
+)
