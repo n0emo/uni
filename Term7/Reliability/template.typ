@@ -111,11 +111,6 @@
     margin: (left: 30mm, right: 15mm, top: 20mm, bottom: 20mm),
   )
 
-  set par(
-    first-line-indent: (amount: 12.5mm, all: true),
-    justify: true,
-  )
-
   page[
     #title-page(
       number: number,
@@ -129,6 +124,11 @@
       teacher_post: teacher_post,
     )
   ]
+
+  set par(
+    first-line-indent: (amount: 12.5mm, all: true),
+    justify: true,
+  )
 
   set page(
     numbering: "1",

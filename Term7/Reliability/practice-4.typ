@@ -15,11 +15,15 @@
   doc: doc,
 )
 
-= Цель занятия
+== Цель занятия
 
 Приобретение навыков анализа надежности типового функционального узла (ФУ) с учетом условий его эксплуатации.
 
-= Ход работы
+== Выполнить:
+
+Заполнить таблицы 4.5 и 4.6 исходных данных
+
+== Ход работы
 
 #let elements = (
   (name: [Микросхема], lambda: 0.2e-6, count: 33, load: 1),
@@ -63,7 +67,7 @@
       .flatten(),
   ),
 
-  caption: [Интенсивность отказов элементов ФУ],
+  caption: [Интенсивность отказов элементов ФУ (4.5)],
 )
 
 #let elements = (
@@ -79,19 +83,21 @@
   (c: 7, t: 50, lname: "высокая"),
 )
 
-#let work-time = 30000
+#let work-times = (10000, 50000, 90000)
 
 #figure(
   table(
-    columns: 7,
+    columns: (auto, auto, auto, auto, auto, auto, auto, 1fr),
+    align: center+horizon,
 
-    [Условия],
-    [Рабочая $t_0$],
-    [Нагрузка на диод],
-    [$Lambda_с$],
-    [Средняя наработка до отказа],
-    [ВБР (#work-time часов)],
-    [90-% наработка ФУ до отказа],
+    table.cell(rowspan: 2)[Усл.],
+    table.cell(rowspan: 2)[$t_0$],
+    table.cell(rowspan: 2)[Нагрузка \ на диод],
+    table.cell(rowspan: 2)[$Lambda_с$],
+    table.cell(rowspan: 2)[Средняя \ наработка \ до отказа],
+    table.cell(rowspan: 2)[90%-я наработка \ ФУ до отказа],
+    table.cell(colspan: 2)[ВБР],
+    [$t$], [$P$],
 
     ..elements
       .map(e => {
@@ -100,20 +106,30 @@
         let load-coef = if e.lname == "низкая" { 1.0 } else { 1.5 }
 
         let lambda = temp-coef * use-coef * load-coef * 1e-7 * 2
-        let w-prob = calc.exp(-lambda * work-time)
         let w-90 = -calc.ln(0.9) / lambda
 
         (
-          [#e.c],
-          [#e.t],
-          [#e.lname],
-          [#strfmt("{:.3e}", lambda)],
-          [#int(1 / lambda)],
-          [#calc.round(w-prob, digits: 5)],
-          [#int(w-90)],
+          table.cell(rowspan: 3)[#e.c],
+          table.cell(rowspan: 3)[#e.t],
+          table.cell(rowspan: 3)[#e.lname],
+          table.cell(rowspan: 3)[#strfmt("{:.3e}", lambda)],
+          table.cell(rowspan: 3)[#int(1 / lambda)],
+          table.cell(rowspan: 3)[#int(w-90)],
+          ..work-times.map(t => (
+            [#t],
+            [#calc.round(calc.exp(-lambda * t), digits: 7)]
+          )).flatten(),
         )
       })
       .flatten(),
   ),
-  caption: [Расчет интенсивности отказов ФУ для различных условий],
+  caption: [Расчет интенсивности отказов ФУ для различных условий (4.6)],
 )
+
+== Выводы
+
+Показатели надёжности имеют прямую зависимость от условий эксплуатации. В работе
+были учтены общие условия эксплуатации, рабочая температура и нагрузка на
+изделие. Вывод оказался предельно ожидаемым: чем более жёсткие условия, тем
+ниже показатели надёжности изделия. Наибольшее влияние оказывают общие условия
+эксплутации.
