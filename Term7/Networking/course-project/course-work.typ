@@ -3,7 +3,7 @@
 #show: doc => conf(
   title: "Организация взаимодействия устройств в системе диспетчеризации информации",
   author: "А. Шефнер",
-  author_post: "студент группы ИВБ-211",
+  group: "ИВБ-211",
   doc: doc,
 )
 
@@ -41,4 +41,4 @@
 
 #include "chapters/conclusion.typ"
 
-#bibliography("bibliography.yaml", title: "Библиографический список")
+#bibliography("bibliography.yaml")

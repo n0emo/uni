@@ -1,7 +1,7 @@
 #let title-page(
   title: text,
   author: text,
-  author_post: text,
+  group: text,
 ) = {
   align(center)[
     ФЕДЕРАЛЬНОЕ АГЕНСТВО ЖЕЛЕЗНОДОРОЖНОГО ТРАНСПОРТА
@@ -39,7 +39,7 @@
     grid.cell[
       #align(left)[
         Выполнил: \
-        #author_post
+        Студент группы #group
       ]
     ],
     grid.cell[
@@ -71,10 +71,13 @@
   align(center + bottom)[Санкт-Петербург \ 2025]
 }
 
-#let assessment-list = [
+#let assessment-list(
+  author: text,
+  group: text,
+) = [
   Оценочный лист результатов курсового проекта \
-  Ф.И.О. студента А. Шефнер \
-  Группа ИВБ-211
+  Ф.И.О. студента #author \
+  Группа #group
 
   #set text(size: 12pt)
 
@@ -153,7 +156,7 @@
 
   #align(right)[Таблица 2]
   #table(
-    columns: (0.75fr, 1fr, 1fr, 1.75fr, 0.5fr),
+    columns: (1.25fr, 0.9fr, 1fr, 1.75fr, 0.5fr),
     align: center + horizon,
 
     table.header(
@@ -164,19 +167,19 @@
       [Оценка],
     ),
 
-    [1. Текущий контроль],
+    [\1. Текущий контроль],
     [Курсовой проект],
     [70],
-    [
+    align(left)[
       Количество баллов определяется в соответствии с таблицей 1 \
       Допуск к защите курсового проекта > 50 баллов
     ],
     [],
 
-    [2. Промежуточная аттестация],
+    [\2. Промежуточная аттестация],
     [Защита курсового проекта],
     [30],
-    [
+    align(left)[
       - получены полные ответы на вопросы – 25-30 баллов;
       - получены достаточно полные ответы на вопросы – 20-24 балла;
       - получены неполные ответы на вопросы – 11-19 баллов;
@@ -184,32 +187,34 @@
     ],
     [],
 
-    table.cell(colspan: 2)[Итого],
-    [100],
+    table.cell(colspan: 2)[*Итого*],
+    [*100*],
     [],
     [],
 
-    [3. Итоговая оценка],
-    table.cell(colspan: 3)[
+    [\3. Итоговая оценка],
+    table.cell(colspan: 3, align(left)[
       - "Отлично" - 86-100 баллов;
-      - "Хорошо" - 75-85 баллов;,
-      - "Удовлетворительно" - 60-74 балла;,
-      - «Неудовлетворительно» - менее 60 баллов.,
-    ]
+      - "Хорошо" - 75-85 баллов;
+      - "Удовлетворительно" - 60-74 балла;
+      - «Неудовлетворительно» - менее 60 баллов.
+    ]),
   )
 ]
 
+#let text-size = 14pt
 #let text-indent = 12.5mm
+#let line-spacing = 1.15em
 
 #let conf(
   title: text,
-  author_post: text,
+  group: text,
   author: text,
   doc: content,
 ) = {
   set text(
     lang: "ru",
-    size: 14pt,
+    size: text-size,
     font: "Times New Roman",
   )
 
@@ -221,7 +226,7 @@
     #title-page(
       title: title,
       author: author,
-      author_post: author_post,
+      group: group,
     )
   ]
 
@@ -230,34 +235,56 @@
     number-align: right,
   )
 
-  page(assessment-list)
+  show list: set list(marker: [--])
+
+  page(assessment-list(
+    author: author,
+    group: group,
+  ))
 
   set par(
+    leading: line-spacing,
+    spacing: line-spacing,
     first-line-indent: (amount: 12.5mm, all: true),
     justify: true,
   )
 
+  show heading: it => {
+    set text(size: text-size)
+    set par(
+      spacing: line-spacing,
+    )
+    it.body
+  }
+
   show heading.where(level: 1): it => {
     set align(center)
-    set text(size: 14pt)
+    set text(size: text-size)
+    set par(
+      spacing: 4em,
+    )
 
     pagebreak()
-    upper(it)
+    upper(it.body)
   }
 
   show heading.where(level: 2): it => {
-    set text(size: 14pt)
-    set par(first-line-indent: (amount: text-indent, all: true))
-
-    pad(left: text-indent, it)
+    set par( first-line-indent: (amount: text-indent, all: true))
+    it
   }
 
   show heading.where(level: 3): it => {
-    set text(size: 14pt, style: "italic")
+    set text(style: "italic", weight: "semibold")
     set par(first-line-indent: (amount: text-indent, all: true))
-
-    pad(left: text-indent, it)
+    it
   }
+
+  show outline.entry.where(level: 1): it => {
+    set text(weight: "bold")
+    upper(it)
+  }
+
+  show outline.entry.where(level: 3): none
 
   show figure.where(
     kind: table,
@@ -269,11 +296,15 @@
     it.caption
   }
 
-  show list: set list(marker: [--])
   show list: set list(indent: text-indent)
   show enum: set enum(indent: text-indent)
 
-  set bibliography(style: "gost-r-705-2008-numeric", )
+  set bibliography(
+    style: "gost-r-705-2008-numeric",
+    title: "Библиографический список",
+  )
+
+  show raw: set par(leading: 0.5em)
 
   doc
 }
