@@ -2,6 +2,8 @@
   title: text,
   author: text,
   group: text,
+  teacher: text,
+  teacher-post: text,
 ) = {
   align(center)[
     ФЕДЕРАЛЬНОЕ АГЕНСТВО ЖЕЛЕЗНОДОРОЖНОГО ТРАНСПОРТА
@@ -44,7 +46,8 @@
     ],
     grid.cell[
       #align(center)[
-        #underline(" " * 50)
+        #underline(" " * 50) \
+        (дата, подпись)
       ]
     ],
     grid.cell[
@@ -54,16 +57,17 @@
     ],
     grid.cell[
       Проверил: \
-      ст. преп.
+      #teacher-post
     ],
     grid.cell[
       #align(center)[
-        #underline(" " * 50)
+        #underline(" " * 50) \
+        (дата, подпись)
       ]
     ],
     grid.cell[
       #align(right)[
-        И.А. Молодкин
+        #teacher
       ]
     ],
   )
@@ -74,6 +78,8 @@
 #let assessment-list(
   author: text,
   group: text,
+  teacher: text,
+  teacher-post: text,
 ) = [
   Оценочный лист результатов курсового проекта \
   Ф.И.О. студента #author \
@@ -98,13 +104,13 @@
 
     table.cell(rowspan: 4)[Пояснительная записка к курсовому проекту],
 
-    table.cell(rowspan: 2)[1. Соответствие исходных данных выданному заданию],
+    table.cell(rowspan: 2)[\1. Соответствие исходных данных выданному заданию],
     [Соответствует],
     [15],
     [Плохо соответствует],
     [5],
 
-    table.cell(rowspan: 2)[2. Обоснованность принятых решений],
+    table.cell(rowspan: 2)[\2. Обоснованность принятых решений],
     [Все решения обоснованы],
     [15],
     [Решения обоснованы слабо],
@@ -115,7 +121,7 @@
 
     table.cell(rowspan: 2)[2],
     table.cell(rowspan: 2)[Качество выполнения задания],
-    table.cell(rowspan: 2)[3. Полнота реализации требования задания],
+    table.cell(rowspan: 2)[\3. Полнота реализации требования задания],
 
     [Высокая],
     [20],
@@ -129,7 +135,7 @@
     table.cell(rowspan: 4)[Графические материалы],
 
     table.cell(rowspan: 2)[
-      1. Соответствие разработанных схем пояснительной записке
+      \1. Соответствие разработанных схем пояснительной записке
     ],
     [Соответствует],
     [10],
@@ -137,7 +143,7 @@
     [5],
 
     table.cell(rowspan: 2)[
-      2. Соответствие требования ГОСТ
+      \2. Соответствие требованиям ГОСТ
     ],
 
     [Высокое],
@@ -194,12 +200,29 @@
 
     [\3. Итоговая оценка],
     table.cell(colspan: 3, align(left)[
-      - "Отлично" - 86-100 баллов;
-      - "Хорошо" - 75-85 баллов;
-      - "Удовлетворительно" - 60-74 балла;
-      - «Неудовлетворительно» - менее 60 баллов.
+      "Отлично" -- 86-100 баллов; \
+      "Хорошо" -- 75-85 баллов; \
+      "Удовлетворительно" -- 60-74 балла; \
+      «Неудовлетворительно» -- менее 60 баллов.
     ]),
   )
+
+  #align(bottom)[
+    #columns(3)[
+      #align(left)[
+        #teacher-post \
+      ]
+
+      #colbreak()
+      #colbreak()
+
+      #align(center)[
+        #teacher \ \
+        #underline(" " * 50) \
+        (дата, подпись)
+      ]
+    ]
+  ]
 ]
 
 #let text-size = 14pt
@@ -210,6 +233,8 @@
   title: text,
   group: text,
   author: text,
+  teacher: text,
+  teacher-post: text,
   doc: content,
 ) = {
   set text(
@@ -227,6 +252,8 @@
       title: title,
       author: author,
       group: group,
+      teacher: teacher,
+      teacher-post: teacher-post,
     )
   ]
 
@@ -240,6 +267,8 @@
   page(assessment-list(
     author: author,
     group: group,
+    teacher: teacher,
+    teacher-post: teacher-post,
   ))
 
   set par(
@@ -249,6 +278,7 @@
     justify: true,
   )
 
+  set heading(supplement: none)
   show heading: it => {
     set text(size: text-size)
     set par(
@@ -269,7 +299,7 @@
   }
 
   show heading.where(level: 2): it => {
-    set par( first-line-indent: (amount: text-indent, all: true))
+    set par(first-line-indent: (amount: text-indent, all: true))
     it
   }
 
@@ -296,8 +326,8 @@
     it.caption
   }
 
-  show list: set list(indent: text-indent)
-  show enum: set enum(indent: text-indent)
+  set list(indent: text-indent)
+  set enum(indent: text-indent)
 
   set bibliography(
     style: "gost-r-705-2008-numeric",
@@ -305,6 +335,14 @@
   )
 
   show raw: set par(leading: 0.5em)
+
+  set page(
+    header: [
+      #counter(footnote).update(0)
+    ],
+  )
+
+  show raw: set text(size: 0.9em)
 
   doc
 }

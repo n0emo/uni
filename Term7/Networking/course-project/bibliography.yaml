@@ -40,9 +40,35 @@ stack-overflow:
    value: https://survey.stackoverflow.co/2025/technology/#most-popular-technologies
    date: 2025-12-04
 
-rfc-6455:
+rfc6455:
+  type: misc
+  title: The WebSocket Protocol
+  author:
+  - A. Melnikov
+  - I. Fette
+  date: 2011-12
+  publisher: RFC Editor
+  issue: 6455
+  page-total: 71
+  url: https://www.rfc-editor.org/info/rfc6455
+  serial-number:
+    doi: 10.17487/RFC6455
+  note: RFC 6455
+  abstract: The WebSocket Protocol enables two-way communication between a client running untrusted code in a controlled environment to a remote host that has opted-in to communications from that code. The security model used for this is the origin-based security model commonly used by web browsers. The protocol consists of an opening handshake followed by basic message framing, layered over TCP. The goal of this technology is to provide a mechanism for browser-based applications that need two-way communication with servers that does not rely on opening multiple HTTP connections (e.g., using XMLHttpRequest or <iframe>s and long polling). {[}STANDARDS-TRACK{]}
+  parent:
+    type: misc
+    title: Request for Comments
+
+docker-compose:
   type: Web
-  title: RFC 6455 - The WebSocket Protocol
+  title: Docker Compose | Docker Docs
   url:
-    value: https://www.rfc-editor.org/rfc/rfc6455
-    date: 2025-12-04
+    value: https://docs.docker.com/compose/
+    date: 2025-12-08
+
+just:
+  type: Web
+  title: Introduction | Just Programmer's Manual
+  url:
+    value: https://just.systems/man/en/
+    date: 2025-12-08

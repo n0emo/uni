@@ -4,6 +4,8 @@
   title: "Организация взаимодействия устройств в системе диспетчеризации информации",
   author: "А. Шефнер",
   group: "ИВБ-211",
+  teacher: "И.А. Молодкин",
+  teacher-post: [ст. преп. каф. "ИВС"],
   doc: doc,
 )
 
@@ -21,24 +23,22 @@
 
 #include "chapters/1-techstack.typ"
 
-= 2. Сетевой уровень 
+= 3. Протокол WebSocket
 
-#include "chapters/2-network-layer.typ"
+#include "chapters/2-transport-layer.typ"
 
-= 3. Транспортный уровень
+= 4. Обмен данных на уровене приложений
 
-#include "chapters/3-transport-layer.typ"
+#include "chapters/3-application-layer.typ"
 
-= 4. Уровень приложения
+= 5. Развёртка в сети ПГУПС
 
-#include "chapters/4-application-layer.typ"
-
-= 5. Проверка работоспособности
-
-#include "chapters/5-demo.typ"
+#include "chapters/4-deploy.typ"
 
 = Заключение
 
 #include "chapters/conclusion.typ"
 
 #bibliography("bibliography.yaml")
+
+#include "supplement/supplement.typ"
