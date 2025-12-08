@@ -1,0 +1,91 @@
+computer-networks:
+  type: Book
+  author:
+    - В.Г. Олифер
+    - Н.А. Олифер
+  title: "Компьютерные сети: Принципы, технологии, протокол"
+  date: 2001
+  page-total: 672
+  publisher:
+    location: СПб
+    name: Питер
+
+mewlib-github:
+  type: Web
+  title: MewLib — Zero-dependency HTTP library for C
+  url: https://github.com/n0emo/mewlib/
+
+unity-build-ic:
+  type: Web
+  title: Single translation unit (jumbo/unity) builds 
+  author: D. Pol
+  url:
+    value: https://www.innercomputing.com/blog/single-translation-unit-builds 
+    date: 2025-12-06
+
+unity-build-austin:
+  type: Web
+  title: Working with Jumbo/Unity Builds (Single Translation Unit)
+  author: A. Morlan
+  url:
+    value: https://austinmorlan.com/posts/unity_jumbo_build/
+    date: 2025-12-06
+
+cmake:
+  type: Web
+  title: The Architecture of Open Source Applications
+  author:
+    - B. Hoffman
+    - K. Martin
+  url:
+    value: https://aosabook.org/en/v1/cmake.html
+    date: 2025-12-07
+
+fetch-content:
+  type: Web
+  title: FetchContent — CMake 4.2.0 Documentation
+  url:
+    value: https://cmake.org/cmake/help/latest/module/FetchContent.html
+    date: 2025-12-07
+
+allocators:
+  type: Web
+  title: Аллокаторы памяти / Хабр
+  author: В. Балун
+  url:
+    value: https://habr.com/ru/articles/505632/
+    date: 2025-12-07
+
+jemalloc:
+  type: Article
+  title: A scalable concurrent malloc (3) implementation for FreeBSD
+  author: J. Evans
+  date: 2006
+  parent:
+    type: Conference
+    title: Proc. of the bsdcan conference
+    location: Ottawa, Canada
+
+rfc2616:
+  type: misc
+  title: 'Hypertext Transfer Protocol – HTTP/1.1'
+  author:
+    - H. Nielsen
+    - J. Mogul
+    - L. M Masinter
+    - R.T. Fielding
+    - J Gettys
+    - P. J. Leach 
+    - T. Berners-Lee
+  date: 1999-06
+  publisher: RFC Editor
+  issue: 2616
+  page-total: 176
+  url: https://www.rfc-editor.org/info/rfc2616
+  serial-number:
+    doi: 10.17487/RFC2616
+  note: RFC 2616
+  abstract: HTTP has been in use by the World-Wide Web global information initiative since 1990. This specification defines the protocol referred to as "HTTP/1.1", and is an update to RFC 2068. {[}STANDARDS-TRACK{]}
+  parent:
+    type: misc
+    title: Request for Comments
