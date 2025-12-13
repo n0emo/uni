@@ -81,8 +81,8 @@ $P(t) = e^(-Lambda_с t)$. Далее приведены результаты в
 наработки до отказа и 90%-ой наработки до отказа.
 
 $
-  overline(P)(t) & = #{ 1 / lambdas-sum } dot ч \
-  P_(gamma)(90%) & = #gamma-time(0.9, lambdas-sum) dot ч
+  overline(P)(t) & = #calc.round( 1 / lambdas-sum) ч \
+  P_(gamma)(90%) & = #calc.round(gamma-time(0.9, lambdas-sum)) ч
 $
 
 == Параллельное соединение
@@ -150,12 +150,12 @@ $ t = -frac(1, lambda) dot ln(1 - root(n, 1 - gamma)) $
 #figure(
   table(
     columns: 3,
-    [n], [$overline(P)_"пар"^n$], [$P_("пар", gamma)^n (90%)$],
+    [n], [$overline(P)_"пар"^n, ч$], [$P_("пар", gamma)^n (90%), ч$],
     ..for n in (2, 3, 4) {
       (
         [#n],
-        [#avg-times-par.at(n - 2)],
-        [#gamma-time-par(lambdas-sum, 0.9, n)],
+        [#calc.round(avg-times-par.at(n - 2))],
+        [#calc.round(gamma-time-par(lambdas-sum, 0.9, n))],
       )
     },
   ),
@@ -240,12 +240,12 @@ e^(-lambda_1 t) dot
 $
 
 Подстановка значений $lambda_i$ дась среднюю наработку до отказа:
-$ overline(T)_с = 1034.01629518315 $
+$ overline(T)_с = 1034ч $
 
 В то же время, гамма-процентную наработку до отказа не получится вывести из
 уравнения ВБР, поэтому далее она будет вычислена численным методом.
 
-$ T_gamma (90%) approx 109.063856682834 $
+$ T_gamma (90%) approx 109ч $
 
 == Мостиковое соединение
 
@@ -336,5 +336,5 @@ $
 ВБР примет вид: $P_с (t) = 1 - product_(i=1)^10 (1 - P_i (t))$
 
 Численным методом вычислены показатели надёжности и приведены далее:
-- $overline(T)_с = 22255$
-- $T_gamma (90%) = 8788$
+- $overline(T)_с = 22255ч$
+- $T_gamma (90%) = 8788ч$
