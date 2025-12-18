@@ -1,0 +1,15 @@
+unity-build-ic:
+  type: Web
+  title: Single translation unit (jumbo/unity) builds 
+  author: D. Pol
+  url:
+    value: https://www.innercomputing.com/blog/single-translation-unit-builds 
+    date: 2025-12-06
+
+unity-build-austin:
+  type: Web
+  title: Working with Jumbo/Unity Builds (Single Translation Unit)
+  author: A. Morlan
+  url:
+    value: https://austinmorlan.com/posts/unity_jumbo_build/
+    date: 2025-12-06
