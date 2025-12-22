@@ -1,3 +1,14 @@
+commodore:
+  type: Book
+  title: "On the Edge: The Spectacular Rise and Fall of Commodore"
+  author: Bagnall B.
+  publisher:
+    name: Variant Press
+    location: Chicago
+  date: 2006
+  page-total: 561
+  serial-number: { isbn: 0973864907 }
+
 unity-build-ic:
   type: Web
   title: Single translation unit (jumbo/unity) builds 
@@ -13,3 +24,53 @@ unity-build-austin:
   url:
     value: https://austinmorlan.com/posts/unity_jumbo_build/
     date: 2025-12-06
+
+von-neumann-arch:
+  type: Book
+  title: "John von Neumann and the origins of modern computing"
+  author: Aspray W.
+  publisher: 
+    name: MIT Press
+    location: Cambridge
+  date: 1990
+  page-total: 376
+  serial-number: { isbn: "0262011212" }
+
+cmake:
+  type: Web
+  title: The Architecture of Open Source Applications
+  author:
+    - B. Hoffman
+    - K. Martin
+  url:
+    value: https://aosabook.org/en/v1/cmake.html
+    date: 2025-12-07
+
+fetch-content:
+  type: Web
+  title: FetchContent — CMake 4.2.0 Documentation
+  url:
+    value: https://cmake.org/cmake/help/latest/module/FetchContent.html
+    date: 2025-12-07
+
+just:
+  type: Web
+  title: Introduction | Just Programmer's Manual
+  url:
+    value: https://just.systems/man/en/
+    date: 2025-12-08
+
+raylib:
+  type: Web
+  title: raylib | A simple and easy-to-use library to enjoy videogames programming
+  url:
+    value: https://raylib.com
+    date: 2025-12-22
+
+cc65:
+  type: Web
+  title: cc65 — freeware C compiler for 6502 based systems
+  author: GitHub
+  url:
+    value: https://github.com/cc65/cc65
+    date: 2025-12-22
