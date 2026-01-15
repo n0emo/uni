@@ -1,3 +1,5 @@
+= Исходный код файла cpu.c <sup-cpu-c>
+
 ```c
 #include "cpu.h"
 #include "instructions.h"

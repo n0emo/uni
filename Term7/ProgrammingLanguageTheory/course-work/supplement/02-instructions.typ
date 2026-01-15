@@ -1,8 +1,10 @@
 #show figure: set block(breakable: true)
 #counter(figure.where(kind: table)).update(0)
 
+= Набор инструкций микропроцессора MOS 6502 <sup-instruction-set>
+
 #figure(
-  caption: [Матрица инструкций микропроцессора MOS6502],
+  caption: [матрица инструкций микропроцессора MOS6502],
   table(
     columns: 17,
     align: center,
@@ -306,6 +308,7 @@
 #pagebreak()
 
 #figure(
+  caption: [режимы адресации микропроцессора MOS6502],
   table(
     columns: (auto, auto, auto, auto, 1fr),
     align: (center, center, center, center, left),
@@ -354,5 +357,4 @@
     [`OPC $LL,Y`],
     [операнд — адрес в нулевой странице; эффективный адрес = адрес + Y без переноса],
   ),
-  caption: [Режимы адресации микропроцессора MOS6502],
 ) <table-addess-modes>

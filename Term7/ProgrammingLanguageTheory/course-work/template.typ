@@ -228,6 +228,7 @@
 #let text-size = 14pt
 #let text-indent = 12.5mm
 #let line-spacing = 1.15em
+#let list-marker = [--]
 
 #let conf(
   title: text,
@@ -262,7 +263,7 @@
     number-align: right,
   )
 
-  show list: set list(marker: [--])
+  show list: set list(marker: list-marker)
 
   page(assessment-list(
     author: author,
@@ -316,23 +317,30 @@
 
   show outline.entry.where(level: 3): none
 
-  show figure.where(
-    kind: table,
-  ): set figure.caption(position: top)
+  set figure.caption(separator: [ -- ])
+
+  show figure.where(kind: table): it => {
+    block[
+      #align(left, it.caption)
+      #it.body
+    ]
+  }
 
   show figure.where(kind: image): set figure(supplement: [Рисунок])
   show figure.where(kind: image): it => {
-    rect(stroke: 0.5pt, it.body)
-    it.caption
+    block[
+      #rect(stroke: 0.5pt, it.body)
+      #it.caption
+    ]
   }
 
-  set list(indent: text-indent)
-  set enum(indent: text-indent)
+  show enum.item: it => {
+    pad(left: text-indent - measure([#it.number]).width - enum.body-indent)[#it]
+  }
 
-  set bibliography(
-    style: "gost-r-705-2008-numeric",
-    title: "Библиографический список",
-  )
+  show list.item: it => {
+    pad(left: text-indent - measure([#list-marker]).width - list.body-indent)[#it]
+  }
 
   show raw: set par(leading: 0.5em)
 
@@ -344,7 +352,63 @@
 
   show raw: set text(size: 0.9em)
 
+  set bibliography(style: "gost-r-705-2008-numeric")
   set ref(supplement: none)
+  show cite: it => {
+    show ",": ", "
+    it
+  }
 
   doc
+}
+
+#let supplement(content) = {
+  counter(heading).update(0)
+  set page(numbering: none)
+
+  set text(size: 12pt)
+
+  let ru-alph(pattern) = {
+    let alphabet = "абвгдежзиклмнопрстуфхцчшщэюя".split("")
+    let f(i) = {
+      let letter = alphabet.at(i)
+      let str = ""
+      for char in pattern {
+        if char == "а" {
+          str += letter
+        } else if char == "А" {
+          str += upper(letter)
+        } else {
+          str += char
+        }
+      }
+      str
+    }
+    f
+  }
+
+  set heading(numbering: ru-alph("А"), outlined: false)
+  show heading.where(level: 2): set heading(numbering: none)
+  show heading.where(level: 3): set heading(numbering: none)
+
+  show heading.where(level: 1): it => {
+    set text(size: 12pt)
+    pagebreak()
+    [
+      #align(right)[ПРИЛОЖЕНИЕ #counter(heading).display()]
+      #align(center, it.body)
+    ]
+  }
+
+  show table: it => {
+    set text(size: 11pt)
+    set par(first-line-indent: 0em)
+    set list(indent: 0em)
+    set enum(indent: 0em)
+    it
+  }
+
+  show figure: set figure(numbering: num => counter(heading).display() + str(num))
+
+  content
 }

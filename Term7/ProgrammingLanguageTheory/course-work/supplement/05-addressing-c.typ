@@ -1,3 +1,5 @@
+= Исходный код файла addressing.c <sup-addressing-c>
+
 ```c
 #include "addressing.h"
 
