@@ -1,0 +1,123 @@
+webassembly-wiki:
+  type: Web
+  title: WebAssembly
+  url:
+    value: https://en.wikipedia.org/wiki/WebAssembly
+    date: 2026-01-11
+
+interface-types:
+  type: Web
+  title: WebAssembly Interface Types Explainer
+  url:
+    value: https://github.com/WebAssembly/interface-types/blob/main/proposals/interface-types/Explainer.md
+    date: 2026-01-11
+
+zhang-runtimes:
+  type: Article
+  title: 'Research on WebAssembly Runtimes: A Survey'
+  author:
+    - Y. Zhang
+    - и др.
+  date: 2025
+  parent:
+    type: Periodical
+    title: ACM Transactions on Software Engineering and Methodology
+    volume: 33
+
+wasi-docs:
+  type: Web
+  title: WASI (WebAssembly System Interface) Documentation
+  url:
+    value: https://wasi.dev/
+    date: 2026-01-11
+
+wasm-3-0:
+  type: Web
+  title: What's New in WebAssembly 3.0 and Why It Matters for Developers
+  parent:
+    type: Periodical
+    name: Medium
+  url:
+    value: https://medium.com/wasm-radar/whats-new-in-webassembly-3-0-and-why-it-matters-for-developers-db14b6fb0d6c
+    date: 2026-01-11
+
+component-model:
+  type: Web
+  title: The WebAssembly Component Model Documentation
+  url:
+    value: https://component-model.bytecodealliance.org/
+    date: 2026-01-11
+
+kjorveziroski-serverless:
+  type: Article
+  title: WebAssembly as an Enabler for Next Generation Serverless Computing
+  author:
+    - V. Kjorveziroski
+    - S. Filiposka
+  date: 2023
+  parent:
+    type: Periodical
+    title: Journal of Grid Computing
+    volume: 21
+  issue: 34
+
+wasi-node:
+  type: Web
+  title: WebAssembly System Interface (WASI)
+  url:
+    value: https://nodejs.org/api/wasi.html
+    date: 2026-01-11
+
+wasmtime-docs:
+  type: Web
+  title: Wasmtime Documentation
+  url:
+    value: https://docs.wasmtime.dev/
+    date: 2026-01-11
+
+wasm-production:
+  type: Web
+  title: You are already using Wasm in production
+  author: Fermyon
+  url:
+    value: https://dev.to/fermyon/you-are-already-using-wasm-in-production-92k
+    date: 2026-01-11
+
+wasm-cloud:
+  type: Web
+  title: 'WebAssembly is Eating the Cloud: Why Devs Should Care'
+  url:
+    value: https://dzone.com/articles/webassembly-is-eating-the-cloud-why-devs-should-ca
+    date: 2026-01-11
+
+shopify-case:
+  type: Web
+  title: Shopify Case Study
+  url:
+    value: https://www.cloudflare.com/case-studies/shopify/
+    date: 2026-01-11
+
+wasi-status:
+  type: Web
+  title: 'WASI and the WebAssembly Component Model: Current Status'
+  url:
+    value: https://eunomia.dev/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/
+    date: 2026-01-11
+
+fastly-datasheet:
+  type: Web
+  title: Fastly Compute Edge Datasheet
+  url:
+    value: https://www.fastly.com/resources/datasheets/edge-compute/fastly-compute
+    date: 2026-01-11
+
+colosi-serverless:
+  type: Article
+  title: 'Serverless Everywhere: A Comparative Analysis of WebAssembly Workflows Across Browser, Edge, and Cloud'
+  author:
+    - M. Colosi
+    - и др.
+  date: 2024
+  url:
+    value: https://arxiv.org/abs/2512.04089
+    date: 2026-01-11
