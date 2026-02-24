@@ -1,0 +1,22 @@
+_default: build-all
+
+watch num:
+    @mkdir -p build
+    typst watch \
+        --root . \
+        {{ ("lab-" + num) / "lab.typ" }} \
+        {{ "build" / ("lab-" + num + ".pdf" ) }}
+
+build num:
+    @mkdir -p build
+    typst compile \
+        --root . \
+        {{ ("lab-" + num) / "lab.typ" }} \
+        {{ "build" / ("lab-" + num + ".pdf" ) }}
+
+[parallel]
+build-all: \
+    (build "1") \
+    (build "2") \
+    (build "3") \
+    (build "4")
