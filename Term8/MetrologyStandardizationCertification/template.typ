@@ -41,7 +41,7 @@
         #underline(" " * 50) \
         (дата, подпись)
     ]],
-    grid.cell[#align(right)[Шефнер Альберт]],
+    grid.cell[#align(right)[А. Шефнер]],
     grid.cell[
       Проверил: \
       доц. каф. "ИВС"
@@ -58,7 +58,7 @@
 
 #let text-size = 14pt
 #let text-indent = 12.5mm
-#let line-spacing = 1.15em
+#let line-spacing = 1em
 #let list-marker = [--]
 
 #let conf(
