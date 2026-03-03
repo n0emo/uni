@@ -34,12 +34,12 @@
     columns: (1.3fr, 0.7fr, 1fr),
     rows: (100pt, 40pt),
     grid.cell[#align(left)[
-        Выполнил: \
-        Студент группы ИВБ-211
+      Выполнил: \
+      Студент группы ИВБ-211
     ]],
     grid.cell[#align(center)[
-        #underline(" " * 50) \
-        (дата, подпись)
+      #underline(" " * 50) \
+      (дата, подпись)
     ]],
     grid.cell[#align(right)[Шефнер Альберт]],
     grid.cell[
@@ -47,8 +47,8 @@
       проф. каф. "ИВС"
     ],
     grid.cell[#align(center)[
-        #underline(" " * 50) \
-        (дата, подпись)
+      #underline(" " * 50) \
+      (дата, подпись)
     ]],
     grid.cell[#align(right)[Д.М. Хетчиков]],
   )
@@ -56,7 +56,7 @@
   align(center + bottom)[Санкт-Петербург \ 2025]
 }
 
-#let text-size = 14pt
+#let text-size = 12pt
 #let text-indent = 12.5mm
 #let line-spacing = 1.15em
 #let list-marker = [--]
@@ -156,7 +156,9 @@
   }
 
   show list.item: it => {
-    pad(left: text-indent - measure([#list-marker]).width - list.body-indent)[#it]
+    pad(
+      left: text-indent - measure([#list-marker]).width - list.body-indent,
+    )[#it]
   }
 
   show raw: set par(leading: 0.5em)
@@ -225,7 +227,9 @@
     it
   }
 
-  show figure: set figure(numbering: num => counter(heading).display() + str(num))
+  show figure: set figure(numbering: num => (
+    counter(heading).display() + str(num)
+  ))
 
   content
 }
