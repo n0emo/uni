@@ -21,8 +21,6 @@
     *ЛАБОРАТОРНАЯ РАБОТА №#number*
 
     *"#title"*
-
-    Вариант 13
   ]
 
   linebreak()
@@ -41,7 +39,7 @@
       #underline(" " * 50) \
       (дата, подпись)
     ]],
-    grid.cell[#align(right)[Шефнер Альберт]],
+    grid.cell[#align(right)[А. Шефнер]],
     grid.cell[
       Проверил: \
       проф. каф. "ИВС"
@@ -53,7 +51,7 @@
     grid.cell[#align(right)[Д.М. Хетчиков]],
   )
 
-  align(center + bottom)[Санкт-Петербург \ 2025]
+  align(center + bottom)[Санкт-Петербург \ 2026]
 }
 
 #let text-size = 12pt
