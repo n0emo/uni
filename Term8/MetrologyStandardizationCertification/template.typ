@@ -53,7 +53,7 @@
     grid.cell[#align(right)[А.М. Барановский]],
   )
 
-  align(center + bottom)[Санкт-Петербург \ 2025]
+  align(center + bottom)[Санкт-Петербург \ 2026]
 }
 
 #let text-size = 14pt
