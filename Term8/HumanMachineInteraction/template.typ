@@ -159,8 +159,6 @@
     )[#it]
   }
 
-  show raw: set par(leading: 0.5em)
-
   set page(
     header: [
       #counter(footnote).update(0)
