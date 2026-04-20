@@ -2,19 +2,12 @@
 #import "@preview/cetz-plot:0.1.3": plot
 #import "@preview/oxifmt:1.0.0": strfmt
 
-#import "template.typ": conf
+#import "common.typ": report
 
-#show: doc => conf(
-  number: [3],
+#show: report.with(
   title: [Расчёт единичных и комплексных показателей надёжности],
-  variant: [Вариант 16],
-  department: [Информационные и вычислительные системы],
-  discipline: [Надёжность информационных систем],
-  author: [А. Шефнер],
-  author_post: [студент группы ИВБ-211],
-  teacher: [Е.Н. Шаповалов],
-  teacher_post: [к.т.н., доцент кафедры "ИВС"],
-  doc: doc,
+  number: 3,
+  variant: 16,
 )
 
 // Calculations
@@ -39,17 +32,25 @@
   lambdas.zip(times).map(((l, t)) => l * t / total-lambda).reduce(add)
 }
 
-#let recovery-coeff(lambdas) = 1 / weighted-recovery-time(lambdas, recovery-times)
+#let recovery-coeff(lambdas) = (
+  1 / weighted-recovery-time(lambdas, recovery-times)
+)
 
 #let gamma-time(g, l) = -calc.ln(g) / l
 
 #let ready-coeff(l, t) = calc.exp(-l * t)
 #let ready-coeff-avg(l, tn) = (1 - calc.exp(-l * tn)) / (l * tn)
-#let ready-coeff-recov(l, m, t) = m / (l + m) + (l / (l + m)) * calc.exp(-(l + m) * t)
-#let ready-coeff-recov-avg(l, m, t) = m / (l + m) * (1 + (l) / (m * t * (l + m)))
+#let ready-coeff-recov(l, m, t) = (
+  m / (l + m) + (l / (l + m)) * calc.exp(-(l + m) * t)
+)
+#let ready-coeff-recov-avg(l, m, t) = (
+  m / (l + m) * (1 + (l) / (m * t * (l + m)))
+)
 
 #let oper-ready-coeff(l, t) = ready-coeff-avg(l, t) * calc.exp(-l * t)
-#let oper-ready-coeff-recov(l, m, t) = ready-coeff-recov-avg(l, m, t) * calc.exp(-l * t)
+#let oper-ready-coeff-recov(l, m, t) = (
+  ready-coeff-recov-avg(l, m, t) * calc.exp(-l * t)
+)
 
 #let ready-coeff-plot-opts = (
   size: (13, 5),
@@ -73,7 +74,7 @@
 
 // Text body
 
-= Задание 
+= Задание
 
 == Цель работы
 
@@ -278,10 +279,10 @@ $
 )
 
 $
-       Lambda_"сд" & = sum_(i=1)^4 lambda_(д, i) = #{ lambda-improved.reduce(add) } dot rhour \
-            T_"сд" & = frac(1, Lambda) = #{ calc.round(1 / lambda-improved.reduce(add), digits: 5) } dot "час" \
+  Lambda_"сд" & = sum_(i=1)^4 lambda_(д, i) = #{ lambda-improved.reduce(add) } dot rhour \
+  T_"сд" & = frac(1, Lambda) = #{ calc.round(1 / lambda-improved.reduce(add), digits: 5) } dot "час" \
   overline(T)_"вд" & = sum_(i=1)^4 overline(t)_(в, i) dot frac(lambda_(д, i), Lambda_"сд")
-                     = #improved-recovery-time hour
+  = #improved-recovery-time hour
 $
 
 Можно сделать вывод, что система после даработки стала значительно надёжнее. Несмотря на то, что время
@@ -417,8 +418,16 @@ $
         (
           [#n],
           [#t],
-          [#strfmt("{:.6e}", ready-coeff-recov(lambda-sum, recovery-coeff(lambda-base), t))],
-          [#strfmt("{:.6e}", ready-coeff-recov-avg(lambda-sum, recovery-coeff(lambda-base), t))],
+          [#strfmt("{:.6e}", ready-coeff-recov(
+            lambda-sum,
+            recovery-coeff(lambda-base),
+            t,
+          ))],
+          [#strfmt("{:.6e}", ready-coeff-recov-avg(
+            lambda-sum,
+            recovery-coeff(lambda-base),
+            t,
+          ))],
         )
       })
       .flatten(),
@@ -443,8 +452,16 @@ $
         (
           [#n],
           [#t],
-          [#strfmt("{:.6e}", ready-coeff-recov(lambda-improved-sum, recovery-coeff(lambda-improved), t))],
-          [#strfmt("{:.6e}", ready-coeff-recov-avg(lambda-improved-sum, recovery-coeff(lambda-improved), t))],
+          [#strfmt("{:.6e}", ready-coeff-recov(
+            lambda-improved-sum,
+            recovery-coeff(lambda-improved),
+            t,
+          ))],
+          [#strfmt("{:.6e}", ready-coeff-recov-avg(
+            lambda-improved-sum,
+            recovery-coeff(lambda-improved),
+            t,
+          ))],
         )
       })
       .flatten(),
@@ -498,8 +515,16 @@ $K_"ог" (t) = overline(K)_г (t) dot P_(accent(T, hat)_с)(t)$
       .map(t => {
         (
           [$t=#t$],
-          [#strfmt("{:.5e}", oper-ready-coeff-recov(lambda-sum, recovery-coeff(lambda-base), t))],
-          [#strfmt("{:.5e}", oper-ready-coeff-recov(lambda-improved-sum, recovery-coeff(lambda-improved), t))],
+          [#strfmt("{:.5e}", oper-ready-coeff-recov(
+            lambda-sum,
+            recovery-coeff(lambda-base),
+            t,
+          ))],
+          [#strfmt("{:.5e}", oper-ready-coeff-recov(
+            lambda-improved-sum,
+            recovery-coeff(lambda-improved),
+            t,
+          ))],
         )
       })
       .flatten(),
@@ -524,27 +549,31 @@ $
 регламентных работ приведена на таблице
 
 #let service-params = (
-  "ГТО": (t-work: 365*24, t-service: 7*24*3),
-  "ГТО+ПГТО": (t-work: 365*24/2, t-service: 7*24*5),
-   "ГТО+ПГТО+КвТО": (t-work: 365*24/4, t-service: 7*24*6),
+  "ГТО": (t-work: 365 * 24, t-service: 7 * 24 * 3),
+  "ГТО+ПГТО": (t-work: 365 * 24 / 2, t-service: 7 * 24 * 5),
+  "ГТО+ПГТО+КвТО": (t-work: 365 * 24 / 4, t-service: 7 * 24 * 6),
 )
 
 #figure(
   table(
     columns: 3,
     [$T_"рр"$], [$K_"ти"$ исх. системы], [$K_"ти"$ дор. системы],
-    ..("ГТО", "ГТО+ПГТО", "ГТО+ПГТО+КвТО").map(kind => {
-      let t-w = service-params.at(kind).t-work
-      let t-s = service-params.at(kind).t-service
+    ..("ГТО", "ГТО+ПГТО", "ГТО+ПГТО+КвТО")
+      .map(kind => {
+        let t-w = service-params.at(kind).t-work
+        let t-s = service-params.at(kind).t-service
 
-      let t-rec-base = 1 / weighted-recovery-time(lambda-base, recovery-times)
-      let t-rec-impr = 1 / weighted-recovery-time(lambda-improved, recovery-times)
+        let t-rec-base = 1 / weighted-recovery-time(lambda-base, recovery-times)
+        let t-rec-impr = (
+          1 / weighted-recovery-time(lambda-improved, recovery-times)
+        )
 
-      let k-base = t-w / (t-w + t-rec-base + t-s)
-      let k-impr = t-w / (t-w + t-rec-impr + t-s)
+        let k-base = t-w / (t-w + t-rec-base + t-s)
+        let k-impr = t-w / (t-w + t-rec-impr + t-s)
 
-      ([#kind], [#k-base], [#k-impr])
-    }).flatten()
+        ([#kind], [#k-base], [#k-impr])
+      })
+      .flatten(),
   ),
-  caption: [Коэффициент технического использования]
+  caption: [Коэффициент технического использования],
 )

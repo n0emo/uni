@@ -1,16 +1,12 @@
-#import "template.typ": conf
+#import "common.typ": report
 
-#show: doc => conf(
-  number: [8],
-  title: [Рассчет ошибок первого и второго рода при планировании выборочных испытаний],
-  variant: [Вариант 16],
-  department: [Информационные и вычислительные системы],
-  discipline: [Надёжность информационных систем],
-  author: [А. Шефнер],
-  author_post: [студент группы ИВБ-211],
-  teacher: [Е.Н. Шаповалов],
-  teacher_post: [к.т.н., доцент кафедры "ИВС"],
-  doc: doc,
+#show: report.with(
+  number: 8,
+  title: [
+    Рассчет ошибок первого и второго рода \
+    при планировании выборочных испытаний
+  ],
+  variant: 16,
 )
 
 = Ход работы
@@ -45,37 +41,53 @@
     // Used to account for big differences between text widths
     let width_diff = calc.abs(measure_right.width - measure_left.width)
 
-    let inner_height = measure_right.height + measure_left.height + width_diff / 10
+    let inner_height = (
+      measure_right.height + measure_left.height + width_diff / 10
+    )
     let inner_width = measure_right.width + measure_left.width
 
     box(width: inner_width, height: inner_height) // Empty box to ensure minimal size
 
     if start == "bottom" {
       place(bottom + right, padded_right)
-      place(top + left, line(start: (0%, 100%), end: (100%, 0%), stroke: stroke))
+      place(top + left, line(
+        start: (0%, 100%),
+        end: (100%, 0%),
+        stroke: stroke,
+      ))
       place(top + left, padded_left)
     } else if start == "top" {
       place(top + right, padded_right)
       place(top + left, line(end: (100%, 100%), stroke: stroke))
       place(bottom + left, padded_left)
     } else {
-      panic("Unhandled value '" + start + "' for start parameter, expected 'top' or 'bottom'")
+      panic(
+        "Unhandled value '"
+          + start
+          + "' for start parameter, expected 'top' or 'bottom'",
+      )
     }
   }
   table.cell(content, ..kwargs, inset: 0pt, breakable: false)
 }
 
-Исходные задания для текущего задания приведены далее: \
-$s_1 = #s1$ \
-$s_2 = #s2$ \
-$N = #N$ \
-$c = #c$ \
-$alpha = #a$ \
+Исходные задания для текущего задания приведены далее:
+
+$s_1 = #s1$
+
+$s_2 = #s2$
+
+$N = #N$
+
+$c = #c$
+
+$alpha = #a$
+
 $beta = #b$
 
 == Решение
 
-Результаты вычислений вероятностей возможных исходов испытаний по закону 
+Результаты вычислений вероятностей возможных исходов испытаний по закону
 биномиального распределения для разных $s$ и $k$ представлены на таблице
 #ref(label("table-binomial"), supplement: none).
 
@@ -101,7 +113,9 @@ $beta = #b$
 ) <table-binomial>
 
 #let p-less(s, c) = {
-  range(c + 1).map(c => combs(c, N) * calc.pow(s, c) * calc.pow(1 - s, N - c)).sum()
+  range(c + 1)
+    .map(c => combs(c, N) * calc.pow(s, c) * calc.pow(1 - s, N - c))
+    .sum()
 }
 
 Вероятности допустить ошибки первого и второго рода показаны на таблице
@@ -121,12 +135,12 @@ $beta = #b$
     [$beta$],
     ..c.map(c => { [#calc.round(p-less(s2, c), digits: 4)] }).flatten(),
   ),
-  caption: [Ошибки первого и второго рода]
+  caption: [Ошибки первого и второго рода],
 ) <table-errors>
 
 == Вывод
 
-К значениям ошибок $alpha и beta $ обычно применяют жесткие требования: их
+К значениям ошибок $alpha и beta$ обычно применяют жесткие требования: их
 допустимые значения не должны превышать $0.1$. Полученные в примере значения
 ошибок не подходят под требования. Это свидетельствует о некачественности
 выборки.

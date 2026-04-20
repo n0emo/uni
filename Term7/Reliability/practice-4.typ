@@ -1,18 +1,11 @@
 #import "@preview/oxifmt:1.0.0": strfmt
 
-#import "template.typ": conf
+#import "common.typ": report
 
-#show: doc => conf(
-  number: [4],
+#show: report.with(
   title: [Анализ надёжности функционального узла],
-  variant: [Вариант 16],
-  department: [Информационные и вычислительные системы],
-  discipline: [Надёжность информационных систем],
-  author: [А. Шефнер],
-  author_post: [студент группы ИВБ-211],
-  teacher: [Е.Н. Шаповалов],
-  teacher_post: [к.т.н., доцент кафедры "ИВС"],
-  doc: doc,
+  number: 4,
+  variant: 16,
 )
 
 == Цель занятия
@@ -88,7 +81,7 @@
 #figure(
   table(
     columns: (auto, auto, auto, auto, auto, auto, auto, 1fr),
-    align: center+horizon,
+    align: center + horizon,
 
     table.cell(rowspan: 2)[Усл.],
     table.cell(rowspan: 2)[$t_0$],
@@ -102,7 +95,9 @@
     ..elements
       .map(e => {
         let temp-coef = if e.t <= 20 { 1.0 } else { 1.5 }
-        let use-coef = if e.c == 1 { 1.0 } else if e.c == 3 { 1.1 } else if e.c == 7 { 7.0 } else { 1.0 }
+        let use-coef = if e.c == 1 { 1.0 } else if e.c == 3 { 1.1 } else if (
+          e.c == 7
+        ) { 7.0 } else { 1.0 }
         let load-coef = if e.lname == "низкая" { 1.0 } else { 1.5 }
 
         let lambda = temp-coef * use-coef * load-coef * 1e-7 * 2
@@ -115,10 +110,12 @@
           table.cell(rowspan: 3)[#strfmt("{:.3e}", lambda)],
           table.cell(rowspan: 3)[#int(1 / lambda)],
           table.cell(rowspan: 3)[#int(w-90)],
-          ..work-times.map(t => (
-            [#t],
-            [#calc.round(calc.exp(-lambda * t), digits: 7)]
-          )).flatten(),
+          ..work-times
+            .map(t => (
+              [#t],
+              [#calc.round(calc.exp(-lambda * t), digits: 7)],
+            ))
+            .flatten(),
         )
       })
       .flatten(),
