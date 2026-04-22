@@ -1,0 +1,32 @@
+configure:
+    cmake -S . -B build -G Ninja
+
+build:
+    cmake --build build
+
+report num: report-folder
+    typst compile \
+        --root . \
+        '{{ "lab-" + num / "report.typ" }}' \
+        '{{ "reports" / "ШефнерА C ЛР№" + num + ".pdf" }}'
+
+report-watch num: report-folder (report num) (report-open num)
+    typst watch \
+        --root . \
+        '{{ "lab-" + num / "report.typ" }}' \
+        '{{ "reports" / "ШефнерА C ЛР№" + num + ".pdf" }}'
+
+[linux]
+report-open num:
+    xdg-open '{{ "reports" / "ШефнерА C ЛР№" + num + ".pdf" }}'
+
+[macos]
+report-open num:
+    open '{{ "reports" / "ШефнерА C ЛР№" + num + ".pdf" }}'
+
+[parallel]
+report-all: (report "1") (report "2") (report "3") (report "4") (report "5") (report "6") (report "7")
+
+[private]
+report-folder:
+    mkdir -p reports
