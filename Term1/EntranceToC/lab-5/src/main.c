@@ -1,13 +1,13 @@
-#include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define m 4
 #define n 3
 
 int task_1();
 int task_2();
-double w_function(double const array[], int length);
-double even_rows_product(double matrix[][n], int *count_ptr);
+double w_function(double const array[], size_t length);
+double even_rows_product(double matrix[][n], size_t *count_ptr);
 
 int main()
 {
@@ -23,16 +23,17 @@ int main()
     case 2:
         return task_2();
     default:
-        return EAGAIN; // try again
+        fprintf(stderr, "Invalid question number\n");
+        return EXIT_FAILURE;
     }
 }
 
 int task_1()
 {
-    int length;
+    size_t length;
 
     printf("Enter array elements count:\n");
-    scanf("%i", &length);
+    scanf("%zu", &length);
 
     double array[length];
     printf("Enter array numbers:\n");
@@ -60,18 +61,18 @@ int task_2()
     }
 
     double product;
-    int count;
+    size_t count;
     product = even_rows_product(matrix, &count);
-    printf("Answer: product = %lf, count = %d\n", product, count);
+    printf("Answer: product = %lf, count = %zu\n", product, count);
 
     return 0;
 }
 
-double w_function(double const array[], int length)
+double w_function(double const array[], size_t length)
 {
-    double answer = 0;
+    double answer = 0.0;
 
-    for (int i = 0; i < length; ++i)
+    for (size_t i = 0; i < length; ++i)
     {
         answer += array[i] * array[i] / 2;
     }
@@ -79,14 +80,14 @@ double w_function(double const array[], int length)
     return answer;
 }
 
-double even_rows_product(double matrix[][n], int *count_ptr)
+double even_rows_product(double matrix[][n], size_t *count_ptr)
 {
     *count_ptr = 0;
     double product = 1;
 
-    for (int i = 1; i < m; i += 2)
+    for (size_t i = 1; i < m; i += 2)
     {
-        for (int j = 0; j < n; j++)
+        for (size_t j = 0; j < n; j++)
         {
             product *= matrix[i][j];
             (*count_ptr)++;
