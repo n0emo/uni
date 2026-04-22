@@ -1,7 +1,7 @@
 #import "../common.typ": *
 
 #show: report.with(
-  number: "4",
+  number: "5",
   title: [Массивы и указатели (накопление), часть 1],
 )
 

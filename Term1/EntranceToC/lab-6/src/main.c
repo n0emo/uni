@@ -1,5 +1,5 @@
-#include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define n1 10
 #define n2 4
@@ -14,7 +14,7 @@ void get_elements(int *array, int *indices_array, int *count, int array_length, 
 
 int main()
 {
-    int question_number;
+    int question_number = 0;
 
     printf("Enter question number (1 or 2):\n");
     scanf("%i", &question_number);
@@ -26,13 +26,18 @@ int main()
     case 2:
         return task2();
     default:
-        return EAGAIN;
+        fprintf(stderr, "Invalid question number\n");
+        return EXIT_FAILURE;
     }
 }
 
 int task1()
 {
-    int k = 4, q = 5, count, vectorB[n1] = {1, 5, 3, 4, 7, 4, 2, 2, 6, 8}, indicesArray[n1];
+    int k = 4;
+    int q = 5;
+    int count = 0;
+    int vectorB[n1] = {1, 5, 3, 4, 7, 4, 2, 2, 6, 8};
+    int indicesArray[n1];
 
     get_indices(vectorB, indicesArray, q, k, &count, n1);
 
@@ -47,7 +52,12 @@ int task1()
 
 int task2()
 {
-    int matrixA[n2][m2] = {{1, 4, 3, 4}, {2, 6, 4, 5}, {5, 3, 4, 5}, {3, 4, 2, 4}};
+    int matrixA[n2][m2] = {
+        {1, 4, 3, 4},
+        {2, 6, 4, 5},
+        {5, 3, 4, 5},
+        {3, 4, 2, 4},
+    };
     int maxElement;
 
     max((int *)matrixA, &maxElement, n2 * m2);
