@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#define m 20
-#define n 50
+#define M 20
+#define N 30
 
 int main()
 {
-    int arr[m][n];
+    int arr[M][N];
 
-    for (int i = 0; i < m; i++, printf("\n"))
+    for (int i = 0; i < M; i++, printf("\n"))
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < N; j++)
         {
             printf("%2i", (arr[i][j] = i % 2 == j % 2));
         }
