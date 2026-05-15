@@ -12,14 +12,14 @@
   specialization: specialization,
 )
 
-#include "./chapters/0-introduction.typ"
-#include "./chapters/1-analysis.typ"
-#include "./chapters/2-technologies.typ"
-#include "./chapters/3-architecture.typ"
-#include "./chapters/4-runtime.typ"
-#include "./chapters/5-sdk.typ"
-#include "./chapters/6-approbation.typ"
-#include "./chapters/7-economy.typ"
-#include "./chapters/8-labor-protection.typ"
-#include "./chapters/9-conclusion.typ"
+#include "./chapters/00-introduction.typ"
+#include "./chapters/01-analysis.typ"
+#include "./chapters/02-technologies.typ"
+#include "./chapters/03-architecture.typ"
+#include "./chapters/04-runtime.typ"
+#include "./chapters/05-sdk.typ"
+#include "./chapters/06-approbation.typ"
+#include "./chapters/07-economy.typ"
+#include "./chapters/08-labor-protection.typ"
+#include "./chapters/99-conclusion.typ"
 #bibliography("bibliography.yaml")
