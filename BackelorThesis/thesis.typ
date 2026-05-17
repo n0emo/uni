@@ -23,3 +23,4 @@
 #include "./chapters/08-labor-protection.typ"
 #include "./chapters/99-conclusion.typ"
 #bibliography("bibliography.yaml")
+#appendixes(include "./appendixes.typ")
