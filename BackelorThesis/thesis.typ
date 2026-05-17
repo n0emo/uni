@@ -12,6 +12,7 @@
   specialization: specialization,
 )
 
+#include "./chapters/00-definitions.typ"
 #include "./chapters/00-introduction.typ"
 #include "./chapters/01-analysis.typ"
 #include "./chapters/02-technologies.typ"
