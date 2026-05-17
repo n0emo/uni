@@ -37,7 +37,11 @@
 - serverless;
 - WASM.
 
-=== Анализ существующих платформа FaaS
+https://dspace.mit.edu/handle/1721.1/79811
+
+=== Анализ существующих платформ FaaS
+
+https://dspace.mit.edu/handle/1721.1/79811
 
 === Проблема "холодного старта"
 
