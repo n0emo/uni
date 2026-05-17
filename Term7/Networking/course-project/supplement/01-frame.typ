@@ -94,7 +94,16 @@
 #figure(
   table(
     columns: (0.27fr, 0.12fr, 0.12fr, 1fr, 0.23fr, 0.05fr, 0.28fr),
-    align: (center, center, center, center, left, center + horizon, center + horizon, center),
+    align: (
+      center,
+      center,
+      center,
+      center,
+      left,
+      center + horizon,
+      center + horizon,
+      center,
+    ),
     fill: (x, y) => if y == 0 { luma(220) } else { white },
     stroke: 0.5pt + black,
 

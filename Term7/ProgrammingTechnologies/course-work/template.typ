@@ -339,7 +339,9 @@
   }
 
   show list.item: it => {
-    pad(left: text-indent - measure([#list-marker]).width - list.body-indent)[#it]
+    pad(
+      left: text-indent - measure([#list-marker]).width - list.body-indent,
+    )[#it]
   }
 
   show raw: set par(leading: 0.5em)
@@ -408,7 +410,9 @@
     it
   }
 
-  show figure: set figure(numbering: num => counter(heading).display() + str(num))
+  show figure: set figure(numbering: num => (
+    counter(heading).display() + str(num)
+  ))
 
   content
 }

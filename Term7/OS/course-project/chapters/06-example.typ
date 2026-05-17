@@ -75,5 +75,5 @@
 
 #figure(
   image("/assets/curl.png"),
-  caption: [CURL-запрос к серверу]
+  caption: [CURL-запрос к серверу],
 ) <example-curl>

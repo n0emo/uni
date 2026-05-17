@@ -81,7 +81,7 @@ Windows Socket 2 также появилась функция для отпра�
   bool mew_fs_read_file_to_sb(const char *path, StringBuilder *asb);
   ```,
   kind: image,
-  caption: [Функции работы с файловой системой]
+  caption: [Функции работы с файловой системой],
 ) <fs-c>
 
 == 4.3 Потоки
@@ -130,13 +130,13 @@ MewMutex будет pthread_mutex_t, для Windows -- CRITICAL_SECTION.
   MewThreadError mew_mutex_unlock(MewMutex mtx);
   ```,
   kind: image,
-  caption: [Функции работы с мьютексами]
+  caption: [Функции работы с мьютексами],
 ) <mutex>
 
 === Примитив условной переменной
 
 @cond показывает набор функций для работы с условными переменными. Для POSIX
- систем MewCond будет pthread_cond_t, для Windows -- CONDITION_VARIABLE.
+систем MewCond будет pthread_cond_t, для Windows -- CONDITION_VARIABLE.
 
 #figure(
   ```c
@@ -149,5 +149,5 @@ MewMutex будет pthread_mutex_t, для Windows -- CRITICAL_SECTION.
   MewThreadError mew_cond_notify_all(MewCond cond);
   ```,
   kind: image,
-  caption: [Функции работы с мьютексами]
+  caption: [Функции работы с мьютексами],
 ) <cond>

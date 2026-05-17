@@ -27,7 +27,7 @@
   } Allocator;
   ```,
   kind: image,
-  caption: [Интерфейс Allocator]
+  caption: [Интерфейс Allocator],
 ) <allocator-interface>
 
 Библиотека предоставляет две реализации данного интерфейса:
@@ -37,7 +37,7 @@
 Линейный аллокатор позволяет освобождать множество выделений за раз.
 Код реализации представлен в приложении @sup-arena.
 Подробнее о линейном аллокаторе и других стратегиях выделения памяти можно
-прочитать в статье В. Балуна@allocators. 
+прочитать в статье В. Балуна@allocators.
 
 Помимо использования предоставленных
 реализаций интерфейса, пользователь может реализовать простой интерфейс для
@@ -62,24 +62,24 @@
 
 #figure(
   ```c
-typedef struct MewVector {
-    Allocator alloc;
-    char *data;
-    usize capacity;
-    usize count;
-    usize element_size;
-} MewVector;
+  typedef struct MewVector {
+      Allocator alloc;
+      char *data;
+      usize capacity;
+      usize count;
+      usize element_size;
+  } MewVector;
 
-void mew_vec_init(MewVector *vec, Allocator alloc, size_t element_size);
-void mew_vec_destroy(MewVector *vec);
-void mew_vec_reserve(MewVector *vec, size_t new_capacity);
-void *mew_vec_get(MewVector *vec, size_t index);
-void mew_vec_push(MewVector *vec, const void *element);
-void mew_vec_insert_at(MewVector *vec, const void *element, size_t index);
-void mew_vec_delete_at(MewVector *vec, size_t index);
+  void mew_vec_init(MewVector *vec, Allocator alloc, size_t element_size);
+  void mew_vec_destroy(MewVector *vec);
+  void mew_vec_reserve(MewVector *vec, size_t new_capacity);
+  void *mew_vec_get(MewVector *vec, size_t index);
+  void mew_vec_push(MewVector *vec, const void *element);
+  void mew_vec_insert_at(MewVector *vec, const void *element, size_t index);
+  void mew_vec_delete_at(MewVector *vec, size_t index);
   ```,
   kind: image,
-  caption: [Объявление MewVector]
+  caption: [Объявление MewVector],
 ) <mewvector>
 
 Реализация MewVector представлена в приложении @sup-vector. Можно заметить
@@ -107,11 +107,11 @@ MewMap в качестве первого поля структуры. Тако�
   } MewMap;
   ```,
   kind: image,
-  caption: [Структура MewMap]
+  caption: [Структура MewMap],
 ) <mewmap>
 
 Для определения поведения необходимо реализовать "методы" интерфейса из
-таблицы виртуальных функций, показанной на рисунке 
+таблицы виртуальных функций, показанной на рисунке
 #ref(label("mewmap-vtable"), supplement: none).
 
 #figure(
@@ -131,7 +131,7 @@ MewMap в качестве первого поля структуры. Тако�
   } MewMapFuncTable;
   ```,
   kind: image,
-  caption: [Таблица виртуальных функций MewMap]
+  caption: [Таблица виртуальных функций MewMap],
 ) <mewmap-vtable>
 
 Разрабатываемая в рамках проекта библиотека предлагает реализации абстрактного
@@ -145,7 +145,7 @@ HTML-страниц очень полезен обстоятельный наб�
 Библиотека предлагает структуры данных StringView и StringBuilder, а также
 функции для работы и конвертации C-строк, представлений строк и строковых
 построителей. Пример использования этих функций можно увидеть в отрывке кода
-генерации списка классов HTML-элемента, представленного на рисунке 
+генерации списка классов HTML-элемента, представленного на рисунке
 #ref(label("strings"), supplement: none).
 
 #figure(
@@ -165,5 +165,5 @@ HTML-страниц очень полезен обстоятельный наб�
   sb_append_cstr(&html->sb, "\"");
   ```,
   kind: image,
-  caption: [Пример использования StringView, StringBuilder и MewVec]
+  caption: [Пример использования StringView, StringBuilder и MewVec],
 ) <strings>

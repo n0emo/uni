@@ -91,7 +91,7 @@ void cpu_store_accumulator(Cpu *cpu, uint16_t operand, uint8_t value) {
     cpu->A = value;
 }
 
-void cpu_store_immediate(Cpu *cpu, uint16_t operand, uint8_t value) { 
+void cpu_store_immediate(Cpu *cpu, uint16_t operand, uint8_t value) {
     UNUSED3(cpu, operand, value);
 }
 
@@ -139,12 +139,12 @@ uint16_t cpu_address_absolute(Cpu *cpu, uint16_t operand) {
     return operand;
 }
 
-uint16_t cpu_address_absolute_x(Cpu *cpu, uint16_t operand) { 
-    return operand + cpu->X; 
+uint16_t cpu_address_absolute_x(Cpu *cpu, uint16_t operand) {
+    return operand + cpu->X;
 }
 
-uint16_t cpu_address_absolute_y(Cpu *cpu, uint16_t operand) { 
-    return operand + cpu->Y; 
+uint16_t cpu_address_absolute_y(Cpu *cpu, uint16_t operand) {
+    return operand + cpu->Y;
 }
 
 uint16_t cpu_address_accumulator(Cpu *cpu, uint16_t operand) {
@@ -162,8 +162,8 @@ uint16_t cpu_address_implied(Cpu *cpu, uint16_t operand) {
     return 0;
 }
 
-uint16_t cpu_address_indirect(Cpu *cpu, uint16_t operand) { 
-    return mem_read16(cpu->mem, operand); 
+uint16_t cpu_address_indirect(Cpu *cpu, uint16_t operand) {
+    return mem_read16(cpu->mem, operand);
 }
 
 uint16_t cpu_address_indirect_x(Cpu *cpu, uint16_t operand) {
@@ -195,7 +195,7 @@ uint16_t cpu_address_zeropage_x(Cpu *cpu, uint16_t operand) {
     return u16_lo(operand) + cpu->X;
 }
 
-uint16_t cpu_address_zeropage_y(Cpu *cpu, uint16_t operand) { 
+uint16_t cpu_address_zeropage_y(Cpu *cpu, uint16_t operand) {
     return u16_lo(operand) + cpu->Y;
 }
 

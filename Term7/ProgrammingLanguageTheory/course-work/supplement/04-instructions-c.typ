@@ -314,7 +314,7 @@ void cpu_sta(Cpu *cpu, Addressing addressing, uint16_t operand) {
     addressing.store(cpu, operand, cpu->A);
 }
 
-void cpu_stx(Cpu *cpu, Addressing addressing, uint16_t operand) { 
+void cpu_stx(Cpu *cpu, Addressing addressing, uint16_t operand) {
     addressing.store(cpu, operand, cpu->X);
 }
 

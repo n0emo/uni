@@ -11,11 +11,9 @@
     for char in pattern {
       if char == "а" {
         str += letter
-      }
-      else if char == "А" {
+      } else if char == "А" {
         str += upper(letter)
-      }
-      else {
+      } else {
         str += char
       }
     }

@@ -20,7 +20,7 @@ derive-макросы "Serialize" и "Deserialize" из пакета serde по�
   }
   ```,
   kind: image,
-  caption: [Объявление перечисления InfotabDeviceMessage]
+  caption: [Объявление перечисления InfotabDeviceMessage],
 ) <device-message>
 
 Полное определение типов вынесено в приложение @sup-schemas
@@ -46,7 +46,7 @@ derive-макросы "Serialize" и "Deserialize" из пакета serde по�
   }
   ```,
   kind: image,
-  caption: [Обработчик подключений /ws/infotab]
+  caption: [Обработчик подключений /ws/infotab],
 ) <ws-handler-func>
 
 ID устройства генерируется самим устройством на основе его аппаратных
@@ -63,8 +63,8 @@ Settings.Secure.ANDROID_ID. Подробнее об этом описано в �
 + *Регистрация в сервисе*: Зарегистрировать устройство в device_service с его
   каналом.
 + *Основной цикл*: Параллельно обрабатывать:
-   - входящие WS-сообщения от устройства (Close, Pong);
-   - исходящие команды из канала (Ping, DisplaySchedule).
+  - входящие WS-сообщения от устройства (Close, Pong);
+  - исходящие команды из канала (Ping, DisplaySchedule).
 + *Отключение*: При завершении — отправить закрывающий фрейм, отключить устройство
   от сервиса.
 
@@ -114,7 +114,7 @@ DataSource и изменяет поле data структуры приложен
   }
   ```,
   kind: image,
-  caption: [Метод App::process_events]
+  caption: [Метод App::process_events],
 ) <fn-process-events>
 
 Определение DataSource и логика работы с WebSocket подключением показана в

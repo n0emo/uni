@@ -8,7 +8,7 @@ WebAssembly Component Model расширяет базовый WebAssembly наб
 (WebAssembly Interface Types) @interface-types. Это позволяет компилятору
 проверять совместимость компонентов на этапе компоновки.
 
-В проекте wassel используется интерфейс wassel:plugin/http-plugin 
+В проекте wassel используется интерфейс wassel:plugin/http-plugin
 (рисунок @img-world), который определяет контракт между сервером и плагином.
 Плагин должен экспортировать функцию get-endpoints, возвращающую список пар
 путь-обработчик, а также реализовать функции-обработчики для каждого
@@ -39,7 +39,7 @@ WebAssembly Component Model расширяет базовый WebAssembly наб
 
       export http-plugin;
   }
-  ```
+  ```,
 ) <img-world>
 
 Сервер загружает WASM-компоненты через движок Wasmtime @wasmtime-docs, выбранный

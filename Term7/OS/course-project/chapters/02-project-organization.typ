@@ -28,7 +28,7 @@ translation unit)@unity-build-austin @unity-build-ic.
   #include "thrdpool.c"
   ```,
   kind: image,
-  caption: [Единственная единица трансляции библиотеки]
+  caption: [Единственная единица трансляции библиотеки],
 ) <all-c>
 
 Стоит отметить, что не обязательно подключать каждый файл библиотеки именно в src/all.c.
@@ -39,7 +39,7 @@ translation unit)@unity-build-austin @unity-build-ic.
 отдельного файла при традиционной модели сборки.
 
 Помимо упрощения процесса сборки, эта техника позволяет упростить и модель
-условной компиляции. Например, файл src/core/os.c (см. рисунок 
+условной компиляции. Например, файл src/core/os.c (см. рисунок
 #ref(label("core-os-c"), supplement: none)) подключает разные файлы
 реализации в зависимости от целевой ОС.
 
@@ -54,12 +54,12 @@ translation unit)@unity-build-austin @unity-build-ic.
       #include "os/socket_posix.c"
       #include "os/threads_posix.c"
   #endif
-  
+
   #include "os/threads.c"
   #include "os/utils.c"
   ```,
   kind: image,
-  caption: [Условная компиляция файлов для разных ОС]
+  caption: [Условная компиляция файлов для разных ОС],
 ) <core-os-c>
 
 == 2.2 Разработка CMake файлов
@@ -97,7 +97,7 @@ CMake в состав библиотеки значительно упрощае
   target_include_directories(mew PUBLIC ./include/)
   ```,
   kind: image,
-  caption: [CMakeLists.txt в корне проекта]
+  caption: [CMakeLists.txt в корне проекта],
 ) <cmakelists>
 
 Для использования разрабатываемой библиотеки пользователю будет достаточно

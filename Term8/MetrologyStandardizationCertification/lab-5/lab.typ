@@ -7,7 +7,7 @@
 #let list-marker = [--]
 
 #set page(
-    margin: (left: 30mm, right: 15mm, top: 20mm, bottom: 20mm),
+  margin: (left: 30mm, right: 15mm, top: 20mm, bottom: 20mm),
 )
 
 #set text(
@@ -34,41 +34,41 @@
 }
 
 #show heading.where(level: 1): it => {
-    set align(center)
-    set text(size: text-size)
-    set par(
-      spacing: line-spacing,
-    )
+  set align(center)
+  set text(size: text-size)
+  set par(
+    spacing: line-spacing,
+  )
 
-    pagebreak()
-    upper(it.body)
-  }
+  pagebreak()
+  upper(it.body)
+}
 
 #show heading.where(level: 2): it => {
-    set par(first-line-indent: (amount: text-indent, all: true))
-    it
-  }
+  set par(first-line-indent: (amount: text-indent, all: true))
+  it
+}
 
 #show heading.where(level: 3): it => {
-    set text(style: "italic", weight: "semibold")
-    set par(first-line-indent: (amount: text-indent, all: true))
-    it
-  }
+  set text(style: "italic", weight: "semibold")
+  set par(first-line-indent: (amount: text-indent, all: true))
+  it
+}
 
 #show outline.entry.where(level: 1): it => {
-    set text(weight: "bold")
-    upper(it)
-  }
+  set text(weight: "bold")
+  upper(it)
+}
 
 #show list: set list(marker: list-marker)
 
 #show figure.where(kind: image): set figure(supplement: [Рисунок])
 #show figure.where(kind: image): it => {
-    block[
-      #rect(stroke: 0.5pt, it.body)
-      #it.caption
-    ]
-  }
+  block[
+    #rect(stroke: 0.5pt, it.body)
+    #it.caption
+  ]
+}
 
 #show table: set par(leading: 0.5em)
 
@@ -76,22 +76,23 @@
 
 #title-page(
   number: 5,
-  title: [Разработка технического задания и требования к содержанию \ и оформлению]
+  title: [Разработка технического задания и требования к содержанию \ и оформлению],
 )
 
 #counter(page).update(0)
 
 #set page(
   footer: context [
-  #if counter(page).get().first() > 2 {
-    set align(center)
-    set text(12pt)
-    counter(page).display("1")
-  } else {
-    set par(leading: 0.5em)
-    align(center)[Санкт-Петербург \ 2026]
-  }
-])
+    #if counter(page).get().first() > 2 {
+      set align(center)
+      set text(12pt)
+      counter(page).display("1")
+    } else {
+      set par(leading: 0.5em)
+      align(center)[Санкт-Петербург \ 2026]
+    }
+  ],
+)
 
 #let title = context align(center)[
   "Wassel" -- расширяемый HTTP-сервер на основе \ WebAssembly-плагинов
@@ -105,7 +106,7 @@
   align(center)[
     Утвержден \
     А.В.0001-01 33-01-ЛУ
-  ]
+  ],
 )
 
 #linebreak()
@@ -324,7 +325,7 @@ CLI-инструмент (`wassel-cli`) должен обеспечивать с
       plugin.toml    — метаданные плагина
       plugin.wasm    — скомпилированный WASM-компонент
       data/          — рабочие данные плагина (создаётся автоматически)
-  ```
+  ```,
 ) <plugin-structure>
 
 Формат файла `plugin.toml` показан на рисунке @plugin-toml.
@@ -342,7 +343,7 @@ CLI-инструмент (`wassel-cli`) должен обеспечивать с
 
   [variables]
   base_url = "https://example.com"
-  ```
+  ```,
 ) <plugin-toml>
 
 Конфигурация сервера в файле `wassel.toml` показана на рисунке @wassel-toml.
@@ -353,7 +354,7 @@ CLI-инструмент (`wassel-cli`) должен обеспечивать с
   ```toml
   host = "0.0.0.0"
   port = "8080"
-  ```
+  ```,
 ) <wassel-toml>
 
 
