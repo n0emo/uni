@@ -1,0 +1,2 @@
+fmt:
+    typstyle --inplace --line-width 100 --wrap-text .

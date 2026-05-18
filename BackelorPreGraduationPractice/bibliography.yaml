@@ -1,0 +1,354 @@
+webassembly-wiki:
+    type: web
+    title: WebAssembly
+    url: { value: https://en.wikipedia.org/wiki/WebAssembly, date: 2026-01-11 }
+    parent:
+        type: web
+        title: Wikipedia
+
+wasm-interface-types:
+    type: web
+    title: WebAssembly Interface Types Explainer
+    url: { value: https://github.com/WebAssembly/interface-types/blob/main/proposals/interface-types/Explainer.md, date: 2026-01-11 }
+    parent:
+        type: blog
+        title: W3C WebAssembly Community Group
+
+zhang-2025:
+    type: article
+    title: "Research on WebAssembly Runtimes: A Survey"
+    author: ["Zhang, Y."]
+    date: 2025
+    volume: 33
+    parent:
+        type: periodical
+        title: ACM Transactions on Software Engineering and Methodology
+
+wasi-docs:
+    type: web
+    title: WASI (WebAssembly System Interface) Documentation
+    url: { value: https://wasi.dev/, date: 2026-01-11 }
+
+wasm-3:
+    type: article
+    title: "What's New in WebAssembly 3.0 and Why It Matters for Developers"
+    url: { value: "https://medium.com/wasm-radar/whats-new-in-webassembly-3-0-and-why-it-matters-for-developers-db14b6fb0d6c", date: 2026-01-11 }
+    parent:
+        type: blog
+        title: Medium
+
+wasm-component-model:
+    type: web
+    title: The WebAssembly Component Model Documentation
+    url: { value: https://component-model.bytecodealliance.org/, date: 2026-01-11 }
+
+kjorveziroski-2023:
+    type: article
+    title: WebAssembly as an Enabler for Next Generation Serverless Computing
+    author: ["Kjorveziroski, V.", "Filiposka, S."]
+    date: 2023
+    volume: 21
+    serial-number:
+        serial: "34"
+    parent:
+        type: periodical
+        title: Journal of Grid Computing
+
+nodejs-wasi:
+    type: web
+    title: WebAssembly System Interface (WASI)
+    url: { value: https://nodejs.org/api/wasi.html, date: 2026-01-11 }
+    parent:
+        type: reference
+        title: Node.js Documentation
+
+wasmtime-docs:
+    type: web
+    title: Wasmtime Documentation
+    url: { value: https://docs.wasmtime.dev/, date: 2026-01-11 }
+
+wasm-in-production:
+    type: article
+    title: You are already using Wasm in production
+    url: { value: https://dev.to/fermyon/you-are-already-using-wasm-in-production-92k, date: 2026-01-11 }
+    parent:
+        type: blog
+        title: Dev.to
+
+wasm-cloud:
+    type: article
+    title: "WebAssembly is Eating the Cloud: Why Devs Should Care"
+    url: { value: https://dzone.com/articles/webassembly-is-eating-the-cloud-why-devs-should-ca, date: 2026-01-11 }
+    parent:
+        type: blog
+        title: DZone
+
+shopify-case-study:
+    type: web
+    title: Shopify Case Study
+    url: { value: https://www.cloudflare.com/case-studies/shopify/, date: 2026-01-11 }
+    parent:
+        type: web
+        title: Cloudflare
+
+wasi-status-2025:
+    type: article
+    title: "WASI and the WebAssembly Component Model: Current Status"
+    date: 2025-02-16
+    url: { value: https://eunomia.dev/blog/2025/02/16/wasi-and-the-webassembly-component-model-current-status/, date: 2026-01-11 }
+    parent:
+        type: blog
+        title: Eunomia
+
+fastly-compute:
+    type: web
+    title: Fastly Compute Edge Datasheet
+    url: { value: https://www.fastly.com/resources/datasheets/edge-compute/fastly-compute, date: 2026-01-11 }
+    parent:
+        type: web
+        title: Fastly
+
+colosi-2024:
+    type: article
+    title: "Serverless Everywhere: A Comparative Analysis of WebAssembly Workflows Across Browser, Edge, and Cloud"
+    author: ["Colosi, M."]
+    date: 2024
+    serial-number:
+        arxiv: "2512.04089"
+    url: { value: https://arxiv.org/abs/2512.04089, date: 2026-01-11 }
+
+klabnik-2021:
+    type: book
+    title: Программирование на Rust
+    author: ["Klabnik, Steve", "Nichols, Carol"]
+    date: 2021
+    page-total: 592
+    publisher:
+        name: Питер
+        location: Санкт-Петербург
+    language: ru
+
+rogov-2022:
+    type: book
+    title: PostgreSQL изнутри
+    author: Rogov, E. V.
+    date: 2022
+    page-total: 660
+    publisher:
+        name: ДМК Пресс
+        location: Москва
+    language: ru
+
+moskat-2013:
+    type: article
+    title: Показатели качества информационно-вычислительных систем железнодорожного транспорта
+    author: ["Moskat, N. A.", "Stankevich, E. A."]
+    date: 2013
+    issue: 3
+    url: { value: https://ivdon.ru/ru/magazine/archive/n3y2013/1789 }
+    language: ru
+    parent:
+        type: periodical
+        title: Инженерный вестник Дона
+
+coblenz-2016:
+    type: article
+    title: Exploring language support for immutability
+    author: ["Coblenz, Michael", "Sunshine, Joshua", "Aldrich, Jonathan", "Myers, Brad", "Weber, Sam", "Shull, Forrest"]
+    date: 2016
+    parent:
+        type: proceedings
+        title: Proceedings of the 38th International Conference on Software Engineering
+        publisher:
+            name: Association for Computing Machinery
+            location: Austin, Texas
+
+afanasiev-2009:
+    type: article
+    title: Семантические ошибки в параллельных программах для систем с распределенной памятью и методы их обнаружения современными средствами отладки
+    author: ["Afanasiev, K. E.", "Vlasenko, A. Yu."]
+    date: 2009
+    issue: 2
+    url: { value: https://cyberleninka.ru/article/n/semanticheskie-oshibki-v-parallelnyh-programmah-dlya-sistem-s-raspredelennoy-pamyatyu-i-metody-ih-obnaruzheniya-sovremennymi-sredstvami, date: 2024-11-18 }
+    language: ru
+    parent:
+        type: periodical
+        title: СибСкрипт
+
+stroustrup-finally:
+    type: web
+    title: "Why doesn't C++ provide a \"finally\" construct?"
+    author: Stroustrup, Bjarne
+    url: { value: https://stroustrup.com/bs_faq2.html#finally, date: 2024-11-18 }
+    parent:
+        type: web
+        title: "Bjarne Stroustrup's Homepage"
+
+memory-leaks:
+    type: web
+    title: How to Prevent Memory Leaks
+    url: { value: https://blog.avenuecode.com/how-to-prevent-memory-leaks, date: 2024-11-18 }
+    parent:
+        type: blog
+        title: AvenueCode
+
+rust-proc-macros:
+    type: web
+    title: Procedural Macros
+    url: { value: https://doc.rust-lang.org/reference/procedural-macros.html, date: 2024-11-18 }
+    parent:
+        type: reference
+        title: The Rust Reference
+
+serde:
+    type: web
+    title: serde
+    url: { value: https://crates.io/crates/serde, date: 2024-11-18 }
+    parent:
+        type: web
+        title: The Rust community's crate registry
+
+askama:
+    type: web
+    title: askama
+    url: { value: https://crates.io/crates/askama, date: 2024-11-18 }
+    parent:
+        type: web
+        title: The Rust community's crate registry
+
+sqlx:
+    type: web
+    title: sqlx
+    url: { value: https://crates.io/crates/sqlx, date: 2024-11-18 }
+    parent:
+        type: web
+        title: The Rust community's crate registry
+
+stackoverflow-2024:
+    type: web
+    title: Stack Overflow Developer Survey 2024
+    date: 2024
+    url: { value: https://survey.stackoverflow.co/2024/technology/, date: 2024-11-18 }
+    parent:
+        type: web
+        title: Stack Overflow
+
+li-2024-usenix:
+    type: article
+    title: "An Empirical Study of Rust-for-Linux: The Success, Dissatisfaction, and Compromise"
+    author: ["Li, Hongyu", "Guo, Liwei", "Yang, Yexuan", "Wang, Shangguang", "Xu, Mengwei"]
+    date: 2024
+    page-range: 425-443
+    parent:
+        type: proceedings
+        title: 2024 USENIX Annual Technical Conference
+        publisher:
+            name: USENIX Association
+            location: "Santa Clara, CA"
+
+li-2021-usenix:
+    type: article
+    title: "Benefits and Drawbacks of Adopting a Secure Programming Language: Rust as a Case Study"
+    author: ["Li, Hongyu", "Guo, Liwei", "Yang, Yexuan", "Wang, Shangguang", "Xu, Mengwei"]
+    date: 2021
+    page-range: 597-616
+    parent:
+        type: proceedings
+        title: Seventeenth Symposium on Usable Privacy and Security
+        publisher: USENIX Association
+
+anderson-2016:
+    type: article
+    title: Engineering the servo web browser engine using Rust
+    author: ["Anderson, Brian", "Bergstrom, Lars", "Goregaokar, Manish", "Matthews, Josh", "McAllister, Keegan", "Moffitt, Jack", "Sapin, Simon"]
+    date: 2016
+    page-range: 81-89
+    parent:
+        type: proceedings
+        title: "ICSE '16: Proceedings of the 38th International Conference on Software Engineering Companion"
+        publisher:
+            name: Association for Computing Machinery
+            location: "Austin, Texas"
+
+aggarwal-2021:
+    type: thesis
+    title: High Performance Document Store Implementation in Rust
+    author: Aggarwal, I.
+    date: 2021
+    page-total: 38
+    serial-number:
+        doi: "10.31979/etd.96kc-fcmu"
+
+bakken-2023:
+    type: article
+    title: "Chrontext: Portable SPARQL queries over contextualised time series data in industrial settings"
+    author: ["Bakken, M.", "Soylu, A."]
+    date: 2023
+    volume: 226
+    serial-number:
+        doi: "10.1016/j.eswa.2023.120149"
+        serial: "120149"
+    parent:
+        type: periodical
+        title: Expert Systems With Applications
+
+akolzin-2014:
+    type: article
+    title: Обзор методов повышения производительности программного обеспечения диспетчерского центра
+    author: Akolzin, D. N.
+    date: 2014
+    issue: 2
+    url: { value: https://ivdon.ru/ru/magazine/archive/n2y2014/2394 }
+    language: ru
+    parent:
+        type: periodical
+        title: Инженерный вестник Дона
+
+bystrova-2011:
+    type: article
+    title: Архитектура вне времени — идея шаблонов проектирования К. Александера
+    author: Bystrova, Tatyana Yu.
+    date: 2011
+    issue: 1
+    url: { value: https://cyberleninka.ru/article/n/arhitektura-vne-vremeni-ideya-shablonov-proektirovaniya-k-aleksandera, date: 2024-11-18 }
+    language: ru
+    parent:
+        type: periodical
+        title: Академический вестник УралНИИпроект РААСН
+
+kaishev-2021:
+    type: article
+    title: Новое поколение языков программирования — Rust
+    author: Kaishev, D. A.
+    date: 2021
+    volume: 4
+    issue: 6
+    page-range: 1333-1337
+    language: ru
+    parent:
+        type: periodical
+        title: StudNet
+
+lattuada-2023:
+    type: article
+    title: "{Verus}: Verifying Rust Programs using Linear Ghost Types"
+    author: ["Lattuada, A."]
+    date: 2023
+    volume: 7
+    issue: OOPSLA1
+    page-range: 286-315
+    parent:
+        type: periodical
+        title: Proceedings of the ACM on Programming Languages
+
+pugachev-2023:
+    type: article
+    title: О разработке информационной системы грузоперевозок ОАО «РЖД» на основе безопасной интеграции приложений
+    author: ["Pugachev, S. V.", "Khomonenko, A. D.", "Yarmolinsky, F. A."]
+    date: 2023
+    issue: "1 (33)"
+    page-range: 21-26
+    language: ru
+    parent:
+        type: periodical
+        title: Интеллектуальные технологии на транспорте
