@@ -1,6 +1,6 @@
 #import "@local/pgups:0.1.0": *
 
-#structural[Перечень используемых сокращений]
+#structural[Перечень сокращений]
 
 - WASM -- WebAssembly.
 - OCI -- Open Container initiative.
