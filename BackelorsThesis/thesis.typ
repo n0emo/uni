@@ -17,6 +17,8 @@
   ),
 )
 
+#show table: set text(size: 11pt)
+
 #include "./chapters/00-definitions.typ"
 #include "./chapters/00-introduction.typ"
 #include "./chapters/01-analysis.typ"

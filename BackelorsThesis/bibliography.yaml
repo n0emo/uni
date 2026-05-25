@@ -1,0 +1,54 @@
+gost-50923-96:
+  type: legislation
+  title: "Дисплеи. Рабочее место оператора. Общие эргономические требования и требования к производственной среде. Методы измерения"
+  organization: Государственный стандарт Российской Федерации
+  serial-number:
+    serial: ГОСТ Р 50923-96
+  date: 1996
+
+gost-iso-10075-2009:
+  type: legislation
+  title: "Эргономические принципы обеспечения адекватности умственной нагрузки. Часть 2. Принципы проектирования"
+  organization: Федеральное агентство по техническому регулированию и метрологии
+  serial-number:
+    serial: ГОСТ Р ИСО 10075-2-2009
+  date: 2009
+  note: "ISO 10075-2:1996. Ergonomic principles related to mental workload — Part 2: Design principles (IDT)"
+
+tremblay-sedentary-2010:
+    type: article
+    title: "Physiological and health implications of a sedentary lifestyle"
+    author:
+        - "Tremblay, Mark Stephen"
+        - "Colley, Rachel Christine"
+        - "Saunders, Travis John"
+        - "Healy, Genevieve Nissa"
+        - "Owen, Neville"
+    abstract: "Sedentary behaviour is associated with deleterious health outcomes, which differ from those that can be attributed to a lack of moderate to vigorous physical activity. This has led to the field of ''sedentary physiology''..."
+    page-range: 725-740
+    volume: 35
+    date: 2010
+    serial-number:
+        doi: "10.1139/H10-079"
+    parent:
+        type: periodical
+        title: "Applied Physiology, Nutrition, and Metabolism"
+        publisher: "NRC Research Press"
+    language: en
+
+sanpin-1-2-3685-21:
+  type: legislation
+  title: "Гигиенические нормативы и требования к обеспечению безопасности и (или) безвредности для человека факторов среды обитания"
+  organization: Федеральная служба по надзору в сфере защиты прав потребителей и благополучия человека
+  serial-number:
+    serial: СанПиН 1.2.3685-21
+  date: 2021
+
+r-2-2-2006-05:
+  type: legislation
+  title: "Руководство по гигиенической оценке факторов рабочей среды и трудового процесса. Критерии и классификация условий труда"
+  organization: Федеральная служба по надзору в сфере защиты прав потребителей и благополучия человека
+  serial-number:
+    serial: Р 2.2.2006-05
+  date: 2005
+  note: "Утв. Главным государственным санитарным врачом РФ 29.07.2005. Введено в действие с 01.11.2005. Введено взамен Р 2.2.755-99"
