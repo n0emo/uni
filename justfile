@@ -1,9 +1,8 @@
-
 [private]
 @default:
     just --list
 
 generate-recipes:
-    python3 scripts/generate_recipes.py
+    python3 -m scripts.recipes
 
 import? "reports/recipes.just"

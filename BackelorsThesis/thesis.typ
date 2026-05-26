@@ -12,8 +12,74 @@
     name: "Шефнер А.",
     group: "ИВБ-211",
   ),
+  superviser: config-superviser(name: "Хетчиков Д.М.", post: "профессор"),
+  head-of-department: config-head-of-department(
+    name: "Ермаков С.Г.",
+    post: "д.т.н., профессор",
+  ),
+  normative-controller: config-normative-controller(
+    name: "Петров В.Е.",
+    post: "к.в.н., доцент",
+  ),
+  consultants: (
+    config-consultant(
+      name: "Куранова О.Н.",
+      post: "к.т.н., доцент",
+      section: "Экономическая часть",
+    ),
+    config-consultant(
+      name: "Тихомиров О.И.",
+      post: "к.т.н., доцент",
+      section: "Охрана труда",
+    ),
+  ),
   thesis: config-thesis(
-    title: "Разработка интерфейса взаимодействия между информационной системой и пользовательскими программами на основе среды выполнения WebAssembly.",
+    title: [
+      Разработка интерфейса взаимодействия между информационной системой и пользовательскими
+      программами на основе среды выполнения WebAssembly
+    ],
+    steps: (
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: "Анализ литературы и постановка задачи",
+      ),
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: "Проектирование архитектуры",
+      ),
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: "Разработка функционала",
+      ),
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: "Тестирование и отладка",
+      ),
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: [Написание раздела "Охрана труда"],
+      ),
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: [Написание раздела "Экономическая часть"],
+      ),
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: "Оформление пояснительной записки",
+      ),
+      config-thesis-step(
+        begin: none,
+        end: none,
+        name: "Проверка антиплагиата",
+      ),
+    ),
   ),
 )
 
