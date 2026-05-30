@@ -1,3 +1,88 @@
+rust-lang:
+  type: web
+  title: Rust Programming Language
+  url: { value: "https://rust-lang.org/", date: 2026-05-30 }
+
+wit-bindgen-github:
+  type: web
+  title: bytecodealliance/wit-bindgen
+  url: { value: "https://github.com/bytecodealliance/wit-bindgen", date: 2026-05-30 }
+
+cpython-wasm-github:
+  type: web
+  title: dicej/cpython
+  url: { value: "https://github.com/dicej/cpython", date: 2026-05-30 }
+
+rust-platform-support:
+  type: web
+  title: Platform Support - The rustc book
+  url: { value: "https://doc.rust-lang.org/nightly/rustc/platform-support.html", date: 2026-05-30 }
+
+c-cpp-wasm-component-model:
+  type: web
+  title: "C/C++ - The WebAssembly Component Model"
+  url: { value: "https://component-model.bytecodealliance.org/language-support/building-a-simple-component/c.html", date: 2026-05-30 }
+
+csharp-wasm-component-model:
+  type: web
+  title: C# - The WebAssembly Component Model
+  url: { value: "https://component-model.bytecodealliance.org/language-support/building-a-simple-component/csharp.html", date: 2026-05-30 }
+
+starling-monkey-github:
+  type: web
+  title: bytecodealliance/StarlingMonkey
+  url: { value: "https://github.com/bytecodealliance/StarlingMonkey", date: 2026-05-30 }
+
+moonbit-lang:
+  type: web
+  title: MoonBit
+  url: { value: "https://www.moonbitlang.com/", date: 2026-05-30 }
+
+componentize-py-github:
+  type: web
+  title: bytecodealliance/componentize-py
+  url: { value: "https://github.com/bytecodealliance/componentize-py", date: 2026-05-30 }
+
+componentize-js-github:
+  type: web
+  title: bytecodealliance/ComponentizeJS
+  url: { value: "https://github.com/bytecodealliance/ComponentizeJS", date: 2026-05-30 }
+
+tinygo:
+  type: web
+  title: TinyGo
+  url: { value: "https://tinygo.org/", date: 2026-05-30 }
+
+awesome-wasm-langs:
+  type: web
+  title: Awesome WebAssembly Languages
+  url: { value: "https://github.com/appcypher/awesome-wasm-langs", date: 2026-05-30 }
+
+wasmtime:
+  type: web
+  title: Wasmtime
+  url: { value: "https://wasmtime.dev/", date: 2026-05-30 }
+
+cranelift:
+  type: web
+  title: Cranelift
+  url: { value: "https://cranelift.dev/", date: 2026-05-30 }
+
+wasmer:
+  type: web
+  title: "Wasmer: Universal applications using WebAssembly"
+  url: { value: "https://wasmer.io/", date: 2026-05-30 }
+
+wasmedge:
+  type: web
+  title: WasmEdge
+  url: { value: "https://wasmedge.org/", date: 2026-05-30 }
+
+graalwasm:
+  type: web
+  title: "GraalWasm - Documentation"
+  url: { value: "https://www.graalvm.org/webassembly/docs/", date: 2026-05-30 }
+
 gost-50923-96:
   type: legislation
   title: "Дисплеи. Рабочее место оператора. Общие эргономические требования и требования к производственной среде. Методы измерения"
