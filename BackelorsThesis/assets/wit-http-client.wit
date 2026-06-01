@@ -1,0 +1,10 @@
+package wassel:foundation;
+
+interface http-client {
+    use wasi:http/types@0.2.10.{outgoing-request, incoming-response, error-code};
+
+    type url = string;
+
+    /// Send outbound HTTP request and get incoming response
+    send: func(url: url, req: outgoing-request) -> result<incoming-response, error-code>;
+}

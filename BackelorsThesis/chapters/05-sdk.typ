@@ -1,4 +1,4 @@
-= SDK
+= SDK <section-sdk>
 
 == Понятие SDK
 

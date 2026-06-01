@@ -1,3 +1,40 @@
+cloud-computing-models:
+    type: Thesis
+    title: Cloud Computing Models
+    author:
+      - Gorelik, Eugene
+      - Madnick, Stuart
+    date: 2013
+    genre: S.M. in Engineering and Management
+    organization: Massachusetts Institute of Technology. Engineering Systems Division
+    publisher: Massachusetts Institute of Technology
+    url: http://hdl.handle.net/1721.1/79811
+
+wasm-spec:
+    type: Report
+    title: WebAssembly Specification
+    editor: Rossberg, Andreas
+    edition: "2.0"
+    date: 2025-09-16
+    organization: WebAssembly Community Group
+    url: https://webassembly.github.io/spec/versions/core/WebAssembly-2.0.pdf
+
+ieee754:
+    type: Report
+    title: "IEEE Standard for Floating-Point Arithmetic"
+    organization: IEEE
+    edition: "IEEE Std 754-2019"
+    date: 2019-07-22
+    page-total: 84
+    serial-number:
+        doi: "10.1109/IEEESTD.2019.8766229"
+    note: Revision of IEEE 754-2008
+
+wasi:
+  type: web
+  title: Introduction · WASI.dev
+  url: { value: "https://wasi.dev/", date: 2026-05-30 }
+
 rust-lang:
   type: web
   title: Rust Programming Language

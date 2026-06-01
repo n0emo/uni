@@ -1,3 +1,5 @@
+#include "appendixes/01-wit.typ"
+
 = Диаграмма компонентов <appendix-components>
 
 #figure(image("assets/wassel-components.png"))

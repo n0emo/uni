@@ -3,11 +3,11 @@
 #structural[Перечень сокращений]
 
 - WASM -- WebAssembly.
-- OCI -- Open Container initiative.
+- OCI -- Open Container Initiative.
 - ВМ -- Виртуальная машина.
 - FaaS -- Function as a Service.
 - WASI -- WebAssembly System Interface.
 - WASIp2 -- WASI preview 2.
-- WIT -- WebAssembly Interface types.
+- WIT -- WebAssembly Interface Types.
 - SDK -- Software Development Kit.
 - СУБД -- Система управления базами данных.

@@ -1,0 +1,268 @@
+package wassel:foundation;
+
+interface postgres {
+    /// Config defines settings to open connection
+    resource connection-config {
+        constructor(connection-string: string);
+    }
+
+    /// A connection to a postgres database
+    resource connection {
+        /// Open a connection to the database at `address`
+        open: static func(config: connection-config) -> result<connection, error>;
+
+        /// Query the database
+        query: func(sql: string, params: list<parameter>) -> result<row-set, error>;
+
+        /// Execute statement on the database
+        execute: func(sql: string, params: list<parameter>) -> result<u64, error>;
+    }
+
+    /// Postgres decimal (base 10)
+    type decimal = string;
+
+    /// Postgres UUID
+    record uuid { d1: u32, d2: u16, d3: u16, d4: u64 }
+
+    /// Postgres date
+    record date { year: s32, month: u8, day: u8 }
+
+    /// Postgres time
+    record time { hour: u8, minute: u8, second: u8, nanosecond: u32 }
+
+    /// Postgres datetime
+    record datetime { date: date, time: time, offset: option<s16> }
+
+    /// Postgres interval
+    record interval { months: s32, days: s32, microseconds: s64 }
+
+    /// Postgres range bound kind
+    enum range-bound { included, excluded, unbounded }
+
+    /// Postgres range of int32
+    record range-int32 {
+        begin: option<s32>,
+        begin-bound: range-bound,
+        end: option<s32>,
+        end-bound: range-bound,
+    }
+
+    /// Postgres range of int64
+    record range-int64 {
+        begin: option<s64>,
+        begin-bound: range-bound,
+        end: option<s64>,
+        end-bound: range-bound,
+    }
+
+    /// Postgres range of decimal
+    record range-decimal {
+        begin: option<decimal>,
+        begin-bound: range-bound,
+        end: option<decimal>,
+        end-bound: range-bound,
+    }
+
+    /// Postgres point
+    record point { x: f64, y: f64 }
+
+    /// Postgres circle
+    record circle { x: f64, y: f64, radius: f64 }
+
+    /// Postgres line
+    record line { a: f64, b: f64, c: f64 }
+
+    /// Postgres line segment
+    record line-segment { start: point, end: point }
+
+    /// Postgres path
+    record path { closed: bool, points: list<point> }
+
+    /// Postgres polygon
+    record polygon { points: list<point> }
+
+    /// Postgres cube
+    variant cube {
+        point(f64),
+        zero-volume(list<f64>),
+        one-dimension-interval(tuple<f64, f64>),
+        multi-dimensional(list<list<f64>>),
+    }
+
+    /// Postgres data type
+    variant data-type {
+        boolean,
+        int16,
+        int32,
+        int64,
+        float32,
+        float64,
+        decimal,
+        money,
+        uuid,
+
+        text,
+        binary,
+
+        date,
+        time,
+        datetime,
+        interval,
+
+        range-int32,
+        range-int64,
+        range-decimal,
+
+        array-int32,
+        array-int64,
+        array-decimal,
+        array-str,
+
+        jsonb,
+        hstore,
+
+        point,
+        circle,
+        line,
+        line-segment,
+        path,
+        polygon,
+        cube,
+
+        pg-null,
+
+        // May be added in future:
+        // - inet
+        // - macaddr
+        // - bit-string
+        // - tsvector
+        // - tsquery
+        // - more ranges
+        // - multiranges
+        // - pg-vector
+        // - composite
+        // - xml
+        // - pg-lsn
+
+        /// Unsupported type
+        other(string)
+    }
+
+    /// Postgres value
+    variant value {
+        boolean(bool),
+        int16(s16),
+        int32(s32),
+        int64(s64),
+        float32(f32),
+        float64(f64),
+        decimal(decimal),
+        money(s64),
+        uuid(uuid),
+
+        text(string),
+        binary(list<u8>),
+
+        date(date),
+        time(time),
+        datetime(datetime),
+        interval(interval),
+
+        range-int32(range-int32),
+        range-int64(range-int64),
+        range-decimal(range-decimal),
+
+        array-int32(list<option<s32>>),
+        array-int64(list<option<s64>>),
+        array-decimal(list<option<decimal>>),
+        array-str(list<option<string>>),
+
+        jsonb(list<u8>),
+        hstore(list<tuple<string, option<string>>>),
+
+        point(point),
+        circle(circle),
+        line(line),
+        line-segment(line-segment),
+        path(path),
+        polygon(polygon),
+        cube(cube),
+
+        pg-null,
+        other(list<u8>),
+    }
+
+    /// Query parameter (alias to value)
+    type parameter = value;
+
+    /// Query result row
+    type row = list<value>;
+
+    /// Set of rows
+    record row-set {
+        columns: list<column>,
+        rows: list<row>,
+    }
+
+    /// Table column
+    record column {
+        name: string,
+        data-type: data-type,
+    }
+
+    /// Generic error
+    variant error {
+        database(database-error),
+        query(string),
+        other(string),
+    }
+
+    /// Postgres error
+    record database-error {
+        severity: string,
+        parsed-severity: option<severity>,
+        code: string,
+        message: string,
+        detail: option<string>,
+        hint: option<string>,
+        position: option<error-position>,
+        where: option<string>,
+        schema: option<string>,
+        table: option<string>,
+        column: option<string>,
+        datatype: option<string>,
+        constraint: option<string>,
+        file: option<string>,
+        line: option<u32>,
+        routine: option<string>,
+    }
+
+    /// Postgres error severity
+    variant severity {
+        panic,
+        fatal,
+        error,
+        warning,
+        notice,
+        debug,
+        info,
+        log,
+    }
+
+    /// Represents the position of an error in a query.
+    variant error-position {
+        /// A position in the original query.
+        original(u32),
+
+        /// A position in an internally generated query.
+        internal(error-position-internal),
+    }
+
+    /// A position in an internally generated query.
+    record error-position-internal {
+        /// The byte position.
+        position: u32,
+        /// A query generated by the Postgres server.
+        query: string,
+    }
+}
