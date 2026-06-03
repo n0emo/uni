@@ -316,11 +316,11 @@ $ "РОТ" = #hw-setup-hours " ч" times #hw-setup-rate " руб./ч" = #rub(hw-
 
 Страховые взносы (30~% от РОТ):
 
-$ "СВ" = #rub(hw-rot) times 0{,}30 = #rub(hw-insurance) $
+$ "СВ" = #rub(hw-rot) times 0.30 = #rub(hw-insurance) $
 
 Накладные расходы (25~% от РОТ):
 
-$ "НР" = #rub(hw-rot) times 0{,}25 = #rub(hw-overhead) $
+$ "НР" = #rub(hw-rot) times 0.25 = #rub(hw-overhead) $
 
 Итоговая себестоимость аппаратной части:
 
@@ -368,11 +368,11 @@ $ "ОЗП" = #dev-hours " ч" times #dev-hourly-rate " руб./ч" = #rub(ozp) $
 
 Страховые взносы (30~% от ОЗП):
 
-$ "СВ" = #rub(ozp) times 0{,}30 = #rub(insurance) $
+$ "СВ" = #rub(ozp) times 0.30 = #rub(insurance) $
 
 Накладные расходы (25~% от ОЗП, норматив для лабораторий ПГУПС):
 
-$ "НР" = #rub(ozp) times 0{,}25 = #rub(overhead) $
+$ "НР" = #rub(ozp) times 0.25 = #rub(overhead) $
 
 Расходы на ПК определяются эксплуатационными расходами за период разработки. В эксплуатационные
 расходы входят расходы на электроэнергию, стоимость расходных материалов, расходы на ремонт,
@@ -390,13 +390,13 @@ $
 *Стоимость расходных материалов* (10~% от стоимости ПК за 3~года, пересчёт на срок разработки):
 
 $
-  C_"рм" = frac(#pc-cost times 0{,}10, 36) times #dev-months =
+  C_"рм" = frac(#pc-cost times 0.10, 36) times #dev-months =
   #rub2(consumables)
 $
 
 *Расходы на ремонт* (10~% от стоимости ПК, пересчёт на срок разработки):
 
-$ C_"комп" = frac(#pc-cost times 0{,}10, 36) times #dev-months = #rub2(repair) $
+$ C_"комп" = frac(#pc-cost times 0.10, 36) times #dev-months = #rub2(repair) $
 
 *Заработная плата инженера-системотехника* (на обслуживание 50~ПК требуется один специалист с
 месячной ставкой #engineer-monthly~руб.):
@@ -415,7 +415,7 @@ $ "АПК" = frac([#pc-cost], 36) times #dev-months = #rub2(apc) $
 *Дополнительные расходы* (10~% от з/п инженера-системотехника в расчёте на 1~ПК):
 
 $
-  C_"доп" = frac([#engineer-monthly], 50) times #dev-months times 0{,}10 = #rub2(extra)
+  C_"доп" = frac([#engineer-monthly], 50) times #dev-months times 0.10 = #rub2(extra)
 $
 
 Суммарные эксплуатационные расходы на ПК представлены в таблице @table-pc-expenses.
@@ -596,7 +596,7 @@ $c$ --- уровень инфляции.
 
 Средний класс инновации:
 
-$ tilde(K) = frac(89, 17) approx 5{,}2 approx 5 $
+$ tilde(K) = frac(89, 17) approx 5.2 approx 5 $
 
 По таблице @table-risk-premium при $tilde(K) approx 5$ параметр $b = 10%$.
 

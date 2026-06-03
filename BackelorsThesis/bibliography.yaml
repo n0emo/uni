@@ -175,3 +175,40 @@ r-2-2-2006-05:
     serial: Р 2.2.2006-05
   date: 2005
   note: "Утв. Главным государственным санитарным врачом РФ 29.07.2005. Введено в действие с 01.11.2005. Введено взамен Р 2.2.755-99"
+
+human-computer-interaction:
+  type: book
+  title: Человеко-машинное взаимодействие. Теория и практика
+  author:
+    - Логунова О. С.
+    - Ячиков И. М.
+  publisher: Феникс
+  date: 2006
+
+goms-card-moran-newell:
+  type: book
+  title: "The psychology of human-computer interaction"
+  author:
+    - Card, Stuart K.
+    - Moran, Thomas P.
+    - Newell, Allen
+  publisher: Lawrence Erlbaum Associates
+  date: 1983
+
+eventsource-spec:
+  type: web
+  title: "Server-Sent Events. W3C Recommendation"
+  url: https://www.w3.org/TR/eventsource/
+  date: 2015
+
+svelte-docs:
+  type: web
+  title: Документация Svelte 5
+  url: https://svelte.dev/docs
+  date: 2024
+
+svelte-runes:
+  type: web
+  title: "Svelte 5: Runes"
+  url: https://svelte.dev/docs/svelte/what-are-runes
+  date: 2024

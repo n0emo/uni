@@ -1,6 +1,11 @@
 #import "@local/pgups:0.1.0": *
 
 #show: backelors-thesis.with(
+  superviser-review: include "./chapters/00-review.typ",
+  abstract: include "chapters/00-abstract.typ",
+  style: config-style(
+    outline-depth: 2,
+  ),
   course: config-course(
     faculty: "Автоматизация и интеллектуальные технологии",
     department: "Информационные и вычислительные системы",
@@ -10,9 +15,14 @@
   ),
   student: config-student(
     name: "Шефнер А.",
+    fullname-genitive: "Шефнера Альберта",
     group: "ИВБ-211",
   ),
-  superviser: config-superviser(name: "Хетчиков Д.М.", post: "профессор"),
+  superviser: config-superviser(
+    name: "Хетчиков Д.М.",
+    post: "д.т.н., профессор",
+    post-full: [профессор кафедры "Информационные и вычислительные системы"],
+  ),
   head-of-department: config-head-of-department(
     name: "Ермаков С.Г.",
     post: "д.т.н., профессор",
@@ -24,7 +34,7 @@
   consultants: (
     config-consultant(
       name: "Куранова О.Н.",
-      post: "к.т.н., доцент",
+      post: "к.т.н.",
       section: "Экономическая часть",
     ),
     config-consultant(
@@ -90,9 +100,10 @@
 #include "./chapters/03-architecture.typ"
 #include "./chapters/04-runtime.typ"
 #include "./chapters/05-sdk.typ"
-#include "./chapters/06-approbation.typ"
-#include "./chapters/07-economy.typ"
-#include "./chapters/08-labor-protection.typ"
+#include "./chapters/06-admin.typ"
+#include "./chapters/07-approbation.typ"
+#include "./chapters/08-economy.typ"
+#include "./chapters/09-labor-protection.typ"
 #include "./chapters/99-conclusion.typ"
 #bibliography("bibliography.yaml")
 #appendixes(include "./appendixes.typ")
