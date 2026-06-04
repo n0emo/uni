@@ -20,7 +20,7 @@
   ),
   superviser: config-superviser(
     name: "Хетчиков Д.М.",
-    post: "д.т.н., профессор",
+    post: "д.т.н., доцент",
     post-full: [профессор кафедры "Информационные и вычислительные системы"],
   ),
   head-of-department: config-head-of-department(
@@ -29,7 +29,7 @@
   ),
   normative-controller: config-normative-controller(
     name: "Петров В.Е.",
-    post: "к.в.н., доцент",
+    post: "к.в.н.",
   ),
   consultants: (
     config-consultant(
