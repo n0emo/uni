@@ -7,7 +7,7 @@
 
 === Модель владения и проверка заимствования
 
-Rust @rust-lang предлагает автоматическое управление памяти на основе идиомы RAII, обладающее
+Rust~@rust-lang предлагает автоматическое управление памяти на основе идиомы RAII, обладающее
 характеристиками производительности схожими с ручным управлением памятью. Безопасность памяти при
 такой модели достигается за счёт системы типов.
 
@@ -48,7 +48,7 @@ Rust обладает богатой экосистемой сторонних �
   надёжного и безопасного ПО.
 - Erlang -- этот язык и его экосистема отлично подходят для текущего проекта, однако для него
   отсутствуют привязки к wasmtime -- среде выполнения WASM, выбранной для текущего проекта (раздел
-  @section-wasmtime).
+  ~@section-wasmtime).
 
 == WASI 0.2 и Component Model
 
@@ -73,7 +73,7 @@ Rust обладает богатой экосистемой сторонних �
 
 === Инструменты разработки
 
-Одним из важных инструментов разработки компонентов является `wit-bindgen` @wit-bindgen-github. Он
+Одним из важных инструментов разработки компонентов является `wit-bindgen`~@wit-bindgen-github. Он
 позволяет генерировать привязки для Rust, C, C++, C\# и Go. Для других языков программирования можно
 воспользоваться привязками к C.
 
@@ -93,31 +93,31 @@ Rust обладает богатой экосистемой сторонних �
     table.header([Язык], [Поддержка WASI 0.2], [Генерация привязок]),
 
     [C и C++],
-    [Clang поддерживает цель сборки `wasm32-wasip2` @c-cpp-wasm-component-model],
+    [Clang поддерживает цель сборки `wasm32-wasip2`~@c-cpp-wasm-component-model],
     [`wit-bindgen`],
 
     [Rust],
-    [`wasm32-wasip2` является целью второго тира @rust-platform-support, что означает гарантию
+    [`wasm32-wasip2` является целью второго тира~@rust-platform-support, что означает гарантию
       компиляции],
     [`wit-bindgen`],
 
-    [Go], [TinyGo @tinygo и официальный Go поддерживают WASM], [`wit-bindgen`],
+    [Go], [TinyGo~@tinygo и официальный Go поддерживают WASM], [`wit-bindgen`],
 
     [C\#],
     [.NET 8.0+ при модели компиляции Native AoT официально поддерживает WASI 0.2
-      @csharp-wasm-component-model],
+      ~@csharp-wasm-component-model],
     [`wit-bindgen`],
 
     [Python],
-    [Существует сторонний форк CPython @cpython-wasm-github, компилирующийся в WASI 0.2],
-    [`componentize-py` @componentize-py-github],
+    [Существует сторонний форк CPython~@cpython-wasm-github, компилирующийся в WASI 0.2],
+    [`componentize-py`~@componentize-py-github],
 
     [JavaScript],
-    [Существует среда выполнения JS StarlingMonkey @starling-monkey-github, оптимизированная для
+    [Существует среда выполнения JS StarlingMonkey~@starling-monkey-github, оптимизированная для
       WASM],
-    [`componentize-js` @componentize-js-github],
+    [`componentize-js`~@componentize-js-github],
 
-    [MoonBit @moonbit-lang], [Официально поддерживает WASI 0.2], [Встроенная],
+    [MoonBit~@moonbit-lang], [Официально поддерживает WASI 0.2], [Встроенная],
   ),
 ) <table-wasm-langs>
 
@@ -126,15 +126,15 @@ Rust обладает богатой экосистемой сторонних �
 сопровождающей команды, либо имеют архитектурные особенности, затрудняющие поддержку этой цели.
 Такие языки включают в себя Java, Pascal, Swift, D, Ada, Kotlin, Julia, Haskell, Nim, PHP, Ruby. Для
 более подробного ознакомления со статусом поддержки WASM различными языками программирования можно
-обратиться к репозиторию "Awesome WebAssembly Languages" @awesome-wasm-langs.
+обратиться к репозиторию "Awesome WebAssembly Languages"~@awesome-wasm-langs.
 
 == Wasmtime как среда выполнения WASM <section-wasmtime>
 
 === Обзор
 
-Wasmtime @wasmtime разрабатывается той же организацией, что и стандарты WASI и компонентной модели
+Wasmtime~@wasmtime разрабатывается той же организацией, что и стандарты WASI и компонентной модели
 WASM. Эта среда выполнения обеспечивает наибольшую точность соблюдения стандартов и спецификаций.
-Главным приоритетом разработки является обеспечение безопасности. Благодаря Cranelift @cranelift
+Главным приоритетом разработки является обеспечение безопасности. Благодаря Cranelift~@cranelift
 среда обеспечивает генерацию высокопроизводительного машинного кода как по модели JIT, так и AoT.
 
 === Сравнение с аналогами
@@ -142,7 +142,7 @@ WASM. Эта среда выполнения обеспечивает наибо
 Основными критериями оценивания, актуальными для настоящей работы, являются поддержка Component
 Model и WASI 0.2. Так же, Среда должна быть программируема из языка программирования и предоставлять
 опции конфигурации, т.е. быть встраиваемой. Сравнительная характеристика различных сред выполнения
-представлена в таблице @table-runtime-comparison.
+представлена в таблице~@table-runtime-comparison.
 
 #figure(
   caption: [Сравнительный анализ сред выполнения WebAssembly],
@@ -153,9 +153,9 @@ Model и WASI 0.2. Так же, Среда должна быть програм�
     ),
 
     [Wasmtime], [Apache-2.0], [Rust], [+], [+], [+],
-    [Wasmer @wasmer], [MIT], [Rust], [+], [-], [-],
-    [WasmEdge @wasmedge], [Apache-2.0], [C++], [+], [-], [-],
-    [GraalWasm @graalwasm], [GPLv2 + CE], [Java], [+], [-], [-],
+    [Wasmer~@wasmer], [MIT], [Rust], [+], [-], [-],
+    [WasmEdge~@wasmedge], [Apache-2.0], [C++], [+], [-], [-],
+    [GraalWasm~@graalwasm], [GPLv2 + CE], [Java], [+], [-], [-],
   ),
 ) <table-runtime-comparison>
 
