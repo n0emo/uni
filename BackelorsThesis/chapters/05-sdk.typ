@@ -164,17 +164,195 @@ Postgres, для выполнения запросов необходимо со
 
 === Архитектура
 
+Низкоуровневые привязки для Python генерируются с помощью инструмента `componentize-py`
+@componentize-py-github. В отличие от Rust, где привязки генерируются на этапе компиляции макросом
+`wit_bindgen`, для Python привязки генерируются и встраиваются непосредственно в процессе сборки
+компонента. Команда сборки `componentize-py -w http-plugin componentize app` компилирует модуль
+`app.py` в WASM-компонент с применением интерфейса `http-plugin`.
+
 === Высокоуровневые привязки
+
+Модуль `wassel_sdk.http` предоставляет высокоуровневые типы для работы с HTTP: `Request`, `Response`
+и вспомогательные типы полей заголовков. Класс `Request` даёт доступ к методу (`method`), пути
+(`path`), заголовкам и телу входящего запроса. Класс `Response` принимает необязательные аргументы
+`status`, `body` и `headers`, что позволяет конструировать ответы лаконично.
 
 === Абстрактный класс Handler
 
+Для реализации обработчика запросов разработчику необходимо унаследоваться от класса
+`http.HttpHandler` и переопределить метод `handle`. Метод принимает объект `Request` и должен
+возвращать объект `Response`. Пример простого обработчика показан на
+рисунке~@listing-python-hello-example.
+
+#figure(
+  caption: [Пример простого плагина на Python],
+  kind: image,
+  ```python
+  from wassel_sdk import http
+
+  class HttpHandler(http.HttpHandler):
+      def handle(self, request: http.Request) -> http.Response:
+          _ = request
+          return http.Response(body=b"Hello from my super plugin")
+  ```,
+) <listing-python-hello-example>
+
+Аннотация `@override` из модуля `typing` рекомендуется для явного указания намерения переопределить
+метод базового класса, что позволяет статическим анализаторам обнаруживать опечатки в именах
+методов.
+
 === HTTP-клиент
+
+Для осуществления исходящих HTTP-запросов используются типы `OutgoingRequest` и `Fields` из модуля
+`wassel_sdk.http`, а функция `http.client.send` принимает URL и объект запроса и возвращает объект
+входящего ответа. Пример HTTP-клиента показан на рисунке~@listing-python-http-client-example.
+
+#figure(
+  caption: [Пример выполнения исходящего HTTP-запроса на Python],
+  kind: image,
+  ```python
+  from wassel_sdk.http import Fields, OutgoingRequest, client
+
+  req = OutgoingRequest(Fields())
+  res = client.send("https://jsonplaceholder.typicode.com/todos/1", req)
+  status = res.status()
+  body = res.consume().stream().blocking_read(64 * 1024)
+  ```,
+) <listing-python-http-client-example>
+
+Тело ответа представлено потоком байт: метод `blocking_read` принимает максимальное количество
+считываемых байт. Для полного считывания тела следует читать поток в цикле до получения исключения
+`StreamError_Closed`, как показано в полном примере плагина (@listing-python-full-example).
 
 === Postgres-клиент
 
+Модуль `wassel_sdk.postgres` предоставляет классы `Connection` и `ConnectionConfig` для выполнения
+SQL-запросов. Конфигурация подключения задаётся строкой в формате libpq. Метод `Connection.query`
+принимает SQL-запрос и список значений типа `postgres.Value_*` и возвращает объект результата с
+полем `rows`. Пример использования клиента показан на рисунке~@listing-python-postgres-example.
+
+#figure(
+  caption: [Пример выполнения запроса к базе данных Postgres на Python],
+  kind: image,
+  ```python
+  from wassel_sdk import postgres
+
+  CONNECTION_STRING = (
+      "host=127.0.0.1 port=25432 "
+      "user=plugin password=hunter42 dbname=plugin"
+  )
+
+  config = postgres.ConnectionConfig(CONNECTION_STRING)
+  conn = postgres.Connection.open(config)
+  rows = conn.query(
+      "SELECT $1 + $2",
+      [postgres.Value_Int32(34), postgres.Value_Int32(35)],
+  )
+  num = rows.rows[0][0]
+  assert isinstance(num, postgres.Value_Int32)
+  ```,
+) <listing-python-postgres-example>
+
+Значения параметров передаются в виде дискриминированных объединений `postgres.Value_*`, например
+`Value_Int32`, `Value_Text` и т.д. Аналогично, каждая ячейка результата имеет тип
+`postgres.Value_*`, который необходимо привести к нужному типу.
+
 === Redis-клиент
 
-=== Пример использования
+Модуль `wassel_sdk.redis` предоставляет классы `Connection` и `ConnectionConfig` для выполнения
+Redis-команд. Метод `Connection.execute` принимает имя команды и список аргументов типа
+`RedisArgument_*`. Пример использования клиента показан на рисунке~@listing-python-redis-example.
+
+#figure(
+  caption: [Пример выполнения запроса к Redis на Python],
+  kind: image,
+  ```python
+  from wassel_sdk import redis
+  from wassel_sdk.redis import RedisArgument_Str, RedisValue_BulkString
+
+  CONNECTION_STRING = "redis://localhost:6379"
+
+  config = redis.ConnectionConfig(CONNECTION_STRING)
+  conn = redis.Connection.open(config)
+  conn.execute("SET", [RedisArgument_Str("my:value"), RedisArgument_Str("Hello")])
+  s = conn.execute("GET", [RedisArgument_Str("my:value")])
+  assert isinstance(s, RedisValue_BulkString)
+  ```,
+) <listing-python-redis-example>
+
+Возвращаемое значение `execute` имеет тип `RedisValue_*` и должно быть приведено к нужному типу,
+например `RedisValue_BulkString` для строковых значений.
+
+#pagebreak()
+
+=== Пример плагина
+
+На рисунке~@listing-python-full-example представлен полный пример плагина, который выполняет
+HTTP-запрос к стороннему API и возвращает его ответ. В примере показаны абстрактный класс
+`HttpHandler`, функция отправки исходящего запроса и вспомогательная функция для полного считывания
+тела ответа.
+
+#figure(
+  caption: [Пример использования Python SDK],
+  kind: image,
+  ```python
+  from typing import override
+  from wassel_sdk import http
+  from wassel_sdk.http import (
+      Err, Fields, IncomingBody, OutgoingRequest,
+      StreamError_Closed,
+  )
+
+  STREAM_READ_COUNT = 1024 * 64
+
+  class HttpHandler(http.HttpHandler):
+      @override
+      def handle(self, request: http.Request) -> http.Response:
+          if not request.path.startswith("/todos/"):
+              return http.Response(status=404)
+          try:
+              path = request.path.removeprefix("/todos/")
+              id = int(path)
+              url = f"https://jsonplaceholder.typicode.com/todos/{id}"
+              req = OutgoingRequest(Fields())
+              res = http.client.send(url, req)
+              body = read_body(res.consume())
+              return http.Response(status=res.status(), body=body)
+          except ValueError as e:
+              return http.Response(status=400, body=str(e).encode())
+          except Exception as e:
+              return http.Response(status=500, body=str(e).encode())
+
+  def read_body(body: IncomingBody) -> bytes:
+      buf = bytes()
+      try:
+          with body.stream() as stream:
+              while True:
+                  buf += stream.blocking_read(STREAM_READ_COUNT)
+      except Err as e:
+          if isinstance(e.value, StreamError_Closed):
+              return buf
+          raise e
+      finally:
+          IncomingBody.finish(body)
+  ```,
+) <listing-python-full-example>
+
+Проверить работу плагина можно с помощью CURL (рисунок~@image-curl-python).
+
+#figure(
+  caption: [Результат выполнения запроса к плагину на Python],
+  kind: image,
+  ```json
+  $ curl localhost:9000/python/http-client/todos/123
+  {
+    "userId": 7,
+    "id": 123,
+    "title": "esse et quis iste est earum aut impedit",
+    "completed": false
+  }
+  ```,
+) <image-curl-python>
 
 == Примеры плагинов на других языках
 
