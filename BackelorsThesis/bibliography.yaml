@@ -1,3 +1,5 @@
+# TODO: привести библиографию в порядок
+
 cloud-computing-models:
     type: Thesis
     title: Cloud Computing Models
@@ -234,6 +236,34 @@ wasi-sdk:
     value: "https://github.com/WebAssembly/wasi-sdk"
     date: 2026-06-06
 
+wasselteam-github:
+  type: web
+  title: "Wassel Team - A framework for creating serverless apps using WebAssembly"
+  url:
+    value: "https://github.com/wasselteam"
+    date: 2026-06-07
+
+wassel-github:
+  type: web
+  title: "Wassel - An extensible server for modern web powered by WebAssembly plugins"
+  url:
+    value: "https://github.com/wasselteam/wassel"
+    date: 2026-06-07
+
+wassel-sdk-rust:
+  type: web
+  title: "Wassel Rust SDK"
+  url:
+    value: "https://github.com/wasselteam/sdk-rust"
+    date: 2026-06-07
+
+wassel-sdk-python:
+  type: web
+  title: "Wassel Python SDK"
+  url:
+    value: "https://github.com/wasselteam/sdk-python"
+    date: 2026-06-07
+
 wassel-examples-github:
   type: web
   title: "Wassel Low-Level Examples"
@@ -247,3 +277,29 @@ niknation-pgups-bots:
   url:
     value: "https://github.com/NIkNatIon/pgups-bots"
     date: 2026-06-06
+
+semver:
+  type: web
+  title: Semantic Versioning Specification
+  authors:
+    - Preston-Werner, Tom
+    - name: The SemVer Team
+  version: 2.0.0
+  date: 2013-06-18
+  url: https://semver.org
+  serial-number: CC-BY-3.0
+  abstract: '"Semantic Versioning" or "SemVer" contain a set of rules and requirements that dictate how version numbers are assigned and incremented.'
+
+wasmtime-performance:
+  type: web
+  title: "Bytecode Alliance — Wasmtime 1.0: A Look at Performance"
+  url:
+    value: "https://bytecodealliance.org/articles/wasmtime-10-performance"
+    date: 2026-06-07
+
+libwassel-github:
+  type: web
+  title: "C-API for Wassel Runtime"
+  url:
+    value: "https://github.com/wasselteam/libwassel"
+    date: 2026-06-07

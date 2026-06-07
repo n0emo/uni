@@ -1,3 +1,6 @@
+// TODO: после проверки всех разделов загрузить в клод и проверить целостность всей работы
+// TODO: отправить на нормоконтроль и антиплагиат
+
 #import "@local/pgups:0.1.0": *
 
 #show: backelors-thesis.with(
@@ -98,11 +101,12 @@
 #include "./chapters/01-analysis.typ"
 #include "./chapters/02-technologies.typ"
 #include "./chapters/03-architecture.typ"
-#include "./chapters/04-runtime.typ"
-#include "./chapters/05-sdk.typ"
-#include "./chapters/06-admin.typ"
-#include "./chapters/07-economy.typ"
-#include "./chapters/08-labor-protection.typ"
+#include "./chapters/04-wit.typ"
+#include "./chapters/05-runtime.typ"
+#include "./chapters/06-sdk.typ"
+#include "./chapters/07-admin.typ"
+#include "./chapters/08-economy.typ"
+#include "./chapters/09-labor-protection.typ"
 #include "./chapters/99-conclusion.typ"
 #bibliography("bibliography.yaml")
 #appendixes(include "./appendixes.typ")
