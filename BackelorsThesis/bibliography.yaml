@@ -212,3 +212,38 @@ svelte-runes:
   title: "Svelte 5: Runes"
   url: https://svelte.dev/docs/svelte/what-are-runes
   date: 2024
+
+wasm-tools:
+  type: web
+  title:
+  url:
+    value: "https://github.com/bytecodealliance/wasm-tools"
+    date: 2026-06-06
+
+tc39-using:
+  type: Web
+  title: "ECMAScript Explicit Resource Management"
+  url:
+    value: "https://github.com/tc39/proposal-explicit-resource-management"
+    date: 2025-06-06
+
+wasi-sdk:
+  type: web
+  title: "WebAssembly/wasi-sdk: WASI-enabled WebAssembly C/C++ toolchain"
+  url:
+    value: "https://github.com/WebAssembly/wasi-sdk"
+    date: 2026-06-06
+
+wassel-examples-github:
+  type: web
+  title: "Wassel Low-Level Examples"
+  url:
+    value: "https://github.com/wasselteam/wassel-examples"
+    date: 2026-06-06
+
+niknation-pgups-bots:
+  type: web
+  title: Чат-бот «Доступный ПГУПС»
+  url:
+    value: "https://github.com/NIkNatIon/pgups-bots"
+    date: 2026-06-06

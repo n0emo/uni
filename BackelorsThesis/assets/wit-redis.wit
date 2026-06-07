@@ -1,1 +1,81 @@
-// TODO: Redis
+package wassel:redis;
+
+interface redis {
+  resource connection-config {
+    constructor(connection-string: string);
+  }
+
+  resource connection {
+    open: static func(config: connection-config) -> result<connection, error>;
+    execute: func(command: string, arguments: list<redis-argument>) -> result<redis-value, error>;
+  }
+
+  variant error {
+    type-error(string),
+    server-error(string),
+    other(string),
+  }
+
+  variant redis-argument {
+    i64(s64),
+    str(string),
+  }
+
+  record attribute {
+    data: lazy-redis-value,
+    attributes: list<tuple<lazy-redis-value, lazy-redis-value>>,
+  }
+
+  variant verbatim-format {
+    unknown(string),
+    markdown,
+    text,
+  }
+
+  record verbatim-string {
+    format: verbatim-format,
+    text: string,
+  }
+
+  variant push-kind {
+    disconnection,
+    other(string),
+    invalidate,
+    message,
+    pmessage,
+    smessage,
+    unsubscribe,
+    punsubscribe,
+    sunsubscribe,
+    subscribe,
+    psubscribe,
+    ssubscribe,
+  }
+
+  record push {
+    kind: push-kind,
+    data: list<lazy-redis-value>,
+  }
+
+  variant redis-value {
+    nil,
+    int(s64),
+    bulk-string(list<u8>),
+    array(list<lazy-redis-value>),
+    simple-string(string),
+    okay,
+    %map(list<tuple<lazy-redis-value, lazy-redis-value>>),
+    attribute(attribute),
+    set(list<lazy-redis-value>),
+    double(f64),
+    boolean(bool),
+    verbatim-string(verbatim-string),
+    big-number(string),
+    push(push)
+  }
+
+  resource lazy-redis-value {
+    constructor(value: redis-value);
+    get: static func(value: lazy-redis-value) -> redis-value;
+  }
+}

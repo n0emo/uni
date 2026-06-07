@@ -101,9 +101,8 @@
 #include "./chapters/04-runtime.typ"
 #include "./chapters/05-sdk.typ"
 #include "./chapters/06-admin.typ"
-#include "./chapters/07-approbation.typ"
-#include "./chapters/08-economy.typ"
-#include "./chapters/09-labor-protection.typ"
+#include "./chapters/07-economy.typ"
+#include "./chapters/08-labor-protection.typ"
 #include "./chapters/99-conclusion.typ"
 #bibliography("bibliography.yaml")
 #appendixes(include "./appendixes.typ")
