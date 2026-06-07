@@ -2,6 +2,7 @@
 // TODO: отправить на нормоконтроль и антиплагиат
 
 #import "@local/pgups:0.1.0": *
+#import "style.typ": *
 
 #show: backelors-thesis.with(
   superviser-review: include "./chapters/00-review.typ",
@@ -95,6 +96,8 @@
     ),
   ),
 )
+
+#show: custom-style
 
 #include "./chapters/00-definitions.typ"
 #include "./chapters/00-introduction.typ"

@@ -1,5 +1,87 @@
 # TODO: привести библиографию в порядок
 
+gordina-serverless:
+  type: Article
+  title: Особенности технологий бессерверных вычислений
+  author:
+    - Гордина, А. Т.
+    - Забродин, А. В.
+  date: 2022
+  url:
+    value: https://cyberleninka.ru/article/n/osobennosti-tehnologiy-besservernyh-vychisleniy
+    date: 2026-06-08
+  parent:
+    type: Periodical
+    title: Интеллектуальные технологии на транспорте
+    issue: "1 (29)"
+
+abdurrakhimov-cloud-native:
+  type: Article
+  title: How Cloud-Native Architectures Revolutionize Software Development
+  author: Abdurrakhimov, Elnur
+  date: 2025
+  url:
+    value: https://cyberleninka.ru/article/n/how-cloud-native-architectures-revolutionize-software-develop-ment
+    date: 2026-06-08
+  parent:
+    type: Periodical
+    title: "Universum: технические науки"
+    issue: "3 (132)"
+
+mikhelson-serverless:
+  type: Article
+  title: "Serverless Computing: Performance Evaluation for Small Businesses"
+  author: Mikhelson, Oleg
+  date: 2024
+  url:
+    value: https://cyberleninka.ru/article/n/serverless-computing-performance-evaluation-for-small-businesses
+    date: 2026-06-08
+  parent:
+    type: Periodical
+    title: EESJ
+    issue: "4-1 (101)"
+
+aws-lambda:
+  type: Web
+  title: AWS Lambda
+  organization: Amazon Web Services
+  url:
+    value: https://aws.amazon.com/lambda/
+    date: 2026-06-08
+
+google-cloud-functions:
+  type: Web
+  title: Cloud Functions
+  organization: Google Cloud
+  url:
+    value: https://cloud.google.com/functions
+    date: 2026-06-08
+
+azure-functions:
+  type: Web
+  title: Azure Functions
+  organization: Microsoft
+  url:
+    value: https://azure.microsoft.com/en-us/products/functions
+    date: 2026-06-08
+
+ibm-cloud-functions:
+  type: Web
+  title: IBM Cloud Code Engine
+  organization: IBM
+  url:
+    value: https://www.ibm.com/products/code-engine
+    date: 2026-06-08
+  note: Преемник IBM Cloud Functions, которая была выведена из эксплуатации
+
+cloudflare-workers:
+  type: Web
+  title: Cloudflare Workers
+  organization: Cloudflare
+  url:
+    value: https://workers.cloudflare.com/
+    date: 2026-06-08
+
 cloud-computing-models:
     type: Thesis
     title: Cloud Computing Models
@@ -303,3 +385,11 @@ libwassel-github:
   url:
     value: "https://github.com/wasselteam/libwassel"
     date: 2026-06-07
+
+cbindgen-github:
+  type: web
+  title: "A project for generating C bindings from Rust code"
+  url:
+    value: "https://github.com/mozilla/cbindgen"
+    date: 2026-06-07
+
