@@ -1,5 +1,3 @@
-# TODO: привести библиографию в порядок
-
 gordina-serverless:
   type: Article
   title: Особенности технологий бессерверных вычислений
@@ -55,6 +53,20 @@ google-cloud-functions:
   organization: Google Cloud
   url:
     value: https://cloud.google.com/functions
+    date: 2026-06-08
+
+wasmcloud:
+  type: web
+  title: The WebAssembly Application Platform | wasmCloud
+  url:
+    value: https://wasmcloud.com/
+    date: 2026-06-08
+
+spinframework:
+  type: web
+  title: Introducing Spin | Spin Docs
+  url:
+    value: https://spinframework.dev/
     date: 2026-06-08
 
 azure-functions:
@@ -392,4 +404,48 @@ cbindgen-github:
   url:
     value: "https://github.com/mozilla/cbindgen"
     date: 2026-06-07
+
+bakaykina-microservices:
+  type: Article
+  title: "Микросервисная архитектура vs Monolith: сравнительный анализ на примере веб-приложения"
+  author:
+    - Бакайкина, В. Г.
+    - Богатина, В. А.
+    - Федоров, В. М.
+  date: 2025
+  url:
+    value: https://cyberleninka.ru/article/n/mikroservisnaya-arhitektura-vs-monolith-sravnitelnyy-analiz-na-primere-veb-prilozheniya
+    date: 2026-06-08
+  parent:
+    type: Periodical
+    title: Парадигма
+    issue: "11-4"
+
+tokio:
+  type: web
+  title: Tokio - An asynchronous Rust runtime
+  url:
+    value: https://tokio.rs/
+    date: 2026-06-08
+
+serde:
+  type: web
+  title: Overview · Serde
+  url:
+    value: https://serde.rs/
+    date: 2026-06-08
+
+rustls:
+  type: web
+  title: "rustls/rustls: A modern TLS library in Rust"
+  url:
+    value: https://github.com/rustls/rustls
+    date: 2026-06-08
+
+clap:
+  type: web
+  title: clap - Rust
+  url:
+    value: https://docs.rs/clap/latest/clap/
+    date: 2026-06-08
 

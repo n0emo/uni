@@ -9,13 +9,15 @@ WIT-интерфейсы взаимодействия. Разработанна�
 и Python, интерфейс командной строки и административную панель мониторинга. Выполнено
 технико-экономическое обоснование разработки и анализ условий труда разработчика.
 
-Пояснительная записка содержит #{
-  let pages = context { counter(page).final().at(0) }
-  pages
-} страниц, #{
-  let figures = context { counter(figure.where(kind: image)).final().at(0) }
-  figures
-} рисунков и #{
-  let tables = context { counter(figure.where(kind: table)).final().at(0) }
-  tables
-} таблицы.
+// May be useful in future
+//
+// Пояснительная записка содержит #{
+//   let pages = context { counter(page).final().at(0) }
+//   pages
+// } страниц, #{
+//   let figures = context { counter(figure.where(kind: image)).final().at(0) }
+//   figures
+// } рисунков и #{
+//   let tables = context { counter(figure.where(kind: table)).final().at(0) }
+//   tables
+// } таблицы.

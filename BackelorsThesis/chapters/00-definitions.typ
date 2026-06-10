@@ -3,6 +3,7 @@
 #structural[Перечень сокращений]
 
 - ABI -- Application Binary Interface.
+- API -- Application programming interface.
 - AoT -- Ahead of Time.
 - CLI -- Command Line Interface.
 - CPU -- Central Processor Unit.
@@ -10,6 +11,8 @@
 - FFI -- Foreign Function Interface.
 - FaaS -- Function as a Service.
 - GC -- Garbage Collector.
+- HTTP -- Hypertext Transfer Protocol.
+- IDL -- Interface description language.
 - JIT -- Just In Time.
 - JSON -- JavaScript Object Notation.
 - OCI -- Open Container Initiative.
@@ -25,7 +28,20 @@
 - WASM -- WebAssembly.
 - WIT -- WebAssembly Interface Types.
 - ВМ -- Виртуальная машина.
+- ЖЦ -- Жизненный цикл.
+- ИД -- Индекс доходности.
+- НДС -- Налог на добавленную стоимость.
+- НР -- Накладные расходы.
+- ОЗП -- Основная заработная плата.
 - ОС -- Операционная система.
+- ПК -- Персональный компьютер.
+- ПО -- Программное обеспечение.
+- ПС -- Программное средство.
+- ПЭВМ -- Персональная электронная вычислительная машина.
+- РОТ -- Расходы на оплату труда.
+- СВ -- Страховые взносы.
 - СУБД -- Система управления базами данных.
-
-// TODO: написать все сокращения, используемые в работе
+- СанПиН -- Санитарные правила, нормы, правила и нормы, гигиенические нормативы.
+- ЧДД -- Чистый дисконтированный доход.
+- ЭВМ -- Электронная вычислительная машина.
+- з/п -- Заработная плата.

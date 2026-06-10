@@ -1,7 +1,3 @@
-// TODO: проставить ссылки на формулы
-// TODO: правильно расписать определение символов формул
-// TODO: внимательно првоерить экономическую часть
-
 #import "@preview/cetz:0.5.2"
 #import "@preview/cetz-plot:0.1.4": plot
 
@@ -48,106 +44,76 @@
 
 #let op-costs = (0, 40, 80, 200, 350, 600, 900, 1100)
 
-
-// Суммарное время разработки (часов)
 #let calc-dev-hours(months, days-per-month, hours-per-day, count) = {
   months * days-per-month * hours-per-day * count
 }
 
-// Основная заработная плата
 #let calc-ozp(hours, rate) = { hours * rate }
 
-// Страховые взносы
 #let calc-insurance(ozp, rate) = { ozp * rate }
 
-// Накладные расходы
 #let calc-overhead(ozp, rate) = { ozp * rate }
 
-// Расходы на электроэнергию
 #let calc-electricity(power-kw, price, hours) = { power-kw * price * hours }
 
-// Расходы на расходные материалы за период
 #let calc-consumables(pc-cost, rate, lifetime-years, months) = {
   pc-cost * rate / (lifetime-years * 12) * months
 }
 
-// Расходы на ремонт за период
 #let calc-repair(pc-cost, rate, lifetime-years, months) = {
   pc-cost * rate / (lifetime-years * 12) * months
 }
 
-// Зарплата инженера-системотехника за период (на 1 ПК)
 #let calc-engineer-salary(monthly, pcs, months) = { monthly / pcs * months }
 
-// Амортизация ПК за период
 #let calc-apc(pc-cost, lifetime-years, months) = {
   pc-cost / (lifetime-years * 12) * months
 }
 
-// Амортизация ПО за период
 #let calc-apo(sw-cost, lifetime-years, months) = {
   if lifetime-years == 0 or sw-cost == 0 { 0 } else {
     sw-cost / (lifetime-years * 12) * months
   }
 }
 
-// Дополнительные расходы (аренда, уборка и т.д.)
 #let calc-extra(engineer-monthly, extra-rate, pcs, months) = {
   engineer-monthly / pcs * months * extra-rate
 }
 
-// Себестоимость разработки
 #let calc-cost(ozp, insurance, overhead, pc-expenses) = {
   ozp + insurance + overhead + pc-expenses
 }
 
-// Прибыль
 #let calc-profit(cost, rate) = { cost * rate }
 
-// Стоимость программы без НДС
 #let calc-price(cost, profit) = { cost + profit }
 
-// НДС
 #let calc-vat(price, rate) = { price * rate }
 
-// Стоимость с НДС
 #let calc-price-with-vat(price, vat) = { price + vat }
 
-// Норма дисконта
 #let calc-discount-rate(a, b, c) = { a + b + c }
 
-// Коэффициент дисконтирования для периода t
 #let discount-coeff(E, t) = { 1 / calc.pow(1 + E, t) }
 
-// ЧДД за год t (с учётом инвестиций)
 #let npv-year(revenue, costs, invest, E, t) = {
   (revenue - costs - invest) * discount-coeff(E, t)
 }
 
-// ЧДД после налога на прибыль за год t
 #let npv-year-after-tax(revenue, costs, invest, E, t, tax-rate) = {
   let profit-before-tax = revenue - costs - invest
   let tax = if profit-before-tax > 0 { profit-before-tax * tax-rate } else { 0 }
   (profit-before-tax - tax) * discount-coeff(E, t)
 }
 
-// Индекс доходности
 #let calc-id(disc-revenues, disc-costs) = { disc-revenues / disc-costs }
 
-// Среднегодовая рентабельность
 #let calc-sr(id, n) = { (id - 1) / n * 100 }
 
-// Форматирование в рублях (округление до целых)
 #let rub(v) = { str(calc.round(v)) + " руб." }
 
-// Форматирование в рублях (до 2 знаков)
 #let rub2(v) = { str(calc.round(v, digits: 2)) + " руб." }
 
-// ============================================================
-// ВЫЧИСЛЕНИЯ
-// ============================================================
-
-// --- Аппаратная часть ---
 #let hw-rot = hw-setup-hours * hw-setup-rate
 #let hw-insurance = hw-rot * insurance-rate
 #let hw-overhead = hw-rot * overhead-rate
@@ -155,14 +121,13 @@
 #let hw-profit = hw-cost * profit-rate
 #let hw-price = hw-cost + hw-profit
 
-// --- Программная часть ---
 #let dev-hours = calc-dev-hours(
   dev-months,
   dev-days-per-month,
   dev-hours-per-day,
   dev-count,
 )
-#let dev-years = dev-months / 12 // для расчёта амортизации
+#let dev-years = dev-months / 12
 
 #let ozp = calc-ozp(dev-hours, dev-hourly-rate)
 #let insurance = calc-insurance(ozp, insurance-rate)
@@ -202,11 +167,9 @@
 #let vat = calc-vat(price, vat-rate)
 #let price-vat = calc-price-with-vat(price, vat)
 
-// --- Дисконтирование ---
 #let E = calc-discount-rate(deposit-rate, risk-premium, inflation-rate)
-#let investment = cost // инвестиции = себестоимость разработки
+#let investment = cost
 
-// ЧДД по годам (до налога, для накопленного графика)
 #let npv-values = range(calc-years).map(t => {
   let rev = revenues.at(t) * 1000
   let opc = op-costs.at(t) * 1000
@@ -214,7 +177,6 @@
   npv-year(rev, opc, inv, E, t)
 })
 
-// ЧДД по годам после налога на прибыль
 #let npv-after-tax = range(calc-years).map(t => {
   let rev = revenues.at(t) * 1000
   let opc = op-costs.at(t) * 1000
@@ -222,7 +184,6 @@
   npv-year-after-tax(rev, opc, inv, E, t, income-tax-rate)
 })
 
-// Налог на прибыль по годам
 #let income-tax-values = range(calc-years).map(t => {
   let rev = revenues.at(t) * 1000
   let opc = op-costs.at(t) * 1000
@@ -231,7 +192,6 @@
   if profit-bt > 0 { profit-bt * income-tax-rate } else { 0 }
 })
 
-// Накопленный ЧДД (после налога)
 #let npv-cumulative = {
   let acc = 0
   let result = ()
@@ -242,7 +202,6 @@
   result
 }
 
-// Дисконтированные доходы и затраты для ИД
 #let disc-rev-total = (
   range(calc-years).map(t => revenues.at(t) * 1000 * discount-coeff(E, t)).sum()
 )
@@ -264,7 +223,7 @@
 = Экономическая часть
 
 В данном разделе представлен анализ экономической обоснованности разработки среды выполнения
-WASM-компонентов. Подсчитана оценка стоимости реализации, включающая эксплуатационные и
+WASM-компонентов. Приведена оценка стоимости реализации, включающая эксплуатационные и
 амортизационные расходы на оборудование и программное обеспечение, а также оплату труда
 разработчика. Рассчитана предполагаемая прибыль от внедрения продукта и общий экономический эффект,
 возможный при инвестициях в разработку.
@@ -281,7 +240,6 @@ WASM-компонентов. Подсчитана оценка стоимост�
   table(
     columns: (auto, 1fr, auto),
     stroke: 0.5pt,
-    align: (center, left, right),
     table.header([*№*], [*Наименование статей затрат*], [*Затраты, руб.*]),
     [1], [Материалы (оборудование)], [#calc.round(hw-pc-cost)],
     [2], [Расходы на оплату труда], [#calc.round(hw-rot)],
@@ -295,14 +253,13 @@ WASM-компонентов. Подсчитана оценка стоимост�
 ) <table-hw-calc>
 
 Для реализации проекта необходим персональный компьютер с установленной операционной системой Fedora
-Linux. Детализация расходов по статье «Материалы» приведена в таблице~@table-hw-materials.
+Linux. Детализация расходов по статье «Материалы» представлена в таблице~@table-hw-materials.
 
 #figure(
   caption: [Расходы на материалы (оборудование)],
   table(
     columns: (1fr, auto, auto),
     stroke: 0.5pt,
-    align: (left, right, right),
     table.header([*Наименование*], [*Цена, руб.*], [*Сумма, руб.*]),
     [Персональный компьютер (ноутбук) для разработки],
     [#hw-pc-cost],
@@ -337,14 +294,13 @@ $
 
 Калькуляция сметной стоимости разработки программного средства включает расходы на основную
 зарплату, страховые взносы, накладные расходы и эксплуатационные расходы на ПК. Результаты
-калькуляции приведены в таблице~@table-development-expenses.
+калькуляции представлены в таблице~@table-development-expenses.
 
 #figure(
   caption: [Смета затрат на разработку ПС],
   table(
     columns: (auto, 1fr, auto),
     stroke: 0.5pt,
-    align: (center, left, right),
     table.header([*№*], [*Статьи расходов*], [*Затраты, руб.*]),
     [1], [Основная заработная плата], [#calc.round(ozp)],
     [2], [Страховые взносы (30~% от п.1)], [#calc.round(insurance)],
@@ -414,7 +370,7 @@ $
 $ "АПК" = frac([#pc-cost], 36) times #dev-months = #rub2(apc) $
 
 *Амортизация ПО:* используемые инструменты (Fedora~Linux, Neovim, компилятор Rust) распространяются
-свободно --- $"АПО" = 0$~руб.
+свободно~---~$"АПО" = 0$~руб.
 
 *Дополнительные расходы* (10~% от з/п инженера-системотехника в расчёте на 1~ПК):
 
@@ -429,7 +385,6 @@ $
   table(
     columns: (auto, 1fr, auto),
     stroke: 0.5pt,
-    align: (center, left, right),
     table.header([*№*], [*Статья расхода*], [*Затраты, руб.*]),
     [1], [Расходы на электроэнергию], [#calc.round(elec, digits: 2)],
     [2],
@@ -450,7 +405,7 @@ $
 ) <table-pc-expenses>
 
 Таким образом, себестоимость разработки среды выполнения WASM-компонентов составляет *#rub(cost)*, а
-договорная цена с учётом НДС --- *#rub(price-vat)*.
+договорная цена с учётом НДС~---~*#rub(price-vat)*.
 
 == Обоснование экономической эффективности инвестиций в информационные проекты
 
@@ -461,9 +416,8 @@ $
 #figure(
   caption: [Формы эффективности инвестиционного проекта],
   table(
-    columns: (1fr, 2fr),
+    columns: (1fr, 2.6fr),
     stroke: 0.5pt,
-    align: (left, left),
     table.header([*Форма эффективности*], [*Описание*]),
     [Коммерческая эффективность],
     [Отражает финансовые результаты реализации проекта для его прямых участников. Определяется
@@ -472,7 +426,7 @@ $
 
     [Бюджетная эффективность],
     [Показывает, как реализация проекта влияет на финансовое состояние федерального, регионального
-      или местного бюджета. Основным показателем является бюджетный эффект --- разница между
+      или местного бюджета. Основным показателем является бюджетный эффект~---~разница между
       доходами и расходами бюджета на каждом этапе проекта.],
 
     [Общественная (народнохозяйственная) эффективность],
@@ -487,8 +441,8 @@ $
 Экономический эффект от внедрения среды выполнения формируется по двум направлениям: сокращение
 трудозатрат на интеграцию сервисов за счёт встраиваемого runtime-интерфейса, а также
 коммерциализация решения через облачные FaaS-платформы и встраивание в инфраструктурные проекты
-ПГУПС. В год~0 доходов нет --- ведётся разработка; с года~1 начинается внутреннее использование, с
-года~3 --- постепенный выход на открытый рынок.
+ПГУПС. В год~0 доходов нет~---~ведётся разработка; с года~1 начинается внутреннее использование, с
+года~3~---~постепенный выход на открытый рынок.
 
 #{
   let years = range(calc-years).map(t => project-start-year + t)
@@ -505,9 +459,8 @@ $
           project-start-year,
         )--#str(project-start-year + calc-years - 1)~гг., тыс.~руб.],
       table(
-        columns: (1.4fr, ..range(calc-years).map(_ => 1fr)),
+        columns: (4fr, ..range(calc-years).map(_ => 1fr)),
         stroke: 0.5pt,
-        align: (left, ..range(calc-years).map(_ => right)),
         fill: (col, row) => if row == 0 or col == 0 { luma(230) } else {
           white
         },
@@ -543,23 +496,29 @@ $
 
 Норма дисконта рассчитывается по формуле:
 
-$ E = a + b + c, $
+#let space-width = context { measure([ ]) }.width
 
-где $a$ --- доходность альтернативных вложений (банковский депозит); $b$ --- уровень премии за риск;
-$c$ --- уровень инфляции.
+$ E = a + b + c, $ <eq-discount>
+
+#pad(left: 12.5mm, grid(
+  row-gutter: 1.15em,
+  columns: 2,
+  [где#" "], [$a$~---~доходность альтернативных вложений (банковский депозит);],
+  [], [$b$~---~уровень премии за риск;],
+  [], [$c$~---~уровень инфляции.],
+))
 
 В качестве альтернативных вложений принят средний банковский депозитный процент 8~% годовых в
 рублях. Уровень инфляции принят равным 4~% в соответствии с целевым ориентиром Банка России.
 
 Премия за риск определяется по среднему классу инновации согласно морфологической таблице
-@table-innovation-class.
+(таблица~@table-innovation-class).
 
 #figure(
   caption: [Классификация нововведений и инновационных процессов по группам риска],
   table(
-    columns: (auto, 1fr, 1.5fr, auto),
+    columns: 4,
     stroke: 0.5pt,
-    align: (center, left, left, center),
     table.header([*№*], [*Признак*], [*Значение*], [*Класс*]),
     [1], [По содержанию нововведения], [Новая технология (метод)], [6],
     [2], [Тип новатора (сфера создания)], [Образовательные учреждения], [7],
@@ -602,16 +561,15 @@ $c$ --- уровень инфляции.
 
 $ tilde(K) = frac(89, 17) approx 5.2 approx 5 $
 
-По таблице~@table-risk-premium при $tilde(K) approx 5$ параметр $b = 10%$.
+По данным, представленным в таблице~@table-risk-premium, при $tilde(K) approx 5$ параметр $b = 10%$.
 
 #figure(
   caption: [Соотношение среднего класса инновации и средней премии за риск],
   table(
     columns: (2fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
     stroke: 0.5pt,
-    align: center,
     table.header([*Средний класс*], [*1*], [*2*], [*3*], [*4*], [*5*], [*6*], [*7*], [*8*]),
-    [Премия за риск, %], [0,0], [0,5], [1,0], [2,0], [5,0], [10,0], [20,0], [50,0],
+    [Премия за риск, %], [0.0], [0.5], [1.0], [2.0], [5.0], [10.0], [20.0], [50.0],
   ),
 ) <table-risk-premium>
 
@@ -625,14 +583,13 @@ $
   #calc.round(E * 100, digits: 0)%
 $
 
-Текущие затраты по периодам приведены в таблице~@table-current-costs.
+Текущие затраты по периодам представлены в таблице~@table-current-costs.
 
 #figure(
   caption: [Текущие затраты по периодам, тыс.~руб.],
   table(
     columns: (1.5fr, ..range(calc-years).map(_ => 1fr)),
     stroke: 0.5pt,
-    align: (left, ..range(calc-years).map(_ => right)),
     fill: (col, row) => if row == 0 or col == 0 { luma(230) } else { white },
     [*Показатель*],
     ..range(calc-years).map(t => strong(str(project-start-year + t))),
@@ -640,7 +597,7 @@ $
   ),
 ) <table-current-costs>
 
-Доходы, относящиеся к проекту, приведены в таблице~@table-revenues.
+Доходы, относящиеся к проекту, представлены в таблице~@table-revenues.
 
 
 #figure(
@@ -648,7 +605,6 @@ $
   table(
     columns: (1.5fr, ..range(calc-years).map(_ => 1fr)),
     stroke: 0.5pt,
-    align: (left, ..range(calc-years).map(_ => right)),
     fill: (col, row) => if row == 0 or col == 0 { luma(230) } else { white },
     [*Показатель*],
     ..range(calc-years).map(t => strong(str(project-start-year + t))),
@@ -656,8 +612,8 @@ $
   ),
 ) <table-revenues>
 
-На основании таблиц~@table-current-costs и~@table-revenues рассчитываются потоки денежных средств
-проекта (таблица~@table-cashflow).
+На основании данных, представленных в таблицах~@table-current-costs~и~@table-revenues,
+рассчитываются потоки денежных средств проекта (таблица~@table-cashflow).
 
 #{
   let outflow = range(calc-years).map(t => {
@@ -679,7 +635,6 @@ $
       table(
         columns: (1.5fr, ..range(calc-years).map(_ => 1fr)),
         stroke: 0.5pt,
-        align: (left, ..range(calc-years).map(_ => right)),
         fill: (col, row) => if row == 0 or col == 0 { luma(230) } else {
           white
         },
@@ -693,7 +648,7 @@ $
   ]
 }
 
-Графическое представление потоков денежных средств приведено на рисунке~@fig-cashflow.
+Графическое представление потоков денежных средств представлено на рисунке~@fig-cashflow.
 
 #figure(
   caption: [Потоки денежных средств проекта],
@@ -715,7 +670,7 @@ $
     let y-max = calc.max(..all-y)
 
     plot.plot(
-      size: (12, 6),
+      size: (11, 8),
       x-label: [Год],
       x-min: 0,
       x-max: calc-years - 1,
@@ -758,13 +713,18 @@ $
 доходом от реализации проекта и дисконтированными единовременными затратами на внедрение. Для его
 расчёта используется формула:
 
-$ "ЧДД" = sum_(t=0)^(T) (R_t - З_t) times frac(1, (1 + E)^t), $
+$ "ЧДД" = sum_(t=0)^(T) (R_t - З_t) times frac(1, (1 + E)^t), $ <eq-npv>
 
-где $R_t$ --- результаты в году~$t$; $З_t$ --- затраты и инвестиции в году~$t$; $E$ --- норма
-дисконта; $1 \/ (1+E)^t$ --- коэффициент дисконтирования. Если ЧДД положителен, проект считается
-эффективным.
+#pad(left: 12.5mm, grid(
+  row-gutter: 1.15em,
+  columns: 2,
+  [где#" "], [$R_t$~---~результаты в году~$t$;],
+  [], [$З_t$~---~затраты и инвестиции в году~$t$;],
+  [], [$E$~---~норма дисконта.],
+))
 
-Результаты расчёта ЧДД по годам приведены в таблице~@table-npv.
+Если ЧДД положителен, проект считается эффективным. Результаты расчёта ЧДД по годам представлены в
+таблице~@table-npv.
 
 #{
   // затраты на проект = инвест + операц
@@ -810,13 +770,12 @@ $ "ЧДД" = sum_(t=0)^(T) (R_t - З_t) times frac(1, (1 + E)^t), $
     #figure(
       caption: [Расчёт ЧДД при норме дисконта #calc.round(E * 100, digits: 0)~%, тыс.~руб.],
       table(
-        columns: (1.6fr, ..range(calc-years).map(_ => 1fr), 1fr),
+        columns: (2fr, ..range(calc-years).map(_ => 1fr), 1fr),
         stroke: 0.5pt,
-        align: (left, ..range(calc-years + 1).map(_ => right)),
         fill: (col, row) => if row == 0 or col == 0 { luma(230) } else {
           white
         },
-        [*Показатель*], ..ycols, [*Всего*],
+        table.header([*Показатель*], ..ycols, [*Всего*]),
         [Инвестиц. вложения], ..inv-row,
         [#str(calc.round(investment / 1000, digits: 1))],
         [Текущие затраты], ..op-costs.map(v => str(v)),
@@ -870,10 +829,10 @@ $ "ЧДД" = sum_(t=0)^(T) (R_t - З_t) times frac(1, (1 + E)^t), $
   let tok-r = calc.round(tok, digits: 1)
 
   [
-    Как видно из таблицы~@table-npv, ЧДД нарастающим итогом принимает положительное значение начиная
-    с *#str(project-start-year + t-minus + 1)~г.*, что подтверждает экономическую эффективность
-    проекта. Графическое представление динамики накопленного ЧДД и срока окупаемости приведено на
-    рисунке~@fig-npv-chart.
+    Анализ данных, представленных в таблице~@table-npv, показывает, что ЧДД нарастающим итогом
+    принимает положительное значение начиная с *#str(project-start-year + t-minus + 1)~г.*, что
+    подтверждает экономическую эффективность проекта. Графическое представление динамики
+    накопленного ЧДД и срока окупаемости представлено на рисунке~@fig-npv-chart.
 
     #figure(
       caption: [ЧДД и срок окупаемости при норме дисконта #calc.round(E * 100, digits: 0)~%],
@@ -883,7 +842,7 @@ $ "ЧДД" = sum_(t=0)^(T) (R_t - З_t) times frac(1, (1 + E)^t), $
         let y-min = calc.min(..data.map(p => p.at(1)))
         let y-max = calc.max(..data.map(p => p.at(1)))
         plot.plot(
-          size: (12, 6),
+          size: (12, 8),
           x-label: [Год от начала внедрения],
           x-min: 0,
           x-max: calc-years - 1,
@@ -932,7 +891,7 @@ $ "ЧДД" = sum_(t=0)^(T) (R_t - З_t) times frac(1, (1 + E)^t), $
 
 === Индекс доходности и среднегодовая рентабельность
 
-Индекс доходности (ИД) --- отношение суммарного дисконтированного дохода к суммарным
+Индекс доходности (ИД)~---~отношение суммарного дисконтированного дохода к суммарным
 дисконтированным затратам:
 
 $
@@ -965,13 +924,13 @@ $
 В результате технико-экономического обоснования разработки среды выполнения WASM-компонентов
 получены следующие основные показатели:
 
-- себестоимость разработки --- *#rub(cost)*;
-- договорная цена с учётом НДС --- *#rub(price-vat)*;
-- норма дисконта --- *#calc.round(E * 100, digits: 0)~%*;
-- итоговый ЧДД --- *#str(calc.round(npv-cumulative.last() / 1000, digits: 1))~тыс.~руб.*
+- себестоимость разработки~---~*#rub(cost)*;
+- договорная цена с учётом НДС~---~*#rub(price-vat)*;
+- норма дисконта~---~*#calc.round(E * 100, digits: 0)~%*;
+- итоговый ЧДД~---~*#str(calc.round(npv-cumulative.last() / 1000, digits: 1))~тыс.~руб.*
   (положительный);
-- индекс доходности --- *#str(calc.round(id-value, digits: 2))* (больше~1);
-- среднегодовая рентабельность --- *#str(calc.round(sr-value, digits: 1))~%*.
+- индекс доходности~---~*#str(calc.round(id-value, digits: 2))* (больше~1);
+- среднегодовая рентабельность~---~*#str(calc.round(sr-value, digits: 1))~%*.
 
 Все показатели удовлетворяют критериям экономической эффективности. Разработка среды выполнения
 WASM-компонентов является целесообразной как с технической, так и с экономической точки зрения.
