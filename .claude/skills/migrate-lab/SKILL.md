@@ -8,6 +8,9 @@ description: Migrate one university lab from the legacy layout (LibreOffice/Word
 Migrate **one lab at a time**. A lab is done when its report compiles to PDF via `mise run
 report <num>` and (if it has code) its sources build via the course's build task.
 
+For a whole course at once, use `migrate-discipline` instead — it fans this procedure out
+across a Sonnet sub-agent per lab and verifies them together.
+
 Compare `bachelors/term-2/*` (legacy) against `bachelors/term-1/entrance-to-c` (fully
 migrated) whenever something here is ambiguous — term-1 is the reference implementation.
 

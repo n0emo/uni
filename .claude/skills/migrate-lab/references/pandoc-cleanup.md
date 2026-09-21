@@ -100,6 +100,11 @@ soffice --headless --convert-to png --outdir lab-1/assets lab-1/assets/image1.wm
 rm lab-1/assets/*.wmf lab-1/assets/*.emf
 ```
 
+The paths pandoc writes into `report.typ` point at `lab-N/assets/media/imageN.png` — relative
+to the directory pandoc was *run from*, i.e. the course root, not the lab. They are therefore
+wrong in the report no matter what, both before and after the flatten above. Every one has to
+be rewritten to `./assets/<name>.png`; do not assume a path that "looks right" already is.
+
 Then rename `image3.png` → something meaningful (`flowchart-1.png`, `mathcad-2.png`), fix the
 paths, and wrap every image in a captioned figure — pandoc emits bare `#image(...)` with the
 caption as a separate paragraph:
