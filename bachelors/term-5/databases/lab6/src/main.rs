@@ -11,10 +11,10 @@ async fn main() -> anyhow::Result<()> {
         .with_file(false)
         .init();
 
-    let images =  {
-        let access_key = "48jbTBFkn9bjSpJJFtsA";
-        let secret_key = "xVMtBeZGcVgsDLzuLt1XKugduSJWb6Br8zfDNms7";
-        let endpoint = "http://localhost:9000".to_owned();
+    let images = {
+        let access_key = "admin";
+        let secret_key = "secret";
+        let endpoint = "http://localhost:8333".to_owned();
         images::ImageService::new(endpoint, access_key, secret_key).await?
     };
     let state = app::AppState { images };
