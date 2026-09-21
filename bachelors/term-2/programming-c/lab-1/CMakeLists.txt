@@ -1,6 +1,2 @@
-cmake_minimum_required(VERSION 3.24)
-project(c_lab_1 C)
-
-set(CMAKE_C_STANDARD 23)
-
-add_executable(c_lab_1 main.c strfuncs.h strfuncs.c tests.c tests.h)
+add_executable(lab-1 src/main.c src/strfuncs.c src/tests.c)
+target_compile_features(lab-1 PRIVATE c_std_11)

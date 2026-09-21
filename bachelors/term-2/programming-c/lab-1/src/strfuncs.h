@@ -1,4 +1,4 @@
-#define size_t unsigned long long
+#include <stddef.h>
 
 // Indexing functions
 size_t strlen_indexing(const char *str);

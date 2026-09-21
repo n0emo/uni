@@ -1,5 +1,4 @@
 #include "strfuncs.h"
-#include "malloc.h"
 
 // Indexing functions
 size_t strlen_indexing(const char *str) {

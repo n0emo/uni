@@ -1,0 +1,25 @@
+[tasks.configure]
+extends = "cmake:configure"
+sources = ["CMakeLists.txt", "lab-*/CMakeLists.txt"]
+outputs = ["build/build.ninja"]
+
+[tasks.build]
+extends = "cmake:build"
+depends = ["configure"]
+sources = ["lab-*/src/**", "lab-*/CMakeLists.txt", "CMakeLists.txt"]
+outputs = { auto = true }
+
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one lab's report to PDF"
+usage = 'arg "<num>" help="lab number (1-6)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+
+[tasks."report-all"]
+description = "Compile every lab's report"
+depends = [
+  { task = "report", args = ["1"] },
+]
