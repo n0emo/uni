@@ -1,8 +1,10 @@
 #include "hanoisolve.h"
-#include "malloc.h"
+#include "stdlib.h"
 #include "stdio.h"
 #include "showhanoi.h"
+#ifdef _WIN32
 #include "windows.h"
+#endif
 
 #define CLEAR 1
 #define WAIT_TIME 0
@@ -16,7 +18,7 @@ uint is_full(Rod* rod);
 void make_move(Rod* rods, const int* move);
 uint check_for_solved(Rod* rod);
 
-void wait() {
+void wait_turn() {
 #if WAIT_TIME
     Sleep(WAIT_TIME);
 #else
@@ -39,7 +41,7 @@ void solve_hanoi(uint disc_count, uint dest) {
 
     show_rods(rods, aliases);
     do {
-        wait();
+        wait_turn();
         find_legal_move(rods, current_move);
         make_move(rods, current_move);
         show_rods(rods, aliases);

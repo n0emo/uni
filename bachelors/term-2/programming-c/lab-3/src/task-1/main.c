@@ -12,10 +12,10 @@ int main() {
     system("chcp 65001");
     system("cls");
     int task_num;
-    printf_s("Введите номер желаемого действия:\n");
-    printf_s("1 - вывести информацию:\n");
-    printf_s("2 - решить ханойскую башню без ходов A=>C и C=>A:\n");
-    scanf_s("%d", &task_num);
+    printf("Введите номер желаемого действия:\n");
+    printf("1 - вывести информацию:\n");
+    printf("2 - решить ханойскую башню без ходов A=>C и C=>A:\n");
+    scanf("%d", &task_num);
     switch (task_num) {
         case 1:
             show_info_task();
@@ -24,7 +24,7 @@ int main() {
             solve_hanoi_task();
             break;
         default:
-            printf_s("Неверный номер действия.\n");
+            printf("Неверный номер действия.\n");
     }
 
     system("pause");
@@ -34,7 +34,7 @@ int main() {
 void show_info_task() {
     int disc_count = 64;
     unsigned long long turn_count = calc_turn_count(disc_count);
-    printf_s("Для %d дисков потребуется сделать %llu ходов.\n", disc_count, turn_count);
+    printf("Для %d дисков потребуется сделать %llu ходов.\n", disc_count, turn_count);
     unsigned long long seconds = calc_time(disc_count);
     unsigned long long years = seconds / 60 / 60 / 24 / 365;
     printf("Это займёт %llu секунд или %llu лет.\n", seconds, years );
@@ -42,18 +42,18 @@ void show_info_task() {
 
 void solve_hanoi_task() {
     int disc_count;
-    printf_s("Введите количество дисков.\n");
-    scanf_s("%d", &disc_count);
+    printf("Введите количество дисков.\n");
+    scanf("%d", &disc_count);
     if(disc_count <=0) {
-        printf_s("Количество дисков должно быть положительным.");
+        printf("Количество дисков должно быть положительным.");
         return;
     }
 
     int dest;
-    printf_s("Введите номер стержня, на который надо переместить диски (1 - B или 2 - C)\n");
-    scanf_s("%d", &dest);
+    printf("Введите номер стержня, на который надо переместить диски (1 - B или 2 - C)\n");
+    scanf("%d", &dest);
     if(dest < 1 || dest > 2) {
-        printf_s("Неверный номер.");
+        printf("Неверный номер.");
         return;
     }
 

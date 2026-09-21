@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "showhanoi.h"
-#include "malloc.h"
+#include "stdlib.h"
 #define DISC_SYMBOL '_'
 #define BASE_SYMBOL '='
 
@@ -29,19 +29,19 @@ void print_line(Rod *rods, uint line) {
     uint max = rods->size;
     for(int i = 0; i < 3; i++) {
         char* str = get_disc_str(rods[i].array[max - line - 1], max);
-        printf_s("  %s  ", str);
+        printf("  %s  ", str);
         free(str);
     }
-    printf_s("\n");
+    printf("\n");
 }
 
 void print_bases(uint max, char* aliases) {
     for(int i = 0; i < 3; i++) {
         char* str = get_base_str(max, aliases[i]);
-        printf_s(" %s ", str);
+        printf(" %s ", str);
         free(str);
     }
-    printf_s("\n\n");
+    printf("\n\n");
 }
 
 void show_rods(Rod *rods, char* aliases) {
@@ -55,7 +55,7 @@ void show_rods(Rod *rods, char* aliases) {
 void show_move(char from, char to, uint disc_max) {
     uint spaces = disc_max * 3 + 4;
     for(int i = 0; i < spaces; i++) {
-        printf_s(" ");
+        printf(" ");
     }
-    printf_s("%c --> %c\n\n\n", from, to);
+    printf("%c --> %c\n\n\n", from, to);
 }

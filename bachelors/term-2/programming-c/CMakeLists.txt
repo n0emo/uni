@@ -4,3 +4,4 @@ project(programming-c C)
 
 add_subdirectory(lab-1)
 add_subdirectory(lab-2)
+add_subdirectory(lab-3)

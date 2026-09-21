@@ -23,4 +23,5 @@ description = "Compile every lab's report"
 depends = [
   { task = "report", args = ["1"] },
   { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
 ]
