@@ -22,4 +22,5 @@ run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/lab-{{ u
 description = "Compile every lab's report"
 depends = [
   { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
 ]
