@@ -5,6 +5,7 @@ config_roots = [
   "./bachelors/pre-graduation-practice/",
   "./bachelors/term-1/entrance-to-c/",
   "./bachelors/term-2/programming-c/",
+  "./bachelors/term-2/programming-c++/",
   "./bachelors/term-8/human-machine-interaction/",
   "./bachelors/term-8/metrology-standardization-certification/",
   "./bachelors/thesis/",
