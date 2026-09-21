@@ -1,0 +1,38 @@
+monorepo_root = true
+
+[monorepo]
+config_roots = [
+  "./bachelors/pre-graduation-practice/",
+  "./bachelors/term-1/entrance-to-c/",
+  "./bachelors/term-8/human-machine-interaction/",
+  "./bachelors/term-8/metrology-standardization-certification/",
+  "./bachelors/thesis/",
+]
+
+[tools]
+cmake = "latest"
+ninja = "latest"
+typst = "latest"
+typstyle = "latest"
+
+[task_templates.mkdir]
+description = "Ensure a directory exists"
+usage = 'arg "<dir>" help="directory to create"'
+run = 'mkdir -p "{{ usage.dir }}"'
+run_windows = 'if not exist "{{ usage.dir }}" mkdir "{{ usage.dir }}"'
+
+[task_templates."cmake:configure"]
+description = "Configure a CMake project with Ninja"
+run = "cmake -S . -B build -G Ninja"
+
+[task_templates."cmake:build"]
+description = "Build a configured CMake project"
+run = "cmake --build build"
+
+[task_templates."typst:compile"]
+description = "Compile a Typst document to PDF"
+usage = '''
+arg "<input>" help="path to the .typ entry point"
+arg "<output>" help="path to the output .pdf"
+'''
+run = 'typst compile --root . "{{ usage.input }}" "{{ usage.output }}"'

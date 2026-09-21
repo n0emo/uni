@@ -1,0 +1,12 @@
+[tasks."typst-compile"]
+extends = "typst:compile"
+
+[tasks.build]
+description = "Build the practice report PDF"
+depends = [{ task = "typst-compile", args = ["practice.typ", "practice.pdf"] }]
+sources = ["practice.typ", "config.toml", "bibliography.yaml", "assets/**"]
+outputs = ["practice.pdf"]
+
+[tasks.fmt]
+description = "Format all Typst sources"
+run = "typstyle --inplace --line-width 100 --wrap-text ."

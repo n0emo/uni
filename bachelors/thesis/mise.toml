@@ -1,0 +1,30 @@
+[tasks."typst-compile"]
+extends = "typst:compile"
+
+[tasks.thesis]
+description = "Build the thesis PDF"
+depends = [{ task = "typst-compile", args = ["thesis.typ", "thesis.pdf"] }]
+sources = [
+  "thesis.typ",
+  "style.typ",
+  "bibliography.yaml",
+  "chapters/**/*.typ",
+  "appendixes.typ",
+  "appendixes/**/*.typ",
+  "assets/**",
+]
+outputs = ["thesis.pdf"]
+
+[tasks.presentation]
+description = "Build the presentation PDF"
+depends = [{ task = "typst-compile", args = ["presentation.typ", "presentation.pdf"] }]
+sources = ["presentation.typ", "style.typ", "presentation/**/*.typ"]
+outputs = ["presentation.pdf"]
+
+[tasks.build]
+description = "Build the thesis and the presentation"
+depends = ["thesis", "presentation"]
+
+[tasks.fmt]
+description = "Format all Typst sources"
+run = "typstyle --inplace --line-width 100 --wrap-text ."
