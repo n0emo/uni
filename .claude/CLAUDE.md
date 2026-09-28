@@ -35,6 +35,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-1/entrance-to-c` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-2/programming-c` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-2/programming-c++` | `configure`, `build`, `report <num>`, `report-all` |
+| `bachelors/term-7/information-security` | `build`, `build-lab <num>`, `run <num> [args]`, `chat-server <num>`, `chat-client <num>`, `report <num>`, `report-all` |
 | `bachelors/term-7/networking` | `report <num>`, `report-all`, `course-work` |
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
@@ -57,8 +58,8 @@ sources with the project's `fmt` task (`typstyle --inplace --line-width 100 --wr
 
 The root `justfile` and its generator under `scripts/recipes/` predate the mise migration and
 still reference the pre-move `Term<N>/` paths, so their recipes no longer resolve — use mise
-instead. A few labs (`bachelors/term-7/information-security/lab-2-*`,
-`bachelors/term-7/reliability`) keep their own unrelated `justfile` for building that lab.
+instead. One lab (`bachelors/term-7/reliability`) keeps its own unrelated `justfile` for
+building that lab.
 
 ## Other conventions
 

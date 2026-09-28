@@ -60,3 +60,29 @@ arg "<num>" help="lab number (2-3 or 2-4)"
 arg "<host>" default="127.0.0.1:8080" help="address to connect to"
 '''
 run = 'cd "lab-{{ usage.num }}/src" && go run ./client {{ usage.host }}'
+
+[tasks."stats-2-2"]
+description = "Reproduce the cipher statistics measured in lab 2-2"
+usage = 'arg "<key>" default="h3SDn2lkeEbm29nnFe" help="symmetric key"'
+dir = "lab-2-2/src"
+run = '''
+short="He мысля гордый свет забавить"
+double="$short, Вниманье дружбы возлюбя"
+quad="$double, Хотел бы я тебе представить Залог достойнее тебя"
+
+for text in "$short" "$double" "$quad"; do
+  echo "Using: $text"
+  for alg in rc2 rc4 rc5 des tdes aes; do
+    echo "  Alg: $alg"
+    echo "$text" | go run . stats --alg "$alg" --key "{{ usage.key }}" --print-encrypted true
+    echo
+  done
+done
+
+echo "Using: data/eugene-onegin.txt"
+for alg in rc2 rc4 rc5 des tdes aes; do
+  echo "  Alg: $alg"
+  go run . stats --alg "$alg" --key "{{ usage.key }}" --print-encrypted false < ../data/eugene-onegin.txt
+  echo
+done
+'''
