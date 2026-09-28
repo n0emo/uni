@@ -1,85 +1,11 @@
-#import "../template.typ": title-page
+#import "../common.typ": *
 
-
-#let text-size = 14pt
-#let text-indent = 12.5mm
-#let line-spacing = 1em
-#let list-marker = [--]
-
-#set page(
-  margin: (left: 30mm, right: 15mm, top: 20mm, bottom: 20mm),
-)
-
-#set text(
-  font: "Times New Roman",
-  size: text-size,
-  lang: "ru",
-)
-
-#set par(
-  leading: line-spacing,
-  spacing: line-spacing,
-  first-line-indent: (amount: 12.5mm, all: true),
-  justify: true,
-)
-
-#set heading(supplement: none)
-#show heading: it => {
-  set text(size: text-size)
-  set par(
-    spacing: line-spacing,
-  )
-
-  it.body
-}
-
-#show heading.where(level: 1): it => {
-  set align(center)
-  set text(size: text-size)
-  set par(
-    spacing: line-spacing,
-  )
-
-  pagebreak()
-  upper(it.body)
-}
-
-#show heading.where(level: 2): it => {
-  set par(first-line-indent: (amount: text-indent, all: true))
-  it
-}
-
-#show heading.where(level: 3): it => {
-  set text(style: "italic", weight: "semibold")
-  set par(first-line-indent: (amount: text-indent, all: true))
-  it
-}
-
-#show outline.entry.where(level: 1): it => {
-  set text(weight: "bold")
-  upper(it)
-}
-
-#show list: set list(marker: list-marker)
-
-#show figure.where(kind: image): set figure(supplement: [Рисунок])
-#show figure.where(kind: image): it => {
-  block[
-    #rect(stroke: 0.5pt, it.body)
-    #it.caption
-  ]
-}
-
-#show table: set par(leading: 0.5em)
-
-#set ref(supplement: none)
-
-#title-page(
-  number: 5,
+#show: report.with(
+  number: "5",
   title: [Разработка технического задания и требования к содержанию \ и оформлению],
 )
 
-#counter(page).update(0)
+#counter(page).update(1)
 
 #set page(
   footer: context [

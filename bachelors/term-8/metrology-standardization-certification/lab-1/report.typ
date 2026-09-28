@@ -1,9 +1,8 @@
-#import "../template.typ": conf
+#import "../common.typ": *
 
-#show: doc => conf(
-  doc,
-  title: "Структурная схема электрического узла",
+#show: report.with(
   number: "1",
+  title: "Структурная схема электрического узла",
 )
 
 = Задание
