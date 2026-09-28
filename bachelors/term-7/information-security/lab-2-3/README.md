@@ -10,11 +10,13 @@
 Запустить сервер:
 
 ```console
-go run server/main.go 127.0.0.1:8080
+mise run chat-server 2-3
 ```
 
 Запустить клиент:
 
 ```console
-go run client/main.go 127.0.0.1:8080
+mise run chat-client 2-3
 ```
+
+Обе задачи принимают адрес вторым аргументом (по умолчанию `127.0.0.1:8080`).

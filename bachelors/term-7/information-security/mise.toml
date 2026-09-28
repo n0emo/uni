@@ -1,0 +1,62 @@
+[tools]
+go = "latest"
+
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one lab's report to PDF"
+usage = 'arg "<num>" help="lab number (1-1, 1-2, 2-1 … 2-4)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+
+[tasks."report-all"]
+description = "Compile every lab's report"
+depends = [
+  { task = "report", args = ["1-1"] },
+  { task = "report", args = ["1-2"] },
+  { task = "report", args = ["2-1"] },
+  { task = "report", args = ["2-2"] },
+  { task = "report", args = ["2-3"] },
+  { task = "report", args = ["2-4"] },
+]
+
+[tasks."build-lab"]
+description = "Build one lab's programs"
+usage = 'arg "<num>" help="lab number (2-1 … 2-4)"'
+run = 'cd "lab-{{ usage.num }}/src" && go build -o "{{ config_root }}/build/lab-{{ usage.num }}/" ./...'
+sources = ["lab-{{ usage.num }}/src/**"]
+outputs = { auto = true }
+
+[tasks.build]
+description = "Build every lab that has code"
+depends = [
+  { task = "build-lab", args = ["2-1"] },
+  { task = "build-lab", args = ["2-2"] },
+  { task = "build-lab", args = ["2-3"] },
+  { task = "build-lab", args = ["2-4"] },
+]
+
+[tasks.run]
+description = "Run a single-program lab (2-1 or 2-2)"
+usage = '''
+arg "<num>" help="lab number (2-1 or 2-2)"
+arg "<args>" var=true help="arguments passed to the program"
+'''
+run = 'cd "lab-{{ usage.num }}/src" && go run . {{ usage.args }}'
+
+[tasks."chat-server"]
+description = "Run the ciphered chat server (lab 2-3 or 2-4)"
+usage = '''
+arg "<num>" help="lab number (2-3 or 2-4)"
+arg "<host>" default="127.0.0.1:8080" help="address to listen on"
+'''
+run = 'cd "lab-{{ usage.num }}/src" && go run ./server {{ usage.host }}'
+
+[tasks."chat-client"]
+description = "Run the ciphered chat client (lab 2-3 or 2-4)"
+usage = '''
+arg "<num>" help="lab number (2-3 or 2-4)"
+arg "<host>" default="127.0.0.1:8080" help="address to connect to"
+'''
+run = 'cd "lab-{{ usage.num }}/src" && go run ./client {{ usage.host }}'
