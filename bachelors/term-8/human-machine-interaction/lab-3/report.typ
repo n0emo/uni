@@ -1,9 +1,8 @@
-#import "../template.typ": conf
+#import "../common.typ": *
 
-#show: doc => conf(
-  doc,
-  title: "Низкоуровневое проектирование пользовательского интерфейса",
+#show: report.with(
   number: "3",
+  title: "Низкоуровневое проектирование пользовательского интерфейса",
 )
 
 = Цель работы

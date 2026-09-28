@@ -1,9 +1,8 @@
-#import "../template.typ": conf
+#import "../common.typ": *
 
-#show: doc => conf(
-  doc,
-  title: "Проектирование web-интерфейса",
+#show: report.with(
   number: "4",
+  title: "Проектирование web-интерфейса",
 )
 
 = Цель работы

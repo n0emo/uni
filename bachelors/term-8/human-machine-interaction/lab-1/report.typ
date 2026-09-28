@@ -1,9 +1,8 @@
-#import "../template.typ": conf
+#import "../common.typ": *
 
-#show: doc => conf(
-  doc,
-  title: "Проектирование пользовательского интерфейса и оценка его эффективности при помощи модели GOMS",
+#show: report.with(
   number: "1",
+  title: "Проектирование пользовательского интерфейса и оценка его эффективности при помощи модели GOMS",
 )
 
 #show table: it => align(center, it)
