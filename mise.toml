@@ -3,10 +3,10 @@ monorepo_root = true
 [monorepo]
 config_roots = [
   "./bachelors/pre-graduation-practice/",
-  "./bachelors/term-1/entrance-to-c/",
+  "./bachelors/term-1/intro-to-c/",
   "./bachelors/term-1/maths/",
   "./bachelors/term-2/programming-c/",
-  "./bachelors/term-2/programming-c++/",
+  "./bachelors/term-2/programming-cpp/",
   "./bachelors/term-7/information-security/",
   "./bachelors/term-7/networking/",
   "./bachelors/term-8/human-machine-interaction/",

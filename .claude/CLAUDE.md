@@ -32,10 +32,10 @@ run <task>` runs one). Registered config roots and their tasks:
 | --- | --- |
 | `bachelors/thesis` | `thesis`, `presentation`, `build`, `fmt` |
 | `bachelors/pre-graduation-practice` | `build`, `fmt` |
-| `bachelors/term-1/entrance-to-c` | `configure`, `build`, `report <num>`, `report-all` |
+| `bachelors/term-1/intro-to-c` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-1/maths` | `deps`, `report <num>`, `report-all` |
 | `bachelors/term-2/programming-c` | `configure`, `build`, `report <num>`, `report-all` |
-| `bachelors/term-2/programming-c++` | `configure`, `build`, `report <num>`, `report-all` |
+| `bachelors/term-2/programming-cpp` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-7/information-security` | `build`, `build-lab <num>`, `run <num> [args]`, `chat-server <num>`, `chat-client <num>`, `report <num>`, `report-all` |
 | `bachelors/term-7/networking` | `report <num>`, `report-all`, `course-work` |
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |

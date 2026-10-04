@@ -46,7 +46,7 @@ index = "Б1.В.2"
 credit-units = 3
 assessment = "exam"
 
-[term-1.courses.entrance-to-c]
+[term-1.courses.intro-to-c]
 title = "Введение в С"
 index = "Б1.В.3"
 credit-units = 2
@@ -100,7 +100,7 @@ index = "Б1.В.5"
 credit-units = 4
 assessment = "exam"
 
-[term-2.courses."programming-c++"]
+[term-2.courses.programming-cpp]
 title = "Программирование (C++)"
 index = "Б1.В.6"
 credit-units = 3
@@ -118,7 +118,7 @@ index = "Б1.О.10"
 credit-units = 4
 assessment = "credit"
 
-[term-3.courses.quantum-cs]
+[term-3.courses.quantum-informatics]
 title = "Основы квантовой информатики"
 index = "Б1.О.13"
 credit-units = 4
@@ -196,7 +196,7 @@ index = "Б1.В.9"
 credit-units = 3
 assessment = "credit"
 
-[term-4.courses.math-statistics]
+[term-4.courses.probability-and-statistics]
 title = "Математика (теория вероятностей и математическая статистика)"
 index = "Б1.В.10"
 credit-units = 4
@@ -300,7 +300,7 @@ index = "Б1.О.21"
 credit-units = 0
 assessment = "credit"
 
-[term-6.courses.cis]
+[term-6.courses.corporate-information-systems]
 title = "Корпоративные информационные системы"
 index = "Б1.В.15"
 credit-units = 3
@@ -404,7 +404,7 @@ index = "Б1.В.21"
 credit-units = 3
 assessment = "credit"
 
-[term-8.courses.systems-programming]
+[term-8.courses.system-software]
 title = "Системное программное обеспечение"
 index = "Б1.В.22"
 credit-units = 3
@@ -422,7 +422,7 @@ index = "Б1.В.ДВ.4.1"
 credit-units = 3
 assessment = "credit"
 
-[term-8.courses.information-system-arhitechture]
+[term-8.courses.information-system-architecture]
 title = "Архитектура информационных систем на платформе 1С предприятия"
 index = "Б1.В.ДВ.5.1"
 credit-units = 4

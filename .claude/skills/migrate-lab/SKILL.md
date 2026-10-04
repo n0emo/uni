@@ -11,7 +11,7 @@ report <num>` and (if it has code) its sources build via the course's build task
 For a whole course at once, use `migrate-discipline` instead — it fans this procedure out
 across a Sonnet sub-agent per lab and verifies them together.
 
-Compare `bachelors/term-2/*` (legacy) against `bachelors/term-1/entrance-to-c` (fully
+Compare `bachelors/term-2/*` (legacy) against `bachelors/term-1/intro-to-c` (fully
 migrated) whenever something here is ambiguous — term-1 is the reference implementation.
 
 ## Target layout
@@ -128,7 +128,7 @@ The three things that always have to happen:
 - **Listings become `#code-file(read(...))`.** Never paste program text into the report — read
   it from `src/` so the listing and the code that is built cannot drift apart.
 
-If `common.typ` does not exist yet, create it from term-1's (`bachelors/term-1/entrance-to-c/common.typ`),
+If `common.typ` does not exist yet, create it from term-1's (`bachelors/term-1/intro-to-c/common.typ`),
 filling `faculty`, `department`, `discipline`, `year`, `student`, `teacher` and `variant` from
 the title page pandoc just produced — read them off it before deleting it.
 

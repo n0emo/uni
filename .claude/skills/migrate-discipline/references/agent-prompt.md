@@ -107,7 +107,7 @@ Fill the template below in per lab and paste it as the `prompt`. Spawn with
 | `<LAB_TITLE>` | the title off the pandoc title page, before you delete it |
 | `<ORIGINAL_DOC>` | the exact filename, `ЛР4.docx` and friends |
 | `<LANGUAGE>` | the discipline's one language, decided in phase 1 |
-| `<ABS_PATH_TO_REFERENCE_LAB>` | an already-migrated lab in the same course; failing that, `bachelors/term-1/entrance-to-c/lab-1` |
+| `<ABS_PATH_TO_REFERENCE_LAB>` | an already-migrated lab in the same course; failing that, `bachelors/term-1/intro-to-c/lab-1` |
 | `<LIST_OF_SOURCE_FILES>` | `ls lab-N/src` — spell them out, do not make the agent guess |
 | `<BUILD_CONFIG_FILE>` / `<BUILD_CONFIG_SKELETON>` | from `build-tools.md`, already specialized to this course |
 

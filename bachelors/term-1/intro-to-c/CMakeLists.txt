@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(entrance-to-c)
+project(intro-to-c)
 
 add_subdirectory(lab-1)
 add_subdirectory(lab-2)
