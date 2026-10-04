@@ -14,10 +14,16 @@ config_roots = [
 ]
 
 [tools]
-cmake = "latest"
-ninja = "latest"
-typst = "latest"
-typstyle = "latest"
+cmake = "4.4.4"
+gleam = "1.18.1"
+miniserve = "0.35.0"
+ninja = "1.13.2"
+pandoc = "3.12"
+tinymist = "0.15.8"
+tinytex = "2026.10"
+typst = "0.15.1"
+typstyle = "0.15.1"
+watchexec = "2.7.4"
 
 [task_templates.mkdir]
 description = "Ensure a directory exists"
