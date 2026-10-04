@@ -1,0 +1,174 @@
+[term-1.courses.logic-and-methodology-of-science]
+title = "Логика и методология науки"
+index = "Б1.О.1"
+credit-units = 4
+assessment = "credit"
+
+[term-1.courses.foreign-language]
+title = "Иностранный язык"
+index = "Б1.О.3"
+credit-units = 2
+assessment = "credit"
+
+[term-1.courses.mathematical-modelling]
+title = "Математическое моделирование"
+index = "Б1.О.5"
+credit-units = 4
+assessment = "exam"
+
+[term-1.courses.modern-programming-methods]
+title = "Современные методы программирования"
+index = "Б1.О.6"
+credit-units = 4
+assessment = "credit"
+
+[term-1.courses.intelligent-information-systems]
+title = "Интеллектуальные информационные системы и технологии"
+index = "Б1.О.8"
+credit-units = 4
+assessment = "exam"
+
+[term-1.courses.information-society-problems]
+title = "Социальные и философские проблемы информационного общества"
+index = "Б1.О.9"
+credit-units = 4
+assessment = "exam"
+
+[term-1.courses.microelectronic-control-systems]
+title = "Микроэлектронные системы управления"
+index = "Б1.О.11"
+credit-units = 4
+assessment = "credit"
+
+[term-1.courses.information-system-security]
+title = "Обеспечение безопасности информационных систем"
+index = "Б1.В.2"
+credit-units = 5
+assessment = "exam"
+
+[term-1.courses.data-and-application-integration]
+title = "Модели интеграции данных и приложений"
+index = "Б1.В.ДВ.3.1"
+credit-units = 3
+assessment = "credit"
+
+[term-1.courses.philosophy-of-science]
+title = "Философские проблемы науки и техники"
+index = "ФТД.1"
+credit-units = 2
+assessment = "credit"
+
+[term-2.courses.ai-technology]
+title = "Технология искусственного интеллекта"
+index = "Б1.О.2"
+credit-units = 4
+assessment = "exam"
+
+[term-2.courses.foreign-language]
+title = "Иностранный язык"
+index = "Б1.О.3"
+credit-units = 3
+assessment = "exam"
+
+[term-2.courses.information-system-models]
+title = "Модели информационных систем"
+index = "Б1.О.4"
+credit-units = 4
+assessment = "exam"
+
+[term-2.courses.software-development-technologies]
+title = "Технологии разработки программного обеспечения"
+index = "Б1.О.7"
+credit-units = 4
+assessment = "credit"
+
+[term-2.courses.networking]
+title = "Сети ЭВМ и телекоммуникации"
+index = "Б1.О.10"
+credit-units = 4
+assessment = "credit"
+
+[term-2.courses.transport-cis]
+title = "Корпоративные информационные системы на транспорте"
+index = "Б1.В.1"
+credit-units = 4
+assessment = "credit"
+
+[term-2.courses.transport-is-development-management]
+title = "Управление разработкой ИС на транспорте"
+index = "Б1.В.ДВ.2.1"
+credit-units = 3
+assessment = "credit"
+
+[term-2.course-projects.software-development-technologies]
+title = "Технологии разработки программного обеспечения"
+index = "Б1.О.7"
+
+[term-2.course-projects.transport-cis]
+title = "Корпоративные информационные системы на транспорте"
+index = "Б1.В.1"
+
+[term-3.courses.software-development-technologies]
+title = "Технологии разработки программного обеспечения"
+index = "Б1.О.7"
+credit-units = 5
+assessment = "exam"
+
+[term-3.courses.transport-cis]
+title = "Корпоративные информационные системы на транспорте"
+index = "Б1.В.1"
+credit-units = 5
+assessment = "exam"
+
+[term-3.courses.information-system-design]
+title = "Методы и средства проектирования информационных систем"
+index = "Б1.В.ДВ.1.1"
+credit-units = 4
+assessment = "credit"
+
+[term-3.courses.transport-is-development-management]
+title = "Управление разработкой ИС на транспорте"
+index = "Б1.В.ДВ.2.1"
+credit-units = 6
+assessment = "exam"
+
+[practices.introductory]
+title = "Ознакомительная практика"
+index = "Б2.У.О.1"
+term = 1
+credit-units = 3
+assessment = "graded-credit"
+
+[practices.research]
+title = "Научно-исследовательская работа"
+index = "Б2.П.О.2"
+term = 2
+credit-units = 7
+assessment = "credit"
+
+[practices.technological]
+title = "Технологическая (проектно-технологическая) практика"
+index = "Б2.П.О.1"
+term = 4
+credit-units = 6
+assessment = "graded-credit"
+
+[practices.pedagogical]
+title = "Педагогическая практика"
+index = "Б2.П.В.1"
+term = 4
+credit-units = 6
+assessment = "graded-credit"
+
+[practices.pre-graduation]
+title = "Преддипломная практика"
+index = "Б2.П.В.2"
+term = 4
+credit-units = 9
+assessment = "graded-credit"
+
+[thesis]
+title = "Выполнение и защита выпускной квалификационной работы"
+index = "Б3.Д.1"
+term = 4
+credit-units = 9
