@@ -40,6 +40,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-7/networking` | `report <num>`, `report-all`, `course-work` |
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
+| `masters/term-1/modern-programming-methods` | `report <num>`, `report-all` |
 
 When adding a course, add its directory to `config_roots` in the root `mise.toml` and give it
 a local `mise.toml`; prefer `extends` on a root task template over repeating a raw `typst
@@ -47,6 +48,9 @@ compile` or `cmake` invocation. Declare `sources`/`outputs` on a task so mise ca
 nothing changed.
 
 Lab reports compile to a gitignored `reports/` inside their course directory.
+
+In new reports, use 2-level headings (`==`) for the top-level sections (Цель работы, Задачи, Ход
+работы, Выводы) rather than 1-level (`=`) ones.
 
 ### Thesis layout
 
