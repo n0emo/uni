@@ -1,0 +1,463 @@
+[term-1.courses.foreign-language]
+title = "Иностранный язык"
+index = "Б1.О.3"
+credit-units = 3
+assessment = "credit"
+
+[term-1.courses.physical-education]
+title = "Физическая культура и спорт"
+index = "Б1.О.5"
+credit-units = 2
+assessment = "credit"
+
+[term-1.courses.ecology]
+title = "Экология"
+index = "Б1.О.9"
+credit-units = 3
+assessment = "credit"
+
+[term-1.courses.maths]
+title = "Математика"
+index = "Б1.О.10"
+credit-units = 5
+assessment = "exam"
+
+[term-1.courses.physics]
+title = "Физика"
+index = "Б1.О.11"
+credit-units = 4
+assessment = "exam"
+
+[term-1.courses.computer-science]
+title = "Информатика"
+index = "Б1.О.12"
+credit-units = 2
+assessment = "credit"
+
+[term-1.courses.discrete-maths]
+title = "Дискретная математика"
+index = "Б1.В.1"
+credit-units = 4
+assessment = "exam"
+
+[term-1.courses.logic-algebra]
+title = "Алгебра логики"
+index = "Б1.В.2"
+credit-units = 3
+assessment = "exam"
+
+[term-1.courses.entrance-to-c]
+title = "Введение в С"
+index = "Б1.В.3"
+credit-units = 2
+assessment = "credit"
+
+[term-2.courses.history]
+title = "История"
+index = "Б1.О.1"
+credit-units = 3
+assessment = "credit"
+
+[term-2.courses.foreign-language]
+title = "Иностранный язык"
+index = "Б1.О.3"
+credit-units = 3
+assessment = "exam"
+
+[term-2.courses.russian-and-business-communication]
+title = "Русский язык и деловые коммуникации"
+index = "Б1.О.6"
+credit-units = 2
+assessment = "credit"
+
+[term-2.courses.maths]
+title = "Математика"
+index = "Б1.О.10"
+credit-units = 4
+assessment = "exam"
+
+[term-2.courses.computer-science]
+title = "Информатика"
+index = "Б1.О.12"
+credit-units = 3
+assessment = "exam"
+
+[term-2.courses.physical-education-electives]
+title = "Элективные курсы по физической культуре и спорту"
+index = "Б1.О.21"
+credit-units = 0
+assessment = "credit"
+
+[term-2.courses.programming-c]
+title = "Программирование (С)"
+index = "Б1.В.4"
+credit-units = 2
+assessment = "credit"
+
+[term-2.courses.programming-assembly]
+title = "Программирование (Ассемблер)"
+index = "Б1.В.5"
+credit-units = 4
+assessment = "exam"
+
+[term-2.courses."programming-c++"]
+title = "Программирование (C++)"
+index = "Б1.В.6"
+credit-units = 3
+assessment = "credit"
+
+[term-2.courses.programming]
+title = "Программирование"
+index = "Б1.В.7"
+credit-units = 3
+assessment = "credit"
+
+[term-3.courses.maths]
+title = "Математика"
+index = "Б1.О.10"
+credit-units = 4
+assessment = "credit"
+
+[term-3.courses.quantum-cs]
+title = "Основы квантовой информатики"
+index = "Б1.О.13"
+credit-units = 4
+assessment = "exam"
+
+[term-3.courses.arithmetic-and-logic-foundations]
+title = "Арифметические и логические основы информационных систем"
+index = "Б1.О.14"
+credit-units = 4
+assessment = "credit"
+
+[term-3.courses.electrical-engineering]
+title = "Электротехника и электроника"
+index = "Б1.О.15"
+credit-units = 4
+assessment = "exam"
+
+[term-3.courses.physical-education-electives]
+title = "Элективные курсы по физической культуре и спорту"
+index = "Б1.О.21"
+credit-units = 0
+assessment = "credit"
+
+[term-3.courses.programming]
+title = "Программирование"
+index = "Б1.В.7"
+credit-units = 3
+assessment = "credit"
+
+[term-3.courses.programming-python]
+title = "Программирование на языках высокого уровня (Python)"
+index = "Б1.В.8"
+credit-units = 4
+assessment = "exam"
+
+[term-3.courses.structures-and-algorithms]
+title = "Структуры и алгоритмы обработки данных (на C++)"
+index = "Б1.В.9"
+credit-units = 4
+assessment = "exam"
+
+[term-4.courses.philosophy]
+title = "Философия"
+index = "Б1.О.2"
+credit-units = 4
+assessment = "exam"
+
+[term-4.courses.maths]
+title = "Математика"
+index = "Б1.О.10"
+credit-units = 4
+assessment = "exam"
+
+[term-4.courses.circuit-design]
+title = "Схемотехника"
+index = "Б1.О.16"
+credit-units = 4
+assessment = "credit"
+
+[term-4.courses.engineering-graphics]
+title = "Инженерная графика"
+index = "Б1.О.17"
+credit-units = 3
+assessment = "exam"
+
+[term-4.courses.physical-education-electives]
+title = "Элективные курсы по физической культуре и спорту"
+index = "Б1.О.21"
+credit-units = 0
+assessment = "credit"
+
+[term-4.courses.structures-and-algorithms]
+title = "Структуры и алгоритмы обработки данных (на C++)"
+index = "Б1.В.9"
+credit-units = 3
+assessment = "credit"
+
+[term-4.courses.math-statistics]
+title = "Математика (теория вероятностей и математическая статистика)"
+index = "Б1.В.10"
+credit-units = 4
+assessment = "exam"
+
+[term-4.courses.automata-theory]
+title = "Теория автоматов"
+index = "Б1.В.11"
+credit-units = 3
+assessment = "credit"
+
+[term-4.courses.databases]
+title = "Базы данных и управление данными"
+index = "Б1.В.12"
+credit-units = 3
+assessment = "credit"
+
+[term-4.course-projects.structures-and-algorithms]
+title = "Структуры и алгоритмы обработки данных (на C++)"
+index = "Б1.В.9"
+
+[term-5.courses.life-safety]
+title = "Безопасность жизнедеятельности"
+index = "Б1.О.4"
+credit-units = 3
+assessment = "credit"
+
+[term-5.courses.social-interaction]
+title = "Социальное взаимодействие"
+index = "Б1.О.7"
+credit-units = 3
+assessment = "credit"
+
+[term-5.courses.computer-graphics]
+title = "Компьютерная графика"
+index = "Б1.О.18"
+credit-units = 5
+assessment = "exam"
+
+[term-5.courses.physical-education-electives]
+title = "Элективные курсы по физической культуре и спорту"
+index = "Б1.О.21"
+credit-units = 0
+assessment = "credit"
+
+[term-5.courses.databases]
+title = "Базы данных и управление данными"
+index = "Б1.В.12"
+credit-units = 5
+assessment = "exam"
+
+[term-5.courses.system-modelling]
+title = "Моделирование систем"
+index = "Б1.В.13"
+credit-units = 5
+assessment = "exam"
+
+[term-5.courses.information-theory]
+title = "Теория информации"
+index = "Б1.В.14"
+credit-units = 3
+assessment = "credit"
+
+[term-5.courses.programming-java]
+title = "Программирование на языке JAVA"
+index = "Б1.В.ДВ.1.1"
+credit-units = 5
+assessment = "exam"
+
+[term-5.course-works.system-modelling]
+title = "Моделирование систем"
+index = "Б1.В.13"
+
+[term-5.course-works.programming-java]
+title = "Программирование на языке JAVA"
+index = "Б1.В.ДВ.1.1"
+
+[term-5.course-projects.computer-graphics]
+title = "Компьютерная графика"
+index = "Б1.О.18"
+
+[term-5.course-projects.databases]
+title = "Базы данных и управление данными"
+index = "Б1.В.12"
+
+[term-6.courses.professional-law]
+title = "Правовое обеспечение профессиональной деятельности"
+index = "Б1.О.8"
+credit-units = 3
+assessment = "credit"
+
+[term-6.courses.financial-literacy]
+title = "Экономическая культура и финансовая грамотность"
+index = "Б1.О.20"
+credit-units = 2
+assessment = "credit"
+
+[term-6.courses.physical-education-electives]
+title = "Элективные курсы по физической культуре и спорту"
+index = "Б1.О.21"
+credit-units = 0
+assessment = "credit"
+
+[term-6.courses.cis]
+title = "Корпоративные информационные системы"
+index = "Б1.В.15"
+credit-units = 3
+assessment = "credit"
+
+[term-6.courses.ai]
+title = "Системы искусственного интеллекта"
+index = "Б1.В.16"
+credit-units = 6
+assessment = "exam"
+
+[term-6.courses.networking]
+title = "Сети и телекоммуникации"
+index = "Б1.В.17"
+credit-units = 6
+assessment = "exam"
+
+[term-6.courses.os]
+title = "Операционные системы"
+index = "Б1.В.18"
+credit-units = 5
+assessment = "exam"
+
+[term-6.courses.technical-foreign-language]
+title = "Технический иностранный язык"
+index = "ФТД.1"
+credit-units = 2
+assessment = "credit"
+
+[term-6.course-projects.ai]
+title = "Системы искусственного интеллекта"
+index = "Б1.В.16"
+
+[term-7.courses.foreign-language]
+title = "Иностранный язык"
+index = "Б1.О.3"
+credit-units = 2
+assessment = "credit"
+
+[term-7.courses.information-security]
+title = "Защита информации"
+index = "Б1.О.19"
+credit-units = 4
+assessment = "exam"
+
+[term-7.courses.networking]
+title = "Сети и телекоммуникации"
+index = "Б1.В.17"
+credit-units = 4
+assessment = "credit"
+
+[term-7.courses.os]
+title = "Операционные системы"
+index = "Б1.В.18"
+credit-units = 3
+assessment = "credit"
+
+[term-7.courses.reliability]
+title = "Надежность информационных систем"
+index = "Б1.В.19"
+credit-units = 3
+assessment = "credit"
+
+[term-7.courses.programming-1c]
+title = "Программирование в 1С"
+index = "Б1.В.20"
+credit-units = 3
+assessment = "exam"
+
+[term-7.courses.programming-language-theory]
+title = "Теория языков программирования и методы трансляции"
+index = "Б1.В.ДВ.2.1"
+credit-units = 5
+assessment = "exam"
+
+[term-7.courses.programming-technologies]
+title = "Технологии программирования"
+index = "Б1.В.ДВ.3.1"
+credit-units = 5
+assessment = "exam"
+
+[term-7.course-works.programming-language-theory]
+title = "Теория языков программирования и методы трансляции"
+index = "Б1.В.ДВ.2.1"
+
+[term-7.course-works.programming-technologies]
+title = "Технологии программирования"
+index = "Б1.В.ДВ.3.1"
+
+[term-7.course-projects.networking]
+title = "Сети и телекоммуникации"
+index = "Б1.В.17"
+
+[term-7.course-projects.os]
+title = "Операционные системы"
+index = "Б1.В.18"
+
+[term-8.courses.computer-architecture]
+title = "Архитектура вычислительных систем"
+index = "Б1.В.21"
+credit-units = 3
+assessment = "credit"
+
+[term-8.courses.systems-programming]
+title = "Системное программное обеспечение"
+index = "Б1.В.22"
+credit-units = 3
+assessment = "credit"
+
+[term-8.courses.metrology-standardization-certification]
+title = "Метрология, стандартизация и сертификация"
+index = "Б1.В.23"
+credit-units = 3
+assessment = "credit"
+
+[term-8.courses.human-machine-interaction]
+title = "Человеко-машинное взаимодействие"
+index = "Б1.В.ДВ.4.1"
+credit-units = 3
+assessment = "credit"
+
+[term-8.courses.information-system-arhitechture]
+title = "Архитектура информационных систем на платформе 1С предприятия"
+index = "Б1.В.ДВ.5.1"
+credit-units = 4
+assessment = "credit"
+
+[practices.introductory]
+title = "Ознакомительная практика"
+index = "Б2.У.О.1"
+term = 2
+credit-units = 5
+assessment = "credit"
+
+[practices.technological-1]
+title = "Технологическая (проектно-технологическая) практика"
+index = "Б2.У.О.2"
+term = 4
+credit-units = 5
+assessment = "credit"
+
+[practices.technological-2]
+title = "Технологическая (проектно-технологическая) практика"
+index = "Б2.П.В.1"
+term = 6
+credit-units = 6
+assessment = "exam"
+
+[practices.pre-graduation]
+title = "Преддипломная практика"
+index = "Б2.П.В.2"
+term = 8
+credit-units = 6
+assessment = "credit"
+
+[thesis]
+title = "Выполнение и защита выпускной квалификационной работы"
+index = "Б3.Д.1"
+term = 8
+credit-units = 9
