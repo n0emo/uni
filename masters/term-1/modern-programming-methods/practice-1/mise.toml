@@ -1,0 +1,28 @@
+[tools]
+dotnet = "10.0"
+
+[env]
+ASPNETCORE_ENVIRONMENT = "Development"
+ASPNETCORE_HTTP_PORTS = "8080"
+
+[tasks.build]
+extends = "dotnet:build"
+
+[tasks.serve]
+description = "Run the app on :8080, rebuilding on changes"
+extends = "dotnet:watch"
+
+[tasks.publish]
+extends = "dotnet:publish"
+
+[tasks.image]
+description = "Build the container image from the Dockerfile"
+run = "docker build -t url-shortener ."
+
+[tasks."db:up"]
+description = "Start PostgreSQL (:5432) and Adminer (:8081) for development"
+run = "docker compose -f compose.development.yaml up -d --wait"
+
+[tasks."db:down"]
+description = "Stop the development database containers"
+run = "docker compose -f compose.development.yaml down"

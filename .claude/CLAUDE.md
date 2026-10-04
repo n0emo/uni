@@ -23,7 +23,8 @@ The repo root is a mise monorepo root (`monorepo_root = true` in `mise.toml`). T
 - pins the shared toolchain under `[tools]` — `cmake`, `ninja`, `typst`, `typstyle`;
 - lists the projects with their own config under `[monorepo].config_roots`;
 - defines reusable `[task_templates]` that per-project tasks `extends`: `mkdir`,
-  `cmake:configure`, `cmake:build`, `typst:compile`.
+  `cmake:configure`, `cmake:build`, `typst:compile`, `dotnet:build`, `dotnet:run`, `dotnet:watch`,
+  `dotnet:publish`.
 
 Run tasks from inside the project directory (`mise tasks` lists what is available there, `mise
 run <task>` runs one). Registered config roots and their tasks:
@@ -41,6 +42,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods` | `report <num>`, `report-all` |
+| `masters/term-1/modern-programming-methods/practice-1` | `build`, `serve`, `publish`, `image`, `db:up`, `db:down` |
 
 When adding a course, add its directory to `config_roots` in the root `mise.toml` and give it
 a local `mise.toml`; prefer `extends` on a root task template over repeating a raw `typst

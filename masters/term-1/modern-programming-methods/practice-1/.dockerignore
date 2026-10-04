@@ -1,0 +1,8 @@
+bin/
+obj/
+publish/
+Dockerfile
+.dockerignore
+compose.*.yaml
+mise.toml
+report.typ

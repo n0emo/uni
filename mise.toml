@@ -13,10 +13,12 @@ config_roots = [
   "./bachelors/term-8/metrology-standardization-certification/",
   "./bachelors/thesis/",
   "./masters/term-1/modern-programming-methods/",
+  "./masters/term-1/modern-programming-methods/practice-1/",
 ]
 
 [tools]
 cmake = "4.4.4"
+dotnet = "10.0.401"
 gleam = "1.18.1"
 miniserve = "0.35.0"
 ninja = "1.13.2"
@@ -48,3 +50,21 @@ arg "<input>" help="path to the .typ entry point"
 arg "<output>" help="path to the output .pdf"
 '''
 run = 'typst compile --root . "{{ usage.input }}" "{{ usage.output }}"'
+
+[task_templates."dotnet:build"]
+description = "Build a .NET project"
+run = "dotnet build"
+sources = ["**/*.fs", "**/*.fsproj", "**/*.json"]
+outputs = { auto = true }
+
+[task_templates."dotnet:run"]
+description = "Run a .NET project, ignoring launchSettings.json"
+run = "dotnet run --no-launch-profile"
+
+[task_templates."dotnet:watch"]
+description = "Run a .NET project, rebuilding on changes"
+run = "dotnet watch run --no-launch-profile"
+
+[task_templates."dotnet:publish"]
+description = "Publish a .NET project in Release configuration"
+run = "dotnet publish -c Release -o publish"
