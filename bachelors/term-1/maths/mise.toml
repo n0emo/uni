@@ -1,0 +1,25 @@
+[tasks.deps]
+description = "Install the TinyTeX packages the reports need"
+run = '''
+tlmgr install \
+  babel-russian cm-super cyrillic hyphen-russian hyphenat lh mathtools setspace tools xfrac
+mkdir -p build && touch build/.deps
+'''
+sources = ["mise.toml"]
+outputs = ["build/.deps"]
+
+[tasks.report]
+description = "Compile one individual homework to PDF"
+usage = 'arg "<num>" help="homework number (1)"'
+depends = ["deps"]
+run = '''
+latexmk -pdf -cd -interaction=nonstopmode -halt-on-error \
+  -outdir="{{ config_root }}/reports" \
+  -auxdir="{{ config_root }}/build/homework-{{ usage.num }}" \
+  -jobname="homework-{{ usage.num }}" \
+  "individual-homework-{{ usage.num }}/doc.tex"
+'''
+
+[tasks."report-all"]
+description = "Compile every individual homework"
+depends = [{ task = "report", args = ["1"] }]
