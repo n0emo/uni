@@ -12,6 +12,7 @@ config_roots = [
   "./bachelors/term-8/human-machine-interaction/",
   "./bachelors/term-8/metrology-standardization-certification/",
   "./bachelors/thesis/",
+  "./masters/term-1/microelectronic-control-systems/",
   "./masters/term-1/modern-programming-methods/",
   "./masters/term-1/modern-programming-methods/practice-1/",
 ]
