@@ -45,3 +45,7 @@ depends = [
   { task = "notebook-pdf", args = ["10"] },
   { task = "notebook-pdf", args = ["11"] },
 ]
+
+[tasks.lab]
+description = "Launch a JupyterLab server for the labs"
+run = "uv run jupyter-lab"

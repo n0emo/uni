@@ -9,6 +9,7 @@ Jupyter-блокнотах (`lab-N/lab.ipynb`); соответствующий �
 блокнота с помощью пакета callisto.
 
 ```sh
+mise run lab               # запуск JupyterLab
 mise run execute 4         # повторное выполнение блокнота
 mise run report-all        # сборка отчётов в директорию reports/
 mise run notebook-pdf-all  # экспорт блокнотов в PDF
