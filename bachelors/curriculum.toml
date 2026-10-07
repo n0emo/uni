@@ -306,7 +306,7 @@ index = "Б1.В.15"
 credit-units = 3
 assessment = "credit"
 
-[term-6.courses.ai]
+[term-6.courses.ai-systems]
 title = "Системы искусственного интеллекта"
 index = "Б1.В.16"
 credit-units = 6
@@ -330,7 +330,7 @@ index = "ФТД.1"
 credit-units = 2
 assessment = "credit"
 
-[term-6.course-projects.ai]
+[term-6.course-projects.ai-systems]
 title = "Системы искусственного интеллекта"
 index = "Б1.В.16"
 
