@@ -1,0 +1,48 @@
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one lab's report to PDF"
+usage = 'arg "<num>" help="lab number (1-10)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+
+[tasks."report-all"]
+description = "Compile every lab's report"
+depends = [
+  { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
+  { task = "report", args = ["4"] },
+  { task = "report", args = ["5"] },
+  { task = "report", args = ["6"] },
+  { task = "report", args = ["7"] },
+  { task = "report", args = ["8"] },
+  { task = "report", args = ["9"] },
+  { task = "report", args = ["10"] },
+]
+
+[tasks.execute]
+description = "Re-run one lab's notebook and save its outputs"
+usage = 'arg "<num>" help="lab number (2-4, 6, 9)"'
+run = 'uv run jupyter-nbconvert --to notebook --execute --inplace --ExecutePreprocessor.record_timing=False --NotebookExporter.preprocessors=nbconvert.preprocessors.CoalesceStreamsPreprocessor --CoalesceStreamsPreprocessor.enabled=True "lab-{{ usage.num }}/lab.ipynb"'
+
+[tasks."notebook-pdf"]
+description = "Print one lab's notebook to PDF as Jupyter shows it"
+usage = 'arg "<num>" help="lab number (2-4, 6, 9)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'uv run jupyter-nbconvert --to webpdf --allow-chromium-download --output-dir reports --output "lab-{{ usage.num }}-notebook" "lab-{{ usage.num }}/lab.ipynb"'
+
+[tasks."notebook-pdf-all"]
+description = "Print every lab's notebook to PDF"
+depends = [
+  { task = "notebook-pdf", args = ["2"] },
+  { task = "notebook-pdf", args = ["3"] },
+  { task = "notebook-pdf", args = ["4"] },
+  { task = "notebook-pdf", args = ["6"] },
+  { task = "notebook-pdf", args = ["9"] },
+]
+
+[tasks.lab]
+description = "Launch a JupyterLab server for the labs"
+run = "uv run jupyter-lab"
