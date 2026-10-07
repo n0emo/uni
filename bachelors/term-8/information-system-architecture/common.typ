@@ -141,12 +141,33 @@
   )
 }
 
-// What a raw output item renders as: an image (plots), a table (HTML), a bare
-// object repr like `<Axes: ...>` that only clutters the report, or none of these.
+// cmarker renders a Markdown table as a bare `table`: no caption, no number.
+// Every one of these notebooks puts its table under the heading that names it,
+// so that heading becomes the caption. Scoped to Markdown cells, since a table
+// in a cell's HTML output is captioned from its `tbl-cap` instead.
+#let markdown-heading-text = state("markdown-heading", none)
+
+#let markdown-cell(cell, ctx: none, ..args) = {
+  show heading: it => {
+    markdown-heading-text.update(it.body)
+    it
+  }
+  show table: it => figure(it, kind: table, caption: context markdown-heading-text.get())
+  (callisto.default-handlers.at("markdown-cell"))(cell, ctx: ctx, ..args)
+}
+
+// What a raw output item renders as: an image (plots), a table, a bare object
+// repr like `<Axes: ...>` that only clutters the report, or none of these. Not
+// every HTML output is a table — a generated report also emits headings and
+// paragraphs, and those must not consume a caption.
 #let output-kind(item) = {
   let data = item.at("data", default: (:))
   if data.keys().any(mime => mime.starts-with("image/")) { return image }
-  if "text/html" in data { return table }
+  if "text/html" in data {
+    let html = data.at("text/html")
+    if type(html) == array { html = html.join() }
+    return if html.contains("<table") { table } else { none }
+  }
   let text = data.at("text/plain", default: "")
   if type(text) == array { text = text.join() }
   if data.keys() == ("text/plain",) and text.match(regex("^<[^\n]*>$")) != none { return "repr" }
@@ -194,7 +215,12 @@
 // `path` resolves relative to the file that calls it.
 #let notebook(nb, handlers: (:), ..args) = callisto.config(
   nb: nb,
-  handlers: ("text/html": text-html, output: output) + handlers,
+  handlers: (
+    "text/html": text-html,
+    "markdown-cell": markdown-cell,
+    output: output,
+  )
+    + handlers,
   theme: neat + (cell: cell, code-cell-input: code-cell-input, code-cell-output: code-cell-output),
   cmarker: (h1-level: 2),
   ..args,
