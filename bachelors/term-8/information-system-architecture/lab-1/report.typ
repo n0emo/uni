@@ -24,33 +24,56 @@
 #let max-parallelism = calc.max(..parallelism)
 #let mean-parallelism = operations / steps
 
-// Профиль: по одной полосе на задачу, цвет по её группе.
-#let group-colors = (blue, green, orange, purple)
+// Профиль как в таблице: строка на задачу в том же порядке, что и на листе
+// (4.3 сверху, 1.1 снизу), в каждой занятой клетке — номер задачи, под сеткой
+// строка tn со степенью параллелизма на каждом такте.
+#let task-colors = (
+  rgb("#f28b82"), // 1.1
+  rgb("#b39ddb"), // 2.1
+  rgb("#fff176"), // 2.2
+  rgb("#a5d6a7"), // 2.3
+  rgb("#ffe082"), // 2.4
+  rgb("#81c784"), // 3.1
+  rgb("#f8bbd0"), // 3.2
+  rgb("#90caf9"), // 3.3
+  rgb("#d7a06a"), // 3.4
+  rgb("#b0bec5"), // 3.5
+  rgb("#9575cd"), // 3.6
+  rgb("#e6ee9c"), // 3.7
+  rgb("#c5e1a5"), // 4.1
+  rgb("#ce93d8"), // 4.2
+  rgb("#bdbdbd"), // 4.3
+)
+
 #let profile-chart = canvas({
   import draw: content, line, rect
 
-  let unit = 0.36
-  let height = 0.34
+  let w = 0.5
+  let h = 0.34
+  let label(pos, body, size: 5pt) = content(pos, text(size: size, body))
 
-  for (i, task) in tasks.rev().enumerate() {
-    let y = i * height
-    let (x0, x1) = ((task.start - 1) * unit, (task.start - 1 + task.duration) * unit)
-    let color = group-colors.at(int(task.task.split(".").at(0)) - 1)
-    rect(
-      (x0, y),
-      (x1, y + height * 0.8),
-      fill: color.lighten(60%),
-      stroke: 0.4pt + color.darken(20%),
-    )
-    content(((x0 + x1) / 2, y + height * 0.4), text(size: 5pt, fill: color.darken(40%), task.task))
+  for (i, task) in tasks.enumerate() {
+    for step in range(task.start, task.start + task.duration) {
+      let x = (step - 1) * w
+      rect(
+        (x, i * h),
+        (x + w, i * h + h),
+        fill: task-colors.at(i),
+        stroke: 0.2pt + white,
+      )
+      label((x + w / 2, i * h + h / 2), task.task, size: 5pt)
+    }
   }
+  rect((0, 0), (steps * w, tasks.len() * h), stroke: 0.7pt + black)
 
-  for step in range(0, steps + 1, step: 5) {
-    let x = step * unit
-    line((x, -0.1), (x, -0.25), stroke: 0.4pt + gray)
-    content((x, -0.45), text(size: 6pt, [#step]))
+  // Строка tn под сеткой.
+  let y = -h
+  label((-0.6, y + h / 2), [#text(weight: "bold")[tn]], size: 5pt)
+  for (i, n) in parallelism.enumerate() {
+    let x = i * w
+    rect((x, y), (x + w, y + h), stroke: 0.2pt + luma(70%))
+    label((x + w / 2, y + h / 2), [#n], size: 5pt)
   }
-  content(((steps * unit) / 2, -0.85), text(size: 7pt, [Такт]))
 })
 
 == Цель работы
