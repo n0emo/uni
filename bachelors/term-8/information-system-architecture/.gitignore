@@ -3,3 +3,6 @@
 .virtual_documents/
 .python-version
 reports/
+
+# Побочный файл plt.savefig() в блокноте ЛР3
+lab-3/matrix_simd.png
