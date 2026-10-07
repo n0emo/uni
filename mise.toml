@@ -7,6 +7,7 @@ config_roots = [
   "./bachelors/term-1/maths/",
   "./bachelors/term-2/programming-c/",
   "./bachelors/term-2/programming-cpp/",
+  "./bachelors/term-6/ai-systems/",
   "./bachelors/term-7/information-security/",
   "./bachelors/term-7/networking/",
   "./bachelors/term-8/human-machine-interaction/",
@@ -28,6 +29,7 @@ tinymist = "0.15.8"
 tinytex = "2026.10"
 typst = "0.15.1"
 typstyle = "0.15.1"
+uv = "0.12.23"
 watchexec = "2.7.4"
 
 [task_templates.mkdir]

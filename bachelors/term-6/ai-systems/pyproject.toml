@@ -1,7 +1,7 @@
 [project]
-name = "ai"
+name = "ai-systems"
 version = "0.1.0"
-description = "Add your description here"
+description = "Labs for the Artificial Intelligence Systems course: knowledge models, fuzzy inference, neural networks, clustering"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -20,4 +20,5 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ipykernel>=6.29.5",
+    "nbconvert[webpdf]>=7.17.1",
 ]
