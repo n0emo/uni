@@ -1,0 +1,16 @@
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one practice's report to PDF"
+usage = 'arg "<num>" help="practice number (1-3)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "practice-{{ usage.num }}/report.typ" "reports/practice-{{ usage.num }}.pdf"'
+
+[tasks."report-all"]
+description = "Compile every practice's report"
+depends = [
+  { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
+]
