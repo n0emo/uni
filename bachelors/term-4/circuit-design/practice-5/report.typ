@@ -1,201 +1,152 @@
-​<anchor>ФЕДЕРАЛЬНОЕ АГЕНТСТВО ЖЕЛЕЗНОДОРОЖНОГО ТРАНСПОРТА
+#import "../common.typ": *
 
-Федеральное государственное бюджетное образовательное учреждение высшего
-образования
+#show: report.with(number: "5", title: "Последовательностные схемы. Счётчики")
 
-«ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ ПУТЕЙ СООБЩЕНИЯ Императора
-Александра I»
+= Введение
 
-Кафедра «Информационные и вычислительные системы»
+== Цель работы
 
-Дисциплина «ОСНОВЫ МИКРОЭЛЕКТРОНИКИ И СХЕМОТЕХНИКИ»
+Исследование счетчиков
 
-#strong[ОТЧЁТ]
+== Задание
 
-#strong[ПО ЛАБОРАТОРНОЙ РАБОТЕ № 5 ]
-
-#strong[ Тема: «Последовательностные схемы. Счетчики»]
+1. Собрать в программе Electronics Workbench схему, представленную на рис. @fig-async-counter-task.
 
 #figure(
-  align(center)[#table(
-    columns: 2,
-    align: (auto,auto,),
-    [ Выполнил студент
-
-    Факультет: АИТ
-
-    Группа: ИВБ-211
-
-    ], [Егупов Н.М. ],
-    [ Проверил: ], [Гильванов Р. Г.],
-  )]
-  , kind: table
-  )
-
-#strong[Санкт-Петербург]
-
-#strong[2024]
-
-#strong[Цель работы]: исследование счетчиков
-
-#quote(block: true)[
-#emph[Задание]:
-]
-
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 10.
-
-#quote(block: true)[
-#emph[Рис. 10. Принципиальная схема асинхронного счетчика]
-]
-
-#emph[]
+  caption: "Принципиальная схема асинхронного счетчика",
+  image("./assets/async-counter-task.png", width: 70%),
+) <fig-async-counter-task>
 
 Для исследования схемы необходимо задать счетный режим каждого триггера.
 
-#block[
-#set enum(numbering: "1.", start: 2)
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 11.
-]
+2. Собрать в программе Electronics Workbench схему, представленную на рис. @fig-sync-counter-task.
 
-Для реализации данной схемы необходимо использовать модель микросхемы
-7472 (AND gated JK MS-SLV FF (pre, clr)) из набора предла- гаемых в
-программе Electronics Workbench.
+Для реализации данной схемы необходимо использовать модель микросхемы 7472 (AND gated JK MS-SLV FF
+(pre, clr)) из набора предлагаемых в программе Electronics Workbench.
 
-#block[
-#set enum(numbering: "1.", start: 3)
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 12.
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 13.
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 14.
-]
+3. Собрать в программе Electronics Workbench схему, представленную на рис.
+  @fig-sync-counter-carry-task.
+4. Собрать в программе Electronics Workbench схему, представленную на рис. @fig-down-counter-task.
+5. Собрать в программе Electronics Workbench схему, представленную на рис.
+  @fig-sync-counter-modulo-task.
 
-#quote(block: true)[
-Q0 #super[Q1 Q2]
-]
+#figure(
+  caption: "Схема синхронного счетчика",
+  image("./assets/sync-counter-task.png", width: 90%),
+) <fig-sync-counter-task>
 
-#quote(block: true)[
-#emph[Рис. 11. Схема синхронного счетчика]
-]
+#figure(
+  caption: "Схема синхронного счетчика с асинхронным переносом",
+  image("./assets/sync-counter-carry-task.gif", width: 90%),
+) <fig-sync-counter-carry-task>
 
-#emph[]
+#figure(
+  caption: "Схема асинхронного вычитающего счетчика",
+  image("./assets/down-counter-task.png", width: 70%),
+) <fig-down-counter-task>
 
-#emph[]
-
-#emph[#box(image("./assets/1000000100000267000000E99816FB7A.gif", height: 2.3055in, width: 6.0866in))]
-
-#emph[]
-
-#quote(block: true)[
-#emph[Рис. 12. Схема синхронного счетчика с асинхронным переносом]
-]
-
-#emph[]
-
-#emph[#box(image("./assets/10000001000001A80000005190FAA642.png", height: 0.9193in, width: 4.8126in))]
-
-#quote(block: true)[
-#emph[Рис. 13. Схема асинхронного вычитающего счетчика]
-
-#emph[]
-
-#box(image("./assets/100000010000020E000000AFF231DD4E.png", height: 1.9272in, width: 5.8126in))
-]
-
-#emph[]
-
-#quote(block: true)[
-#emph[Рис. 14. Схема синхронного счетчика с измененным модулем счета]
-]
-
-#emph[]
+#figure(
+  caption: "Схема синхронного счетчика с измененным модулем счета",
+  image("./assets/sync-counter-modulo-task.png", width: 85%),
+) <fig-sync-counter-modulo-task>
 
 Для исследования схемы необходимо задать счетный режим каждого триггера.
 
-#block[
-#set enum(numbering: "1.", start: 6)
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 15.
-]
+6. Собрать в программе Electronics Workbench схему, представленную на рис.
+  @fig-johnson-counter-task.
 
-#box(image("./assets/10000001000001950000006F757D75B2.gif", height: 1.1563in, width: 4.2138in))
+#figure(
+  caption: "Схема кольцевого счетчика Джонсона",
+  image("./assets/johnson-counter-task.gif", width: 65%),
+) <fig-johnson-counter-task>
 
-#quote(block: true)[
-#emph[Рис. 15. Схема кольцевого счетчика Джонсона]
-]
+7. Для каждой схемы необходимо получить таблицу состояний и диаграмму сигналов, определить
+  коэффициент пересчета (модуль счетчика), классифицировать счетчик.
+8. Подготовить отчет. Отчет должен содержать схемы, таблицы состояний и диаграммы исследуемых
+  устройств.
 
-#emph[]
+= Основная часть
 
-#block[
-#set enum(numbering: "1.", start: 7)
-+ Для каждой схемы необходимо получить таблицу состояний и диаграмму
-  сигналов, определить коэффициент пересчета (модуль счетчи- ка),
-  классифицировать счетчик.
-+ Подготовить отчет. Отчет должен содержать схемы, таблицы со- стояний и
-  диаграммы исследуемых устройств.
-]
+== Задание 1. Схема асинхронного счетчика
 
-#strong[#strong[Основная часть]]
+#figure(
+  caption: "Схема асинхронного счетчика",
+  image("./assets/async-counter-schema.png", width: 90%),
+)
 
-Задание 1. Схема~асинхронного~счетчика
+#figure(
+  caption: "Диаграмма асинхронного счетчика",
+  image("./assets/async-counter-diagram.png", width: 60%),
+)
 
-#box(image("./assets/10000001000002850000019714D0E540.png", height: 4.0984in, width: 6.4957in))
+$ K = 64 $
 
-Диаграмма
+== Задание 2. Схема синхронного счетчика
 
-#box(image("./assets/100000010000014300000084DBD6B683.png", height: 1.3752in, width: 3.3654in))
+#figure(
+  caption: "Схема синхронного счетчика",
+  image("./assets/sync-counter-schema.png", width: 90%),
+)
 
-К = 64
+#figure(
+  caption: "Диаграмма синхронного счетчика",
+  image("./assets/sync-counter-diagram.png", width: 60%),
+)
 
-Задание 2. Схема~синхронного~счетчика
+$ K = 64 $
 
-#box(image("./assets/100000010000038D0000022109A39C45.png", height: 3.8953in, width: 6.4957in))
+== Задание 3. Схема синхронного счетчика с асинхронным переносом
 
-Диаграмма
+#figure(
+  caption: "Схема синхронного счетчика с асинхронным переносом",
+  image("./assets/sync-counter-carry-schema.jpg", width: 90%),
+)
 
-#box(image("./assets/1000000100000144000000CEC2ED2E59.png", height: 2.1457in, width: 3.3756in))
+#figure(
+  caption: "Диаграмма синхронного счетчика с асинхронным переносом",
+  image("./assets/sync-counter-carry-diagram.png", width: 60%),
+)
 
-К = 64
+$ K = 8 $
 
-Задание 3. Схема~синхронного~счетчика~с~асинхронным~переносом
+== Задание 4. Схема асинхронного вычитающего счетчика
 
-#box(image("./assets/10000000000003D1000001CDD322497A.jpg", height: 3.0654in, width: 6.4957in))
+#figure(
+  caption: "Схема асинхронного вычитающего счетчика",
+  image("./assets/down-counter-schema.png", width: 85%),
+)
 
-Диаграмма
+#figure(
+  caption: "Диаграмма асинхронного вычитающего счетчика",
+  image("./assets/down-counter-diagram.png", width: 55%),
+)
 
-#box(image("./assets/10000001000001710000008F4B5BF594.png", height: 1.4898in, width: 3.8437in))
+$ K = 64 $
 
-К = 8
+== Задание 5. Схема синхронного счетчика с измененным модулем счета
 
-Задание 4. Схема~асинхронного~вычитающего~счетчика
+#figure(
+  caption: "Схема синхронного счетчика с измененным модулем счета",
+  image("./assets/sync-counter-modulo-schema.png", width: 85%),
+)
 
-#box(image("./assets/100000010000024100000143BB056DBD.png", height: 3.3654in, width: 6.011in))
+#figure(
+  caption: "Диаграмма синхронного счетчика с измененным модулем счета",
+  image("./assets/sync-counter-modulo-diagram.png", width: 65%),
+)
 
-Диаграмма
+$ K = 64 $
 
-#box(image("./assets/1000000100000172000000657EE66CDD.png", height: 1.052in, width: 3.8547in))
+== Задание 6. Схема кольцевого счетчика Джонсона
 
-К = 64
+#figure(
+  caption: "Схема кольцевого счетчика Джонсона",
+  image("./assets/johnson-counter-schema.png", width: 85%),
+)
 
-Задание 5.~Схема~синхронного~счетчика~с~измененным~модулем счета
+#figure(
+  caption: "Диаграмма кольцевого счетчика Джонсона",
+  image("./assets/johnson-counter-diagram.png", width: 55%),
+)
 
-#box(image("./assets/100000010000034500000190AE90AC49.png", height: 3.1043in, width: 6.4957in))
-
-Диаграмма
-
-#box(image("./assets/10000001000001A100000132847EFFDD.png", height: 3.1874in, width: 4.3445in))
-
-К = 64
-
-Задание 6. Схема~кольцевого~счетчика~Джонсона~
-
-#box(image("./assets/100000010000024B00000182C5CDEA1E.png", height: 4.0217in, width: 6.1154in))
-
-Диаграмма
-
-#box(image("./assets/100000010000015C0000004374CFC0B6.png", height: 0.698in, width: 3.6256in))
-
-К = 64
+$ K = 64 $
