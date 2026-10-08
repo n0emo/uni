@@ -1,115 +1,66 @@
-​<anchor>ФЕДЕРАЛЬНОЕ АГЕНТСТВО ЖЕЛЕЗНОДОРОЖНОГО ТРАНСПОРТА
+#import "../common.typ": *
 
-Федеральное государственное бюджетное образовательное учреждение высшего
-образования
+#show: report.with(number: "6", title: "Последовательностные схемы. Регистры")
 
-«ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ ПУТЕЙ СООБЩЕНИЯ Императора
-Александра I»
+= Введение
 
-Кафедра «Информационные и вычислительные системы»
+== Цель работы
 
-Дисциплина «ОСНОВЫ МИКРОЭЛЕКТРОНИКИ И СХЕМОТЕХНИКИ»
+Исследование регистров.
 
-#strong[ОТЧЁТ]
+== Задание
 
-#strong[ПО ЛАБОРАТОРНОЙ РАБОТЕ № 6 ]
-
-#strong[ Тема: «]Последовательностные схемы. Регистры#strong[»]
++ Собрать в программе Electronics Workbench схему, представленную на рис. @img-parallel-task.
++ Собрать в программе Electronics Workbench схему, представленную на рис. @img-shift-task.
++ Собрать в программе Electronics Workbench схему, представленную на рис. @img-prng-task (КС --
+  комбинационная схема).
++ Для каждого устройства получить диаграммы входных и выходных сигналов.
++ Подготовить отчет. Отчет должен содержать схемы и диаграммы исследуемых устройств.
 
 #figure(
-  align(center)[#table(
-    columns: 2,
-    align: (auto,auto,),
-    [ Выполнил студент
+  caption: "Схема параллельного регистра",
+  image("./assets/parallel-register-task.png", width: 80%),
+) <img-parallel-task>
 
-    Факультет: АИТ
+#figure(
+  caption: "Схема сдвигового регистра",
+  image("./assets/shift-register-task.png", width: 90%),
+) <img-shift-task>
 
-    Группа: ИВБ-211
+#figure(
+  caption: "Схема ГПСЧ",
+  image("./assets/prng-task.gif", width: 90%),
+) <img-prng-task>
 
-    ], [Шефнер А. ],
-    [ Проверил: ], [Гильванов Р. Г.],
-  )]
-  , kind: table
-  )
+= Основная часть
 
-#strong[Санкт-Петербург]
+== Задание 1. Параллельный регистр
 
-#strong[2024]
+#figure(
+  caption: "Схема параллельного регистра",
+  image("./assets/parallel-register-circuit.png", width: 60%),
+)
 
-#strong[Введение]
+#figure(
+  caption: "Диаграмма сигналов параллельного регистра",
+  image("./assets/parallel-register-diagram.png", width: 80%),
+)
 
-#quote(block: true)[
-#strong[Цель работы]: исследование регистров.
-]
+== Задание 2. Сдвиговой регистр
 
-#quote(block: true)[
-#emph[Задание]:
-]
+#figure(
+  caption: "Схема сдвигового регистра",
+  image("./assets/shift-register-circuit.png", width: 90%),
+)
 
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 17.
+#figure(
+  caption: "Диаграмма сигналов сдвигового регистра",
+  image("./assets/shift-register-diagram.png", width: 90%),
+)
 
-#box(image("./assets/100000000000017A000000B49C1AC095.png", height: 2.3063in, width: 4.8402in))
+== Задание 3. ГПСЧ
 
-#quote(block: true)[
-#emph[Рис. 17. Схема параллельного регистра]
-]
-
-#emph[]
-
-#block[
-#set enum(numbering: "1.", start: 2)
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 18.
-+ Собрать в программе Electronics Workbench схему, представлен- ную на
-  рис. 19 (КС -- комбинационная схема).
-+ Для каждого устройства получить диаграммы входных и выход- ных
-  сигналов.
-+ Подготовить отчет. Отчет должен содержать схемы и диаграммы
-  исследуемых устройств.
-]
-
-#quote(block: true)[
-#emph[Рис. 18. Схема сдвигового регистра]
-]
-
-#emph[#box(image("./assets/10000001000002040000009C031B55B7.gif", height: 1.6252in, width: 5.3835in))]
-
-#emph[]
-
-#quote(block: true)[
-#emph[Рис. 19. Схема ГПСЧ]
-]
-
-#strong[Основная часть]
-
-#strong[Задание 1. Параллельный регистр]
-
-Схема параллельного регистра #strong[]
-
-#box(image("./assets/10000000000002B500000248DBC8CC20.png", height: 3.239in, width: 3.8366in))
-
-Диаграмма сигналов параллельного регистра
-
-#box(image("./assets/10000000000001A000000173DB0A9665.png", height: 2.9102in, width: 4.3366in))
-
-#strong[]
-
-#strong[Задание 2. Сдвиговой регистр]
-
-Схема сдвигового регистра #strong[]
-
-#box(image("./assets/10000000000003E50000025180FF5175.png", height: 3.1354in, width: 5.25in))
-
-Диаграмма сигналов сдвигового регистра.
-
-#box(image("./assets/100000000000019D000001726684F021.png", height: 2.0154in, width: 5.3043in))
-
-#strong[]
-
-#strong[Задание 3. ГПСЧ]
-
-Схема
-ГПСЧ#box(image("./assets/10000000000003A9000002252B7A2F8F.png", height: 3.8063in, width: 6.4957in))
-
-#strong[]
+#figure(
+  caption: "Схема ГПСЧ",
+  image("./assets/prng-circuit.png", width: 90%),
+)
