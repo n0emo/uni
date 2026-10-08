@@ -8,6 +8,7 @@ config_roots = [
   "./bachelors/term-2/programming-c/",
   "./bachelors/term-2/programming-cpp/",
   "./bachelors/term-4/automata-theory/",
+  "./bachelors/term-4/circuit-design/",
   "./bachelors/term-6/ai-systems/",
   "./bachelors/term-7/information-security/",
   "./bachelors/term-7/networking/",
