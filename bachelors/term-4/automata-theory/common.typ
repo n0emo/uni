@@ -25,6 +25,7 @@
   ),
   style: config-style(
     headings-numbering: none,
+    headings-pagebreak: false,
   ),
   content,
 )

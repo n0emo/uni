@@ -1,0 +1,32 @@
+gilvanov-automata:
+  type: book
+  title: Основы теории автоматов
+  author: Гильванов, Р. Г.
+  date: 2019
+  page-total: 48
+  publisher:
+    name: ФГБОУ ВО ПГУПС
+    location: Санкт-Петербург
+  genre: Учебное пособие
+
+ozhiganov-automata:
+  type: book
+  title: Теория автоматов
+  author: Ожиганов, А. А.
+  date: 2013
+  page-total: 84
+  publisher:
+    name: НИУ ИТМО
+    location: Санкт-Петербург
+  genre: Учебное пособие
+
+amosov-circuits:
+  type: book
+  title: Схемотехника и средства проектирования цифровых устройств
+  author: Амосов, В. В.
+  date: 2007
+  page-total: 560
+  publisher:
+    name: БХВ-Петербург
+    location: Санкт-Петербург
+  genre: Учебное пособие
