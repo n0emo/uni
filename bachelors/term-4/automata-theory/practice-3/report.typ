@@ -310,9 +310,4 @@ $ phi_2 = x_1 or q_2 = overline(overline(x_1 or q_2)) = overline(macron(x)_1 and
 работах, в областях, связанных с вычислительной техникой и программированием, благодаря их
 способности моделировать и анализировать сложные системы и алгоритмы.
 
-// В исходном отчёте на источники нет ссылок из текста, только список.
-#cite(<gilvanov-automata>, form: none)
-#cite(<ozhiganov-automata>, form: none)
-#cite(<amosov-circuits>, form: none)
-
-#bibliography("../bibliography.yaml", title: "Список использованных источников")
+#bibliography("../bibliography.yaml", full: true, title: "Список использованных источников")

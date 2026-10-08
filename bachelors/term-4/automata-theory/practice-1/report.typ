@@ -164,7 +164,4 @@ $ cases(alpha(t) = delta(alpha(t - 1), x(t)), y(t) = lambda(alpha(t))) $
 исследованы способы задания автоматов в виде системы уравнений, в виде таблиц переходов и выходов и
 в виде графов.
 
-// В исходном отчёте на источники нет ссылок из текста, только список.
-#cite(<gilvanov-automata>, form: none)
-
-#bibliography("../bibliography.yaml", title: "Список литературы")
+#bibliography("../bibliography.yaml", full: true, title: "Список литературы")
