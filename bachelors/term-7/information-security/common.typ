@@ -5,7 +5,7 @@
   number: placeholder("number"),
   variant: none,
   content,
-) = lab-report(
+) = laboratory-work(
   course: config-course(
     faculty: "Автоматизация и интеллектуальные технологии",
     department: "Информатика и информационная безопасность",

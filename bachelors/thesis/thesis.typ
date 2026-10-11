@@ -4,7 +4,7 @@
 #import "@local/pgups:0.1.0": *
 #import "style.typ": *
 
-#show: backelors-thesis.with(
+#show: bachelors-thesis.with(
   superviser-review: include "./chapters/00-review.typ",
   abstract: include "chapters/00-abstract.typ",
   style: config-style(

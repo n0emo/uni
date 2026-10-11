@@ -21,7 +21,7 @@
   title: placeholder("title"),
   number: placeholder("number"),
   content,
-) = lab-report(
+) = laboratory-work(
   course: config-course(
     faculty: "Автоматизация и интеллектуальные технологии",
     department: "Информационные и вычислительные системы",

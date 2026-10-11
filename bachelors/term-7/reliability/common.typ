@@ -5,7 +5,7 @@
   number: placeholder("number"),
   variant: none,
   content,
-) = practice-report(
+) = practical-work(
   faculty: [Автоматизация и интеллектуальные технологии],
   department: [Информационные и вычислительные системы],
   discipline: [Надёжность информационных систем],

@@ -7,7 +7,7 @@
   number: placeholder("number"),
   variant: none,
   content,
-) = generic-lab(
+) = practical-work(
   course: config-course(
     faculty: "Автоматизация и интеллектуальные технологии",
     department: "Информационные и вычислительные системы",
@@ -27,10 +27,6 @@
     title: title,
     variant: variant,
   ),
-  work-title: num => [
-    ОТЧЁТ \
-    По практическому заданию № #num
-  ],
   style: config-style(
     headings-numbering: none,
   ),
