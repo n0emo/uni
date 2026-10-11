@@ -6,14 +6,24 @@
   variant: none,
   content,
 ) = practical-work(
-  faculty: [Автоматизация и интеллектуальные технологии],
-  department: [Информационные и вычислительные системы],
-  discipline: [Надёжность информационных систем],
-  author: (name: "А. Шефнер", post: "студент группы ИВБ-211"),
-  teacher: (name: "Е.Н. Шаповалов", post: [к.т.н., доцент кафедры "ИВС"]),
-  text-size: 12pt,
-  title: title,
-  number: number,
-  variant: variant,
+  course: config-course(
+    faculty: "Автоматизация и интеллектуальные технологии",
+    department: "Информационные и вычислительные системы",
+    discipline: "Надёжность информационных систем",
+    year: 2025,
+  ),
+  student: config-student(
+    name: "А. Шефнер",
+    group: "ИВБ-211",
+  ),
+  teacher: config-teacher(
+    name: "Е.Н. Шаповалов",
+    post: [к.т.н., доцент кафедры "ИВС"],
+  ),
+  lab: config-lab(
+    number: number,
+    title: title,
+    variant: variant,
+  ),
   content,
 )

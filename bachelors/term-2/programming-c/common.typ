@@ -17,16 +17,13 @@
     group: "ИВБ-211",
   ),
   teacher: config-teacher(
-    name: "",
-    post: "",
+    name: "В.И. Носонов",
+    post: [ст. преп. "ИВС"],
   ),
   lab: config-lab(
     number: number,
     title: title,
     variant: variant,
-  ),
-  style: config-style(
-    headings-numbering: none,
   ),
   content,
 )

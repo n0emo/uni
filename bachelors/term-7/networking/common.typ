@@ -23,8 +23,5 @@
     number: number,
     title: title,
   ),
-  style: config-style(
-    headings-numbering: none,
-  ),
   content,
 )

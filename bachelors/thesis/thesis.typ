@@ -7,9 +7,6 @@
 #show: bachelors-thesis.with(
   superviser-review: include "./chapters/00-review.typ",
   abstract: include "chapters/00-abstract.typ",
-  style: config-style(
-    outline-depth: 2,
-  ),
   course: config-course(
     faculty: "Автоматизация и интеллектуальные технологии",
     department: "Информационные и вычислительные системы",

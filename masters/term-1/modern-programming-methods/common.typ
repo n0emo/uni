@@ -16,15 +16,12 @@
     group: "ИСМ-610",
   ),
   teacher: config-teacher(
-    name: [В.Е. Петров],
+    name: "В.Е. Петров",
     post: [доц. "ИВС"],
   ),
   lab: config-lab(
     number: number,
     title: title,
-  ),
-  style: config-style(
-    headings-numbering: none,
   ),
   content,
 )

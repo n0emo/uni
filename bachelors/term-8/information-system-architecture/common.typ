@@ -3,20 +3,6 @@
 #import "@preview/cetz:0.5.2": canvas, draw
 #import "@preview/cetz-plot:0.1.4": chart, plot
 
-// cmarker renders a Markdown ordered list as `enum(start: 1, [a], [b])`, whose
-// items carry no explicit number, while the `show enum` rule in @local/pgups
-// reads `it.number` unguarded and fails with "field number in item is not known
-// at this point". Numbering the items up front satisfies it. The real fix is
-// `it.at("number", default: auto)` in pgups; drop this once that lands.
-#let number-enum-items(body) = {
-  show enum: it => {
-    if it.children.all(child => child.at("number", default: none) != none) { it } else {
-      enum(..it.children.enumerate().map(((i, child)) => enum.item(it.start + i, child.body)))
-    }
-  }
-  body
-}
-
 #let report(
   title: placeholder("title"),
   number: placeholder("number"),
@@ -41,10 +27,7 @@
     title: title,
     variant: "13",
   ),
-  style: config-style(
-    headings-numbering: none,
-  ),
-  number-enum-items(content),
+  content,
 )
 
 // Measurements live in `lab-N/data/*.csv` next to the spreadsheet they were
@@ -222,6 +205,6 @@
   )
     + handlers,
   theme: neat + (cell: cell, code-cell-input: code-cell-input, code-cell-output: code-cell-output),
-  cmarker: (h1-level: 2),
+  cmarker: (h1-level: 1),
   ..args,
 )

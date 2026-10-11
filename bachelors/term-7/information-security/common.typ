@@ -27,8 +27,5 @@
     title: title,
     variant: variant,
   ),
-  style: config-style(
-    headings-numbering: none,
-  ),
   content,
 )

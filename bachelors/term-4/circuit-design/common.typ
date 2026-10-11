@@ -4,7 +4,7 @@
   title: placeholder("title"),
   number: placeholder("number"),
   content,
-) = practice-report(
+) = practical-work(
   course: config-course(
     faculty: "Автоматизация и интеллектуальные технологии",
     department: "Информационные и вычислительные системы",
@@ -22,10 +22,6 @@
   lab: config-lab(
     number: number,
     title: title,
-  ),
-  style: config-style(
-    headings-numbering: none,
-    headings-pagebreak: false,
   ),
   content,
 )

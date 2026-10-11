@@ -19,16 +19,13 @@
     group: "ИВБ-211",
   ),
   teacher: config-teacher(
-    name: [С.В. Пугачев],
+    name: "С.В. Пугачев",
     post: [доц. "ИВС"],
   ),
   lab: config-lab(
     number: number,
     title: title,
     variant: variant,
-  ),
-  style: config-style(
-    headings-numbering: none,
   ),
   content,
 )
@@ -129,6 +126,6 @@
   nb: nb,
   handlers: ("text/html": text-html, output: output) + handlers,
   theme: neat + (cell: cell, code-cell-input: code-cell-input, code-cell-output: code-cell-output),
-  cmarker: (h1-level: 2),
+  cmarker: (h1-level: 1),
   ..args,
 )
