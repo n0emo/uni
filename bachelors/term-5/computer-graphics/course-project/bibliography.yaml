@@ -1,0 +1,31 @@
+homonenko:
+  type: Book
+  title: Основы современных компьютерных технологий
+  editor: А.Д. Хомоненко
+  date: 2009
+  page-total: 672
+  publisher:
+    location: СПб
+    name: КОРОНА принт
+
+klabnik-nichols:
+  type: Book
+  title: Программирование на Rust
+  author:
+    - С. Клабник
+    - К. Николс
+  date: 2021
+  page-total: 592
+  publisher:
+    location: СПб
+    name: Питер
+
+learn-wgpu:
+  type: Web
+  title: Introduction to wgpu
+  url: https://sotrh.github.io/learn-wgpu
+
+raymarching-video:
+  type: Web
+  title: An introduction to Raymarching
+  url: https://youtu.be/khblXafu7iA?si=Xiw5PBCybeg3hjfK
