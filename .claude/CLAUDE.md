@@ -42,6 +42,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-6/ai-systems` | `lab`, `execute <num>`, `notebook-pdf <num>`, `notebook-pdf-all`, `report <num>`, `report-all` |
 | `bachelors/term-7/information-security` | `build`, `build-lab <num>`, `run <num> [args]`, `chat-server <num>`, `chat-client <num>`, `report <num>`, `report-all` |
 | `bachelors/term-7/networking` | `report <num>`, `report-all`, `course-work` |
+| `bachelors/term-7/programming-language-theory` | `course-work`, `report-all` |
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
 | `masters/term-1/microelectronic-control-systems` | `report <num>`, `report-all` |

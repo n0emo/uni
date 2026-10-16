@@ -1,5 +1,3 @@
-#counter(figure.where(kind: image)).update(0)
-
 = Блочная диаграмма микропроцессора MOS 6502 <sup-diagram>
 
 #figure(

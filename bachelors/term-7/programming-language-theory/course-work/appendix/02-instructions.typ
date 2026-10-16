@@ -1,6 +1,3 @@
-#show figure: set block(breakable: true)
-#counter(figure.where(kind: table)).update(0)
-
 = Набор инструкций микропроцессора MOS 6502 <sup-instruction-set>
 
 #figure(
@@ -375,4 +372,4 @@
     [`OPC $LL,Y`],
     [операнд — адрес в нулевой странице; эффективный адрес = адрес + Y без переноса],
   ),
-) <table-addess-modes>
+) <table-address-modes>

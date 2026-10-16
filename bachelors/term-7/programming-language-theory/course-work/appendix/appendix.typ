@@ -1,6 +1,6 @@
-#import "../template.typ": supplement
+#import "@local/pgups:0.1.0": *
 
-#supplement[
+#appendixes[
   #include "01-cpu-diagram.typ"
   #{
     set page(flipped: true)
