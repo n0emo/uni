@@ -17,8 +17,8 @@
     group: "ИВБ-211",
   ),
   teacher: config-teacher(
-    name: "TODO",
-    post: [TODO],
+    name: "А.И. Загайнов",
+    post: [доц. "ИВС"],
   ),
   lab: config-lab(
     number: number,

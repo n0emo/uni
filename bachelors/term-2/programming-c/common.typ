@@ -18,7 +18,7 @@
   ),
   teacher: config-teacher(
     name: "В.И. Носонов",
-    post: [ст. преп. "ИВС"],
+    post: [доц. "ИВС"],
   ),
   lab: config-lab(
     number: number,

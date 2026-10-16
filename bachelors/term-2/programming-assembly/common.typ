@@ -18,7 +18,6 @@
   ),
   teacher: config-teacher(
     name: "М.Ю. Кукин",
-    post: [TODO],
   ),
   lab: config-lab(
     number: number,
