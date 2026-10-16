@@ -1,16 +1,11 @@
-#import "template.typ": conf
+#import "@local/pgups:0.1.0": course-work
+#import "config.typ": config
 
-#show: doc => conf(
-  title: "Архитектура web-сервера на базе плагинов WebAssembly",
-  author: "А. Шефнер",
-  group: "ИВБ-211",
-  teacher: "Д.И. Баталов",
-  teacher-post: [доц. каф. "ИВС"],
-  doc: doc,
+#show: course-work.with(
+  ..config,
+  abstract: include "chapters/abstract.typ",
 )
 
-#include "chapters/abstract.typ"
-#outline()
 #include "chapters/introduction.typ"
 #include "chapters/01-architecture.typ"
 #include "chapters/02-http.typ"
@@ -18,4 +13,4 @@
 #include "chapters/04-running.typ"
 #include "chapters/conclusion.typ"
 #bibliography("bibliography.yaml")
-#include "supplement.typ"
+#include "appendix/appendix.typ"

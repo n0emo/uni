@@ -1,0 +1,13 @@
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks."course-work"]
+description = "Compile the course work to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root course-work "course-work/course-work.typ" "reports/course-work.pdf"'
+sources = ["course-work/**/*.typ", "course-work/bibliography.yaml", "course-work/assets/**"]
+outputs = ["reports/course-work.pdf"]
+
+[tasks."report-all"]
+description = "Compile every report of the course"
+depends = ["course-work"]

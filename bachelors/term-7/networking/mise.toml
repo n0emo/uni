@@ -21,6 +21,6 @@ depends = [
 [tasks."course-work"]
 description = "Compile the course project to PDF"
 depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
-run = 'typst compile --root . "course-project/course-work.typ" "reports/course-work.pdf"'
-sources = ["course-project/**"]
+run = 'typst compile --root course-project "course-project/course-work.typ" "reports/course-work.pdf"'
+sources = ["course-project/**/*.typ", "course-project/bibliography.yaml", "course-project/assets/**"]
 outputs = ["reports/course-work.pdf"]
