@@ -2,7 +2,7 @@
 .model flat, stdcall
 option casemap: none
 
-; Подключение основных библиотек
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅС‹С… Р±РёР±Р»РёРѕС‚РµРє
 include windows.inc
 include masm32.inc
 includelib masm32.lib
@@ -11,14 +11,14 @@ includelib kernel32.lib
 include msvcrt.inc
 includelib msvcrt.lib
 
-; Подключение макросов
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РјР°РєСЂРѕСЃРѕРІ
 include C:\masm32\macros\macros.asm
 
 
 .data
 	symbols_count dd 0
-	app_name db "Консось", 0
-	hello_world_message db "Hello мир!", 13, 10, 0
+	app_name db "РљРѕРЅСЃРѕСЃСЊ", 0
+	hello_world_message db "Hello РјРёСЂ!", 13, 10, 0
 	hello_world_message_size equ $-hello_world_message
 	pos label dword
 	cord COORD <>
@@ -31,37 +31,37 @@ include C:\masm32\macros\macros.asm
 	
 .code
 _main PROC
-	; Настройка консоли
+	; РќР°СЃС‚СЂРѕР№РєР° РєРѕРЅСЃРѕР»Рё
 	invoke SetConsoleOutputCP, 1251
 	invoke SetConsoleCP, 1251
 	invoke SetConsoleTitleA, Addr app_name
 	
-	; Получение хэндлеров
+	; РџРѕР»СѓС‡РµРЅРёРµ С…СЌРЅРґР»РµСЂРѕРІ
 	invoke GetStdHandle, STD_OUTPUT_HANDLE
 	mov out_handler, EAX
 	invoke GetStdHandle, STD_INPUT_HANDLE
 	mov in_handler, EAX
 	
-	; Получение input_string
+	; РџРѕР»СѓС‡РµРЅРёРµ input_string
 	invoke ReadConsole, in_handler, Addr input_string, lengthof input_string, Addr input_string_size, 0
 	
-	; Установка позиции курсора на (13,6) и вывод полученного ранее input_string
+	; РЈСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° РЅР° (13,6) Рё РІС‹РІРѕРґ РїРѕР»СѓС‡РµРЅРЅРѕРіРѕ СЂР°РЅРµРµ input_string
 	mov cord.x, 13
 	mov cord.y, 6
 	invoke SetConsoleCursorPosition, out_handler, pos
 	invoke WriteConsoleA, out_handler, Addr input_string, input_string_size, Addr symbols_count, 0
 	
-	; Установка позиции курсора на (0,1) и вывод сообщение "Hello мир"
+	; РЈСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° РЅР° (0,1) Рё РІС‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёРµ "Hello РјРёСЂ"
 	mov cord.x, 0
 	mov cord.y, 1
 	invoke SetConsoleCursorPosition, out_handler, pos
 	invoke WriteConsoleA, out_handler, Addr hello_world_message, hello_world_message_size, Addr symbols_count, 0
 	
-	; Установка позиции курсора на (0,7) и вызов макроса inkey
+	; РЈСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° РЅР° (0,7) Рё РІС‹Р·РѕРІ РјР°РєСЂРѕСЃР° inkey
 	mov cord.x, 0
 	mov cord.y, 7
 	invoke SetConsoleCursorPosition, out_handler, pos
-	inkey "Введите любую клавишу для продолжения..."
+	inkey "Р’РІРµРґРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ РґР»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ..."
 	
 	ret
 _main ENDP
