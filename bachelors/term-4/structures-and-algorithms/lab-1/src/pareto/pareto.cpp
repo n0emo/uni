@@ -1,14 +1,25 @@
 #include "gnuplot.hpp"
 #include <algorithm>
+#include <array>
+#include <cassert>
 #include <cstdio>
+#include <filesystem>
 #include <fstream>
 #include <gnuplot.hpp>
 #include <ranges>
+#include <sstream>
 #include <string>
 #include <vector>
 
-#define NBS_IMPLEMENTATION
-#include "../../../../nbs/nbs.hpp"
+std::vector<std::string> split(const std::string &line)
+{
+    std::vector<std::string> tokens;
+    std::istringstream stream(line);
+    std::string token;
+    while (stream >> token)
+        tokens.push_back(token);
+    return tokens;
+}
 
 template <size_t N>
 struct Point
@@ -29,7 +40,7 @@ std::vector<Point<N>> get_points_from_file(const std::filesystem::path &path)
     std::string line;
     while (std::getline(fin, line))
     {
-        std::vector<std::string> tokens = nbs::str::split(line, " ");
+        std::vector<std::string> tokens = split(line);
         assert(tokens.size() == N + 1);
         std::array<double, N> coordinates;
         std::transform(tokens.begin(), tokens.end() - 1, coordinates.begin(),

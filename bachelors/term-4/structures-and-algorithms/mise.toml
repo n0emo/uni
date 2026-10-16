@@ -1,0 +1,10 @@
+[tasks.configure]
+extends = "cmake:configure"
+sources = ["CMakeLists.txt", "lab-*/CMakeLists.txt"]
+outputs = ["build/build.ninja"]
+
+[tasks.build]
+extends = "cmake:build"
+depends = ["configure"]
+sources = ["lab-*/src/**", "lab-*/include/**", "lab-*/CMakeLists.txt", "CMakeLists.txt"]
+outputs = { auto = true }
