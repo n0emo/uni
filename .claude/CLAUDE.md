@@ -1,3 +1,5 @@
+| `bachelors/term-3/programming-python` | `report <num>`, `report-all` |
+| `bachelors/term-3/structures-and-algorithms` | `report <num>`, `report-all` |
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
