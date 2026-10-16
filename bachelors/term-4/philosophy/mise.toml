@@ -1,0 +1,28 @@
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one practice's write-up to PDF"
+usage = 'arg "<num>" help="practice number (1-5, 6-1, 6-2, 6-3, 7)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "practice-{{ usage.num }}/report.typ" "reports/practice-{{ usage.num }}.pdf"'
+
+[tasks.essay]
+description = "Compile the essay to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "essay/report.typ" "reports/essay.pdf"'
+
+[tasks."report-all"]
+description = "Compile every practice and the essay"
+depends = [
+  { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
+  { task = "report", args = ["4"] },
+  { task = "report", args = ["5"] },
+  { task = "report", args = ["6-1"] },
+  { task = "report", args = ["6-2"] },
+  { task = "report", args = ["6-3"] },
+  { task = "report", args = ["7"] },
+  { task = "essay" },
+]
