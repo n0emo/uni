@@ -29,18 +29,21 @@
   body
 }
 
-#let header(kind, title) = {
+#let header(kind, title, topic: none) = {
   set document(title: title)
   align(right, text(size: 12pt)[#author, #group \ #discipline])
   v(1em)
   align(center, text(size: 16pt, weight: "bold")[#kind \ #title])
+  if topic != none {
+    align(center, emph(topic))
+  }
   v(1em)
 }
 
 /// Письменное практическое задание
-#let practice(number: none, title: none, body) = {
+#let practice(number: none, title: none, topic: none, body) = {
   show: style
-  header([Практическое задание №~#number], title)
+  header([Практическое задание №~#number], title, topic: topic)
   body
 }
 
