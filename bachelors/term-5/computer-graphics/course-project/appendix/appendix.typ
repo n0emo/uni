@@ -1,7 +1,9 @@
 #import "@local/pgups:0.1.0": *
 
 #appendixes[
-  = Типаж framework::Application <app-trait>
+  = Исходный текст графического приложения <app-graphics>
+
+  == Типаж framework::Application <app-trait>
 
   ```rust
   pub trait Application {
@@ -33,15 +35,17 @@
   }
   ```
 
-  = course-project/src/app.rs <app-app>
+  == course-project/src/app.rs <app-app>
 
   #code-file(read("/course-project/src/app.rs"), name: "course-project/src/app.rs")
 
-  = course-project/src/shader.wgsl <app-shader>
+  == course-project/src/shader.wgsl <app-shader>
 
   #code-file(read("/course-project/src/shader.wgsl"), name: "course-project/src/shader.wgsl")
 
-  = Компоненты App и CourseProject <app-components>
+  = Исходный текст веб-приложения <app-webapp>
+
+  == Компоненты App и CourseProject <app-components>
 
   ```rust
   #[component]
@@ -72,32 +76,28 @@
   }
   ```
 
-  = web/Trunk.toml <app-trunk>
+  == web/Trunk.toml <app-trunk>
 
   #code-file(read("/web/Trunk.toml"), name: "web/Trunk.toml")
 
-  = web/Dockerfile <app-dockerfile>
+  == web/Dockerfile <app-dockerfile>
 
   #code-file(read("/web/Dockerfile"), name: "web/Dockerfile", lang: "dockerfile")
 
-  = Демонстрация работы нативного приложения для ОС на базе ядра Linux <app-linux>
+  = Демонстрация работы приложения <app-demo>
 
   #figure(
-    caption: "Нативное приложение в Linux",
+    caption: "Демонстрация работы нативного приложения для ОС на базе ядра Linux",
     image("/course-project/assets/linux.png"),
   ) <fig-linux>
 
-  = Демонстрация работы нативного приложения для MacOS <app-macos>
-
   #figure(
-    caption: "Нативное приложение в MacOS",
+    caption: "Демонстрация работы нативного приложения для MacOS",
     image("/course-project/assets/macos.png"),
   ) <fig-macos>
 
-  = Демонстрация работы веб-приложения <app-web>
-
   #figure(
-    caption: "Веб-приложение",
+    caption: "Демонстрация работы веб-приложения",
     image("/course-project/assets/web.png"),
   ) <fig-web>
 ]
