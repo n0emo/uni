@@ -28,12 +28,13 @@ $ cargo install trunk stylance-cli
 
 ### Build native
 
-You can build `lab1`, `lab2`, `lab3` and `course-project` using `cargo`:
+You can build `lab-1`, `lab-2`, `lab-3` and `course-project` using `cargo`
+(or `mise run build` / `mise run run <num>`):
 
 ```console
-$ cargo build --package lab1 # Lab 1 (or any other)
+$ cargo build --package lab-1 # Lab 1 (or any other)
 
-$ cargo run --package lab1 # Build and immediately run
+$ cargo run --package lab-1 # Build and immediately run
 ```
 
 ### Build web
@@ -55,9 +56,9 @@ $ trunk serve
 
 ## Screenshots
 
-![Web Application](https://raw.githubusercontent.com/n0emo/uni/main/Term5/Computer%20Graphics/screenshots/webapp.png)
+![Web Application](screenshots/webapp.png)
 
-![Course Project](https://raw.githubusercontent.com/n0emo/uni/main/Term5/Computer%20Graphics/screenshots/course-project.png)
+![Course Project](screenshots/course-project.png)
 
 ## Acknowledgments
 
