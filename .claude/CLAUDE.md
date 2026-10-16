@@ -35,6 +35,10 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/pre-graduation-practice` | `build`, `fmt` |
 | `bachelors/term-1/intro-to-c` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-1/maths` | `deps`, `report <num>`, `report-all` |
+| `bachelors/term-2/computer-science` | `report <num>`, `report-all` |
+| `bachelors/term-2/practice` | `report` |
+| `bachelors/term-2/programming` | `report <num>`, `report-all` |
+| `bachelors/term-2/programming-assembly` | `report <num>`, `report-all` |
 | `bachelors/term-2/programming-c` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-2/programming-cpp` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-4/automata-theory` | `report <num>`, `report-all` |
