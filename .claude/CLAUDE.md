@@ -1,3 +1,4 @@
+| `bachelors/term-3/quantum-informatics` | `sync`, `lab`, `run` |
 | `bachelors/term-3/programming-python` | `report <num>`, `report-all` |
 | `bachelors/term-3/structures-and-algorithms` | `report <num>`, `report-all` |
 # CLAUDE.md
