@@ -1,5 +1,5 @@
 use framework::run;
-use lab3::Application;
+use lab_3::Application;
 
 fn main() {
     env_logger::init();

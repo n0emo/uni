@@ -7,9 +7,9 @@ watch = [
     "src",
     "../course-project/src",
     "../framework/src",
-    "../lab1/src",
-    "../lab2/src",
-    "../lab3/src",
+    "../lab-1/src",
+    "../lab-2/src",
+    "../lab-3/src",
 ]
 
 [[hooks]]

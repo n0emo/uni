@@ -1,5 +1,5 @@
 [package]
-name = "lab2"
+name = "lab-1"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,9 +7,7 @@ edition = "2021"
 framework = { path = "../framework" }
 
 bytemuck.workspace = true
-cgmath.workspace = true
 lazy_static.workspace = true
-log.workspace = true
 wgpu.workspace = true
 winit.workspace = true
 

@@ -2,9 +2,9 @@
 members = [
     "course-project",
     "framework",
-    "lab1",
-    "lab2",
-    "lab3",
+    "lab-1",
+    "lab-2",
+    "lab-3",
     "web",
 ]
 resolver = "2"

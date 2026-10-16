@@ -33,17 +33,17 @@ fn App<A: Application + 'static>(#[prop(optional)] marker: PhantomData<A>) -> im
 
 #[component]
 pub fn Lab1() -> impl IntoView {
-    view!(<App marker={PhantomData::<lab1::Application>} />)
+    view!(<App marker={PhantomData::<lab_1::Application>} />)
 }
 
 #[component]
 pub fn Lab2() -> impl IntoView {
-    view!(<App marker={PhantomData::<lab2::Application>} />)
+    view!(<App marker={PhantomData::<lab_2::Application>} />)
 }
 
 #[component]
 pub fn Lab3() -> impl IntoView {
-    view!(<App marker={PhantomData::<lab3::Application>} />)
+    view!(<App marker={PhantomData::<lab_3::Application>} />)
 }
 
 #[component]

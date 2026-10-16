@@ -15,9 +15,9 @@ folders = ["./src/"]
 
 [dependencies]
 framework = { path = "../framework" }
-lab1 = { path = "../lab1" }
-lab2 = { path = "../lab2" }
-lab3 = { path = "../lab3" }
+lab-1 = { path = "../lab-1" }
+lab-2 = { path = "../lab-2" }
+lab-3 = { path = "../lab-3" }
 course-project = { path = "../course-project" }
 
 console_log.workspace = true

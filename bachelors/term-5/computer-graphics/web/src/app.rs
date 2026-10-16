@@ -21,9 +21,9 @@ pub fn App() -> impl IntoView {
         <Router set_is_routing>
             <div class=style::sidebar>
                 <Link href="/" text="На главную" top=true />
-                <Link href="/lab/1" text=lab1::Application::NAME/>
-                <Link href="/lab/2" text=lab2::Application::NAME/>
-                <Link href="/lab/3" text=lab3::Application::NAME/>
+                <Link href="/lab/1" text=lab_1::Application::NAME/>
+                <Link href="/lab/2" text=lab_2::Application::NAME/>
+                <Link href="/lab/3" text=lab_3::Application::NAME/>
                 <Link href="/course-project" text=course_project::Application::NAME/>
             </div>
             <main class=style::page>
