@@ -1,0 +1,9 @@
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile the practice report to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . report.typ reports/practice.pdf'
+sources = ["report.typ", "assets/**"]
+outputs = ["reports/practice.pdf"]
