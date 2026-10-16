@@ -6,6 +6,7 @@ description = "Build the thesis PDF"
 depends = [{ task = "typst-compile", args = ["thesis.typ", "thesis.pdf"] }]
 sources = [
   "thesis.typ",
+  "config.typ",
   "style.typ",
   "bibliography.yaml",
   "chapters/**/*.typ",
