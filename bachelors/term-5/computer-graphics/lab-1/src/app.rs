@@ -17,7 +17,7 @@ pub struct Application {
 impl framework::Application for Application {
     const NAME: &str = "ЛР№1. 2D-фамилия";
 
-    const DESCRIPTION: &str = "Лабораторная рабоа №1 - Вывод на экран графического примитива (отрисовка фамилии с помощью WebGPU)";
+    const DESCRIPTION: &str = "Лабораторная работа №1 - Вывод на экран графического примитива (отрисовка фамилии с помощью WebGPU)";
 
     fn init(
         config: &SurfaceConfiguration,
