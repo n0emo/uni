@@ -1,0 +1,28 @@
+[tools]
+java = "temurin-25"
+
+[tasks.build]
+description = "Compile one lab into an executable jar"
+usage = 'arg "<num>" help="lab number (1-2)"'
+run = '''
+rm -rf build/lab-{{ usage.num }}
+javac -d build/lab-{{ usage.num }}/classes lab-{{ usage.num }}/src/*.java
+if [ -d lab-{{ usage.num }}/src/assets ]; then cp -R lab-{{ usage.num }}/src/assets build/lab-{{ usage.num }}/classes/; fi
+jar --create --file build/lab-{{ usage.num }}.jar --manifest lab-{{ usage.num }}/src/*.mft -C build/lab-{{ usage.num }}/classes .
+'''
+
+[tasks."build-all"]
+description = "Compile every lab"
+depends = [
+  { task = "build", args = ["1"] },
+  { task = "build", args = ["2"] },
+]
+
+[tasks.run]
+description = "Build and run one lab"
+usage = '''
+arg "<num>" help="lab number (1-2)"
+arg "[args]..." help="arguments passed to the program" var=#true
+'''
+depends = [{ task = "build", args = ["{{ usage.num }}"] }]
+run = 'java -jar build/lab-{{ usage.num }}.jar {{ usage.args | default(value=[]) | join(sep=" ") }}'

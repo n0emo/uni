@@ -11,6 +11,7 @@ config_roots = [
   "./bachelors/term-2/programming-assembly/",
   "./bachelors/term-2/programming-c/",
   "./bachelors/term-2/programming-cpp/",
+  "./bachelors/term-3/programming/",
   "./bachelors/term-3/programming-python/",
   "./bachelors/term-3/quantum-informatics/",
   "./bachelors/term-3/structures-and-algorithms/",
