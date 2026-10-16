@@ -5,7 +5,7 @@
 #import "style.typ": *
 
 #show: bachelors-thesis.with(
-  superviser-review: include "./chapters/00-review.typ",
+  supervisor-review: include "./chapters/00-review.typ",
   abstract: include "chapters/00-abstract.typ",
   course: config-course(
     faculty: "Автоматизация и интеллектуальные технологии",
@@ -19,7 +19,7 @@
     fullname-genitive: "Шефнера Альберта",
     group: "ИВБ-211",
   ),
-  superviser: config-superviser(
+  supervisor: config-supervisor(
     name: "Хетчиков Д.М.",
     post: "д.т.н., доцент",
     post-full: [профессор кафедры "Информационные и вычислительные системы"],
