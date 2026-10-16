@@ -2,7 +2,7 @@
 .model flat, stdcall
 option casemap: none
 
-; Подключение основных библиотек					
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅС‹С… Р±РёР±Р»РёРѕС‚РµРє					
 include windows.inc			 
 include masm32.inc       		
 includelib masm32.lib             
@@ -11,17 +11,17 @@ includelib kernel32.lib
 include msvcrt.inc
 includelib msvcrt.lib
 
-; Подключение макросов
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РјР°РєСЂРѕСЃРѕРІ
 include C:\masm32\macros\macros.asm
 
 .data
  	symbols_count dd 0                    
- 	app_name db "консось",0 
-	message_enter_num db "Введите десятичное число: ",0
+ 	app_name db "РєРѕРЅСЃРѕСЃСЊ",0 
+	message_enter_num db "Р’РІРµРґРёС‚Рµ РґРµСЃСЏС‚РёС‡РЅРѕРµ С‡РёСЃР»Рѕ: ",0
 	message_enter_num_size equ $-message_enter_num
-	message_result db "Удвоенное число равно: ",0 	
+	message_result db "РЈРґРІРѕРµРЅРЅРѕРµ С‡РёСЃР»Рѕ СЂР°РІРЅРѕ: ",0 	
 	message_result_size equ $-message_result 
-	newline db 13, 10 ;набор служебных символов для перевода строки	         
+	newline db 13, 10 ;РЅР°Р±РѕСЂ СЃР»СѓР¶РµР±РЅС‹С… СЃРёРјРІРѕР»РѕРІ РґР»СЏ РїРµСЂРµРІРѕРґР° СЃС‚СЂРѕРєРё	         
 
 .data?								
 	num_string db 1024 dup(?)           
@@ -32,43 +32,43 @@ include C:\masm32\macros\macros.asm
 .code                              	
 
 _main proc
-; Настройка консоли
+; РќР°СЃС‚СЂРѕР№РєР° РєРѕРЅСЃРѕР»Рё
 	invoke SetConsoleOutputCP, 1251
 	invoke SetConsoleCP, 1251
 	invoke SetConsoleTitleA, Addr app_name
 	
-; Получение хэндлеров
+; РџРѕР»СѓС‡РµРЅРёРµ С…СЌРЅРґР»РµСЂРѕРІ
 	invoke GetStdHandle, STD_OUTPUT_HANDLE
 	mov out_handler, eax
 	invoke GetStdHandle, STD_INPUT_HANDLE
 	mov in_handler, eax
 	
-; Вывод сообщения с просьбой ввести число
+; Р’С‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёСЏ СЃ РїСЂРѕСЃСЊР±РѕР№ РІРІРµСЃС‚Рё С‡РёСЃР»Рѕ
 	invoke WriteConsoleA, out_handler, Addr message_enter_num, message_enter_num_size, Addr symbols_count, 0
 	invoke ReadConsole, in_handler, Addr num_string, lengthof num_string, Addr num_string_size, 0
 
-; Удаление символов переноса строки в конце строки числа
+; РЈРґР°Р»РµРЅРёРµ СЃРёРјРІРѕР»РѕРІ РїРµСЂРµРЅРѕСЃР° СЃС‚СЂРѕРєРё РІ РєРѕРЅС†Рµ СЃС‚СЂРѕРєРё С‡РёСЃР»Р°
 	lea esi, [num_string]
 	mov eax, num_string_size
 	lea esi, [esi + eax - 2]
 	mov [esi], word ptr 0
 	
-; Преобразование строки в число и его удвоение
+; РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё РІ С‡РёСЃР»Рѕ Рё РµРіРѕ СѓРґРІРѕРµРЅРёРµ
 	invoke atodw, Addr num_string
 	; mov number, eax
 	mov ebx, 2
 	mul ebx
 
-; Обратное преобразование числа в строку и увеличение размера на 1 для уверенности
+; РћР±СЂР°С‚РЅРѕРµ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С‡РёСЃР»Р° РІ СЃС‚СЂРѕРєСѓ Рё СѓРІРµР»РёС‡РµРЅРёРµ СЂР°Р·РјРµСЂР° РЅР° 1 РґР»СЏ СѓРІРµСЂРµРЅРЅРѕСЃС‚Рё
 	invoke dwtoa, eax, Addr num_string
 	Add num_string_size, 1
 	
-; Вывод результата
+; Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р°
 	invoke WriteConsoleA, out_handler, Addr message_result, message_result_size, Addr symbols_count, 0
 	invoke WriteConsoleA, out_handler, Addr num_string, num_string_size, Addr symbols_count, 0
 	invoke WriteConsoleA, out_handler, Addr newline, 2, Addr symbols_count, 0
 
-	inkey "Нажмите любую клавишу..."
+	inkey "РќР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ..."
 	ret
 _main EndP
 end _main
