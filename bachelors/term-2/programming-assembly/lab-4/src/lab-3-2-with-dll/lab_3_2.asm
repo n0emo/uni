@@ -2,7 +2,7 @@
 .model flat, stdcall						
 option casemap: none
 
-; Подключение основных библиотек					
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅС‹С… Р±РёР±Р»РёРѕС‚РµРє					
 include windows.inc			 
 include masm32.inc       		
 includelib masm32.lib             
@@ -16,9 +16,9 @@ include ..\MyDLL\miscs.inc
 includelib ..\MyDLL\miscs.lib
 
 .data
-	app_name db "Шефнер Лаб 3-2 с библиоекой", 0
-	; Строки сообщений
-	arr_size_msg db "Введите размер массива: ", 0
+	app_name db "РЁРµС„РЅРµСЂ Р›Р°Р± 3-2 СЃ Р±РёР±Р»РёРѕРµРєРѕР№", 0
+	; РЎС‚СЂРѕРєРё СЃРѕРѕР±С‰РµРЅРёР№
+	arr_size_msg db "Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°: ", 0
 	num_fmt db "%d", 0
 	newline db 13, 10, 0
 	array_size dd 0
@@ -29,26 +29,26 @@ includelib ..\MyDLL\miscs.lib
 .code
 
 main proc near
-	; Установка параметров консоли
+	; РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ РєРѕРЅСЃРѕР»Рё
  	console_init addr app_name, 1251
-	; Вывод сообщения с просьбой ввести размер массива
+	; Р’С‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёСЏ СЃ РїСЂРѕСЃСЊР±РѕР№ РІРІРµСЃС‚Рё СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
 	invoke crt_printf, addr arr_size_msg
-	; Чтение размера массива с консоли
+	; Р§С‚РµРЅРёРµ СЂР°Р·РјРµСЂР° РјР°СЃСЃРёРІР° СЃ РєРѕРЅСЃРѕР»Рё
 	invoke crt_scanf, addr num_fmt, addr array_size
-	; Динамическое выделение памяти в зависимости от введённого размера
+	; Р”РёРЅР°РјРёС‡РµСЃРєРѕРµ РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІРІРµРґС‘РЅРЅРѕРіРѕ СЂР°Р·РјРµСЂР°
 	mov eax, array_size
 	lea eax, [eax * 4]
-	invoke crt_malloc, eax  ; malloc в eax записал указатель на выделенную память,
-	mov array, eax  		; который помещается в переменную array
-	; Обработка массива
-	invoke get_arr_from_console, array, array_size ; Получение элементо с консоли
-	invoke sort_arr, array, array_size			   ; Сортировка массива
-	invoke write_arr_to_console, array, array_size ; Вывод массива в консоль
-	; Освобождение памяти
+	invoke crt_malloc, eax  ; malloc РІ eax Р·Р°РїРёСЃР°Р» СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІС‹РґРµР»РµРЅРЅСѓСЋ РїР°РјСЏС‚СЊ,
+	mov array, eax  		; РєРѕС‚РѕСЂС‹Р№ РїРѕРјРµС‰Р°РµС‚СЃСЏ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ array
+	; РћР±СЂР°Р±РѕС‚РєР° РјР°СЃСЃРёРІР°
+	invoke get_arr_from_console, array, array_size ; РџРѕР»СѓС‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Рѕ СЃ РєРѕРЅСЃРѕР»Рё
+	invoke sort_arr, array, array_size			   ; РЎРѕСЂС‚РёСЂРѕРІРєР° РјР°СЃСЃРёРІР°
+	invoke write_arr_to_console, array, array_size ; Р’С‹РІРѕРґ РјР°СЃСЃРёРІР° РІ РєРѕРЅСЃРѕР»СЊ
+	; РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
 	invoke crt_free, array
-	; Конец программы
+	; РљРѕРЅРµС† РїСЂРѕРіСЂР°РјРјС‹
 	invoke crt_printf, addr newline
-	inkey "Нажмите любую клавишу для продолжения..."
+	inkey "РќР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ РґР»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ..."
 	ret
 main EndP
 

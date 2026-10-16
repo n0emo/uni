@@ -2,7 +2,7 @@
 .model flat, stdcall						
 option casemap: none
 
-; Подключение основных библиотек					
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅС‹С… Р±РёР±Р»РёРѕС‚РµРє					
 include windows.inc			 
 include masm32.inc       		
 includelib masm32.lib             
@@ -13,10 +13,10 @@ includelib msvcrt.lib
 include C:\masm32\macros\macros.asm
 
 .data
-	app_name db "Шефнер Лаб 3-1", 0
-	; Строки сообщений
-	arr_size_msg db "Введите размер массива: ", 0
-	enter_element_msg db "Введите элемент [%d]: ", 0
+	app_name db "РЁРµС„РЅРµСЂ Р›Р°Р± 3-1", 0
+	; РЎС‚СЂРѕРєРё СЃРѕРѕР±С‰РµРЅРёР№
+	arr_size_msg db "Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°: ", 0
+	enter_element_msg db "Р’РІРµРґРёС‚Рµ СЌР»РµРјРµРЅС‚ [%d]: ", 0
 	num_fmt db "%d", 0
 	out_num_fmt db "%d ", 0 
 	newline db 13, 10, 0
@@ -31,43 +31,43 @@ sort_arr proto, arr: dword, arr_size: dword
 write_arr_to_console proto, arr: dword, arr_size: dword
   
 main proc near
-	; Установка параметров консоли
+	; РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ РєРѕРЅСЃРѕР»Рё
  	invoke SetConsoleOutputCP, 1251
 	invoke SetConsoleCP, 1251
 	invoke SetConsoleTitleA, addr app_name
-	; Вывод сообщения с просьбой ввести размер массива
+	; Р’С‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёСЏ СЃ РїСЂРѕСЃСЊР±РѕР№ РІРІРµСЃС‚Рё СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
 	invoke crt_printf, addr arr_size_msg
-	; Чтение размера массива с консоли
+	; Р§С‚РµРЅРёРµ СЂР°Р·РјРµСЂР° РјР°СЃСЃРёРІР° СЃ РєРѕРЅСЃРѕР»Рё
 	invoke crt_scanf, addr num_fmt, addr array_size
-	; Динамическое выделение памяти в зависимости от введённого размера
+	; Р”РёРЅР°РјРёС‡РµСЃРєРѕРµ РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІРІРµРґС‘РЅРЅРѕРіРѕ СЂР°Р·РјРµСЂР°
 	mov eax, array_size
 	lea eax, [eax * 4]
-	invoke crt_malloc, eax  ; malloc в eax записал указатель на выделенную память,
-	mov array, eax  		; который помещается в переменную array
-	; Обработка массива
-	invoke get_arr_from_console, array, array_size ; Получение элементо с консоли
-	invoke sort_arr, array, array_size			   ; Сортировка массива
-	invoke write_arr_to_console, array, array_size ; Вывод массива в консоль
-	; Освобождение памяти
+	invoke crt_malloc, eax  ; malloc РІ eax Р·Р°РїРёСЃР°Р» СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІС‹РґРµР»РµРЅРЅСѓСЋ РїР°РјСЏС‚СЊ,
+	mov array, eax  		; РєРѕС‚РѕСЂС‹Р№ РїРѕРјРµС‰Р°РµС‚СЃСЏ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ array
+	; РћР±СЂР°Р±РѕС‚РєР° РјР°СЃСЃРёРІР°
+	invoke get_arr_from_console, array, array_size ; РџРѕР»СѓС‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Рѕ СЃ РєРѕРЅСЃРѕР»Рё
+	invoke sort_arr, array, array_size			   ; РЎРѕСЂС‚РёСЂРѕРІРєР° РјР°СЃСЃРёРІР°
+	invoke write_arr_to_console, array, array_size ; Р’С‹РІРѕРґ РјР°СЃСЃРёРІР° РІ РєРѕРЅСЃРѕР»СЊ
+	; РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
 	invoke crt_free, array
-	; Конец программы
+	; РљРѕРЅРµС† РїСЂРѕРіСЂР°РјРјС‹
 	invoke crt_printf, addr newline
-	inkey "Нажмите любую клавишу для продолжения..."
+	inkey "РќР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ РґР»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ..."
 	ret
 main EndP
 
 get_arr_from_console proc, arr: dword, arr_size: dword
 	print "Chto-to"
-	xor ebx, ebx ; Обнуление счётчика цикла
+	xor ebx, ebx ; РћР±РЅСѓР»РµРЅРёРµ СЃС‡С‘С‚С‡РёРєР° С†РёРєР»Р°
 	loop_arr_input:
-		; Вывод в консоль переменной счётчика, увеличенной на 1
+		; Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ РїРµСЂРµРјРµРЅРЅРѕР№ СЃС‡С‘С‚С‡РёРєР°, СѓРІРµР»РёС‡РµРЅРЅРѕР№ РЅР° 1
 		lea ecx, [ebx + 1]
 		invoke crt_printf, addr enter_element_msg, ecx
-		; Получение адреса в памяти (элемента массива)
+		; РџРѕР»СѓС‡РµРЅРёРµ Р°РґСЂРµСЃР° РІ РїР°РјСЏС‚Рё (СЌР»РµРјРµРЅС‚Р° РјР°СЃСЃРёРІР°)
 		mov esi, arr
 		lea esi, [esi + ebx * 4]
 		invoke crt_scanf, addr num_fmt, esi
-		; Условие цикла
+		; РЈСЃР»РѕРІРёРµ С†РёРєР»Р°
 		lea ebx, [ebx + 1]
 		cmp ebx, arr_size
 		jb loop_arr_input
@@ -75,30 +75,30 @@ get_arr_from_console proc, arr: dword, arr_size: dword
 get_arr_from_console EndP
 
 sort_arr proc, arr: dword, arr_size: dword 
-	xor ecx, ecx ; Обнуление счётчика шлавного цикла
+	xor ecx, ecx ; РћР±РЅСѓР»РµРЅРёРµ СЃС‡С‘С‚С‡РёРєР° С€Р»Р°РІРЅРѕРіРѕ С†РёРєР»Р°
 	main_loop:
 		mov esi, arr 
-		lea esi, [esi + ecx * 4] ; Индекс
-		mov edx, ecx     	     ; Счётчик поиска мин. элемента
-		min_loop:				 ; Цикл поиска мин. элемениа
-			mov eax, [esi]       ; Минимальный элемент
+		lea esi, [esi + ecx * 4] ; РРЅРґРµРєСЃ
+		mov edx, ecx     	     ; РЎС‡С‘С‚С‡РёРє РїРѕРёСЃРєР° РјРёРЅ. СЌР»РµРјРµРЅС‚Р°
+		min_loop:				 ; Р¦РёРєР» РїРѕРёСЃРєР° РјРёРЅ. СЌР»РµРјРµРЅРёР°
+			mov eax, [esi]       ; РњРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚
 			mov edi, arr 
 			lea edi, [edi + edx * 4]
-			cmp eax, [edi]		 ; Сравнение минимального элемента с текущим
+			cmp eax, [edi]		 ; РЎСЂР°РІРЅРµРЅРёРµ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° СЃ С‚РµРєСѓС‰РёРј
 			jl @f
-			mov esi, edi		 ; Запись нового индекса мин. элемента в случае, если нашёлся элемент меньше
+			mov esi, edi		 ; Р—Р°РїРёСЃСЊ РЅРѕРІРѕРіРѕ РёРЅРґРµРєСЃР° РјРёРЅ. СЌР»РµРјРµРЅС‚Р° РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РЅР°С€С‘Р»СЃСЏ СЌР»РµРјРµРЅС‚ РјРµРЅСЊС€Рµ
 			@@:
-			; Условие цикла поиска мин. элемента
+			; РЈСЃР»РѕРІРёРµ С†РёРєР»Р° РїРѕРёСЃРєР° РјРёРЅ. СЌР»РµРјРµРЅС‚Р°
 			lea edx, [edx + 1]
 			cmp edx, arr_size
 			jb min_loop
-		; Поменять местами элементы массива по индексам ecx и esi
+		; РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°РјРё СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° РїРѕ РёРЅРґРµРєСЃР°Рј ecx Рё esi
 		mov edi, arr
 		lea edi, [edi + ecx * 4]
 		mov ebx, [edi]
 		mov eax, [esi]
 		mov [esi], ebx
-		; Условие главного цикла
+		; РЈСЃР»РѕРІРёРµ РіР»Р°РІРЅРѕРіРѕ С†РёРєР»Р°
 		mov [edi], eax
 		lea ecx, [ecx + 1]
 		cmp ecx, arr_size
@@ -107,13 +107,13 @@ sort_arr proc, arr: dword, arr_size: dword
 sort_arr EndP
 
 write_arr_to_console proc, arr: dword, arr_size:dword
-	xor ebx, ebx ; Счётчик цикла
+	xor ebx, ebx ; РЎС‡С‘С‚С‡РёРє С†РёРєР»Р°
 	main_loop:	
-		; Получение индекса, вывод элемента в консоль
+		; РџРѕР»СѓС‡РµРЅРёРµ РёРЅРґРµРєСЃР°, РІС‹РІРѕРґ СЌР»РµРјРµРЅС‚Р° РІ РєРѕРЅСЃРѕР»СЊ
 		mov esi, arr
 		mov eax, [esi + ebx * 4]
 		invoke crt_printf, addr out_num_fmt, eax
-		; Условие цикла
+		; РЈСЃР»РѕРІРёРµ С†РёРєР»Р°
 		lea ebx, [ebx + 1]
 		cmp ebx, arr_size
 		jb main_loop

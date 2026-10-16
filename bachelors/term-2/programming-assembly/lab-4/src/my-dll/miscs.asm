@@ -11,23 +11,23 @@ includelib msvcrt.lib
 include C:\masm32\macros\macros.asm
 
 .data
-	enter_element_msg db "Введите элемент [%d]: ", 0
+	enter_element_msg db "Р’РІРµРґРёС‚Рµ СЌР»РµРјРµРЅС‚ [%d]: ", 0
 	num_fmt db "%d", 0
 	out_num_fmt db "%d ", 0
 	newline db 13, 10, 0
 
 .code
 get_arr_from_console proc, arr: dword, arr_size: dword
-	xor ebx, ebx ; Обнуление счётчика цикла
+	xor ebx, ebx ; РћР±РЅСѓР»РµРЅРёРµ СЃС‡С‘С‚С‡РёРєР° С†РёРєР»Р°
 	loop_arr_input:
-		; Вывод в консоль переменной счётчика, увеличенной на 1
+		; Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ РїРµСЂРµРјРµРЅРЅРѕР№ СЃС‡С‘С‚С‡РёРєР°, СѓРІРµР»РёС‡РµРЅРЅРѕР№ РЅР° 1
 		lea ecx, [ebx + 1]
 		invoke crt_printf, addr enter_element_msg, ecx
-		; Получение адреса в памяти (элемента массива)
+		; РџРѕР»СѓС‡РµРЅРёРµ Р°РґСЂРµСЃР° РІ РїР°РјСЏС‚Рё (СЌР»РµРјРµРЅС‚Р° РјР°СЃСЃРёРІР°)
 		mov esi, arr
 		lea esi, [esi + ebx * 4]
 		invoke crt_scanf, addr num_fmt, esi
-		; Условие цикла
+		; РЈСЃР»РѕРІРёРµ С†РёРєР»Р°
 		lea ebx, [ebx + 1]
 		cmp ebx, arr_size
 		jb loop_arr_input
@@ -35,13 +35,13 @@ get_arr_from_console proc, arr: dword, arr_size: dword
 get_arr_from_console EndP
 
 write_arr_to_console proc, arr: dword, arr_size:dword
-	xor ebx, ebx ; Счётчик цикла
+	xor ebx, ebx ; РЎС‡С‘С‚С‡РёРє С†РёРєР»Р°
 	main_loop:	
-		; Получение индекса, вывод элемента в консоль
+		; РџРѕР»СѓС‡РµРЅРёРµ РёРЅРґРµРєСЃР°, РІС‹РІРѕРґ СЌР»РµРјРµРЅС‚Р° РІ РєРѕРЅСЃРѕР»СЊ
 		mov esi, arr
 		mov eax, [esi + ebx * 4]
 		invoke crt_printf, addr out_num_fmt, eax
-		; Условие цикла
+		; РЈСЃР»РѕРІРёРµ С†РёРєР»Р°
 		lea ebx, [ebx + 1]
 		cmp ebx, arr_size
 		jb main_loop
@@ -50,30 +50,30 @@ write_arr_to_console proc, arr: dword, arr_size:dword
 write_arr_to_console EndP
 
 sort_arr proc, arr: dword, arr_size: dword 
-	xor ecx, ecx ; Обнуление счётчика шлавного цикла
+	xor ecx, ecx ; РћР±РЅСѓР»РµРЅРёРµ СЃС‡С‘С‚С‡РёРєР° С€Р»Р°РІРЅРѕРіРѕ С†РёРєР»Р°
 	main_loop:
 		mov esi, arr 
-		lea esi, [esi + ecx * 4] ; Индекс
-		mov edx, ecx     	     ; Счётчик поиска мин. элемента
-		min_loop:				 ; Цикл поиска мин. элемениа
-			mov eax, [esi]       ; Минимальный элемент
+		lea esi, [esi + ecx * 4] ; РРЅРґРµРєСЃ
+		mov edx, ecx     	     ; РЎС‡С‘С‚С‡РёРє РїРѕРёСЃРєР° РјРёРЅ. СЌР»РµРјРµРЅС‚Р°
+		min_loop:				 ; Р¦РёРєР» РїРѕРёСЃРєР° РјРёРЅ. СЌР»РµРјРµРЅРёР°
+			mov eax, [esi]       ; РњРёРЅРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚
 			mov edi, arr 
 			lea edi, [edi + edx * 4]
-			cmp eax, [edi]		 ; Сравнение минимального элемента с текущим
+			cmp eax, [edi]		 ; РЎСЂР°РІРЅРµРЅРёРµ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° СЃ С‚РµРєСѓС‰РёРј
 			jl @f
-			mov esi, edi		 ; Запись нового индекса мин. элемента в случае, если нашёлся элемент меньше
+			mov esi, edi		 ; Р—Р°РїРёСЃСЊ РЅРѕРІРѕРіРѕ РёРЅРґРµРєСЃР° РјРёРЅ. СЌР»РµРјРµРЅС‚Р° РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РЅР°С€С‘Р»СЃСЏ СЌР»РµРјРµРЅС‚ РјРµРЅСЊС€Рµ
 			@@:
-			; Условие цикла поиска мин. элемента
+			; РЈСЃР»РѕРІРёРµ С†РёРєР»Р° РїРѕРёСЃРєР° РјРёРЅ. СЌР»РµРјРµРЅС‚Р°
 			lea edx, [edx + 1]
 			cmp edx, arr_size
 			jb min_loop
-		; Поменять местами элементы массива по индексам ecx и esi
+		; РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°РјРё СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР° РїРѕ РёРЅРґРµРєСЃР°Рј ecx Рё esi
 		mov edi, arr
 		lea edi, [edi + ecx * 4]
 		mov ebx, [edi]
 		mov eax, [esi]
 		mov [esi], ebx
-		; Условие главного цикла
+		; РЈСЃР»РѕРІРёРµ РіР»Р°РІРЅРѕРіРѕ С†РёРєР»Р°
 		mov [edi], eax
 		lea ecx, [ecx + 1]
 		cmp ecx, arr_size

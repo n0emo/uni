@@ -2,7 +2,7 @@
 .model flat, stdcall						
 option casemap: none
 
-; Подключение основных библиотек					
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅС‹С… Р±РёР±Р»РёРѕС‚РµРє					
 include windows.inc			 
 include masm32.inc       		
 includelib masm32.lib             
@@ -13,15 +13,15 @@ includelib msvcrt.lib
 include C:\masm32\macros\macros.asm
 
 .data
-	; Строки сообщений
-	app_name db "Шефнер Лаб 3-1", 0
-	row_i db "Строка [%d]:", 13, 10, 0
-	enter_element_fmt db "   элемент [%d,%d]: ", 0
+	; РЎС‚СЂРѕРєРё СЃРѕРѕР±С‰РµРЅРёР№
+	app_name db "РЁРµС„РЅРµСЂ Р›Р°Р± 3-1", 0
+	row_i db "РЎС‚СЂРѕРєР° [%d]:", 13, 10, 0
+	enter_element_fmt db "   СЌР»РµРјРµРЅС‚ [%d,%d]: ", 0
 	num_fmt db "%d", 0
 	output_fmt db "%5d", 0
-	enter_matrix db "Введите матрицу.", 13, 10, 13, 10, 0
-	entered_matrix db 13, 10, "Введённая матрица:", 13, 10, 13, 10, 0
-	element_sum db 13, 10, "Сумма элементов матрицы: %d.", 13, 10, 13, 10, 0
+	enter_matrix db "Р’РІРµРґРёС‚Рµ РјР°С‚СЂРёС†Сѓ.", 13, 10, 13, 10, 0
+	entered_matrix db 13, 10, "Р’РІРµРґС‘РЅРЅР°СЏ РјР°С‚СЂРёС†Р°:", 13, 10, 13, 10, 0
+	element_sum db 13, 10, "РЎСѓРјРјР° СЌР»РµРјРµРЅС‚РѕРІ РјР°С‚СЂРёС†С‹: %d.", 13, 10, 13, 10, 0
 	newline db 13, 10, 0
 	
 	row dd 0
@@ -39,79 +39,79 @@ include C:\masm32\macros\macros.asm
  get_index proto near c, row_idx: dword, col_idx: dword
   
  main proc near
-	; Установка параметров консоли
+	; РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ РєРѕРЅСЃРѕР»Рё
  	invoke SetConsoleOutputCP, 1251
 	invoke SetConsoleCP, 1251
 	invoke SetConsoleTitleA, addr app_name
-	; Вывод сообщения с просьбой ввести матрицу
+	; Р’С‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёСЏ СЃ РїСЂРѕСЃСЊР±РѕР№ РІРІРµСЃС‚Рё РјР°С‚СЂРёС†Сѓ
 	invoke crt_printf, addr enter_matrix
-	; Считывание массива с консоли
+	; РЎС‡РёС‚С‹РІР°РЅРёРµ РјР°СЃСЃРёРІР° СЃ РєРѕРЅСЃРѕР»Рё
 	xor ecx, ecx
-	for_rows_in: ; цикл строк
+	for_rows_in: ; С†РёРєР» СЃС‚СЂРѕРє
 		push ecx
 		mov row, ecx
 		lea ecx, [ecx + 1]
 		invoke crt_printf, addr row_i, ecx
 		xor edx, edx
-		for_cols_in: ; цикл столбцов
+		for_cols_in: ; С†РёРєР» СЃС‚РѕР»Р±С†РѕРІ
 			push edx
-			; Увеличение индексов на 1 для вывода
+			; РЈРІРµР»РёС‡РµРЅРёРµ РёРЅРґРµРєСЃРѕРІ РЅР° 1 РґР»СЏ РІС‹РІРѕРґР°
 			mov ecx, row
 			lea ecx, [ecx + 1]
 			lea edx, [edx + 1]
 			invoke crt_printf, addr enter_element_fmt, ecx, edx	
-			; Получение индекса
+			; РџРѕР»СѓС‡РµРЅРёРµ РёРЅРґРµРєСЃР°
 			invoke get_index, row, [esp]
 			lea eax, [arr + eax]
-			; Запись числа в память по индексу
+			; Р—Р°РїРёСЃСЊ С‡РёСЃР»Р° РІ РїР°РјСЏС‚СЊ РїРѕ РёРЅРґРµРєСЃСѓ
 			invoke crt_scanf, addr num_fmt, eax
-			; Условие цикла столбцов
+			; РЈСЃР»РѕРІРёРµ С†РёРєР»Р° СЃС‚РѕР»Р±С†РѕРІ
 			pop edx
-			lea edx, [edx + 1] ; lea быстрее inc
+			lea edx, [edx + 1] ; lea Р±С‹СЃС‚СЂРµРµ inc
 			cmp edx, COLS
 			jb for_cols_in
-		; Условие цикла строк
+		; РЈСЃР»РѕРІРёРµ С†РёРєР»Р° СЃС‚СЂРѕРє
 		pop ecx
 		lea ecx, [ecx + 1]
 		cmp ecx, ROWS
 		jb for_rows_in
-	; Печать двух новых линий и сообщения о матрице
+	; РџРµС‡Р°С‚СЊ РґРІСѓС… РЅРѕРІС‹С… Р»РёРЅРёР№ Рё СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ РјР°С‚СЂРёС†Рµ
 	invoke crt_printf, addr entered_matrix
-	; Вывод массива в консоль
+	; Р’С‹РІРѕРґ РјР°СЃСЃРёРІР° РІ РєРѕРЅСЃРѕР»СЊ
 	xor eax, eax
-	for_rows_out: ; Цикл строк
+	for_rows_out: ; Р¦РёРєР» СЃС‚СЂРѕРє
 		push eax
 		mov row, eax
 		xor edx, edx
-		for_cols_out: ; Цикл столбцов
+		for_cols_out: ; Р¦РёРєР» СЃС‚РѕР»Р±С†РѕРІ
 			push edx
-			; Получение элемента
+			; РџРѕР»СѓС‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°
 			invoke get_index, row, edx
 			mov eax, [arr + eax]
 			add sum, eax
-			; Вывод элемента
+			; Р’С‹РІРѕРґ СЌР»РµРјРµРЅС‚Р°
 			invoke crt_printf, addr output_fmt, eax
-			; Условие цикла столбцов
+			; РЈСЃР»РѕРІРёРµ С†РёРєР»Р° СЃС‚РѕР»Р±С†РѕРІ
 			pop edx
 			inc edx
 			cmp edx, COLS
 			jb for_cols_out
-		; Переход на следующую строку после вывода цтроки матрицы
+		; РџРµСЂРµС…РѕРґ РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ СЃС‚СЂРѕРєСѓ РїРѕСЃР»Рµ РІС‹РІРѕРґР° С†С‚СЂРѕРєРё РјР°С‚СЂРёС†С‹
 		invoke crt_printf, addr newline
-		; Условие цикла строк
+		; РЈСЃР»РѕРІРёРµ С†РёРєР»Р° СЃС‚СЂРѕРє
 		pop eax
 		inc eax
 		cmp eax, ROWS
 		jb for_rows_out
-	; Вывод суммы элементов массива
+	; Р’С‹РІРѕРґ СЃСѓРјРјС‹ СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР°
 	invoke crt_printf, addr element_sum, sum
-	; Конец программы
+	; РљРѕРЅРµС† РїСЂРѕРіСЂР°РјРјС‹
 	invoke crt_printf, addr newline
-	inkey "Нажмите любую клавишу для продолжения..."
+	inkey "РќР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ РґР»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ..."
 	ret
 main EndP
 
-; Вспомогательная процедура, которая вычисляет индекс одномерного массива в байтах
+; Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ РїСЂРѕС†РµРґСѓСЂР°, РєРѕС‚РѕСЂР°СЏ РІС‹С‡РёСЃР»СЏРµС‚ РёРЅРґРµРєСЃ РѕРґРЅРѕРјРµСЂРЅРѕРіРѕ РјР°СЃСЃРёРІР° РІ Р±Р°Р№С‚Р°С…
  get_index proc near c, row_idx: dword, col_idx: DWORD
  	mov eax, row_idx
  	mov ebx, COLS
