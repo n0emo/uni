@@ -2,7 +2,7 @@
 .model flat, stdcall							
 option casemap: none
 
-; Подключение основных библиотек					
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РѕСЃРЅРѕРІРЅС‹С… Р±РёР±Р»РёРѕС‚РµРє					
 include windows.inc			 
 include masm32.inc       		
 includelib masm32.lib             
@@ -11,18 +11,18 @@ includelib kernel32.lib
 include msvcrt.inc
 includelib msvcrt.lib
 
-; Подключение макросов
+; РџРѕРґРєР»СЋС‡РµРЅРёРµ РјР°РєСЂРѕСЃРѕРІ
 include C:\masm32\macros\macros.asm
 
 .data
 	symbol_count dd 0
-	app_name db "Определитель високосности года студента группы ИВБ-211 Шефнера Альберта tm", 0
-	message_enter_year db "Введите год: ", 0
+	app_name db "РћРїСЂРµРґРµР»РёС‚РµР»СЊ РІРёСЃРѕРєРѕСЃРЅРѕСЃС‚Рё РіРѕРґР° СЃС‚СѓРґРµРЅС‚Р° РіСЂСѓРїРїС‹ РР’Р‘-211 РЁРµС„РЅРµСЂР° РђР»СЊР±РµСЂС‚Р° tm", 0
+	message_enter_year db "Р’РІРµРґРёС‚Рµ РіРѕРґ: ", 0
 	message_enter_year_size equ $-message_enter_year
 	
-	message_is_leap db "Этот год високосный.",13,10,0
+	message_is_leap db "Р­С‚РѕС‚ РіРѕРґ РІРёСЃРѕРєРѕСЃРЅС‹Р№.",13,10,0
 	message_is_leap_size equ $-message_is_leap
-	message_is_not_leap db "Этот год ВНИМАНИЕ не високосный.",13,10,0
+	message_is_not_leap db "Р­С‚РѕС‚ РіРѕРґ Р’РќРРњРђРќРР• РЅРµ РІРёСЃРѕРєРѕСЃРЅС‹Р№.",13,10,0
 	message_is_not_leap_size equ $-message_is_not_leap
 	newline db 13, 10 
 
@@ -35,50 +35,50 @@ include C:\masm32\macros\macros.asm
  	
  .code
  _main proc
-; Установка параметров консоли
+; РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ РєРѕРЅСЃРѕР»Рё
  	invoke SetConsoleOutputCP, 1251
 	invoke SetConsoleCP, 1251
 	invoke SetConsoleTitleA, addr app_name
 	
-; Получение хэндлеров
+; РџРѕР»СѓС‡РµРЅРёРµ С…СЌРЅРґР»РµСЂРѕРІ
 	invoke GetStdHandle, STD_INPUT_HANDLE
 	mov in_handler, eax
 	invoke GetStdHandle, STD_OUTPUT_HANDLE
 	mov out_handler, eax
 
 processing_number:	
-; Вывод начального сообщения
+; Р’С‹РІРѕРґ РЅР°С‡Р°Р»СЊРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
 	invoke WriteConsoleA, out_handler, addr message_enter_year, message_enter_year_size, addr symbol_count, 0
 	
-; Получение строки с годом
+; РџРѕР»СѓС‡РµРЅРёРµ СЃС‚СЂРѕРєРё СЃ РіРѕРґРѕРј
 	invoke ReadConsole, in_handler, addr year_string, lengthof year_string, addr year_string_size, 0
 	
-; Удаление символа переноса строки из конца строки года
+; РЈРґР°Р»РµРЅРёРµ СЃРёРјРІРѕР»Р° РїРµСЂРµРЅРѕСЃР° СЃС‚СЂРѕРєРё РёР· РєРѕРЅС†Р° СЃС‚СЂРѕРєРё РіРѕРґР°
 	lea esi, [year_string]
 	add esi, year_string_size
 	sub esi, 2
 	mov [esi], word ptr 0
 	
-; Перевод строки в число
+; РџРµСЂРµРІРѕРґ СЃС‚СЂРѕРєРё РІ С‡РёСЃР»Рѕ
 	invoke atodw, addr year_string
 	mov year, eax
 	
-; Выход из программы в случае, если пользователь ввёл 0, 
+; Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹ РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІС‘Р» 0, 
 	cmp year, 0
 	je main_end
 	
-; Проверка делится ли год на 400
+; РџСЂРѕРІРµСЂРєР° РґРµР»РёС‚СЃСЏ Р»Рё РіРѕРґ РЅР° 400
 	mov dx, word ptr year + 2
 	mov ax, word ptr year
 	mov cx, 400
 	div cx
 	
-	; Сравнение остатка
+	; РЎСЂР°РІРЅРµРЅРёРµ РѕСЃС‚Р°С‚РєР°
 	cmp dx, 0
 	jne check_div_100
 	jmp is_leap
 
-; Проверка делится ли год на 100
+; РџСЂРѕРІРµСЂРєР° РґРµР»РёС‚СЃСЏ Р»Рё РіРѕРґ РЅР° 100
 check_div_100:
 	mov dx, word ptr year + 2
 	mov ax, word ptr year
@@ -88,7 +88,7 @@ check_div_100:
 	cmp dx, 0
 	je is_not_leap
 	
-; Проверка делится ли год на 4
+; РџСЂРѕРІРµСЂРєР° РґРµР»РёС‚СЃСЏ Р»Рё РіРѕРґ РЅР° 4
 check_div_4:
 	mov dx, word ptr year + 2
 	mov ax, word ptr year
@@ -99,7 +99,7 @@ check_div_4:
 	je is_leap
 	jmp is_not_leap
 	
-; Вывод результата определения високосности года
+; Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р° РѕРїСЂРµРґРµР»РµРЅРёСЏ РІРёСЃРѕРєРѕСЃРЅРѕСЃС‚Рё РіРѕРґР°
 is_leap:
 	invoke WriteConsoleA, out_handler, addr message_is_leap, message_is_leap_size, addr symbol_count, 0
 	jmp processing_number
@@ -110,7 +110,7 @@ is_not_leap:
 	
 main_end:
 	invoke WriteConsoleA, out_handler, addr newline, 2, addr symbol_count, 0
-	inkey "Введите любую клавишу для продолжения..."
+	inkey "Р’РІРµРґРёС‚Рµ Р»СЋР±СѓСЋ РєР»Р°РІРёС€Сѓ РґР»СЏ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ..."
 	invoke WriteConsoleA, out_handler, addr newline, 2, addr symbol_count, 0
 	Ret
 _main EndP
