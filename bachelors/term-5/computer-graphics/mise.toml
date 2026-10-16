@@ -1,7 +1,5 @@
 [tools]
 rust = { version = "latest", targets = "wasm32-unknown-unknown" }
-"cargo:trunk" = "latest"
-"cargo:stylance-cli" = "latest"
 
 [tasks.build]
 description = "Build every lab and the course project natively"
@@ -21,11 +19,13 @@ run = "cargo run -p course-project"
 [tasks.web]
 description = "Build the web application with every lab and the course project"
 dir = "web"
+tools = { "cargo:trunk" = "latest", "cargo:stylance-cli" = "latest" }
 run = "trunk build --release"
 
 [tasks."web-serve"]
 description = "Serve the web application locally"
 dir = "web"
+tools = { "cargo:trunk" = "latest", "cargo:stylance-cli" = "latest" }
 run = "trunk serve"
 
 [tasks."ensure-reports-dir"]

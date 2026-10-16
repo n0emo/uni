@@ -1440,7 +1440,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2db585e1d738fc771bf08a151420d3ed193d9d895a36df7f6f8a9456b911ddc"
 
 [[package]]
-name = "lab1"
+name = "lab-1"
 version = "0.1.0"
 dependencies = [
  "bytemuck",
@@ -1452,7 +1452,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "lab2"
+name = "lab-2"
 version = "0.1.0"
 dependencies = [
  "bytemuck",
@@ -1466,7 +1466,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "lab3"
+name = "lab-3"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -3206,9 +3206,9 @@ dependencies = [
  "console_log",
  "course-project",
  "framework",
- "lab1",
- "lab2",
- "lab3",
+ "lab-1",
+ "lab-2",
+ "lab-3",
  "leptos",
  "leptos_router",
  "log",
