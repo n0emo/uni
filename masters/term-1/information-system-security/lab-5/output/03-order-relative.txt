@@ -1,0 +1,34 @@
+
+(1 rows affected)
+order_id|customer_id|soldier_id|status|total_amount
+--------|-----------|----------|------|------------
+9|2|1|новый|.00
+
+(1 rows affected)
+Msg 50111, Level 16, State 1, Server mssql, Procedure tr_orders_relative, Line 38
+Заказ о военнослужащем может оформить только его зарегистрированный родственник, заказ № 10
+Msg 50111, Level 16, State 1, Server mssql, Procedure tr_orders_relative, Line 38
+Заказ о военнослужащем может оформить только его зарегистрированный родственник, заказ № 12
+orders
+------
+8
+
+(1 rows affected)
+Msg 50111, Level 16, State 1, Server mssql, Procedure tr_orders_relative, Line 38
+Заказ о военнослужащем может оформить только его зарегистрированный родственник, заказ № 2
+
+(1 rows affected)
+relatives
+---------
+11
+
+(1 rows affected)
+Msg 50112, Level 16, State 1, Server mssql, Procedure tr_relatives_protect, Line 29
+Нельзя разорвать родственную связь: по ней есть незавершённые заказы № 2
+Msg 50112, Level 16, State 1, Server mssql, Procedure tr_relatives_protect, Line 29
+Нельзя разорвать родственную связь: по ней есть незавершённые заказы № 2
+relatives
+---------
+12
+
+(1 rows affected)

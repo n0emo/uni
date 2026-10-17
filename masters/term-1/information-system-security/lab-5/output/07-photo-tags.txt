@@ -1,0 +1,39 @@
+
+(1 rows affected)
+photo_id|soldier_id
+--------|----------
+1|9
+1|11
+1|12
+
+(3 rows affected)
+Msg 50151, Level 16, State 1, Server mssql, Procedure tr_photo_soldiers_service, Line 29
+Военнослужащий служит не в части этой съёмки: ses01_0001.jpg — Попов
+Msg 50151, Level 16, State 1, Server mssql, Procedure tr_photo_soldiers_service, Line 29
+Военнослужащий служит не в части этой съёмки: ses06_0001.jpg — Иванов
+Msg 50151, Level 16, State 1, Server mssql, Procedure tr_photo_soldiers_service, Line 29
+Военнослужащий служит не в части этой съёмки: ses01_0001.jpg — Попов
+tags
+----
+23
+
+(1 rows affected)
+
+(1 rows affected)
+Msg 50152, Level 16, State 1, Server mssql, Procedure tr_photo_soldiers_service, Line 45
+В день съёмки военнослужащий не проходил службу: ses02_0001.jpg — Тестов
+Msg 50153, Level 16, State 1, Server mssql, Procedure tr_soldiers_tags_guard, Line 35
+Изменение нарушило бы отметки на снимках, военнослужащий: Иванов А.
+Msg 50153, Level 16, State 1, Server mssql, Procedure tr_soldiers_tags_guard, Line 35
+Изменение нарушило бы отметки на снимках, военнослужащий: Иванов А.
+
+(1 rows affected)
+soldier_id|discharge_date
+----------|--------------
+1|2026-12-20
+
+(1 rows affected)
+Msg 50154, Level 16, State 1, Server mssql, Procedure tr_photo_sessions_tags_guard, Line 33
+Изменение съёмки нарушило бы отметки на снимках, съёмка № 2
+Msg 50155, Level 16, State 1, Server mssql, Procedure tr_photos_session_fixed, Line 25
+Снимок нельзя перенести в другую съёмку: ses06_0001.jpg

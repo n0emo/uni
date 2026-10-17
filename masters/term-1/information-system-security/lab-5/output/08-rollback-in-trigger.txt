@@ -1,0 +1,21 @@
+
+(0 rows affected)
+error|open_transactions|rows_visible
+-----|-----------------|------------
+Вставка запрещена|1|2
+
+(1 rows affected)
+
+(0 rows affected)
+error|open_transactions|rows_visible
+-----|-----------------|------------
+Вставка запрещена|0|0
+
+(1 rows affected)
+Msg 50999, Level 16, State 1, Server mssql, Procedure tr_guard_demo, Line 8
+Вставка запрещена
+rows_left
+---------
+0
+
+(1 rows affected)

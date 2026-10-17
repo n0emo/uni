@@ -1,0 +1,29 @@
+nested_triggers|is_recursive_triggers_on
+---------------|------------------------
+1|0
+
+(1 rows affected)
+table_name|trigger_name|kind|events
+----------|------------|----|------
+order_items|tr_order_items_frozen|after|insert, update, delete
+order_items|tr_order_items_photo|after|insert, update
+order_items|tr_order_items_price|instead of|insert
+order_items|tr_order_items_price_fixed|after|update
+order_items|tr_order_items_total|after|insert, update, delete
+orders|tr_orders_issue_stamp|instead of|update
+orders|tr_orders_photo_owner|after|update
+orders|tr_orders_relative|after|insert, update
+orders|tr_orders_status_guard|after|insert, update
+orders|tr_orders_total_guard|after|insert, update
+payments|tr_payments_guard|after|insert, update, delete
+photo_sessions|tr_photo_sessions_photo_owner|after|update
+photo_sessions|tr_photo_sessions_tags_guard|after|update
+photo_soldiers|tr_photo_soldiers_service|after|insert, update
+photos|tr_photos_review_guard|after|update
+photos|tr_photos_session_fixed|after|update
+relatives|tr_relatives_protect|after|update, delete
+soldiers|tr_soldiers_tags_guard|after|update
+v_my_photo_sessions|tr_v_my_photo_sessions_insert|instead of|insert
+v_my_photo_sessions|tr_v_my_photo_sessions_update|instead of|update
+
+(20 rows affected)

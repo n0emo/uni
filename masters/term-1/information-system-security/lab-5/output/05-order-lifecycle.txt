@@ -1,0 +1,64 @@
+
+(1 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+order_id|status|total_amount|issued_at
+--------|------|------------|---------
+8|выдан|7640.00|сегодня
+
+(1 rows affected)
+Msg 50131, Level 16, State 1, Server mssql, Procedure tr_orders_status_guard, Line 66
+Недопустимый переход статуса, заказ № 8 (новый → готов)
+Msg 50138, Level 16, State 1, Server mssql, Procedure tr_orders_status_guard, Line 41
+Выданный или отменённый заказ изменять нельзя, заказ № 1
+Msg 50138, Level 16, State 1, Server mssql, Procedure tr_orders_status_guard, Line 41
+Выданный или отменённый заказ изменять нельзя, заказ № 7
+Msg 50131, Level 16, State 1, Server mssql, Procedure tr_orders_status_guard, Line 66
+Недопустимый переход статуса, заказ № 4 (готов → в работе)
+order_id|status
+--------|------
+4|готов
+6|новый
+8|новый
+
+(3 rows affected)
+
+(1 rows affected)
+Msg 50133, Level 16, State 1, Server mssql, Procedure tr_orders_status_guard, Line 84
+Заказ нельзя выдать без полной оплаты, заказ № 2
+order_id|status|issued_at
+--------|------|---------
+2|готов|NULL
+
+(1 rows affected)
+
+(1 rows affected)
+order_id|paid
+--------|----
+2|15540.00
+
+(1 rows affected)
+Msg 50134, Level 16, State 1, Server mssql, Procedure tr_payments_guard, Line 56
+Платежи превысили сумму заказа, заказ № 2 (оплачено 15541.00 из 15540.00)
+Msg 50135, Level 16, State 1, Server mssql, Procedure tr_payments_guard, Line 23
+Платёж по отменённому заказу принять нельзя, платёж № 11
+Msg 50136, Level 16, State 1, Server mssql, Procedure tr_payments_guard, Line 35
+Платёж не может быть раньше создания заказа, платёж № 12
+Msg 50134, Level 16, State 1, Server mssql, Procedure tr_payments_guard, Line 56
+Платежи превысили сумму заказа, заказ № 6 (оплачено 3000.00 из 2200.00)
+payments
+--------
+6
+
+(1 rows affected)
+Msg 50137, Level 16, State 1, Server mssql, Procedure tr_payments_guard, Line 77
+Оплата выданного заказа должна остаться полной, заказ № 1
+payments
+--------
+6
+
+(1 rows affected)

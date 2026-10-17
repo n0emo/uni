@@ -1,0 +1,50 @@
+
+(2 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+order_id|total_amount|items_sum
+--------|------------|---------
+6|10000.00|10000.00
+8|1850.00|1850.00
+
+(2 rows affected)
+Msg 50121, Level 16, State 1, Server mssql, Procedure tr_orders_total_guard, Line 28
+Сумма заказа вычисляется по позициям и не задаётся вручную, заказ № 8
+Msg 50121, Level 16, State 1, Server mssql, Procedure tr_orders_total_guard, Line 28
+Сумма заказа вычисляется по позициям и не задаётся вручную, заказ № 8, 6
+Msg 50121, Level 16, State 1, Server mssql, Procedure tr_orders_total_guard, Line 28
+Сумма заказа вычисляется по позициям и не задаётся вручную, заказ № 13
+order_id|total_amount
+--------|------------
+6|2200.00
+8|7640.00
+
+(2 rows affected)
+Msg 50122, Level 16, State 1, Server mssql, Procedure tr_order_items_frozen, Line 56
+Состав заказа можно менять только в статусе «новый», заказ № 2
+Msg 50122, Level 16, State 1, Server mssql, Procedure tr_order_items_frozen, Line 56
+Состав заказа можно менять только в статусе «новый», заказ № 2
+Msg 50122, Level 16, State 1, Server mssql, Procedure tr_order_items_frozen, Line 56
+Состав заказа можно менять только в статусе «новый», заказ № 2
+
+(1 rows affected)
+order_id|photo_id
+--------|--------
+2|5
+
+(1 rows affected)
+Msg 50122, Level 16, State 1, Server mssql, Procedure tr_order_items_frozen, Line 77
+Снимки заказа можно менять только в статусах «новый» и «в работе», заказ № 3
+Msg 50123, Level 16, State 1, Server mssql, Procedure tr_order_items_frozen, Line 22
+Позицию нельзя перенести в другой заказ, позиция № 17
+
+(1 rows affected)
+Msg 50124, Level 16, State 1, Server mssql, Procedure tr_orders_total_guard, Line 42
+Сумма заказа не может стать меньше уже оплаченной, заказ № 8
+payments|total_amount
+--------|------------
+0|7640.00
+
+(1 rows affected)

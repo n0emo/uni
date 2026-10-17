@@ -1,0 +1,43 @@
+
+(1 rows affected)
+
+(1 rows affected)
+order_item_id|price_list|unit_price
+-------------|----------|----------
+27|1500.00|1500.00
+28|5200.00|5200.00
+
+(2 rows affected)
+Msg 50141, Level 16, State 1, Server mssql, Procedure tr_order_items_price, Line 23
+Товар снят с продажи: Настенный календарь с фотографиями
+Msg 50141, Level 16, State 1, Server mssql, Procedure tr_order_items_price, Line 23
+Товар снят с продажи: Настенный календарь с фотографиями
+items
+-----
+2
+
+(1 rows affected)
+Msg 547, Level 16, State 1, Server mssql, Procedure tr_order_items_price, Line 27
+Конфликт инструкции INSERT с ограничением FOREIGN KEY "fk_order_items_products". Конфликт произошел в базе данных "pamyatny_kadr", таблица "dbo.products", column 'product_id'.
+Выполнение данной инструкции было прервано.
+Msg 50142, Level 16, State 1, Server mssql, Procedure tr_order_items_price_fixed, Line 27
+Товар и цену позиции менять нельзя: удалите позицию и добавьте новую, позиция № 17
+Msg 50142, Level 16, State 1, Server mssql, Procedure tr_order_items_price_fixed, Line 27
+Товар и цену позиции менять нельзя: удалите позицию и добавьте новую, позиция № 17
+
+(1 rows affected)
+order_id|total_amount
+--------|------------
+8|7780.00
+
+(1 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+order_id|product_id|unit_price
+--------|----------|----------
+8|1|7500.00
+6|1|8000.00
+
+(2 rows affected)

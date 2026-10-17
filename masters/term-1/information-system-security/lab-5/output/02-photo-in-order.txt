@@ -1,0 +1,33 @@
+
+(2 rows affected)
+order_id|photo_id|quantity|unit_price
+--------|--------|--------|----------
+8|5|2|180.00
+6|19|1|180.00
+
+(2 rows affected)
+Msg 50101, Level 16, State 1, Server mssql, Procedure tr_order_items_photo, Line 31
+Снимок из воинской части заказывать можно только после одобрения: ses02_0004.jpg
+Msg 50102, Level 16, State 1, Server mssql, Procedure tr_order_items_photo, Line 49
+Снимок гражданской съёмки можно заказать только для её заказчика: ses06_0002.jpg
+Msg 50101, Level 16, State 1, Server mssql, Procedure tr_order_items_photo, Line 31
+Снимок из воинской части заказывать можно только после одобрения: ses02_0004.jpg
+order_item_id|product_id|photo_id
+-------------|----------|--------
+16|1|NULL
+17|4|4
+
+(2 rows affected)
+Msg 50101, Level 16, State 1, Server mssql, Procedure tr_order_items_photo, Line 31
+Снимок из воинской части заказывать можно только после одобрения: ses02_0004.jpg
+Msg 50103, Level 16, State 1, Server mssql, Procedure tr_orders_photo_owner, Line 37
+Нельзя сменить заказчика: в заказе есть снимки гражданской съёмки другого клиента, заказ № 6
+Msg 50104, Level 16, State 1, Server mssql, Procedure tr_photo_sessions_photo_owner, Line 33
+Изменение съёмки нарушило бы заказы с её снимками, съёмка № 7
+Msg 50104, Level 16, State 1, Server mssql, Procedure tr_photo_sessions_photo_owner, Line 33
+Изменение съёмки нарушило бы заказы с её снимками, съёмка № 7
+session_id|customer_id
+----------|-----------
+7|14
+
+(1 rows affected)
