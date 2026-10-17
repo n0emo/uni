@@ -1,0 +1,35 @@
+clojure-docs:
+  type: Web
+  title: Официальная документация Clojure
+  url:
+    value: https://clojuredocs.org/
+    date: 2024-12-10
+
+clojure-programming:
+  type: Book
+  title: Clojure Programming
+  author:
+    - Emerick, Chas
+    - Carper, Brian
+    - Grand, Christophe
+  date: 2012
+  publisher:
+    location: USA
+    name: O'Reilly
+
+ring-github:
+  type: Web
+  title: Официальная страница Ring
+  url:
+    value: https://github.com/ring-clojure/ring
+    date: 2024-12-10
+
+postgresql-internals:
+  type: Book
+  title: PostgreSQL 16 изнутри
+  author:
+    - Рогов, Е. В.
+  date: 2024
+  publisher:
+    location: М.
+    name: ДМК Пресс
