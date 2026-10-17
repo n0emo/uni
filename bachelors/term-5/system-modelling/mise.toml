@@ -1,0 +1,41 @@
+[tools]
+java = "temurin-21"
+miniserve = "latest"
+"github:plantuml/plantuml" = { version = "latest", asset_pattern = "plantuml-mit-*.jar" }
+
+[tasks."run-lab-4"]
+description = "Serve the H2/M/1 simulation page of lab 4 at http://localhost:8080"
+run = "miniserve --index index.html lab-4/src"
+
+[tasks.diagram]
+description = "Render the lab 7 use case diagram to SVG"
+run = 'java -jar "$(mise where github:plantuml/plantuml)"/plantuml-mit-*.jar -tsvg -o assets lab-7/diagram-1.puml'
+sources = ["lab-7/diagram-1.puml"]
+outputs = ["lab-7/assets/use-case.svg"]
+
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one lab's report to PDF"
+usage = 'arg "<work>" help="lab directory (lab-4, lab-5-1, lab-5-2, lab-6, lab-7)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "{{ usage.work }}/report.typ" "reports/{{ usage.work }}.pdf"'
+
+[tasks."course-work"]
+description = "Compile the course work to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "course-work/course-work.typ" "reports/course-work.pdf"'
+sources = ["course-work/**/*.typ", "course-work/bibliography.yaml", "course-work/assets/**"]
+outputs = ["reports/course-work.pdf"]
+
+[tasks."report-all"]
+description = "Compile every report of the course"
+depends = [
+  { task = "report", args = ["lab-4"] },
+  { task = "report", args = ["lab-5-1"] },
+  { task = "report", args = ["lab-5-2"] },
+  { task = "report", args = ["lab-6"] },
+  { task = "report", args = ["lab-7"] },
+  "course-work",
+]
