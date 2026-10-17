@@ -1,0 +1,27 @@
+session_id|kind|session_date|location
+----------|----|------------|--------
+2|дембельский альбом|2026-10-02|в/ч 12345, учебный корпус
+4|присяга|2026-07-05|в/ч 23456, плац
+6|студийная|2026-09-26|Салон, ул. Садовая, д. 28
+8|присяга|2026-07-19|в/ч 34567, плац
+
+(4 rows affected)
+
+(0 rows affected)
+
+(1 rows affected)
+session_id|kind|session_date|location
+----------|----|------------|--------
+11|повседневная служба|2026-10-23|в/ч 12345, штаб, шифровальный отдел
+
+(1 rows affected)
+Msg 15151, Level 16, State 1, Server mssql, Line 3
+Невозможно найти симметричный ключ "key_kuznetsov_pa", так как он не существует или отсутствуют разрешения.
+Msg 229, Level 14, State 5, Server mssql, Line 3
+Запрещено разрешение "SELECT" на объект "photo_sessions" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "INSERT" на объект "photo_sessions" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "SELECT" на объект "photo_sessions" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "UPDATE" на объект "photo_sessions" базы данных "pamyatny_kadr", схемы "dbo".

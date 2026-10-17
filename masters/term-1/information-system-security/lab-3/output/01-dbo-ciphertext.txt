@@ -1,0 +1,34 @@
+key_name|owner|algorithm_desc
+--------|-----|--------------
+key_kuznetsov_pa|kuznetsov_pa|AES_256
+key_vasileva_ei|vasileva_ei|AES_256
+
+(2 rows affected)
+name|type_name|max_length
+----|---------|----------
+session_id|int|4
+kind|nvarchar|60
+unit_id|int|4
+customer_id|int|4
+photographer_id|int|4
+session_date|date|3
+location_encrypted|varbinary|512
+
+(7 rows affected)
+session_id|photographer_id|location_encrypted|bytes
+----------|---------------|------------------|-----
+1|4|0x006F3A2A…8E97035F|100
+2|5|0x00E3879C…F1A8DE84|100
+3|4|0x006F3A2A…C37C2C6B|84
+4|5|0x00E3879C…FD8B43FC|84
+5|4|0x006F3A2A…B6A450CB|116
+6|5|0x00E3879C…CCBE4691|100
+7|4|0x006F3A2A…FCA26330|100
+8|5|0x00E3879C…8F19619E|84
+
+(8 rows affected)
+current_user_name|visible_rows
+-----------------|------------
+dbo|0
+
+(1 rows affected)

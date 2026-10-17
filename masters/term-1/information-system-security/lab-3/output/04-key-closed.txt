@@ -1,0 +1,18 @@
+Msg 50011, Level 16, State 1, Server mssql, Procedure tr_v_my_photo_sessions_insert, Line 17
+Ключ шифрования не открыт
+Msg 50011, Level 16, State 1, Server mssql, Procedure tr_v_my_photo_sessions_update, Line 18
+Ключ шифрования не открыт
+
+(1 rows affected)
+session_id|session_date|location
+----------|------------|--------
+9|2026-10-19|NULL
+
+(1 rows affected)
+session_id|session_date|location
+----------|------------|--------
+9|2026-10-19|в/ч 23456, плац и склад ГСМ
+
+(1 rows affected)
+Msg 50012, Level 16, State 1, Server mssql, Procedure tr_v_my_photo_sessions_update, Line 10
+Номер съёмки изменять нельзя

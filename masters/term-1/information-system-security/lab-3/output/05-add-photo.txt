@@ -1,0 +1,8 @@
+photo_id|session_id|file_name|review_status
+--------|----------|---------|-------------
+22|9|ses09_0001.jpg|на проверке
+23|10|ses10_0001.jpg|не требуется
+
+(2 rows affected)
+Msg 50001, Level 16, State 1, Server mssql, Procedure add_photo, Line 24
+Съёмка не найдена или принадлежит другому фотографу
