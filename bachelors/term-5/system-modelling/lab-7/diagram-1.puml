@@ -1,4 +1,4 @@
-@startuml Use-Case
+@startuml use-case
 
 left to right direction
 
@@ -6,7 +6,7 @@ actor "Бездомный" as hobo
 actor "Домовладелец" as capitalist
 actor "Дом" as house
 
-package "Информационная система жилищного агенства" {
+package "Информационная система жилищного агентства" {
     (Проверка баланса) as check_balance
     (Выбор срока аренды) as choose_time
     (Посуточная аренда) as daily
@@ -15,11 +15,11 @@ package "Информационная система жилищного аген
     (Звонок домовладельцу) as call
     (Проверка дома) as check_house
     (Звонок бездомному) as callback
-    (Оплата аренда) as payment
+    (Оплата аренды) as payment
     (Внесение информации об аренде в базу) as insert
     (Заселение) as inhabitate
     (Использование дома) as use_house
-    (Звонок домовладельцу и выселении) as call_about_exit
+    (Звонок домовладельцу о выселении) as call_about_exit
     (Проверка дома после использования) as check_house_after_exit
     (Удаление информации об аренде из базы) as delete
     (Бездомный снова бездомный) as hobo_again
