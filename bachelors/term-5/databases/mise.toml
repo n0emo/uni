@@ -1,0 +1,60 @@
+[tools]
+rust = "latest"
+
+[tasks."build:practice-4"]
+description = "Build the data integrity demo of practice 4"
+extends = "dotnet:build"
+dir = "practice-4"
+sources = ["practice-4.csproj", "src/**"]
+
+[tasks."build:practice-6"]
+description = "Build the image storage service of practice 6"
+run = "cargo build --workspace"
+sources = ["Cargo.toml", "Cargo.lock", "practice-6/Cargo.toml", "practice-6/src/**", "practice-6/templates/**"]
+outputs = { auto = true }
+
+[tasks.build]
+description = "Build every program of the course"
+depends = ["build:practice-4", "build:practice-6"]
+
+[tasks."run-practice-4"]
+description = "Run the data integrity demo of practice 4"
+extends = "dotnet:run"
+dir = "practice-4"
+
+[tasks."s3:up"]
+description = "Start the S3-compatible storage for practice 6"
+dir = "practice-6"
+run = "docker compose up -d"
+
+[tasks."s3:down"]
+description = "Stop the S3-compatible storage for practice 6"
+dir = "practice-6"
+run = "docker compose down"
+
+[tasks."run-practice-6"]
+description = "Run the image storage service of practice 6 at http://localhost:3000"
+run = "cargo run -p image-storage"
+
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one work's report to PDF"
+usage = 'arg "<work>" help="work directory (lab-1, lab-2, practice-1 … practice-7)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "{{ usage.work }}/report.typ" "reports/{{ usage.work }}.pdf"'
+
+[tasks."report-all"]
+description = "Compile every report of the course"
+depends = [
+  { task = "report", args = ["lab-1"] },
+  { task = "report", args = ["lab-2"] },
+  { task = "report", args = ["practice-1"] },
+  { task = "report", args = ["practice-2"] },
+  { task = "report", args = ["practice-3"] },
+  { task = "report", args = ["practice-4"] },
+  { task = "report", args = ["practice-5"] },
+  { task = "report", args = ["practice-6"] },
+  { task = "report", args = ["practice-7"] },
+]
