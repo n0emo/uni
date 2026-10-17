@@ -1,6 +1,8 @@
-*.obj
-build
+build/
+reports/
+target/
 nbs
 nbs.old
 nbs.exe
 nbs.exe.old
+nbs.obj
