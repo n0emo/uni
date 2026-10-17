@@ -1,5 +1,14 @@
 [tools]
+java = "temurin-21"
+leiningen = "latest"
 rust = "latest"
+
+[tasks."build:practice-2"]
+description = "Compile the Clojure web application of practice 2"
+dir = "practice-2"
+run = "lein compile"
+sources = ["project.clj", "src/**", "resources/**"]
+outputs = { auto = true }
 
 [tasks."build:practice-4"]
 description = "Build the data integrity demo of practice 4"
@@ -15,7 +24,12 @@ outputs = { auto = true }
 
 [tasks.build]
 description = "Build every program of the course"
-depends = ["build:practice-4", "build:practice-6"]
+depends = ["build:practice-2", "build:practice-4", "build:practice-6"]
+
+[tasks."run-practice-2"]
+description = "Run the Clojure web application of practice 2 (needs DATABASE_URL)"
+dir = "practice-2"
+run = "lein ring server-headless"
 
 [tasks."run-practice-4"]
 description = "Run the data integrity demo of practice 4"

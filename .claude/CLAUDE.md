@@ -51,7 +51,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-4/philosophy` | `report <num>`, `essay`, `report-all` |
 | `bachelors/term-4/structures-and-algorithms` | `configure`, `build` |
 | `bachelors/term-5/computer-graphics` | `build`, `run <num>`, `run-course-project`, `web`, `web-serve`, `report <num>`, `course-work`, `report-all` |
-| `bachelors/term-5/databases` | `build`, `run-practice-4`, `run-practice-6`, `s3:up`, `s3:down`, `report <work>`, `report-all` |
+| `bachelors/term-5/databases` | `build`, `run-practice-2`, `run-practice-4`, `run-practice-6`, `s3:up`, `s3:down`, `report <work>`, `report-all` |
 | `bachelors/term-6/ai-systems` | `lab`, `execute <num>`, `notebook-pdf <num>`, `notebook-pdf-all`, `report <num>`, `report-all` |
 | `bachelors/term-7/information-security` | `build`, `build-lab <num>`, `run <num> [args]`, `chat-server <num>`, `chat-client <num>`, `report <num>`, `report-all` |
 | `bachelors/term-7/networking` | `report <num>`, `report-all`, `course-work` |

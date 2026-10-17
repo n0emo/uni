@@ -1,0 +1,149 @@
+html {
+    background-color: #feffff;
+    font-family: "Verdana", monospace;
+    color: #17252a
+}
+
+body{
+    padding-top: 70px
+}
+
+nav {
+    background-color: #C8E3CC;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+    border-right:1px solid #f1FFf2;
+}
+
+nav li:last-child {
+    border-right: none;
+    float: right;
+}
+
+nav li a {
+    display: inline-block;
+    color: #17252a;
+    text-align: center;
+    margin: 5px 20px !important;
+    text-decoration: none;
+}
+
+form.nav-button {
+    display: inline-block;
+    color: #17252a;
+    text-align: center;
+    margin: 8px 10px;
+    text-decoration: none;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 40px;
+}
+
+a.button {
+    background-color: #c8e3cc;
+    color: #1e2421;
+    padding: 5px 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 15px;
+}
+
+a.button:hover, a.button:active {
+    background-color: #99c7b0;
+    color: #1e2421;
+}
+
+form.single-button {
+    margin: 15px 5px;
+    padding: 0px;
+    box-shadow: 0 2px 5px #;
+}
+
+form.single-button input {
+    background-color: #c8e3cc;
+    border: 0px;
+    padding: 5px 5px;
+    border-radius: 5px;
+    color: #1e2421;
+}
+
+form.single-button input:hover,
+form.single-button input:active {
+    background-color: #99c7b0;
+    color: #1e2421;
+}
+
+form.primary {
+    max-width: 600px;
+    margin: 15px auto;
+    padding: 5px 5px;
+    background-color: #e9f2ed;
+    border: 1px solid #638773;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #;
+}
+
+form.primary label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+form.primary input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+form.primary input[type="submit"] {
+    background-color: #b2d6c2;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+form.primary input[type="submit"]:hover,
+form.primary input[type="submit"]:active {
+    background-color: #99c7b0;
+    color: #1e2421;
+}
+
+form.primary select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+    font-size: 16px;
+    appearance: none;
+}
+
+table {
+    margin-bottom: 20px;
+}

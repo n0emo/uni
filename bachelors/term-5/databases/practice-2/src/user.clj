@@ -1,4 +1,5 @@
-(ns user  (:require [ragtime.jdbc :as jdbc]
+(ns user
+  (:require [ragtime.jdbc :as jdbc]
             [ragtime.repl :as repl]))
 
 (def config
