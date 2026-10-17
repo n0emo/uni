@@ -1,0 +1,55 @@
+goncharenko-availability:
+  type: Article
+  title: Моделирование нарушения доступности информационных объектов на основе низкоинтенсивных соединений
+  author:
+    - Гончаренко, Владимир Анатольевич
+    - Соколовский, Алексей Николаевич
+    - Швецов, Александр Сергеевич
+    - Шинкаренко, Антон Федорович
+  date: 2018
+  parent:
+    type: Periodical
+    title: Известия ТулГУ. Технические науки
+    issue: 1
+  url: https://cyberleninka.ru/article/n/modelirovanie-narusheniya-dostupnosti-informatsionnyh-obektov-na-osnove-nizkointensivnyh-soedineniy
+
+klabnik-rust:
+  type: Book
+  title: Программирование на Rust
+  author:
+    - Клабник, Стив
+    - Николс, Кэрол
+  date: 2021
+  total-pages: 592
+  publisher:
+    location: СПб.
+    name: Питер
+
+ermakov-rust-postgresql:
+  type: Article
+  title: О разработке безопасных приложений на основе интеграции языка программирования Rust и СУБД PostgreSQL
+  author:
+    - Ермаков, Сергей Геннадьевич
+    - Хомоненко, Анатолий Дмитриевич
+    - Шефнер, Альберт
+    - Ляпунов, Владислав Евгеньевич
+    - Кот, Никита Дмитриевич
+    - Ахмедов, Хаджимурад Арсланович
+  date: 2024
+  parent:
+    type: Periodical
+    title: Инженерный вестник Дона
+    issue: 12
+  url: http://www.ivdon.ru/ru/magazine/archive/n12y2024/9701
+
+bugakova-modeling:
+  type: Book
+  title: Моделирование систем
+  author:
+    - Бугакова, Т. Ю.
+  date: 2020
+  total-pages: 82
+  note: Учебное пособие
+  publisher:
+    location: Новосибирск
+    name: СГУГиТ
