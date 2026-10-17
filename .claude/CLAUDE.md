@@ -55,6 +55,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-5/programming-java` | `build`, `build-lab <num>`, `test`, `run <num> [args]`, `deanery:migrate`, `deanery:rollback`, `deanery:serve`, `report <work>`, `course-work`, `report-all` |
 | `bachelors/term-5/system-modelling` | `run-lab-4`, `diagram`, `report <work>`, `course-work`, `report-all` |
 | `bachelors/term-6/ai-systems` | `lab`, `execute <num>`, `notebook-pdf <num>`, `notebook-pdf-all`, `report <num>`, `report-all` |
+| `bachelors/term-6/corporate-information-systems` | `report <num>`, `report-all` |
 | `bachelors/term-7/information-security` | `build`, `build-lab <num>`, `run <num> [args]`, `chat-server <num>`, `chat-client <num>`, `report <num>`, `report-all` |
 | `bachelors/term-7/networking` | `report <num>`, `report-all`, `course-work` |
 | `bachelors/term-7/os` | `course-work`, `report-all` |
