@@ -170,7 +170,7 @@ const main = () => {
         `Среднее время ожидания: ${result.averageWaitTime}\n` +
         `Среднее время обслуживания: ${result.averageProcessingTime}\n` +
         `Среднее время пребывания в системе: ${result.averageStayingTime}\n` +
-        `Коэффециент вариации времени обслуживания: ${result.variationCoefficient}\n`
+        `Коэффициент вариации времени обслуживания: ${result.variationCoefficient}\n`
 }
 
 // @ts-ignore
