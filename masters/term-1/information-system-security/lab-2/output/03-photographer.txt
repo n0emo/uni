@@ -1,0 +1,37 @@
+current_user_name
+-----------------
+kuznetsov_pa
+
+(1 rows affected)
+session_id|kind|session_date|location
+----------|----|------------|--------
+1|дембельский альбом|2026-09-18|в/ч 34567, плац и казарма
+3|присяга|2026-06-14|в/ч 12345, плац
+5|повседневная служба|2026-10-09|в/ч 23456, автопарк и столовая
+7|выездная|2026-10-11|Московский парк Победы
+
+(4 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+photo_id|session_id|file_name|review_status
+--------|----------|---------|-------------
+22|5|ses05_0004.jpg|на проверке
+23|7|ses07_0003.jpg|не требуется
+
+(2 rows affected)
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "INSERT" на объект "photos" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение UPDATE на столбец "review_status" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение UPDATE на столбец "reviewer_id" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение UPDATE на столбец "reviewed_at" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "personal_number" объекта "soldiers" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "garrison" объекта "military_units" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "SELECT" на объект "orders" базы данных "pamyatny_kadr", схемы "dbo".

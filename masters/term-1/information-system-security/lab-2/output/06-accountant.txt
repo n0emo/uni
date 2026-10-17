@@ -1,0 +1,38 @@
+current_user_name
+-----------------
+belova_tn
+
+(1 rows affected)
+order_id|status|total_amount|paid
+--------|------|------------|----
+1|выдан|10250.00|10250.00
+2|в работе|15540.00|7000.00
+3|выдан|4260.00|4260.00
+4|готов|2575.00|2575.00
+5|выдан|11200.00|11200.00
+6|новый|2200.00|.00
+7|отменён|7500.00|.00
+8|новый|7640.00|.00
+
+(8 rows affected)
+
+(1 rows affected)
+payment_id|order_id|amount|method
+----------|--------|------|------
+7|8|3000.00|карта
+
+(1 rows affected)
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "UPDATE" на объект "payments" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "DELETE" на объект "payments" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "UPDATE" на объект "orders" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "soldier_id" объекта "orders" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "manager_id" объекта "orders" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "SELECT" на объект "photos" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "SELECT" на объект "soldiers" базы данных "pamyatny_kadr", схемы "dbo".

@@ -1,0 +1,35 @@
+current_user_name
+-----------------
+lebedeva_is
+
+(1 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+soldier_id|last_name|first_name|military_rank
+----------|---------|----------|-------------
+1|Иванов|Артём|ефрейтор
+2|Смирнов|Кирилл|рядовой
+3|Петров|Даниил|рядовой
+4|Фёдоров|Никита|рядовой
+
+(4 rows affected)
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "personal_number" объекта "soldiers" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "birth_date" объекта "soldiers" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "call_up_date" объекта "soldiers" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "personal_number" объекта "soldiers" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "garrison" объекта "military_units" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "SELECT" на объект "payments" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "DELETE" на объект "customers" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "UPDATE" на объект "photos" базы данных "pamyatny_kadr", схемы "dbo".

@@ -1,0 +1,37 @@
+current_user_name
+-----------------
+orlov_mu
+
+(1 rows affected)
+session_id|photo_id|file_name|review_status
+----------|--------|---------|-------------
+5|13|ses05_0001.jpg|на проверке
+5|14|ses05_0002.jpg|на проверке
+5|15|ses05_0003.jpg|на проверке
+
+(3 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+photo_id|review_status|reviewer_id|reviewed_at|review_comment
+--------|-------------|-----------|-----------|--------------
+13|одобрена|7|2026-10-12 10:00:00|NULL
+15|отклонена|7|2026-10-12 10:05:00|На заднем плане номера военных автомобилей
+
+(2 rows affected)
+designation|garrison|last_name|personal_number
+-----------|--------|---------|---------------
+в/ч 12345|г. Луга, Ленинградская обл.|Иванов|АБ-104512
+в/ч 12345|г. Луга, Ленинградская обл.|Смирнов|АБ-104587
+в/ч 12345|г. Луга, Ленинградская обл.|Петров|ВГ-215634
+
+(3 rows affected)
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение UPDATE на столбец "file_name" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение UPDATE на столбец "taken_at" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "SELECT" на объект "orders" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "INSERT" на объект "payments" базы данных "pamyatny_kadr", схемы "dbo".

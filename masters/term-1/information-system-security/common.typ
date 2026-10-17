@@ -68,7 +68,7 @@
     }
   }
 
-  set par(first-line-indent: 0mm)
+  set par(first-line-indent: 0mm, justify: false)
   set text(size: 0.8em)
   show: block.with(width: 100%, above: 1em, below: 1.5em)
   for b in blocks {

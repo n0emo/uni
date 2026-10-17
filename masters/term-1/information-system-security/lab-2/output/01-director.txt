@@ -1,0 +1,32 @@
+current_user_name
+-----------------
+sokolov_av
+
+(1 rows affected)
+soldier_id|last_name|personal_number|birth_date
+----------|---------|---------------|----------
+1|Иванов|АБ-104512|2006-03-14
+2|Смирнов|АБ-104587|2006-07-02
+3|Петров|ВГ-215634|2007-01-25
+
+(3 rows affected)
+unit_id|designation|garrison
+-------|-----------|--------
+1|в/ч 12345|г. Луга, Ленинградская обл.
+2|в/ч 23456|пос. Каменка, Ленинградская обл.
+3|в/ч 34567|г. Сертолово, Ленинградская обл.
+
+(3 rows affected)
+payment_id|order_id|amount|method
+----------|--------|------|------
+1|1|5000.00|перевод
+2|1|5250.00|карта
+3|2|7000.00|карта
+
+(3 rows affected)
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "UPDATE" на объект "products" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "DELETE" на объект "payments" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "INSERT" на объект "customers" базы данных "pamyatny_kadr", схемы "dbo".

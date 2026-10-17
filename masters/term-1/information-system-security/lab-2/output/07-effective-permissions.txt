@@ -1,0 +1,61 @@
+last_name|position|db_role|db_user
+---------|--------|-------|-------
+Соколов|директор|role_director|sokolov_av
+Лебедева|менеджер по заказам|role_manager|lebedeva_is
+Морозов|менеджер по заказам|role_manager|morozov_do
+Кузнецов|фотограф|role_photographer|kuznetsov_pa
+Васильева|фотограф|role_photographer|vasileva_ei
+Новикова|дизайнер-верстальщик|role_designer|novikova_ad
+Орлов|специалист по защите информации|role_security_officer|orlov_mu
+Белова|бухгалтер|role_accountant|belova_tn
+
+(8 rows affected)
+parent_role|member_role
+-----------|-----------
+role_staff|role_accountant
+role_staff|role_designer
+role_staff|role_director
+role_staff|role_manager
+role_staff|role_photographer
+role_staff|role_security_officer
+
+(6 rows affected)
+table_name|state_desc|permission_name|columns
+----------|----------|---------------|-------
+customers|GRANT|INSERT|NULL
+customers|GRANT|SELECT|NULL
+customers|GRANT|UPDATE|NULL
+military_units|DENY|SELECT|garrison, contact_phone
+military_units|GRANT|SELECT|unit_id, designation
+order_items|GRANT|DELETE|NULL
+order_items|GRANT|INSERT|NULL
+order_items|GRANT|SELECT|NULL
+order_items|GRANT|UPDATE|NULL
+orders|GRANT|INSERT|NULL
+orders|GRANT|SELECT|NULL
+orders|GRANT|UPDATE|NULL
+photo_sessions|GRANT|SELECT|NULL
+photo_soldiers|GRANT|SELECT|NULL
+photos|DENY|UPDATE|review_status, reviewer_id, reviewed_at, review_comment
+photos|GRANT|SELECT|photo_id, session_id, file_name, taken_at, review_status
+relatives|GRANT|DELETE|NULL
+relatives|GRANT|INSERT|NULL
+relatives|GRANT|SELECT|NULL
+relatives|GRANT|UPDATE|NULL
+soldiers|DENY|SELECT|personal_number, birth_date, call_up_date
+soldiers|GRANT|SELECT|soldier_id, unit_id, last_name, first_name, patronymic, military_rank, discharge_date
+
+(22 rows affected)
+permission_name|subentity_name
+---------------|--------------
+SELECT|created_at
+SELECT|customer_id
+SELECT|designer_id
+SELECT|manager_id
+SELECT|order_id
+SELECT|soldier_id
+SELECT|status
+UPDATE|designer_id
+UPDATE|status
+
+(9 rows affected)

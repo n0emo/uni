@@ -1,0 +1,30 @@
+current_user_name
+-----------------
+novikova_ad
+
+(1 rows affected)
+order_id|soldier_id|designer_id|status
+--------|----------|-----------|------
+1|9|6|выдан
+2|1|6|в работе
+3|3|6|выдан
+5|NULL|6|выдан
+8|2|6|новый
+
+(5 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "total_amount" объекта "orders" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "unit_price" объекта "order_items" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение UPDATE на столбец "unit_price" объекта "order_items" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение UPDATE на столбец "manager_id" объекта "orders" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "garrison" объекта "military_units" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 2
+Запрещено разрешение "SELECT" на объект "payments" базы данных "pamyatny_kadr", схемы "dbo".
