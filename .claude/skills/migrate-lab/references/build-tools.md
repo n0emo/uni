@@ -226,21 +226,26 @@ leiningen = "latest"
 ```
 
 Leiningen has no workspace concept, so each lab keeps its own `project.clj` (this is how
-`bachelors/term-5/programming-java` is laid out) and tasks `cd` into the lab:
+`bachelors/term-5/programming-java` is laid out) and tasks `cd` into the lab. mise does not
+expand `usage` inside `dir`, so a per-lab task has to `cd` in `run` instead:
 
 ```toml
-[tasks.build]
-description = "Build one lab's uberjar"
+[tasks."build-lab"]
+description = "Compile one lab"
 usage = 'arg "<num>" help="lab number"'
-dir = "lab-{{ usage.num }}"
-run = "lein uberjar"
+run = 'cd "lab-{{ usage.num }}" && lein compile'
 
 [tasks.run]
 description = "Run one lab"
-usage = 'arg "<num>" help="lab number"'
-dir = "lab-{{ usage.num }}"
-run = "lein run"
+usage = '''
+arg "<num>" help="lab number"
+arg "<args>" var=true required=#false help="arguments passed to the program"
+'''
+run = 'cd "lab-{{ usage.num }}" && lein run -- {{ usage.args }}'
 ```
+
+A lab whose `project.clj` has `:main ^:skip-aot` compiles nothing under `lein compile`, so
+that task only proves the project resolves; `lein run` or `lein test` actually loads the code.
 
 `.gitignore`: `target/`, `reports/`.
 
