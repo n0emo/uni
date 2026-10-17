@@ -1,0 +1,20 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    hostname: mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: &sa-password Pgups_Isec_2026
+      SQLCMDPASSWORD: *sa-password
+    ports:
+      - "${MSSQL_PORT:-1433}:1433"
+    volumes:
+      - .:/work:ro
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -Q "select 1" -b -o /dev/null
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s

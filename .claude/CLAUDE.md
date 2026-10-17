@@ -63,6 +63,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-7/programming-technologies` | `course-work`, `report-all` |
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
+| `masters/term-1/information-system-security` | `report <num>`, `report-all` (DB tasks live in `baursak.lua`: `up`, `down`, `migrate [version]`, `reset [version]`, `sql <file-or-query> [output]`) |
 | `masters/term-1/microelectronic-control-systems` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods/practice-1` | `build`, `serve`, `publish`, `image`, `db:up`, `db:down` |
