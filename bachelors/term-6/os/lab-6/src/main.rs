@@ -108,7 +108,7 @@ fn bench_async() -> io::Result<()> {
             overlapped: mem::zeroed(),
             handle: *file,
             event,
-            count: BUF_WRITE_TIMES,
+            count: BUF_WRITE_TIMES - 1,
             buf: &BUF,
         };
         state.overlapped.Anonymous.Anonymous.Offset = 0xFFFFFFFF;

@@ -114,8 +114,9 @@ THREAD_RETURN_T thread_func(void *arg) {
     MUTEX_UNLOCK(&pool->mutex);
 
     while (!pool->cancel) {
-        ThreadPoolJob job = queue_pop(&pool->queue, NULL);
-        if (pool->cancel) break;
+        bool ok;
+        ThreadPoolJob job = queue_pop(&pool->queue, &ok);
+        if (!ok || pool->cancel) break;
 
         int res = job.executor(job.arg);
 
@@ -142,7 +143,7 @@ void thrdpool_init(ThreadPool *pool, size_t thread_count) {
 
     for (size_t i = 0; i < thread_count; i++) {
 #ifdef _WIN32
-        CreateThread(NULL, 0, thread_func, pool, 0, NULL);
+        pool->threads[i] = CreateThread(NULL, 0, thread_func, pool, 0, NULL);
 #else
         pthread_create(&pool->threads[i], NULL, thread_func, pool);
 #endif

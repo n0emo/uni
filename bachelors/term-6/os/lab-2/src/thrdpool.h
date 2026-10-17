@@ -49,7 +49,7 @@ typedef struct ThreadPool {
     CRITICAL_SECTION mutex;
 #else
     pthread_t *threads;
-    pthread_mutext_t mutex;
+    pthread_mutex_t mutex;
 #endif
 } ThreadPool;
 
