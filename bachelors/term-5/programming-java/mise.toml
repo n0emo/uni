@@ -1,0 +1,89 @@
+[tools]
+java = "temurin-21"
+leiningen = "latest"
+
+[tasks."build-lab"]
+description = "Compile one lab"
+usage = 'arg "<num>" help="lab number (1-4)"'
+run = 'cd "lab-{{ usage.num }}" && lein compile'
+
+[tasks."build:deanery"]
+description = "Compile the deanery web application"
+dir = "deanery"
+run = "lein compile"
+sources = ["project.clj", "src/**", "resources/**"]
+outputs = { auto = true }
+
+[tasks.build]
+description = "Compile every lab and the deanery web application"
+depends = [
+  { task = "build-lab", args = ["1"] },
+  { task = "build-lab", args = ["2"] },
+  { task = "build-lab", args = ["3"] },
+  { task = "build-lab", args = ["4"] },
+  "build:deanery",
+]
+
+[tasks."test-lab"]
+description = "Run one lab's tests"
+usage = 'arg "<num>" help="lab number (1 or 2)"'
+run = 'cd "lab-{{ usage.num }}" && lein test'
+
+[tasks.test]
+description = "Run the tests of every lab that has them"
+depends = [
+  { task = "test-lab", args = ["1"] },
+  { task = "test-lab", args = ["2"] },
+]
+
+[tasks.run]
+description = "Run one lab"
+usage = '''
+arg "<num>" help="lab number (1-4)"
+arg "<args>" var=true required=#false help="arguments passed to the program"
+'''
+run = 'cd "lab-{{ usage.num }}" && lein run -- {{ usage.args }}'
+
+[tasks."deanery:migrate"]
+description = "Apply the deanery database migrations (needs DATABASE_URL)"
+dir = "deanery"
+run = "lein migrate"
+
+[tasks."deanery:rollback"]
+description = "Roll back the last deanery database migration (needs DATABASE_URL)"
+dir = "deanery"
+run = "lein rollback"
+
+[tasks."deanery:serve"]
+description = "Run the deanery web application (needs DATABASE_URL)"
+dir = "deanery"
+run = "lein ring server-headless"
+
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one work's report to PDF"
+usage = 'arg "<work>" help="work directory (lab-1 … lab-4, practice-1 … practice-3)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "{{ usage.work }}/report.typ" "reports/{{ usage.work }}.pdf"'
+
+[tasks."course-work"]
+description = "Compile the course work to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "course-work/course-work.typ" "reports/course-work.pdf"'
+sources = ["course-work/**/*.typ", "course-work/bibliography.yaml", "course-work/assets/**", "deanery/**"]
+outputs = ["reports/course-work.pdf"]
+
+[tasks."report-all"]
+description = "Compile every report of the course"
+depends = [
+  { task = "report", args = ["lab-1"] },
+  { task = "report", args = ["lab-2"] },
+  { task = "report", args = ["lab-3"] },
+  { task = "report", args = ["lab-4"] },
+  { task = "report", args = ["practice-1"] },
+  { task = "report", args = ["practice-2"] },
+  { task = "report", args = ["practice-3"] },
+  "course-work",
+]

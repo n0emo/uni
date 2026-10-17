@@ -1,3 +1,5 @@
 *.class
 .lsp/
 .clj-kondo/
+target/
+reports/

@@ -22,6 +22,7 @@ config_roots = [
   "./bachelors/term-4/structures-and-algorithms/",
   "./bachelors/term-5/computer-graphics/",
   "./bachelors/term-5/databases/",
+  "./bachelors/term-5/programming-java/",
   "./bachelors/term-6/ai-systems/",
   "./bachelors/term-6/networking/",
   "./bachelors/term-7/information-security/",

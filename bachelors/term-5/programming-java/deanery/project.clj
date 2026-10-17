@@ -9,6 +9,7 @@
                  [org.clojure/clojure "1.10.0"]
                  [org.postgresql/postgresql "42.7.4"]
                  [ring/ring-defaults "0.3.2"]
+                 [ring/ring-jetty-adapter "1.7.1"]
                  [ring/ring-json "0.5.1"]]
   :aot [students.core]
   :plugins [[lein-ring "0.12.5"]]
