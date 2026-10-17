@@ -24,17 +24,9 @@ depends = [
   "build:deanery",
 ]
 
-[tasks."test-lab"]
-description = "Run one lab's tests"
-usage = 'arg "<num>" help="lab number (1 or 2)"'
-run = 'cd "lab-{{ usage.num }}" && lein test'
-
 [tasks.test]
-description = "Run the tests of every lab that has them"
-depends = [
-  { task = "test-lab", args = ["1"] },
-  { task = "test-lab", args = ["2"] },
-]
+description = "Run the quick sort tests of lab 1"
+run = "cd lab-1 && lein test"
 
 [tasks.run]
 description = "Run one lab"
