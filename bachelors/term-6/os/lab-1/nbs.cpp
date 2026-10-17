@@ -1,5 +1,5 @@
 #define NBS_IMPLEMENTATION
-#include "nbs.hpp"
+#include "../nbs/nbs.hpp"
 
 #ifdef _MSC_VER
 #define OBJECT "obj"
@@ -16,10 +16,10 @@ int main(int argc, char **argv) {
     options.include_paths = {nbs::os::path("include")};
 #ifdef _MSC_VER
     options.flags = {"-nologo", "-W4"};
-    options.compiler = nbs::c::MSVC;
+    options.compiler = nbs::c::Compiler::MSVC;
 #else
     options.flags = {"-Wall", "-Wextra", "-pedantic", "-g"};
-    options.compiler = nbs::c::CLANG;
+    options.compiler = nbs::c::Compiler::CC;
 #endif
 
     options.obj_cmd("build/main." OBJECT, "src/main.c").run();

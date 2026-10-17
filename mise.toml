@@ -26,6 +26,7 @@ config_roots = [
   "./bachelors/term-5/system-modelling/",
   "./bachelors/term-6/ai-systems/",
   "./bachelors/term-6/networking/",
+  "./bachelors/term-6/os/",
   "./bachelors/term-7/information-security/",
   "./bachelors/term-7/networking/",
   "./bachelors/term-7/os/",

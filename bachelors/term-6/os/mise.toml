@@ -1,0 +1,72 @@
+[tools]
+rust = { version = "latest", targets = "x86_64-pc-windows-gnu" }
+
+# Every lab targets the Windows API. On Windows the C labs build with MSVC (run from a
+# Developer Command Prompt) and the Rust labs natively; elsewhere both go through the
+# MinGW cross-compiler (x86_64-w64-mingw32-gcc) and run under Wine.
+
+[env]
+WINEDEBUG = "-all"
+
+[tasks."build-lab"]
+description = "Build one C/C++ lab with its nbs recipe (1, 2 or 5)"
+usage = 'arg "<num>" help="lab number (1, 2 or 5)"'
+run = '''
+cd "lab-{{ usage.num }}"
+[ -x nbs ] || c++ nbs.cpp -o nbs
+./nbs
+'''
+run_windows = 'cd "lab-{{ usage.num }}" && (if not exist nbs.exe cl -nologo -EHsc nbs.cpp -Fe:nbs.exe) && nbs.exe'
+
+[tasks."build-rust"]
+description = "Build the Rust labs (3, 4 and 6)"
+run = "cargo build --workspace --target x86_64-pc-windows-gnu"
+run_windows = "cargo build --workspace"
+sources = ["Cargo.toml", "Cargo.lock", "lab-*/Cargo.toml", "lab-*/src/**/*.rs"]
+outputs = { auto = true }
+
+[tasks.build]
+description = "Build every lab"
+depends = [
+  { task = "build-lab", args = ["1"] },
+  { task = "build-lab", args = ["2"] },
+  { task = "build-lab", args = ["5"] },
+  "build-rust",
+]
+
+[tasks.run]
+description = "Build and run one lab"
+usage = '''
+arg "<num>" help="lab number (1-6)"
+arg "[args]" var=#true help="arguments passed to the program"
+'''
+run = '''
+case "{{ usage.num }}" in
+  1|5) mise run -q build-lab {{ usage.num }} && "lab-{{ usage.num }}/build/app" {{ usage.args | join(sep=" ") }} ;;
+  2) mise run -q build-lab 2 && wine lab-2/build/app.exe {{ usage.args | join(sep=" ") }} ;;
+  *) cargo run -q -p "lab-{{ usage.num }}" --target x86_64-pc-windows-gnu -- {{ usage.args | join(sep=" ") }} ;;
+esac
+'''
+run_windows = '''
+if exist "lab-{{ usage.num }}\nbs.cpp" (mise run -q build-lab {{ usage.num }} && "lab-{{ usage.num }}\build\app.exe" {{ usage.args | join(sep=" ") }}) else (cargo run -q -p "lab-{{ usage.num }}" -- {{ usage.args | join(sep=" ") }})
+'''
+
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.report]
+description = "Compile one lab's report to PDF"
+usage = 'arg "<num>" help="lab number (1-6)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+
+[tasks."report-all"]
+description = "Compile every lab's report"
+depends = [
+  { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
+  { task = "report", args = ["4"] },
+  { task = "report", args = ["5"] },
+  { task = "report", args = ["6"] },
+]

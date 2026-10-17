@@ -1,8 +1,9 @@
 build/
 reports/
 target/
-nbs
-nbs.old
-nbs.exe
-nbs.exe.old
-nbs.obj
+lab-*/nbs
+lab-*/nbs.old
+lab-*/nbs.exe
+lab-*/nbs.exe.old
+lab-*/nbs.obj
+data.txt

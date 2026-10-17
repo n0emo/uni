@@ -1,0 +1,5 @@
+# The labs call the Windows API, so outside Windows they are cross-compiled
+# with MinGW and run under Wine.
+[target.x86_64-pc-windows-gnu]
+linker = "x86_64-w64-mingw32-gcc"
+runner = "wine"
