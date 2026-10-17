@@ -1,0 +1,17 @@
+Msg 547, Level 16, State 1, Server mssql, Line 2
+Конфликт инструкции DELETE с ограничением REFERENCE "fk_soldiers_military_units". Конфликт произошел в базе данных "pamyatny_kadr", таблица "dbo.soldiers", column 'unit_id'.
+Выполнение данной инструкции было прервано.
+
+(1 rows affected)
+unit_id|designation|garrison
+-------|-----------|--------
+1|в/ч 12345|г. Луга, Ленинградская обл.
+2|в/ч 23456|пос. Каменка, Ленинградская обл.
+3|в/ч 34567|г. Сертолово, Ленинградская обл.
+
+(3 rows affected)
+customer_id|last_name|first_name
+-----------|---------|----------
+15|Белкин|Станислав
+
+(1 rows affected)

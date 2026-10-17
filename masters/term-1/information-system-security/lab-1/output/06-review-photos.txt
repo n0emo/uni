@@ -1,0 +1,21 @@
+photo_id|review_status|reviewer_id|reviewed_at
+--------|-------------|-----------|-----------
+13|на проверке|NULL|NULL
+14|на проверке|NULL|NULL
+15|на проверке|NULL|NULL
+
+(3 rows affected)
+
+(2 rows affected)
+
+(1 rows affected)
+photo_id|review_status|reviewer_id|reviewed_at|review_comment
+--------|-------------|-----------|-----------|--------------
+13|одобрена|7|2026-10-12 10:00:00|NULL
+14|одобрена|7|2026-10-12 10:00:00|NULL
+15|отклонена|7|2026-10-12 10:05:00|На заднем плане номера военных автомобилей
+
+(3 rows affected)
+Msg 547, Level 16, State 1, Server mssql, Line 25
+Конфликт инструкции UPDATE с ограничением CHECK "ck_photos_review". Конфликт произошел в базе данных "pamyatny_kadr", таблица "dbo.photos".
+Выполнение данной инструкции было прервано.

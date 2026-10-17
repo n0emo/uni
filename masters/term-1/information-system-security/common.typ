@@ -26,12 +26,19 @@
   content,
 )
 
-// Вывод `sqlcmd -W -s "|"`, сохранённый командой `bk sql <сценарий> <файл>`:
-// наборы строк становятся таблицами, ошибки Msg — выделенными блоками,
-// остальные сообщения (print, "(N rows affected)") выводятся как есть
+// sqlcmd опускает ведущий ноль у decimal: .00, -.50
+#let sql-cell(c) = if c == "NULL" { emph[NULL] } else {
+  raw(c.replace(regex("^(-?)\\.(\\d+)$"), m => m.captures.at(0) + "0." + m.captures.at(1)))
+}
+
+// Вывод `bk sql <сценарий> <файл>`: наборы строк — таблицами, ошибки — выделенными блоками
 #let sql-output(text-output) = {
   let lines = text-output.replace("\r", "").split("\n")
   let separator = regex("^-+(\|-+)*$")
+  let terminated = (
+    "Выполнение данной инструкции было прервано.",
+    "The statement has been terminated.",
+  )
   let blocks = ()
   let i = 0
   while i < lines.len() {
@@ -50,8 +57,9 @@
       }
       blocks.push((kind: "table", header: header, rows: rows))
     } else if line.starts-with("Msg ") {
-      blocks.push((kind: "error", lines: lines.slice(i, calc.min(i + 2, lines.len()))))
-      i += 2
+      let n = if lines.at(i + 2, default: none) in terminated { 3 } else { 2 }
+      blocks.push((kind: "error", lines: lines.slice(i, calc.min(i + n, lines.len()))))
+      i += n
     } else {
       if line != "" {
         blocks.push((kind: "message", line: line))
@@ -62,6 +70,7 @@
 
   set par(first-line-indent: 0mm)
   set text(size: 0.8em)
+  show: block.with(width: 100%, above: 1em, below: 1.5em)
   for b in blocks {
     if b.kind == "table" {
       block(breakable: true, table(
@@ -69,7 +78,7 @@
         align: left,
         inset: (x: 4pt, y: 3pt),
         table.header(..b.header.map(h => strong(raw(h)))),
-        ..b.rows.flatten().map(c => if c == "NULL" { emph[NULL] } else { raw(c) }),
+        ..b.rows.flatten().map(sql-cell),
       ))
     } else if b.kind == "error" {
       block(

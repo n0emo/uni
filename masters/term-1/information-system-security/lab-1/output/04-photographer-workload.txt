@@ -1,0 +1,6 @@
+photographer|sessions|photos|approved|rejected|pending
+------------|--------|------|--------|--------|-------
+Васильева Екатерина|4|10|5|1|2
+Кузнецов Павел|4|11|4|2|3
+
+(2 rows affected)

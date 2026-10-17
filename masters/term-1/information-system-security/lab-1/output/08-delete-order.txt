@@ -1,0 +1,28 @@
+order_id|status|items
+--------|------|-----
+1|выдан|3
+2|в работе|2
+3|выдан|2
+4|готов|2
+5|выдан|3
+6|новый|2
+7|отменён|1
+8|новый|2
+
+(8 rows affected)
+
+(1 rows affected)
+order_id|status|items
+--------|------|-----
+1|выдан|3
+2|в работе|2
+3|выдан|2
+4|готов|2
+5|выдан|3
+6|новый|2
+8|новый|2
+
+(7 rows affected)
+Msg 547, Level 16, State 1, Server mssql, Line 18
+Конфликт инструкции DELETE с ограничением REFERENCE "fk_payments_orders". Конфликт произошел в базе данных "pamyatny_kadr", таблица "dbo.payments", column 'order_id'.
+Выполнение данной инструкции было прервано.
