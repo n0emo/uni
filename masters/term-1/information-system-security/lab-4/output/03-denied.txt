@@ -1,0 +1,17 @@
+Msg 229, Level 14, State 5, Server mssql, Procedure review_photo, Line 1
+Запрещено разрешение "EXECUTE" на объект "review_photo" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 1
+Запрещено разрешение UPDATE на столбец "review_status" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 1
+Запрещено разрешение UPDATE на столбец "review_signature" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 50032, Level 16, State 1, Server mssql, Procedure tr_photos_review_guard, Line 41
+Имя файла подписанного снимка изменять нельзя
+Msg 229, Level 14, State 5, Server mssql, Procedure review_photo, Line 1
+Запрещено разрешение "EXECUTE" на объект "review_photo" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 50020, Level 16, State 1, Server mssql, Procedure review_photo, Line 20
+Выносить вердикт может только специалист по защите информации
+signature
+---------
+NULL
+
+(1 rows affected)

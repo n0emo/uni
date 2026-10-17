@@ -1,0 +1,36 @@
+
+(3 rows affected)
+Msg 50030, Level 16, State 1, Server mssql, Procedure tr_photos_review_guard, Line 16
+Вердикт можно изменить только процедурой review_photo
+Msg 50031, Level 16, State 1, Server mssql, Procedure tr_photos_review_guard, Line 27
+Подпись вердикта недействительна
+photo_id|review_comment
+--------|--------------
+3|В кадре бронетехника с бортовым номером
+4|NULL
+
+(2 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+
+(1 rows affected)
+photo_id|review_status|review_comment|signature_status
+--------|-------------|--------------|----------------
+1|одобрена|NULL|действительна
+2|одобрена|NULL|недействительна
+3|одобрена|NULL|недействительна
+4|одобрена|Проверено повторно|недействительна
+
+(4 rows affected)
+
+(3 rows affected)
+photo_id|review_status|review_comment|signature_status
+--------|-------------|--------------|----------------
+1|одобрена|NULL|действительна
+2|одобрена|NULL|действительна
+3|отклонена|В кадре бронетехника с бортовым номером|действительна
+4|одобрена|NULL|действительна
+
+(4 rows affected)

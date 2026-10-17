@@ -1,0 +1,10 @@
+signature_status|photos
+----------------|------
+действительна|14
+
+(1 rows affected)
+name|is_disabled
+----|-----------
+tr_photos_review_guard|0
+
+(1 rows affected)

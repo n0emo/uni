@@ -1,0 +1,25 @@
+photo_id|file_name|review_status|reviewer|reviewed_at|signature_status
+--------|---------|-------------|--------|-----------|----------------
+1|ses01_0001.jpg|одобрена|Орлов М.|2026-09-21 09:30:00|действительна
+2|ses01_0002.jpg|одобрена|Орлов М.|2026-09-21 09:32:00|действительна
+3|ses01_0003.jpg|отклонена|Орлов М.|2026-09-21 09:35:00|действительна
+4|ses02_0001.jpg|одобрена|Орлов М.|2026-10-05 14:10:00|действительна
+5|ses02_0002.jpg|одобрена|Орлов М.|2026-10-05 14:12:00|действительна
+6|ses02_0003.jpg|отклонена|Орлов М.|2026-10-05 14:15:00|действительна
+7|ses02_0004.jpg|одобрена|Орлов М.|2026-10-17 21:31:59|действительна
+8|ses03_0001.jpg|одобрена|Орлов М.|2026-06-16 10:00:00|действительна
+
+(8 rows affected)
+signature_status|photos
+----------------|------
+действительна|14
+
+(1 rows affected)
+Msg 230, Level 14, State 1, Server mssql, Line 2
+Запрещено разрешение SELECT на столбец "review_comment" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 230, Level 14, State 1, Server mssql, Line 1
+Запрещено разрешение SELECT на столбец "review_signature" объекта "photos" базы данных "pamyatny_kadr" схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 3
+Запрещено разрешение "SELECT" на объект "v_photo_reviews" базы данных "pamyatny_kadr", схемы "dbo".
+Msg 229, Level 14, State 5, Server mssql, Line 3
+Запрещено разрешение "SELECT" на объект "v_photo_reviews" базы данных "pamyatny_kadr", схемы "dbo".

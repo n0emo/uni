@@ -1,0 +1,39 @@
+current_user_name
+-----------------
+orlov_mu
+
+(1 rows affected)
+photo_id|file_name|review_status|reviewer_id|review_signature
+--------|---------|-------------|-----------|----------------
+7|ses02_0004.jpg|на проверке|NULL|NULL
+13|ses05_0001.jpg|на проверке|NULL|NULL
+14|ses05_0002.jpg|на проверке|NULL|NULL
+15|ses05_0003.jpg|на проверке|NULL|NULL
+21|ses08_0002.jpg|на проверке|NULL|NULL
+
+(5 rows affected)
+photo_id|file_name|review_status|reviewer|reviewed_at|signature_status
+--------|---------|-------------|--------|-----------|----------------
+7|ses02_0004.jpg|одобрена|Орлов М.|2026-10-17 21:31:59|действительна
+13|ses05_0001.jpg|отклонена|Орлов М.|2026-10-17 21:31:59|действительна
+
+(2 rows affected)
+Msg 50026, Level 16, State 1, Server mssql, Procedure review_photo, Line 52
+Неверный пароль закрытого ключа
+Msg 50022, Level 16, State 1, Server mssql, Procedure review_photo, Line 25
+Отклонение необходимо обосновать комментарием
+Msg 50021, Level 16, State 1, Server mssql, Procedure review_photo, Line 23
+Вердикт должен быть «одобрена» или «отклонена»
+Msg 50024, Level 16, State 1, Server mssql, Procedure review_photo, Line 34
+Снимок не ожидает проверки
+Msg 50024, Level 16, State 1, Server mssql, Procedure review_photo, Line 34
+Снимок не ожидает проверки
+Msg 50023, Level 16, State 1, Server mssql, Procedure review_photo, Line 32
+Снимок не найден
+photo_id|review_status|reviewer_id|review_signature
+--------|-------------|-----------|----------------
+14|на проверке|NULL|NULL
+
+(1 rows affected)
+Msg 229, Level 14, State 5, Server mssql, Line 3
+Запрещено разрешение "UPDATE" на объект "photos" базы данных "pamyatny_kadr", схемы "dbo".

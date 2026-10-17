@@ -1,0 +1,21 @@
+key_name|owner|algorithm_desc|key_length|thumbprint
+--------|-----|--------------|----------|----------
+sign_orlov_mu|orlov_mu|RSA_2048|2048|0xD979E0786C90F3F0
+
+(1 rows affected)
+photo_id|review_status|reviewer_id|signature|sig_bytes|thumbprint
+--------|-------------|-----------|---------|---------|----------
+3|отклонена|7|0x010007020400…|264|0xD979E0786C90F3F0
+7|на проверке|NULL|NULL|NULL|NULL
+
+(2 rows affected)
+payload
+-------
+photo-review/v1;3;14:ses01_0003.jpg;отклонена;7;2026-09-21T09:35:00;39:В кадре бронетехника с бортовым номером
+
+(1 rows affected)
+signature_status|photos
+----------------|------
+действительна|12
+
+(1 rows affected)
