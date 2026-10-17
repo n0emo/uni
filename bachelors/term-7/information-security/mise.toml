@@ -41,9 +41,9 @@ depends = [
 description = "Run a single-program lab (2-1 or 2-2)"
 usage = '''
 arg "<num>" help="lab number (2-1 or 2-2)"
-arg "<args>" var=true help="arguments passed to the program"
+arg "[args]" var=#true help="arguments passed to the program"
 '''
-run = 'cd "lab-{{ usage.num }}/src" && go run . {{ usage.args }}'
+run = 'cd "lab-{{ usage.num }}/src" && go run . {{ usage.args | join(sep=" ") }}'
 
 [tasks."chat-server"]
 description = "Run the ciphered chat server (lab 2-3 or 2-4)"
