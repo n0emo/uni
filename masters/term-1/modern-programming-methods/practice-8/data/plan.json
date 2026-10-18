@@ -1,0 +1,290 @@
+[
+ {
+  "id": 1,
+  "title": "Ядро: задачи на Lua, аргументы, зависимости",
+  "milestone": "M0",
+  "start": "2026-10-08",
+  "end": "2026-10-08",
+  "hours": 8,
+  "done": true
+ },
+ {
+  "id": 2,
+  "title": "Встроенная функция is_plat",
+  "milestone": "M0",
+  "start": "2026-10-08",
+  "end": "2026-10-08",
+  "hours": 2,
+  "done": true
+ },
+ {
+  "id": 3,
+  "title": "Встроенные функции has_cmd и assert_cmd",
+  "milestone": "M0",
+  "start": "2026-10-08",
+  "end": "2026-10-08",
+  "hours": 1,
+  "done": true
+ },
+ {
+  "id": 4,
+  "title": "Поиск конфигурации в родительских каталогах",
+  "milestone": "M0",
+  "start": "2026-10-09",
+  "end": "2026-10-10",
+  "hours": 6,
+  "done": true
+ },
+ {
+  "id": 5,
+  "title": "Дорожная карта проекта",
+  "milestone": "M0",
+  "start": "2026-10-09",
+  "end": "2026-10-10",
+  "hours": 1,
+  "done": true
+ },
+ {
+  "id": 6,
+  "title": "Согласованная обработка ошибок",
+  "milestone": "M0",
+  "start": "2026-10-10",
+  "end": "2026-10-10",
+  "hours": 6,
+  "done": true
+ },
+ {
+  "id": 7,
+  "title": "Git Bash в Windows с откатом на PowerShell и cmd",
+  "milestone": "M1",
+  "start": "2026-10-19",
+  "end": "2026-10-21",
+  "hours": 5,
+  "done": false
+ },
+ {
+  "id": 8,
+  "title": "Переменные из .env",
+  "milestone": "M1",
+  "start": "2026-10-22",
+  "end": "2026-10-23",
+  "hours": 3,
+  "done": false
+ },
+ {
+  "id": 9,
+  "title": "Приватные задачи",
+  "milestone": "M1",
+  "start": "2026-10-24",
+  "end": "2026-10-25",
+  "hours": 2,
+  "done": false
+ },
+ {
+  "id": 10,
+  "title": "Тихие задачи",
+  "milestone": "M1",
+  "start": "2026-10-26",
+  "end": "2026-10-27",
+  "hours": 2,
+  "done": false
+ },
+ {
+  "id": 11,
+  "title": "require модулей Lua из каталогов baursak",
+  "milestone": "M1",
+  "start": "2026-10-28",
+  "end": "2026-10-30",
+  "hours": 4,
+  "done": false
+ },
+ {
+  "id": 12,
+  "title": "Документация по типовым сценариям",
+  "milestone": "M1",
+  "start": "2026-10-31",
+  "end": "2026-11-04",
+  "hours": 6,
+  "done": false
+ },
+ {
+  "id": 13,
+  "title": "Проектирование рабочих пространств",
+  "milestone": "M1",
+  "start": "2026-11-05",
+  "end": "2026-11-07",
+  "hours": 4,
+  "done": false
+ },
+ {
+  "id": 14,
+  "title": "Выпуск v0.1.0",
+  "milestone": "M1",
+  "start": "2026-11-08",
+  "end": "2026-11-08",
+  "hours": 1,
+  "done": false
+ },
+ {
+  "id": 15,
+  "title": "Реализация рабочих пространств",
+  "milestone": "M2",
+  "start": "2026-11-09",
+  "end": "2026-11-13",
+  "hours": 8,
+  "done": false
+ },
+ {
+  "id": 16,
+  "title": "Валидация аргументов задач",
+  "milestone": "M2",
+  "start": "2026-11-14",
+  "end": "2026-11-15",
+  "hours": 3,
+  "done": false
+ },
+ {
+  "id": 17,
+  "title": "Значения аргументов по умолчанию",
+  "milestone": "M2",
+  "start": "2026-11-16",
+  "end": "2026-11-16",
+  "hours": 2,
+  "done": false
+ },
+ {
+  "id": 18,
+  "title": "Описания задач в --list",
+  "milestone": "M2",
+  "start": "2026-11-17",
+  "end": "2026-11-17",
+  "hours": 2,
+  "done": false
+ },
+ {
+  "id": 19,
+  "title": "Более удобная функция sh",
+  "milestone": "M2",
+  "start": "2026-11-18",
+  "end": "2026-11-19",
+  "hours": 3,
+  "done": false
+ },
+ {
+  "id": 20,
+  "title": "Несколько задач за один вызов",
+  "milestone": "M2",
+  "start": "2026-11-20",
+  "end": "2026-11-21",
+  "hours": 3,
+  "done": false
+ },
+ {
+  "id": 21,
+  "title": "Рабочий каталог для каждой задачи",
+  "milestone": "M2",
+  "start": "2026-11-22",
+  "end": "2026-11-22",
+  "hours": 2,
+  "done": false
+ },
+ {
+  "id": 22,
+  "title": "Автодополнение для оболочек",
+  "milestone": "M2",
+  "start": "2026-11-23",
+  "end": "2026-11-24",
+  "hours": 3,
+  "done": false
+ },
+ {
+  "id": 23,
+  "title": "Тестирование на всех поддерживаемых ОС",
+  "milestone": "M2",
+  "start": "2026-11-25",
+  "end": "2026-11-28",
+  "hours": 5,
+  "done": false
+ },
+ {
+  "id": 24,
+  "title": "Выпуск v0.2.0",
+  "milestone": "M2",
+  "start": "2026-11-29",
+  "end": "2026-11-29",
+  "hours": 1,
+  "done": false
+ },
+ {
+  "id": 25,
+  "title": "Встроенные функции файловой системы",
+  "milestone": "M3",
+  "start": "2026-11-30",
+  "end": "2026-12-02",
+  "hours": 4,
+  "done": false
+ },
+ {
+  "id": 26,
+  "title": "Кэширование задач",
+  "milestone": "M3",
+  "start": "2026-12-03",
+  "end": "2026-12-08",
+  "hours": 10,
+  "done": false
+ },
+ {
+  "id": 27,
+  "title": "Режим наблюдения (watch)",
+  "milestone": "M3",
+  "start": "2026-12-09",
+  "end": "2026-12-12",
+  "hours": 6,
+  "done": false
+ },
+ {
+  "id": 28,
+  "title": "Префикс вывода параллельных задач",
+  "milestone": "M3",
+  "start": "2026-12-13",
+  "end": "2026-12-13",
+  "hours": 2,
+  "done": false
+ },
+ {
+  "id": 29,
+  "title": "Настраиваемая оболочка",
+  "milestone": "M3",
+  "start": "2026-12-14",
+  "end": "2026-12-15",
+  "hours": 3,
+  "done": false
+ },
+ {
+  "id": 30,
+  "title": "Флаг --dry-run",
+  "milestone": "M3",
+  "start": "2026-12-16",
+  "end": "2026-12-17",
+  "hours": 2,
+  "done": false
+ },
+ {
+  "id": 31,
+  "title": "Документация API и её публикация",
+  "milestone": "M3",
+  "start": "2026-12-18",
+  "end": "2026-12-19",
+  "hours": 4,
+  "done": false
+ },
+ {
+  "id": 32,
+  "title": "Выпуск v0.3.0",
+  "milestone": "M3",
+  "start": "2026-12-20",
+  "end": "2026-12-20",
+  "hours": 1,
+  "done": false
+ }
+]
