@@ -1,0 +1,9 @@
+[tools]
+dotnet = "10.0"
+
+[tasks.build]
+extends = "dotnet:build"
+
+[tasks.run]
+description = "Run the inventory DSS interactively; charts go to out/"
+extends = "dotnet:run"
