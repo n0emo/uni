@@ -1,0 +1,9 @@
+[tools]
+dotnet = "10.0"
+
+[tasks.build]
+extends = "dotnet:build"
+
+[tasks.run]
+description = "Fit the forecasting models and print their test metrics; the chart goes to out/"
+extends = "dotnet:run"

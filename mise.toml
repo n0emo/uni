@@ -42,6 +42,7 @@ config_roots = [
   "./masters/term-1/modern-programming-methods/",
   "./masters/term-1/modern-programming-methods/practice-1/",
   "./masters/term-1/modern-programming-methods/practice-2/",
+  "./masters/term-1/modern-programming-methods/practice-6/",
   "./masters/term-1/modern-programming-methods/practice-7/",
 ]
 
