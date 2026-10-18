@@ -19,11 +19,11 @@ open Responses
 let main args =
     let builder = WebApplication.CreateBuilder args
 
-    let connectionString = builder.Configuration.GetConnectionString "Default"
+    let settings = AppSettings.ofConfiguration builder.Configuration
 
     let dbConnectionFactory =
         { new IDbConnectionFactory with
-            member _.Create() = new NpgsqlConnection(connectionString)
+            member _.Create() = new NpgsqlConnection(settings.ConnectionString)
         }
 
     builder.Services
@@ -32,14 +32,11 @@ let main args =
         .AddSwaggerGen(fun options -> options.DocInclusionPredicate(fun _ api -> api.RelativePath.StartsWith "api/"))
     |> ignore
 
-
-    builder.Services.AddSingleton<AppSettings>(AppSettings.ofConfiguration builder.Configuration)
-    |> ignore
-
+    builder.Services.AddSingleton<AppSettings>(settings) |> ignore
 
     let app = builder.Build()
 
-    Migrations.run (app.Services.GetRequiredService<ILoggerFactory>().CreateLogger "Migrations") connectionString
+    Migrations.run (app.Services.GetRequiredService<ILoggerFactory>().CreateLogger "Migrations") settings.ConnectionString
 
     if app.Environment.IsDevelopment() then
         app.UseSwagger() |> ignore
@@ -61,6 +58,10 @@ let main args =
             |> OpenApi.summary "Create a short link for the target URL"
             |> OpenApi.acceptsType typeof<CreateLink>
             |> OpenApi.returnType typeof<Link>
+
+            get "/api/links/{code}/clicks" ApiRoutes.getClicks
+            |> OpenApi.summary "List the recorded clicks of a short link"
+            |> OpenApi.returnType typeof<Click list>
 
             get "/" HtmlRoutes.index
             post "/" HtmlRoutes.postIndex
