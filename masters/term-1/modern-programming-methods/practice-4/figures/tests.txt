@@ -1,0 +1,38 @@
+EXPECTO? Running tests...
+EXPECTO! 31 tests run in 00:00:00.1962384 for Model – 31 passed, 0 ignored, 0 failed, 0 errored. Success!
+EXPECTO?! Summary...
+Passed:  31
+  Model.applyRule.follows the binary representation of every rule number
+  Model.applyRule.rule 30 gives the table from the README
+  Model.applyRule.next and previous wrap around between 255 and 0
+  Model.applyRule.previous undoes next
+  Model.applyRule.tryParse reads every rule number
+  Model.applyRule.tryParse rejects numbers above 255
+  Model.applyRule.tryParse rejects anything but digits
+  Model.applyRule.table lists the neighbourhoods from 111 to 000
+  Model.applyRule.the table spells the rule number in binary
+  Model.applyRule.flip changes the new state of exactly one neighbourhood
+  Model.Row.single has one live cell in the middle
+  Model.Row.alive counts the live cells and share divides them by the length
+  Model.Row.empty has no live cells
+  Model.Row.random with density 0 is empty and with density 1 is full
+  Model.Row.random keeps the requested density
+  Model.Row.toggle flips exactly the given cell
+  Model.Row.the first and the last cells are neighbours
+  Model.Row.toggling the boundary switches between ring and zero edges
+  Model.Row.with zero edges, nothing lies beyond the edges
+  Model.Row.zero edges are a ring with a dead cell added at each end
+  Model.Row.next keeps the row length
+  Model.Row.on a ring, rotating and stepping commute
+  Model.Known rules.rule 90 from one cell gives the Sierpinski triangle
+  Model.Known rules.the centre column of rule 30 is OEIS A051023
+  Model.Known rules.rule 184 on a ring keeps the number of live cells
+  Model.Known rules.rule 0 kills every cell in one step
+  Model.Known rules.rule 255 revives every cell in one step
+  Model.Known rules.rule 184 with zero edges lets cars leave on the right
+  Model.History.keeps the newest rows in order
+  Model.History.rejects indices outside the kept rows
+  Model.History.automaton counts generations from zero
+Ignored:  0
+Failed:   0
+Errored:  0

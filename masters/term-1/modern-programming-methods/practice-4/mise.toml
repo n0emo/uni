@@ -1,0 +1,12 @@
+[tools]
+dotnet = "10.0"
+
+[tasks.build]
+extends = "dotnet:build"
+
+[tasks.run]
+extends = "dotnet:run"
+
+[tasks.test]
+description = "Run the model tests (Expecto + FsCheck)"
+run = "dotnet run --project tests"
