@@ -1,0 +1,19 @@
+$ curl -s https://sh.usn0emo.ru/api/health
+{"Version":"0.1.0"}
+
+$ curl -s -H 'Content-Type: application/json' \
+    -d '{"Target": "ftp://example.com/file.txt"}' https://sh.usn0emo.ru/api/links
+{"Code":"400","Message":"Target must be a valid http(s) URL"}
+
+$ curl -s -d 'Target=example.com' https://sh.usn0emo.ru/api/links
+{"Code":"415","Message":"Unsupported Media Type"}
+
+$ curl -si https://sh.usn0emo.ru/EnK6ecr | grep -iE "^(HTTP|location)"
+HTTP/2 302 
+location: https://github.com/n0emo/uni
+
+$ curl -s https://sh.usn0emo.ru/api/links/EnK6ecr/clicks \
+    | jq -c '.[] | {ClickedAt, UserAgent}'
+{"ClickedAt":"2026-10-18T17:52:33.146124Z","UserAgent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36"}
+{"ClickedAt":"2026-10-18T17:55:07.826588Z","UserAgent":"curl/8.23.0"}
+{"ClickedAt":"2026-10-18T18:02:40.316655Z","UserAgent":"curl/8.23.0"}
