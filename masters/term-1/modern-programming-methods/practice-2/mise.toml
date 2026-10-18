@@ -1,0 +1,9 @@
+[tools]
+dotnet = "10.0"
+
+[tasks.build]
+extends = "dotnet:build"
+
+[tasks.run]
+description = "Train both classifiers and print their test metrics"
+extends = "dotnet:run"

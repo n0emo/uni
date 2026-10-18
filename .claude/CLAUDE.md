@@ -67,6 +67,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `masters/term-1/microelectronic-control-systems` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods/practice-1` | `build`, `serve`, `publish`, `image`, `db:up`, `db:down` |
+| `masters/term-1/modern-programming-methods/practice-2` | `build`, `run` |
 
 When adding a course, add its directory to `config_roots` in the root `mise.toml` and give it
 a local `mise.toml`; prefer `extends` on a root task template over repeating a raw `typst
