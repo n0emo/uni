@@ -1,0 +1,418 @@
+[
+  {
+    "sample": {
+      "id": 1,
+      "title": "Отзыв о ресторане",
+      "expected": "positive",
+      "text": "Были в этом ресторане на годовщину свадьбы. Официант Сергей помог с выбором вина, утка была идеальной, а десерт принесли за счёт заведения. Обязательно вернёмся!"
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "positive",
+        "score": 0.85,
+        "keywords": [
+          "официант",
+          "вино",
+          "утка",
+          "десерт",
+          "заведение"
+        ],
+        "entities": [
+          {
+            "name": "Сергей",
+            "type": "PERSON"
+          }
+        ],
+        "summary": "Положительный отзыв об обслуживании и еде в ресторане."
+      },
+      "languageToolMs": 871,
+      "modelMs": 8028,
+      "modelAttempts": 1
+    }
+  },
+  {
+    "sample": {
+      "id": 2,
+      "title": "Жалоба на доставку",
+      "expected": "negative",
+      "text": "Заказ из СберМаркета привезли на три часа позже, половина продуктов помята, а поддержка просто перестала отвечать. Больше никогда не буду пользоваться этим сервисом."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "negative",
+        "score": -0.8,
+        "keywords": [
+          "помята",
+          "доставки",
+          "поддержка",
+          "СберМаркета",
+          "отказ"
+        ],
+        "entities": [
+          {
+            "name": "СберМаркета",
+            "type": "ORGANIZATION"
+          }
+        ],
+        "summary": "Клиент недоволен задержкой доставки и отсутствием ответа поддержки от СберМаркета."
+      },
+      "languageToolMs": 143,
+      "modelMs": 28956,
+      "modelAttempts": 2
+    }
+  },
+  {
+    "sample": {
+      "id": 3,
+      "title": "Отзыв о смартфоне",
+      "expected": "mixed",
+      "text": "Камера у Pixel 9 отличная, снимки ночью лучше, чем у моего старого iPhone. Но батарея к вечеру садится полностью, а корпус греется даже при обычной работе."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "mixed",
+        "score": 0,
+        "keywords": [
+          "камера",
+          "ночь",
+          "батарея",
+          "корпус",
+          "греется"
+        ],
+        "entities": [
+          {
+            "name": "Pixel 9",
+            "type": "PRODUCT"
+          },
+          {
+            "name": "iPhone",
+            "type": "PRODUCT"
+          }
+        ],
+        "summary": "Камера хорошая, но батарея быстро разряжается и корпус перегревается."
+      },
+      "languageToolMs": 143,
+      "modelMs": 36854,
+      "modelAttempts": 2
+    }
+  },
+  {
+    "sample": {
+      "id": 4,
+      "title": "Новость",
+      "expected": "neutral",
+      "text": "15 октября в Санкт-Петербурге открылась станция метро «Путиловская». Она расположена на Красносельско-Калининской линии, сообщил губернатор Александр Беглов."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "neutral",
+        "score": 0,
+        "keywords": [
+          "Путиловская",
+          "метро",
+          "Санкт-Петербург",
+          "Красносельско-Калининская",
+          "губернатор"
+        ],
+        "entities": [
+          {
+            "name": "Санкт-Петербург",
+            "type": "LOCATION"
+          },
+          {
+            "name": "Путиловская",
+            "type": "LOCATION"
+          },
+          {
+            "name": "Красносельско-Калининская линия",
+            "type": "ORGANIZATION"
+          },
+          {
+            "name": "Александр Беглов",
+            "type": "PERSON"
+          }
+        ],
+        "summary": "В Санкт-Петербурге открылась станция метро \"Путиловская\"."
+      },
+      "languageToolMs": 134,
+      "modelMs": 30898,
+      "modelAttempts": 2
+    }
+  },
+  {
+    "sample": {
+      "id": 5,
+      "title": "Сарказм",
+      "expected": "negative",
+      "text": "Ну просто замечательно: поезд опоздал на два часа, кондиционер не работал, а в вагоне-ресторане закончилась вода. Лучшая поездка в моей жизни."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "negative",
+        "score": -0.8,
+        "keywords": [
+          "поезд",
+          "опоздание",
+          "кондиционер",
+          "вагон-ресторан",
+          "вода"
+        ],
+        "entities": [
+          {
+            "name": "поезд",
+            "type": "PRODUCT"
+          }
+        ],
+        "summary": "Критика поездки на поезде из‑за задержки, неисправного кондиционера и нехватки воды."
+      },
+      "languageToolMs": 155,
+      "modelMs": 69460,
+      "modelAttempts": 2
+    }
+  },
+  {
+    "sample": {
+      "id": 6,
+      "title": "Отрицание",
+      "expected": "positive",
+      "text": "Не могу сказать, что фильм мне не понравился. Сюжет не затянут, а актёры играют совсем не плохо."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "positive",
+        "score": 0.6,
+        "keywords": [
+          "фильм",
+          "сюжет",
+          "актёры",
+          "не затянут",
+          "не плохо"
+        ],
+        "entities": [],
+        "summary": "Фильм понравился, сюжет без затягиваний, актёры играют хорошо."
+      },
+      "languageToolMs": 1021,
+      "modelMs": 8790,
+      "modelAttempts": 1
+    }
+  },
+  {
+    "sample": {
+      "id": 7,
+      "title": "Текст с ошибками",
+      "expected": "positive",
+      "text": "Вчера ходили в кино на новый фильм, мне очень понравилось но звук был слишком громкий. В целом расчитываю что следущая часть будет не хуже."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": [
+          {
+            "kind": "uncategorized",
+            "message": "Пропущена запятая: «понравилось, но».",
+            "fragment": "понравилось но",
+            "suggestions": [
+              "понравилось, но"
+            ]
+          },
+          {
+            "kind": "misspelling",
+            "message": "Возможно найдена орфографическая ошибка.",
+            "fragment": "расчитываю",
+            "suggestions": [
+              "досчитываю",
+              "насчитываю",
+              "посчитываю"
+            ]
+          },
+          {
+            "kind": "misspelling",
+            "message": "Возможно найдена орфографическая ошибка.",
+            "fragment": "следущая",
+            "suggestions": [
+              "следящая",
+              "следующая",
+              "сведущая"
+            ]
+          }
+        ]
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "mixed",
+        "score": 0.3,
+        "keywords": [
+          "новый фильм",
+          "понравилось",
+          "звук громкий",
+          "следующая часть",
+          "не хуже"
+        ],
+        "entities": [],
+        "summary": "Пользователь положительно оценил фильм, но критиковал громкость звука, ожидая лучшую следующую часть."
+      },
+      "languageToolMs": 226,
+      "modelMs": 50230,
+      "modelAttempts": 2
+    }
+  },
+  {
+    "sample": {
+      "id": 8,
+      "title": "Отзыв на английском",
+      "expected": "positive",
+      "text": "The battery lasts two full days and the keyboard is a joy to type on. Lenovo finally got the ThinkPad X1 right."
+    },
+    "result": {
+      "language": {
+        "language": "English (US)",
+        "languageCode": "en-US",
+        "confidence": 0.99,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "positive",
+        "score": 0.85,
+        "keywords": [
+          "battery",
+          "keyboard",
+          "ThinkPad X1",
+          "Lenovo",
+          "two days"
+        ],
+        "entities": [
+          {
+            "name": "Lenovo",
+            "type": "ORGANIZATION"
+          },
+          {
+            "name": "ThinkPad X1",
+            "type": "PRODUCT"
+          }
+        ],
+        "summary": "The ThinkPad X1 delivers long battery life and a satisfying typing experience."
+      },
+      "languageToolMs": 239,
+      "modelMs": 12253,
+      "modelAttempts": 2
+    }
+  },
+  {
+    "sample": {
+      "id": 9,
+      "title": "Техническое описание",
+      "expected": "neutral",
+      "text": "Алгоритм Дейкстры находит кратчайшие пути от одной вершины графа до всех остальных. При использовании двоичной кучи его сложность составляет O((V + E) log V)."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99,
+        "issues": [
+          {
+            "kind": "misspelling",
+            "message": "Возможно найдена орфографическая ошибка.",
+            "fragment": "Дейкстры",
+            "suggestions": [
+              "Бистры",
+              "Цистры",
+              "Ляйсиры"
+            ]
+          }
+        ]
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "neutral",
+        "score": 0,
+        "keywords": [
+          "алгоритм",
+          "дейкстра",
+          "путь",
+          "двойная куча",
+          "сложность"
+        ],
+        "entities": [],
+        "summary": "Алгоритм Дейкстры находит кратчайшие пути и имеет сложность O((V+E)·log\u202FV) при использовании двоичной кучи."
+      },
+      "languageToolMs": 4351,
+      "modelMs": 31133,
+      "modelAttempts": 2
+    }
+  },
+  {
+    "sample": {
+      "id": 10,
+      "title": "Одно слово",
+      "expected": "negative",
+      "text": "Ужас."
+    },
+    "result": {
+      "language": {
+        "language": "Russian",
+        "languageCode": "ru-RU",
+        "confidence": 0.99202955,
+        "issues": []
+      },
+      "analysis": {
+        "model": "gpt-oss-20b",
+        "sentiment": "negative",
+        "score": -0.8,
+        "keywords": [
+          "ужас"
+        ],
+        "entities": [],
+        "summary": "Негативный отзыв."
+      },
+      "languageToolMs": 220,
+      "modelMs": 28456,
+      "modelAttempts": 2
+    }
+  }
+]

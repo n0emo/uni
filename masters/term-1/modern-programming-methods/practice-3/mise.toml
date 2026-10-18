@@ -1,0 +1,9 @@
+[tools]
+dotnet = "10.0"
+
+[tasks.build]
+extends = "dotnet:build"
+
+[tasks.run]
+description = "Analyze a text (argument, -f <file> or - for stdin); without arguments, the sample set"
+extends = "dotnet:run"
