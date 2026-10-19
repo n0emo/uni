@@ -1,0 +1,37 @@
+Series RLC circuit, variant 5
+V1 1 0 DC 25
+R1 1 2 10
+L1 2 3 10m
+C1 3 0 250u
+
+.options noacct
+.control
+* R = 1 Ohm: oscillatory
+alter r1 = 1
+tran 50u 15m uic
+linearize v(3) i(v1)
+let ic = -i(v1)
+wrdata rlc_1.txt v(3) ic
+destroy all
+* R = 10 Ohm: variant value, oscillatory
+alter r1 = 10
+tran 50u 15m uic
+linearize v(3) i(v1)
+let ic = -i(v1)
+wrdata rlc_10.txt v(3) ic
+destroy all
+* R = 2*sqrt(L/C): critical damping
+alter r1 = 12.649
+tran 50u 15m uic
+linearize v(3) i(v1)
+let ic = -i(v1)
+wrdata rlc_crit.txt v(3) ic
+destroy all
+* R = 50 Ohm: aperiodic
+alter r1 = 50
+tran 100u 60m uic
+linearize v(3) i(v1)
+let ic = -i(v1)
+wrdata rlc_50.txt v(3) ic
+.endc
+.end

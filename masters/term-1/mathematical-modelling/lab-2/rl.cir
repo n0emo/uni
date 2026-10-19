@@ -1,0 +1,14 @@
+RL circuit, variant 5
+V1 1 0 DC 25
+R1 1 2 10
+L1 2 0 10m
+
+.options noacct
+.tran 25u 8m uic
+.control
+run
+linearize v(2) i(v1)
+let il = -i(v1)
+wrdata rl.txt v(2) il
+.endc
+.end

@@ -1,0 +1,33 @@
+* Элемент XNOR на 2 входа, вариант 5
+
+V_1 1 0 DC 0.0 PULSE (0 12 0 0.001 0.001 10 20)
+V_2 2 0 DC 0.0 PULSE (0 14 5 0.001 0.001 10 20)
+
+R_1 0 1 100
+R_2 0 2 100
+
+abridge_x1 [1] [x1] adc_x1
+abridge_x2 [2] [x2] adc_x2
+
+.model adc_x1 adc_bridge(in_low = 0 in_high = .10)
+.model adc_x2 adc_bridge(in_low = 0 in_high = .10)
+
+a6 [x1 x2] Y xnor1
+.model xnor1 d_xnor(rise_delay = 0.5e-9 fall_delay = 0.3e-9
++ input_load = 0.5e-12)
+
+abridge_o1 [x1] [a1] dac_o
+abridge_o2 [x2] [a2] dac_o
+abridge_o3 [Y] [aY] dac_o
+.model dac_o dac_bridge(out_low = 0 out_high = 5)
+
+.tran 50m 40
+.control
+run
+linearize v(1) v(2) v(a1) v(a2) v(aY)
+set wr_singlescale
+set numdgt=4
+wrdata xnor2.txt v(1) v(2) v(a1) v(a2) v(aY)
+.endc
+
+.end

@@ -1,0 +1,32 @@
+SWITCH variant 5
+
+Vc 1 0 PULSE(0 12 0 2 2 10 20)
+R1 0 1 10
+
+Vw 0 2 DC 5
+R2 2 3 25
+
+s1 3 0 1 0 switch_f
+
+.model switch_f sw vt=10 vh=0.5 ron=1 roff=300
+
+.tran 0.1 40 uic
+
+.options noacct
+
+.control
+run
+set wr_singlescale
+set wr_vecnames
+option numdgt=7
+wrdata switch.txt v(1) v(3) v(2) i(vw)
+meas tran t_on when v(1)=10.5 rise=1
+meas tran t_off when v(1)=9.5 fall=1
+meas tran v3_on find v(3) at=8
+meas tran v3_off find v(3) at=18
+meas tran i_on find i(vw) at=8
+meas tran i_off find i(vw) at=18
+echo $&t_on $&t_off $&v3_on $&v3_off $&i_on $&i_off > switch-meas.txt
+.endc
+
+.end

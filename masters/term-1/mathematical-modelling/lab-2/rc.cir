@@ -1,0 +1,14 @@
+RC circuit, variant 5
+V1 1 0 DC 25
+R1 1 2 10
+C1 2 0 250u
+
+.options noacct
+.tran 50u 15m uic
+.control
+run
+linearize v(2) i(v1)
+let ic = -i(v1)
+wrdata rc.txt v(2) ic
+.endc
+.end

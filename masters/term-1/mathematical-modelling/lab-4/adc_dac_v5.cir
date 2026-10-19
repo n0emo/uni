@@ -1,0 +1,19 @@
+* Variant 5: ADC/DAC bridges, 60 V source
+V_1 1 0 DC 0.0 PULSE (0 60 0 6 6 20 40)
+R_1 0 1 10
+abridge_x1 [1] [x1] adc_x1
+.model adc_x1 adc_bridge(in_low = 5 in_high = 50)
+abridge_x2 [x1] [3] dac_x1
+.model dac_x1 dac_bridge(out_low = 55 out_high = 65 out_undef = 65)
+abridge_x3 [x1] [xd] dac_d
+.model dac_d dac_bridge(out_low = 0 out_high = 1 out_undef = 0.5)
+
+.control
+set wr_singlescale
+set wr_vecnames
+option numdgt=6
+tran 0.1 100
+wrdata adc_dac_v5.txt v(1) v(xd) v(3)
+.endc
+
+.end

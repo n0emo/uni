@@ -1,0 +1,26 @@
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks.simulate]
+description = "Run one lab's ngspice netlists in batch mode, writing their data next to them"
+usage = 'arg "<num>" help="lab number (1-5)"'
+run = 'cd "lab-{{ usage.num }}" && for f in *.cir; do ngspice -b "$f" > /dev/null; done'
+
+[tasks.report]
+description = "Compile one lab's report to PDF"
+usage = 'arg "<num>" help="lab number (1-5)"'
+depends = [
+  { task = "ensure-reports-dir", args = ["reports"] },
+  { task = "simulate", args = ["{{ usage.num }}"] },
+]
+run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+
+[tasks."report-all"]
+description = "Compile every lab's report"
+depends = [
+  { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
+  { task = "report", args = ["4"] },
+  { task = "report", args = ["5"] },
+]

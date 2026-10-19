@@ -1,0 +1,15 @@
+Resistor network, variant 5
+V1 1 0 DC 150
+R1 1 2 100
+R2 2 3 1k
+R3 3 4 1.5k
+R4 4 0 250
+R5 2 3 300
+R6 3 0 350
+.options noacct
+.control
+op
+let u5 = v(2) - v(3)
+wrdata resistors.txt v(1) v(2) v(3) v(4) u5 @r1[i] @r2[i] @r3[i] @r4[i] @r5[i] @r6[i]
+.endc
+.end

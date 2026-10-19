@@ -64,6 +64,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
 | `masters/term-1/information-system-security` | `report <num>`, `report-all` (DB tasks live in `baursak.lua`: `up`, `down`, `migrate [version]`, `reset [version]`, `sql <file-or-query> [output]`) |
+| `masters/term-1/mathematical-modelling` | `simulate <num>` (ngspice batch run), `report <num>`, `report-all` |
 | `masters/term-1/microelectronic-control-systems` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods/practice-1` | `build`, `serve`, `publish`, `image`, `db:up`, `db:down` |
@@ -80,8 +81,8 @@ nothing changed.
 
 Lab reports compile to a gitignored `reports/` inside their course directory.
 
-In new reports, use 2-level headings (`==`) for the top-level sections (Цель работы, Задачи, Ход
-работы, Выводы) rather than 1-level (`=`) ones.
+In new reports, use 1-level headings (`=`) for the top-level sections (Цель работы, Задачи, Ход
+работы, Выводы); `@local/pgups` no longer forces a page break before them.
 
 ### Thesis layout
 
