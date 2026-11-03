@@ -1,0 +1,47 @@
+[tasks."ensure-reports-dir"]
+extends = "mkdir"
+
+[tasks."compile-report"]
+hide = true
+extends = "typst:compile"
+
+[tasks.report]
+description = "Compile one laboratory report (1–11)"
+usage = 'arg "<num>" help="lab number (1–11)"'
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'mise run compile-report "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+sources = ["common.typ", "lab-*/report.typ", "lab-*/*.ipynb", "lab-*/*.py", "lab-*/assets/*"]
+outputs = { auto = true }
+
+[tasks."report-all"]
+description = "Compile all 11 laboratory reports"
+depends = [
+  { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
+  { task = "report", args = ["4"] },
+  { task = "report", args = ["5"] },
+  { task = "report", args = ["6"] },
+  { task = "report", args = ["7"] },
+  { task = "report", args = ["8"] },
+  { task = "report", args = ["9"] },
+  { task = "report", args = ["10"] },
+  { task = "report", args = ["11"] },
+]
+
+[tasks.execute]
+description = "Execute one lab notebook and save its outputs"
+usage = 'arg "<num>" help="notebook lab number (3–11)"'
+run = 'uv run --frozen python -m nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=1800 --ExecutePreprocessor.record_timing=False --NotebookExporter.preprocessors=nbconvert.preprocessors.CoalesceStreamsPreprocessor --CoalesceStreamsPreprocessor.enabled=True "lab-{{ usage.num }}/lab.ipynb"'
+
+[tasks."execute-all"]
+description = "Execute the lab notebooks serially"
+run = '''
+for num in 3 4 5 6 7 8 9 10 11; do
+  mise run execute "$num" || exit "$?"
+done
+'''
+
+[tasks.lab]
+description = "Launch JupyterLab for the laboratory work"
+run = "uv run --frozen python -m jupyterlab"

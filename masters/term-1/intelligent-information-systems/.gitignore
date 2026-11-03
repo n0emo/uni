@@ -1,0 +1,5 @@
+reports/
+.venv/
+.ipynb_checkpoints/
+.virtual_documents/
+lab-*/data/
