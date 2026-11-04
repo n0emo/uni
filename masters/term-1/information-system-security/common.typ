@@ -1,5 +1,18 @@
 #import "@local/pgups:0.1.0": *
 
+#let brigade = (
+  "А. Шефнер",
+  "Н.Е. Антипов",
+  "Д.А. Цуканова",
+)
+
+// На титульном листе имена расположены столбцом, на листе оценки — в строку.
+#let student = context if here().page() == 1 {
+  brigade.join(linebreak())
+} else {
+  brigade.join(", ")
+}
+
 #let report(
   title: placeholder("title"),
   number: placeholder("number"),
@@ -12,8 +25,8 @@
     year: 2026,
   ),
   student: config-student(
-    name: [А.~Шефнер, Н.Е.~Антипов, Д.А.~Цуканова],
-    group: "ИСМ-619",
+    name: student,
+    group: "ИСМ-610",
   ),
   teacher: config-teacher(
     name: "М.Л. Глухарев",

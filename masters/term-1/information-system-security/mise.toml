@@ -5,7 +5,7 @@ extends = "mkdir"
 description = "Compile one lab's report to PDF"
 usage = 'arg "<num>" help="lab number (1-5)"'
 depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
-run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+run = 'typst compile --root . "lab-{{ usage.num }}/report.typ" "reports/ОБИС_ЛР-{{ usage.num }}_ИСМ-610_А.Шефнер_Н.Е.Антипов_Д.А.Цуканова.pdf"'
 
 [tasks."report-all"]
 description = "Compile every lab's report"
