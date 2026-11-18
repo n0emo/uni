@@ -144,8 +144,7 @@ Then one commit per lab.
 
 ## What to escalate rather than fix
 
-Re-spawning an agent is almost never worth it, but hand the lab back to a fresh Sonnet agent
-if its `report.typ` is structurally wrong throughout — no headings at all, the whole original
-document still present, or the body clearly invented rather than converted. Give it the same
-prompt plus what went wrong. For anything smaller, fix it in place; it is faster and the
-result is more consistent with the rest of the course.
+Fix local errors in place. If the entire `report.typ` needs another conversion pass, redo
+it or give a fresh sub-agent the original assignment and the specific issues you found.
+Examples include missing headings throughout, retained front matter and grading sheets, and
+invented report content.

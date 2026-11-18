@@ -1,11 +1,7 @@
 # The sub-agent prompt
 
-A sub-agent starts cold. It does not see this conversation, the survey you just did, the
-course layout, or the decisions you made in phase 1. Everything it needs is in the prompt or
-in a file the prompt tells it to read. Anything you leave out, it will invent.
-
-Fill the template below in per lab and paste it as the `prompt`. Spawn with
-`subagent_type: "general-purpose"` and `model: "sonnet"`, all labs in one message.
+Give each sub-agent a complete assignment with the phase 1 decisions for its lab. Fill in
+one copy of the template per lab.
 
 ## Template
 
@@ -16,9 +12,9 @@ Fill the template below in per lab and paste it as the `prompt`. Spawn with
 >
 > **Read these first, in this order:**
 >
-> 1. `<REPO_ROOT>/.claude/skills/migrate-lab/references/pandoc-cleanup.md` — the catalogue of
+> 1. `<REPO_ROOT>/.agents/skills/migrate-lab/references/pandoc-cleanup.md` — the catalogue of
 >    what pandoc emits and what each artefact must become. This is the bulk of your job.
-> 2. `<REPO_ROOT>/.claude/skills/migrate-lab/references/build-tools.md`, the `<LANGUAGE>`
+> 2. `<REPO_ROOT>/.agents/skills/migrate-lab/references/build-tools.md`, the `<LANGUAGE>`
 >    section only.
 > 3. `<ABS_PATH_TO_REFERENCE_LAB>/report.typ` — an already-migrated lab in this same course.
 >    Match its house style: heading depth, figure captions, section names, how it calls

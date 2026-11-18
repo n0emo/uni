@@ -1,10 +1,4 @@
-| `bachelors/term-3/programming` | `build <num>`, `build-all`, `run <num> [args]` |
-| `bachelors/term-3/quantum-informatics` | `sync`, `lab`, `run` |
-| `bachelors/term-3/programming-python` | `report <num>`, `report-all` |
-| `bachelors/term-3/structures-and-algorithms` | `report <num>`, `report-all` |
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# AGENTS.md
 
 ## Repository purpose
 
@@ -19,6 +13,11 @@ Because subdirectories are independent (C via CMake, Rust via Cargo workspaces, 
 Qt, assembly, etc.), always check for a local `mise.toml`, `CMakeLists.txt`, `Cargo.toml`,
 `project.clj`, `justfile`, or `README.md` inside the specific lab directory you're working in
 rather than assuming a repo-wide convention.
+
+## Repository skills
+
+- Use [migrate-lab](.agents/skills/migrate-lab/SKILL.md) for one lab, practice, or course project.
+- Use [migrate-discipline](.agents/skills/migrate-discipline/SKILL.md) for a whole course.
 
 ## Toolchain and tasks (mise)
 
@@ -45,6 +44,10 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-2/programming-assembly` | `report <num>`, `report-all` |
 | `bachelors/term-2/programming-c` | `configure`, `build`, `report <num>`, `report-all` |
 | `bachelors/term-2/programming-cpp` | `configure`, `build`, `report <num>`, `report-all` |
+| `bachelors/term-3/programming` | `build <num>`, `build-all`, `run <num> [args]` |
+| `bachelors/term-3/programming-python` | `report <num>`, `report-all` |
+| `bachelors/term-3/quantum-informatics` | `sync`, `lab`, `run` |
+| `bachelors/term-3/structures-and-algorithms` | `report <num>`, `report-all` |
 | `bachelors/term-4/automata-theory` | `report <num>`, `report-all` |
 | `bachelors/term-4/circuit-design` | `report <num>`, `report-all` |
 | `bachelors/term-4/databases` | `report <num>`, `report-all` |
@@ -64,6 +67,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-8/human-machine-interaction` | `report <num>`, `report-all` |
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
 | `masters/term-1/information-system-security` | `report <num>`, `report-all` (DB tasks live in `baursak.lua`: `up`, `down`, `migrate [version]`, `reset [version]`, `sql <file-or-query> [output]`) |
+| `masters/term-1/intelligent-information-systems` | `report <num>`, `abstract`, `presentation`, `speaker-notes`, `build`, `report-all`, `fmt`, `execute <num>`, `execute-all`, `lab` |
 | `masters/term-1/mathematical-modelling` | `simulate <num>` (ngspice batch run), `report <num>`, `report-all` |
 | `masters/term-1/microelectronic-control-systems` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods` | `report <num>`, `report-all` |

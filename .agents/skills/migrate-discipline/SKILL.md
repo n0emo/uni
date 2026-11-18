@@ -1,18 +1,14 @@
 ---
 name: migrate-discipline
-description: Migrate a whole discipline (course directory) of university labs to the current layout in one pass — shared scaffolding done centrally, then one Sonnet sub-agent per lab writing its Typst report and build files in parallel, then a single verification pass that builds everything and fixes what broke. Use when asked to migrate, modernize, or "typst-ify" an entire course/discipline/term subject rather than a single lab.
+description: Migrate a whole university course to Typst reports and mise tasks. Prepare shared scaffolding, delegate each lab's report and build configuration to its own sub-agent when available, and verify the course centrally. Use for requests to migrate, modernize, or "typst-ify" an entire course.
 ---
 
 # Migrating a whole discipline
 
 A discipline is one course directory — `bachelors/term-2/programming-c`,
 `bachelors/term-5/programming-java` — holding several labs. This skill migrates all of its
-labs at once by fanning out one sub-agent per lab.
-
-The per-lab rules are **not repeated here**. They live in `migrate-lab` — read
-`.claude/skills/migrate-lab/SKILL.md` and its `references/` before starting, and hand them to
-every sub-agent. This skill only covers what changes when there are many labs at once:
-who does what, in what order, and how the parallelism is kept safe.
+labs in one pass. Read [migrate-lab](../migrate-lab/SKILL.md) and its references before
+starting. Give each sub-agent the relevant per-lab guidance.
 
 ## The split
 
@@ -21,7 +17,7 @@ The work divides into three phases, and the division is what makes parallel agen
 | Phase | Who | What |
 | --- | --- | --- |
 | 1. Scaffold | you, serially | survey, `git mv`, pandoc, `soffice`, all shared files |
-| 2. Author | N Sonnet sub-agents, in parallel | rewrite `report.typ`, write per-lab build config |
+| 2. Author | one sub-agent per lab when available | rewrite `report.typ`, write per-lab build config |
 | 3. Verify | you, serially | build every lab, fix every error, commit |
 
 **Sub-agents never build anything and never touch a shared file.** They are writers. Every
@@ -43,12 +39,11 @@ ls -R . | head -100
 ```
 
 Write down, per lab: the report document, the task statements, the sources and their
-language, any legacy `justfile`/`.sln`/`Makefile`. Note which labs are **already migrated**
-(they have a `report.typ`) — those are skipped entirely, but they are your best in-course
-reference for the ones that are not.
+language, and any legacy `justfile`/`.sln`/`Makefile`. Before converting any documents,
+record which labs still need migration. Use the already-migrated labs as style references.
 
-Decide one build tool for the whole discipline from the majority language
-(`.claude/skills/migrate-lab/references/build-tools.md`). A discipline is one language in
+Decide one build tool for the whole discipline from the majority language using the
+[build-tool reference](../migrate-lab/references/build-tools.md). A discipline is one language in
 practice; if two labs genuinely disagree, the odd one out gets no build task and is noted.
 
 If the toolchain is dead or Windows-only for the whole course (WinAsm, MathCAD, Delphi,
@@ -107,19 +102,18 @@ writes are confined to its own `lab-N/` directory and cannot collide.
 
 Delete the legacy `justfile` here too.
 
-## Phase 2 — one Sonnet sub-agent per lab
+## Phase 2 — author each lab
 
-Spawn them **all in a single message** so they run in parallel, with
-`subagent_type: "general-purpose"` and `model: "sonnet"`. One agent per lab, never one agent
-for several labs. Skip labs that already have a `report.typ`.
+Delegate one lab per sub-agent and run independent labs in parallel within the available
+concurrency limit. Use the migration list from phase 1. If delegation is unavailable,
+author each lab in sequence and verify them together in phase 3.
 
-Above roughly six labs, spawn in batches of four to six and let each batch finish first —
-past that the notifications interleave badly and a failure is hard to attribute.
+When model selection is available, use the standard coding model for routine lab conversions.
+Choose a more capable model for a lab that needs substantial judgment, such as reconstructing
+complex equations or recovering the report structure from poor converter output.
 
-The prompt is the whole contract, because a sub-agent starts cold: it has none of your
-context, none of this conversation, and no idea what the course looks like. Build each one
-from the template in `references/agent-prompt.md` — it is written to be filled in and pasted,
-and it carries the "write only, never build" rules in the form that survives a cold start.
+Fill in the [sub-agent prompt template](references/agent-prompt.md) for each lab. Include
+its scope and deliverables so the sub-agent can work from its prompt and the linked files.
 
 Fill in per agent, at minimum: the absolute lab path, the lab number and title, the language
 and the exact build-config file it must write, the list of source files, and the path of one
@@ -130,9 +124,7 @@ agent owns. Read-only inspection is fine.
 
 ## Phase 3 — verify and fix, yourself
 
-The sub-agents' output is a draft. It has never been compiled. Assume it is wrong until a
-build says otherwise, and fix it yourself rather than sending it back — a second cold agent
-round costs more than the fix.
+Build and review each draft centrally. Fix routine errors during verification.
 
 ```bash
 cd bachelors/term-N/<course>
@@ -183,7 +175,7 @@ tightening.
 - [ ] Every shared file written in phase 1, before any agent was spawned
 - [ ] `soffice` run serially by you; no agent ran it
 - [ ] Raw pandoc output committed before phase 2
-- [ ] One Sonnet agent per lab, all spawned in one message
+- [ ] Each lab in the phase 1 migration list was authored, with one sub-agent per lab if delegated
 - [ ] No agent ran a build, a `git` command, or touched a file outside its `lab-N/`
 - [ ] `mise run build` and `mise run report-all` both green *after* phase 3 fixes
 - [ ] Reports checked by eye against the originals, not just by exit code
