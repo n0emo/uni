@@ -10,8 +10,16 @@ mise run lab                   # JupyterLab
 mise run execute 5             # выполнить блокнот (3–11)
 mise run execute-all           # выполнить все блокноты
 mise run report 5              # собрать один отчёт
-mise run report-all            # собрать все 11 отчётов
+mise run abstract              # собрать реферат
+mise run presentation          # собрать презентацию
+mise run speaker-notes         # текст выступления с хронометражем
+mise run build                 # собрать реферат, презентацию и текст выступления
+mise run report-all            # собрать все материалы дисциплины
+mise run fmt                   # форматирование реферата и презентации
 ```
 
 PDF сохраняются в `reports/`; сборка использует сохранённые результаты блокнотов.
 При первом выполнении работ 8 и 10 загружается MNIST.
+
+Реферат, презентация и текст выступления находятся в [`abstract/`](abstract/README.md).
+Сборка из корня дисциплины: `mise run build`.

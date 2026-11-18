@@ -14,7 +14,7 @@ sources = ["common.typ", "lab-*/report.typ", "lab-*/*.ipynb", "lab-*/*.py", "lab
 outputs = { auto = true }
 
 [tasks."report-all"]
-description = "Compile all 11 laboratory reports"
+description = "Compile all 11 laboratory reports, the abstract, presentation and speaker notes"
 depends = [
   { task = "report", args = ["1"] },
   { task = "report", args = ["2"] },
@@ -27,7 +27,39 @@ depends = [
   { task = "report", args = ["9"] },
   { task = "report", args = ["10"] },
   { task = "report", args = ["11"] },
+  "abstract",
+  "presentation",
+  "speaker-notes",
 ]
+
+[tasks.abstract]
+description = "Compile the abstract to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'mise run compile-report abstract/abstract.typ reports/abstract.pdf'
+sources = ["abstract/abstract.typ", "abstract/template.typ", "abstract/config.typ", "abstract/style.typ", "abstract/chapters/**/*.typ", "abstract/bibliography.yaml", "abstract/assets/**"]
+outputs = ["reports/abstract.pdf"]
+
+[tasks.presentation]
+description = "Compile the presentation to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'mise run compile-report abstract/presentation.typ reports/presentation.pdf'
+sources = ["abstract/presentation.typ", "abstract/config.typ", "abstract/style.typ", "abstract/presentation/**/*.typ", "abstract/bibliography.yaml", "abstract/assets/**"]
+outputs = ["reports/presentation.pdf"]
+
+[tasks.build]
+description = "Compile the abstract, presentation and speaker notes"
+depends = ["abstract", "presentation", "speaker-notes"]
+
+[tasks."speaker-notes"]
+description = "Compile the presentation script with slide timings"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = 'mise run compile-report abstract/speaker-notes.typ reports/speaker-notes.pdf'
+sources = ["abstract/speaker-notes.typ", "abstract/presentation/notes.typ"]
+outputs = ["reports/speaker-notes.pdf"]
+
+[tasks.fmt]
+description = "Format the abstract and presentation Typst sources"
+run = "typstyle --inplace --line-width 100 --wrap-text abstract"
 
 [tasks.execute]
 description = "Execute one lab notebook and save its outputs"

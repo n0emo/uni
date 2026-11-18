@@ -1,0 +1,179 @@
+pgups-docs:
+  type: Web
+  title: "pgups: руководство пользователя и справочник API"
+  author:
+    - Шефнер, Альберт
+    - Масленников, Сергей
+  version: 0.1.0
+  url:
+    value: https://gitlab.pgups.ru/pages/typst/pgups/
+    date: 2026-11-17
+
+voynov-typst:
+  type: Article
+  title: "Typst: A Modern Typesetting Engine for Science"
+  author:
+    - Voynov, Andrey
+    - Corbi, Alberto
+    - López-Oliver, Pau
+    - Gil, David
+  date: 2026
+  serial-number:
+    doi: 10.9781/ijimai.2026.2269
+  url:
+    value: https://reunir.unir.net/items/2ed2d264-c087-496c-898f-43c2ac48033b
+    date: 2026-11-17
+  parent:
+    type: Periodical
+    title: International Journal of Interactive Multimedia and Artificial Intelligence
+    volume: 9
+    issue: 7
+
+flynn-document-class:
+  type: Article
+  title: "Rolling your own Document Class: Using LaTeX to keep away from the Dark Side"
+  author: Flynn, Peter
+  date: 2007
+  page-range: 110-123
+  url:
+    value: https://tug.org/TUGboat/tb28-1/tb88flynn.pdf
+    date: 2026-11-17
+  parent:
+    type: Periodical
+    title: TUGboat
+    volume: 28
+    issue: 1
+
+typst-source:
+  type: Repository
+  title: "Typst: a markup-based typesetting system"
+  organization: Typst
+  url:
+    value: https://github.com/typst/typst
+    date: 2026-11-17
+
+typst-styling:
+  type: Web
+  title: Styling — Typst Documentation
+  organization: Typst
+  url:
+    value: https://typst.app/docs/reference/styling/
+    date: 2026-11-17
+
+tidy:
+  type: Web
+  title: tidy — Typst Universe
+  version: 0.4.3
+  url:
+    value: https://typst.app/universe/package/tidy/
+    date: 2026-11-17
+
+mdbook:
+  type: Web
+  title: mdBook-specific features — mdBook Documentation
+  url:
+    value: https://rust-lang.github.io/mdBook/format/mdbook.html
+    date: 2026-11-17
+
+kluyver-jupyter:
+  type: Article
+  title: "Jupyter Notebooks—a publishing format for reproducible computational workflows"
+  author:
+    - Kluyver, Thomas
+    - Ragan-Kelley, Benjamin
+    - Pérez, Fernando
+    - Granger, Brian
+    - Bussonnier, Matthias
+    - Frederic, Jonathan
+    - Kelley, Kyle
+    - Hamrick, Jessica
+    - Grout, Jason
+    - Corlay, Sylvain
+    - Ivanov, Paul
+    - Avila, Damián
+    - Abdalla, Safia
+    - Willing, Carol
+    - name: Jupyter Development Team
+  date: 2016
+  page-range: 87-90
+  serial-number:
+    doi: 10.3233/978-1-61499-649-1-87
+  parent:
+    type: Proceedings
+    title: "Positioning and Power in Academic Publishing: Players, Agents and Agendas"
+    publisher: IOS Press
+
+callisto:
+  type: Web
+  title: callisto — Typst Universe
+  version: 0.3.0
+  url:
+    value: https://typst.app/universe/package/callisto/
+    date: 2026-11-17
+
+rule-notebooks:
+  type: Article
+  title: Ten simple rules for writing and sharing computational analyses in Jupyter Notebooks
+  author:
+    - Rule, Adam
+    - Birmingham, Amanda
+    - Zuniga, Cristal
+    - Altintas, Ilkay
+    - Huang, Shih-Cheng
+    - Knight, Rob
+    - Moshiri, Niema
+    - Nguyen, Mai H.
+    - Rosenthal, Sara Brin
+    - Pérez, Fernando
+    - Rose, Peter W.
+  date: 2019
+  serial-number:
+    doi: 10.1371/journal.pcbi.1007007
+  parent:
+    type: Periodical
+    title: PLOS Computational Biology
+    volume: 15
+    issue: 7
+  note: e1007007
+
+pimentel-reproducibility:
+  type: Article
+  title: Understanding and improving the quality and reproducibility of Jupyter notebooks
+  author:
+    - Pimentel, João Felipe
+    - Murta, Leonardo
+    - Braganholo, Vanessa
+    - Freire, Juliana
+  date: 2021
+  serial-number:
+    doi: 10.1007/s10664-021-09961-9
+  parent:
+    type: Periodical
+    title: Empirical Software Engineering
+    volume: 26
+  note: Article 65
+
+doherty-augmentation:
+  type: Article
+  title: Computing as a tool for human augmentation
+  author:
+    - Doherty, W. J.
+    - Pope, W. G.
+  date: 1986
+  page-range: 306-320
+  serial-number:
+    doi: 10.1147/sj.253.0306
+  parent:
+    type: Periodical
+    title: IBM Systems Journal
+    volume: 25
+    issue: 3/4
+
+typst-cli:
+  type: Repository
+  title: "Typst CLI: compile.rs, watch.rs"
+  organization: Typst
+  version: 0.15.1
+  url:
+    value: https://github.com/typst/typst/tree/v0.15.1/crates/typst-cli/src
+    date: 2026-11-17
