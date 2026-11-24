@@ -1,0 +1,35 @@
+[tasks.ensure-reports-dir]
+extends = "mkdir"
+
+[tasks.compile-report]
+hide = true
+extends = "typst:compile"
+
+[tasks.abstract]
+description = "Compile the abstract to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = "mise run compile-report abstract/abstract.typ reports/abstract.pdf"
+sources = ["abstract/abstract.typ", "abstract/config.typ", "abstract/template.typ", "abstract/chapters/*.typ", "abstract/bibliography.yaml"]
+outputs = ["reports/abstract.pdf"]
+
+[tasks.presentation]
+description = "Compile the presentation to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = "mise run compile-report abstract/presentation.typ reports/presentation.pdf"
+sources = ["abstract/presentation.typ", "abstract/config.typ", "abstract/assets/pgups.png", "abstract/assets/*.jpg", "abstract/notes.typ"]
+outputs = ["reports/presentation.pdf"]
+
+[tasks.speaker-notes]
+description = "Compile the speaker notes to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = "mise run compile-report abstract/speaker-notes.typ reports/speaker-notes.pdf"
+sources = ["abstract/speaker-notes.typ", "abstract/config.typ", "abstract/notes.typ"]
+outputs = ["reports/speaker-notes.pdf"]
+
+[tasks.build]
+description = "Compile the abstract, presentation and speaker notes"
+depends = ["abstract", "presentation", "speaker-notes"]
+
+[tasks.fmt]
+description = "Format the Typst sources"
+run = "typstyle --inplace --line-width 100 --wrap-text abstract"

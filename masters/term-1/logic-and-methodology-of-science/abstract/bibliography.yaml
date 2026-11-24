@@ -1,0 +1,119 @@
+fraassen:
+  type: Book
+  author:
+    name: Fraassen
+    given-name: Bas C.
+    prefix: van
+  title: The Scientific Image
+  publisher:
+    name: Clarendon Press
+    location: Oxford
+  date: 1980
+  serial-number:
+    doi: 10.1093/0198244274.001.0001
+
+seredkina:
+  type: Article
+  author:
+    - Середкина, Е. В.
+    - Соколова, О. О.
+    - Семенов, Н. В.
+    - Мащенко, А. В.
+  title: 'Программа эмпирического конструктивизма Б. Ван Фраассена: философско-методологический анализ'
+  date: 2012
+  url: https://cyberleninka.ru/article/n/programma-empiricheskogo-konstruktivizma-b-van-fraassena-filosofsko-metodologicheskiy-analiz
+  parent:
+    type: Periodical
+    title: Вестник Пермского национального исследовательского политехнического университета. Культура. История. Философия. Право
+
+poincare:
+  type: Chapter
+  author: Пуанкаре, Анри
+  title: Наука и гипотеза. Глава X. Теории современной физики
+  url: https://alexandr4784.narod.ru/apon/aponng_10.pdf
+  parent:
+    type: Book
+    title: О науке
+    publisher:
+      name: Наука
+      location: Москва
+    date: 1990
+
+worrall:
+  type: Article
+  author: Worrall, John
+  title: 'Structural Realism: The Best of Both Worlds?'
+  date: 1989
+  page-range: 99-124
+  serial-number:
+    doi: 10.1111/j.1746-8361.1989.tb00933.x
+  parent:
+    type: Periodical
+    title: Dialectica
+    volume: 43
+    issue: 1–2
+
+carroll:
+  type: Misc
+  author: Carroll, Sean M.
+  title: Lecture Notes on General Relativity
+  date: 1997
+  serial-number:
+    doi: 10.48550/arXiv.gr-qc/9712019
+
+gnss:
+  type: Book
+  author:
+    - Sanz Subirana, J.
+    - Juan Zornoza, J. M.
+    - Hernández-Pajares, M.
+  title: GNSS Data Processing. Vol. I. Fundamentals and Algorithms
+  publisher: European Space Agency
+  date: 2013
+  parent:
+    type: Anthology
+    title: ESA TM-23/1
+
+ashby:
+  type: Article
+  author: Ashby, Neil
+  title: Relativity in the Global Positioning System
+  date: 2003
+  serial-number:
+    doi: 10.12942/lrr-2003-1
+  parent:
+    type: Periodical
+    title: Living Reviews in Relativity
+    volume: 6
+
+tarski:
+  type: Article
+  author: Tarski, Alfred
+  title: The Semantic Conception of Truth and the Foundations of Semantics
+  date: 1944
+  page-range: 341-376
+  serial-number:
+    doi: 10.2307/2102968
+  parent:
+    type: Periodical
+    title: Philosophy and Phenomenological Research
+    volume: 4
+    issue: 3
+
+duhem:
+  type: Book
+  author: Duhem, Pierre
+  title: The Aim and Structure of Physical Theory
+  publisher: Princeton University Press
+  date: 1954
+  note: Part II, ch. VI
+
+popper:
+  type: Book
+  author: Popper, Karl R.
+  title: 'Conjectures and Refutations: The Growth of Scientific Knowledge'
+  publisher:
+    name: Routledge and Kegan Paul
+    location: London
+  date: 1963
+  note: 'Ch. 1. Science: Conjectures and Refutations'

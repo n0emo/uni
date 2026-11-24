@@ -68,6 +68,7 @@ run <task>` runs one). Registered config roots and their tasks:
 | `bachelors/term-8/metrology-standardization-certification` | `report <num>`, `report-all` |
 | `masters/term-1/information-system-security` | `report <num>`, `report-all` (DB tasks live in `baursak.lua`: `up`, `down`, `migrate [version]`, `reset [version]`, `sql <file-or-query> [output]`) |
 | `masters/term-1/intelligent-information-systems` | `report <num>`, `abstract`, `presentation`, `speaker-notes`, `build`, `report-all`, `fmt`, `execute <num>`, `execute-all`, `lab` |
+| `masters/term-1/logic-and-methodology-of-science` | `abstract`, `presentation`, `speaker-notes`, `build`, `fmt` |
 | `masters/term-1/mathematical-modelling` | `simulate <num>` (ngspice batch run), `report <num>`, `report-all` |
 | `masters/term-1/microelectronic-control-systems` | `report <num>`, `report-all` |
 | `masters/term-1/modern-programming-methods` | `report <num>`, `report-all` |
