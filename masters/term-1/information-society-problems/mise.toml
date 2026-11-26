@@ -1,0 +1,28 @@
+[tasks.ensure-reports-dir]
+extends = "mkdir"
+
+[tasks.compile-report]
+hide = true
+extends = "typst:compile"
+
+[tasks.presentation]
+description = "Compile the presentation to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = "mise run compile-report report/presentation.typ reports/presentation.pdf"
+sources = ["report/presentation.typ", "report/config.typ", "report/assets/pgups.png", "report/notes.typ"]
+outputs = ["reports/presentation.pdf"]
+
+[tasks.speaker-notes]
+description = "Compile the speaker notes to PDF"
+depends = [{ task = "ensure-reports-dir", args = ["reports"] }]
+run = "mise run compile-report report/speaker-notes.typ reports/speaker-notes.pdf"
+sources = ["report/speaker-notes.typ", "report/config.typ", "report/notes.typ"]
+outputs = ["reports/speaker-notes.pdf"]
+
+[tasks.build]
+description = "Compile the presentation and speaker notes"
+depends = ["presentation", "speaker-notes"]
+
+[tasks.fmt]
+description = "Format the Typst sources"
+run = "typstyle --inplace --line-width 100 --wrap-text report"
