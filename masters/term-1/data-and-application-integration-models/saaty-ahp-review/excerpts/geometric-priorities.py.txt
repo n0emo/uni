@@ -1,0 +1,11 @@
+    geometric_means = []
+    for row in matrix:
+        product = 1.0
+        for value in row:
+            product *= max(value, 1e-12)
+        geometric_means.append(product ** (1.0 / n))
+
+    total = sum(geometric_means)
+    if total == 0:
+        return [1.0 / n] * n
+    return [value / total for value in geometric_means]

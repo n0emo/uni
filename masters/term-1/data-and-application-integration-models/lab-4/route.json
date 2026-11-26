@@ -1,0 +1,126 @@
+{
+  "goal": "Выбрать маршрут",
+  "levels": 3,
+  "max_elements": 3,
+  "comments": "",
+  "level_sizes": [
+    2,
+    3
+  ],
+  "nodes": {
+    "root": {
+      "id": "root",
+      "name": "Выбрать маршрут",
+      "parent_id": null
+    },
+    "619bc2e1": {
+      "id": "619bc2e1",
+      "name": "Стоимость",
+      "parent_id": "root"
+    },
+    "ae3c297b": {
+      "id": "ae3c297b",
+      "name": "Время",
+      "parent_id": "root"
+    },
+    "259e9fc9": {
+      "id": "259e9fc9",
+      "name": "Автобус",
+      "parent_id": "619bc2e1"
+    },
+    "e58b9772": {
+      "id": "e58b9772",
+      "name": "Поезд",
+      "parent_id": "619bc2e1"
+    },
+    "2a39758c": {
+      "id": "2a39758c",
+      "name": "Такси",
+      "parent_id": "619bc2e1"
+    },
+    "1d23d4f6": {
+      "id": "1d23d4f6",
+      "name": "Автобус",
+      "parent_id": "ae3c297b"
+    },
+    "041f05eb": {
+      "id": "041f05eb",
+      "name": "Поезд",
+      "parent_id": "ae3c297b"
+    },
+    "a1ef6ec0": {
+      "id": "a1ef6ec0",
+      "name": "Такси",
+      "parent_id": "ae3c297b"
+    }
+  },
+  "root_id": "root",
+  "pairwise_matrices": {
+    "root": [
+      [
+        1.0,
+        3.0
+      ],
+      [
+        0.3333333333333333,
+        1.0
+      ]
+    ],
+    "619bc2e1": [
+      [
+        1.0,
+        2.0,
+        4.0
+      ],
+      [
+        0.5,
+        1.0,
+        2.0
+      ],
+      [
+        0.25,
+        0.5,
+        1.0
+      ]
+    ],
+    "ae3c297b": [
+      [
+        1.0,
+        0.5,
+        0.25
+      ],
+      [
+        2.0,
+        1.0,
+        0.5
+      ],
+      [
+        4.0,
+        2.0,
+        1.0
+      ]
+    ]
+  },
+  "child_order": {
+    "root": [
+      "619bc2e1",
+      "ae3c297b"
+    ],
+    "619bc2e1": [
+      "259e9fc9",
+      "e58b9772",
+      "2a39758c"
+    ],
+    "ae3c297b": [
+      "1d23d4f6",
+      "041f05eb",
+      "a1ef6ec0"
+    ]
+  },
+  "node_positions": {},
+  "view_scale": 1.0,
+  "criteria": [],
+  "alternatives": [],
+  "criteria_matrix": [],
+  "alternative_matrices": {}
+}

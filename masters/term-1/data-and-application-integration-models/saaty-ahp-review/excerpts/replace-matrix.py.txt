@@ -1,0 +1,6 @@
+matrix = self.model.pairwise_matrices.get(parent_id)
+if (not matrix or len(matrix) != len(child_ids)
+        or any(len(row) != len(child_ids) for row in matrix)):
+    matrix = pairwise_default_matrix(len(child_ids))
+    self.model.pairwise_matrices[parent_id] = matrix
+return matrix, names, child_ids

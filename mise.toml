@@ -37,6 +37,7 @@ config_roots = [
   "./bachelors/term-8/information-system-architecture/",
   "./bachelors/term-8/metrology-standardization-certification/",
   "./bachelors/thesis/",
+  "./masters/term-1/data-and-application-integration-models/",
   "./masters/term-1/information-system-security/",
   "./masters/term-1/intelligent-information-systems/",
   "./masters/term-1/logic-and-methodology-of-science/",

@@ -1,0 +1,59 @@
+[env]
+_.path = ["{{env.HOME}}/.juliaup/bin"]
+
+[tasks."compile-report"]
+hide = true
+extends = "typst:compile"
+
+[tasks."ensure-dir"]
+hide = true
+extends = "mkdir"
+
+[tasks.report]
+description = "Собрать один отчёт из сохранённых результатов"
+usage = 'arg "<num>" { choices "1" "2" "3" "4" "5" }'
+depends = [{ task = "ensure-dir", args = ["reports"] }]
+run = 'mise run compile-report "lab-{{ usage.num }}/report.typ" "reports/lab-{{ usage.num }}.pdf"'
+sources = ["common.typ", "lab-{{ usage.num }}/report.typ", "lab-{{ usage.num }}/*.jl", "lab-{{ usage.num }}/*.png", "lab-{{ usage.num }}/results/*"]
+outputs = ["reports/lab-{{ usage.num }}.pdf"]
+
+[tasks.review]
+description = "Собрать обзор интерфейса и исходного кода Saaty AHP"
+depends = [{ task = "ensure-dir", args = ["reports"] }]
+run = 'mise run compile-report saaty-ahp-review/report.typ reports/saaty-ahp-review.pdf'
+sources = ["common.typ", "saaty-ahp-review/*.typ", "saaty-ahp-review/excerpts/*.txt", "saaty-ahp-review/screenshots/*.png"]
+outputs = ["reports/saaty-ahp-review.pdf"]
+
+[tasks."report-all"]
+description = "Собрать пять лабораторных работ и обзор Saaty AHP"
+depends = [
+  { task = "report", args = ["1"] },
+  { task = "report", args = ["2"] },
+  { task = "report", args = ["3"] },
+  { task = "report", args = ["4"] },
+  { task = "report", args = ["5"] },
+  "review",
+]
+
+[tasks.solve]
+description = "Обновить результаты Julia для выбранного отчёта"
+usage = 'arg "<num>" { choices "1" "2" "3" "5" }'
+run = '''
+{% if usage.num == "3" %}
+julia --startup-file=no lab-3/solve.jl --demo-tsv > lab-3/results/demo.tsv
+{% else %}
+julia --startup-file=no lab-{{ usage.num }}/solve.jl
+{% endif %}
+'''
+
+[tasks.expert]
+description = "Начать консультацию по заказу фотомастерской"
+run = "julia --startup-file=no lab-3/solve.jl --interactive"
+
+[tasks.test]
+description = "Проверить решатели и правила экспертной системы"
+run = '''
+for num in 1 2 3 5; do
+  julia --startup-file=no "lab-$num/test.jl" || exit 1
+done
+'''

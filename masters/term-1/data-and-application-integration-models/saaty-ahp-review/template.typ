@@ -1,0 +1,32 @@
+#import "@local/pgups:0.1.0": config-style, front-page, style-body, style-front, submission-block
+
+#let review-style = config-style(
+  text-font: "Times New Roman",
+  text-size-front: 12pt,
+  text-line-spacing: 1.15em,
+  headings-supplement: none,
+  headings-pagebreak: true,
+)
+
+#let review(title: [], course: (), student: (), teacher: (), body) = {
+  set document(title: title, author: student.name)
+
+  {
+    show: style-front.with(style: review-style)
+
+    front-page(course: course)[
+      #v(3em)
+      #align(center)[
+        *ОТЧЁТ* \
+        на тему: \
+        #strong(quote(title))
+      ]
+      #v(3em)
+      #submission-block(student, teacher)
+    ]
+  }
+
+  show: style-body.with(style: review-style)
+  show table.cell.where(y: 0): set text(weight: "bold")
+  body
+}
